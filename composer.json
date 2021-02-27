@@ -1,0 +1,14 @@
+{
+    "name": "darling/ddms",
+    "description": "Command line utility designed to aide in development with the Darling Data Management System",
+    "type": "command-line-utility",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "sevidmusic",
+            "email": "sdmwwebsdm@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
