@@ -28,7 +28,7 @@ final class CommandLineUITest extends TestCase
 
     }
 
-    public function testNotifyOutputsNoticeTypeNOTICEColonSpaceMessageIfNoNoticeTypeIsSpecified(): void {
+    public function testNotifyOutputsMessageFormattedForNOTICETypeIfNoNoticeTypeIsSpecified(): void {
         $message = "Foo bar baz. Bazzer foo bar baz bazzer.";
         $ui = new DDMSCommandLineUI();
         $expectedOutput = $this->getExpectedOuputForNoticeType($message);
@@ -36,7 +36,7 @@ final class CommandLineUITest extends TestCase
         $ui->notify($message);
     }
 
-    public function testNotifyOutputsNoticeTypeNOTICEColonSpaceMessageIfNOTICENoticeTypeIsSpecified(): void {
+    public function testNotifyOutputsMessageFormattedForNOTICETypeIfNOTICENoticeTypeIsSpecified(): void {
         $message = "Foo bar baz. Bazzer foo bar baz bazzer.";
         $ui = new DDMSCommandLineUI();
         $expectedOutput = $this->getExpectedOuputForNoticeType($message, DDMSCommandLineUI::NOTICE);
@@ -44,7 +44,7 @@ final class CommandLineUITest extends TestCase
         $ui->notify($message, DDMSCommandLineUI::NOTICE);
     }
 
-    public function testNotifyOutputsNoticeTypeERRORColonSpaceMessageIfERRORNoticeTypeIsSpecified(): void {
+    public function testNotifyOutputsMessageFormattedForERRORTypeIfERRORNoticeTypeIsSpecified(): void {
         $message = "Foo bar baz. Bazzer foo bar baz bazzer.";
         $ui = new DDMSCommandLineUI();
         $expectedOutput = $this->getExpectedOuputForNoticeType($message, DDMSCommandLineUI::ERROR);
@@ -52,7 +52,7 @@ final class CommandLineUITest extends TestCase
         $ui->notify($message, DDMSCommandLineUI::ERROR);
     }
 
-    public function testNotifyOutputsNoticeTypeWARNINGColonSpaceMessageIfWARNINGNoticeTypeIsSpecified(): void {
+    public function testNotifyOutputsMessageFormattedForWARNINGTypeIfWARNINGNoticeTypeIsSpecified(): void {
         $message = "Foo bar baz. Bazzer foo bar baz bazzer.";
         $ui = new DDMSCommandLineUI();
         $expectedOutput = $this->getExpectedOuputForNoticeType($message, DDMSCommandLineUI::WARNING);
@@ -60,7 +60,7 @@ final class CommandLineUITest extends TestCase
         $ui->notify($message, DDMSCommandLineUI::WARNING);
     }
 
-    public function testNotifyOutputsNoticeTypeSUCCESSColonSpaceMessageIfSUCCESSNoticeTypeIsSpecified(): void {
+    public function testNotifyOutputsMessageFormattedForSUCCESSTypeIfSUCCESSNoticeTypeIsSpecified(): void {
         $message = "Foo bar baz. Bazzer foo bar baz bazzer.";
         $ui = new DDMSCommandLineUI();
         $expectedOutput = $this->getExpectedOuputForNoticeType($message, DDMSCommandLineUI::SUCCESS);
