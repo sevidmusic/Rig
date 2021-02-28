@@ -6,5 +6,8 @@ use ddms\classes\ui\CommandLineUI as DDMSCommandLineUI;
 
 $ui = new DDMSCommandLineUI();
 
-$ui->notify('ddms is still under development.', DDMSCommandLineUI::WARNING);
-$ui->notify('For more information please visit https://github.com/sevidmusic/ddms');
+$ui->notify(
+    'ddms is still under development. ' . PHP_EOL . PHP_EOL .
+    'For more information please visit https://github.com/sevidmusic/ddms',
+    DDMSCommandLineUI::WARNING
+);
