@@ -4,13 +4,14 @@ namespace tests\ui;
 
 use PHPUnit\Framework\TestCase;
 use ddms\interfaces\ui\UserInterface as DDMSUserInterface;
+use ddms\abstractions\ui\AbstractUserInterface as AbstractDDMSUserInterface;
 
 final class AbstractUserInterfaceTest extends TestCase
 {
 
     public function testNotifyOutputsNoticeTypeNOTICEColonSpaceMessageIfNoNoticeTypeIsSpecified(): void {
         $ui = $this
-            ->getMockBuilder('ddms\abstractions\ui\AbstractUserInterface')
+            ->getMockBuilder(AbstractDDMSUserInterface::class)
             ->getMockForAbstractClass();
 
         $this->expectOutputString(DDMSUserInterface::NOTICE . ': Foo');
@@ -19,7 +20,7 @@ final class AbstractUserInterfaceTest extends TestCase
 
     public function testNotifyOutputsNoticeTypeNOTICEColonSpaceMessageIfTheNOTICENoticeTypeIsSpecified(): void {
         $ui = $this
-            ->getMockBuilder('ddms\abstractions\ui\AbstractUserInterface')
+            ->getMockBuilder(AbstractDDMSUserInterface::class)
             ->getMockForAbstractClass();
 
         $this->expectOutputString(DDMSUserInterface::NOTICE . ': Foo');
@@ -28,7 +29,7 @@ final class AbstractUserInterfaceTest extends TestCase
 
     public function testNotifyOutputsNoticeTypeERRORColonSpaceMessageIfTheERRORNoticeTypeIsSpecified(): void {
         $ui = $this
-            ->getMockBuilder('ddms\abstractions\ui\AbstractUserInterface')
+            ->getMockBuilder(AbstractDDMSUserInterface::class)
             ->getMockForAbstractClass();
 
         $this->expectOutputString(DDMSUserInterface::ERROR . ': Foo');
@@ -37,7 +38,7 @@ final class AbstractUserInterfaceTest extends TestCase
 
     public function testNotifyOutputsNoticeTypeWARNINGColonSpaceMessageIfTheWARNINGNoticeTypeIsSpecified(): void {
         $ui = $this
-            ->getMockBuilder('ddms\abstractions\ui\AbstractUserInterface')
+            ->getMockBuilder(AbstractDDMSUserInterface::class)
             ->getMockForAbstractClass();
 
         $this->expectOutputString(DDMSUserInterface::WARNING . ': Foo');
@@ -46,7 +47,7 @@ final class AbstractUserInterfaceTest extends TestCase
 
     public function testNotifyOutputsNoticeTypeSUCCESSColonSpaceMessageIfTheSUCCESSNoticeTypeIsSpecified(): void {
         $ui = $this
-            ->getMockBuilder('ddms\abstractions\ui\AbstractUserInterface')
+            ->getMockBuilder(AbstractDDMSUserInterface::class)
             ->getMockForAbstractClass();
 
         $this->expectOutputString(DDMSUserInterface::SUCCESS . ': Foo');
