@@ -15,7 +15,7 @@ final class CommandLineUITest extends TestCase
             "%s%s%s%s%s%s%s%s%s%s%s",
             PHP_EOL,
             "\e[0m\e[105m\e[30m    ",
-            "\e[0m\e[92m 2021-28-Feb@10:02:31\e[0m ",
+            "\e[0m\e[92m " . date('Y-m-d @ H:i:s') . "  \e[0m ",
             "\e[0m\e[102m\e[30m" . (empty($noticeType) ? DDMSCommandLineUI::NOTICE : $noticeType) . "\e[0m\e[105m\e[30m    \e[0m",
             PHP_EOL,
             PHP_EOL,
