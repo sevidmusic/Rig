@@ -3,8 +3,10 @@
 namespace ddms\abstractions\command;
 
 use ddms\interfaces\command\Command as DDMSCommand;
+use ddms\interfaces\ui\UserInterface as DDMSUserInterface;
 use \RecursiveIteratorIterator;
 use \RecursiveArrayIterator;
+
 
 abstract class AbstractCommand implements DDMSCommand
 {
@@ -56,7 +58,7 @@ abstract class AbstractCommand implements DDMSCommand
         return false;
     }
 
-    abstract public function run(array $preparedArguments): bool;
+    abstract public function run(DDMSUserInterface $ddmsUI, array $preparedArguments = ['flags' => [], 'options' => []]): bool;
 
     /**
      * Flatten a multi-dimensional array. Keys are not preserved, unless

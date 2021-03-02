@@ -144,7 +144,7 @@ final class AbstractCommandTest extends TestCase
      *
      * @param array<mixed> $array An array of values to be interpreted as arguments.
      *
-     * @retrun True if all keys are type int or string, false otherwise.
+     * @return bool True if all keys are type int or string, false otherwise.
      */
     private function valuesAreStringsOrArrays(array $array): bool
     {

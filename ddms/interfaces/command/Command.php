@@ -2,12 +2,15 @@
 
 namespace ddms\interfaces\command;
 
+use ddms\interfaces\ui\UserInterface as DDMSUserInterface;
+
 interface Command {
 
     /**
+     * @param DDMSUserInterface $ddmsUI
      * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
      */
-    public function run(array $preparedArguments): bool;
+    public function run(DDMSUserInterface $ddmsUI, array $preparedArguments = ['flags' => [], 'options' => []]): bool;
 
     /**
      * @param array<mixed> $argv
