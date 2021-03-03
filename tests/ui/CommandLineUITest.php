@@ -8,10 +8,20 @@ use ddms\classes\ui\CommandLineUI as DDMSCommandLineUI;
 
 final class CommandLineUITest extends TestCase
 {
+    private const BANNER = 'banner';
 
     private function getExpectedOuputForNoticeType(string $message, string $noticeType = ''): string
     {
-         return sprintf(
+        if($noticeType === self::BANNER){
+             return sprintf(
+                "%s%s%s%s",
+                PHP_EOL,
+                $message,
+                PHP_EOL,
+                PHP_EOL,
+            );
+        }
+        return sprintf(
             "%s%s%s%s%s%s%s%s%s%s%s",
             PHP_EOL,
             "\e[0m\e[105m\e[30m    ",
@@ -25,7 +35,6 @@ final class CommandLineUITest extends TestCase
             PHP_EOL,
             PHP_EOL,
         );
-
     }
 
     public function testNotifyOutputsMessageFormattedForNOTICETypeIfNoNoticeTypeIsSpecified(): void {
@@ -67,4 +76,17 @@ final class CommandLineUITest extends TestCase
         $this->expectOutputString($expectedOutput);
         $ui->notify($message, DDMSCommandLineUI::SUCCESS);
     }
+
+    public function testNotifyOutputsMessageFormattedForBANNERTypeIfBANNERNoticeTypeIsSpecified(): void {
+        $banner = "\e[0m\e[94m    _    _\e[0m
+        \e[0m\e[93m __| |__| |_ __  ___\e[0m
+        \e[0m\e[94m/ _` / _` | '  \(_-<\e[0m
+        \e[0m\e[91m\__,_\__,_|_|_|_/__/\e[0m
+        \e[0m\e[103m                    \e[0m";
+        $ui = new DDMSCommandLineUI();
+        $expectedOutput = $this->getExpectedOuputForNoticeType($banner, DDMSCommandLineUI::BANNER);
+        $this->expectOutputString($expectedOutput);
+        $ui->notify($banner, DDMSCommandLineUI::BANNER);
+    }
+
 }

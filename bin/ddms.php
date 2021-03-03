@@ -12,6 +12,6 @@ $banner = "\e[0m\e[94m    _    _\e[0m
 \e[0m\e[91m\__,_\__,_|_|_|_/__/\e[0m
 \e[0m\e[103m                    \e[0m";
 
-$ui->notify($banner, ':)');
+$ui->notify($banner, 'banner');
 $ddmsHelp = new DDMSHelp();
 $ddmsHelp->run($ui, $ddmsHelp->prepareArguments($argv));
