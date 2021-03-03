@@ -9,9 +9,22 @@ use ddms\classes\ui\CommandLineUI as DDMSUserInterface;
 final class DDMSHelpTest extends TestCase
 {
 
-    public function testRunOutputsHelpFile_Help_IfNoFlagsOrOptionsAreSpecified(): void {
+    public function testRunOutputsHelpFile_Help_IfNoFlagsOrOptionsAreSpecified(): void
+    {
         $this->expectOutputString($this->expectedOutput('help'));
         $this->getMockCommand()->run(new DDMSUserInterface());
+    }
+
+    public function testRunOutputsEmptyStringIfFlagsAreSpecifiedAndHelpFlagIsNotPresent(): void
+    {
+        $this->expectOutputString('');
+        $this->getMockCommand()->run(new DDMSUserInterface(), ['flags' => ['flag' => []], 'options' => []]);
+    }
+
+    public function testRunOutputsHelpFile_Help_IfHelpFlagIsTheOnlyFlagSpecifiedAndHasNoArguments(): void
+    {
+        $this->expectOutputString($this->expectedOutput('help'));
+        $this->getMockCommand()->run(new DDMSUserInterface(), ['flags' => ['help' => []], 'options' => []]);
     }
 
     private function expectedHelpFileOutput(string $helpFlagName): string

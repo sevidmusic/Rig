@@ -11,6 +11,10 @@ class DDMSHelp extends DDMSCommandBase implements DDMSCommandInterface
 
     public function run(DDMSUserInterface $ddmsUI, array $preparedArguments = ['flags' => [], 'options' => []]): bool
     {
+        $flags = $preparedArguments['flags'];
+        if(!empty($flags) && !key_exists('help', $flags)) {
+            return false;
+        }
         $ddmsUI->notify($this->getHelpFileOutput('help'), 'help');
         return true;
     }
