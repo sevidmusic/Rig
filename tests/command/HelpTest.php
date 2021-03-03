@@ -3,10 +3,10 @@
 namespace tests\command\AbstractCommand;
 
 use PHPUnit\Framework\TestCase;
-use ddms\classes\command\DDMSHelp as DDMSHelpCommand;
+use ddms\classes\command\Help as HelpCommand;
 use ddms\classes\ui\CommandLineUI as DDMSUserInterface;
 
-final class DDMSHelpTest extends TestCase
+final class HelpTest extends TestCase
 {
 
     public function testRunOutputsHelpFile_Help_IfNoFlagsOrOptionsAreSpecified(): void
@@ -41,9 +41,9 @@ final class DDMSHelpTest extends TestCase
         return str_replace('tests/command','helpFiles', __DIR__) . DIRECTORY_SEPARATOR . $helpFlagName . '.txt';
     }
 
-    private function getMockCommand(): DDMSHelpCommand
+    private function getMockCommand(): HelpCommand
     {
-        return new DDMSHelpCommand();
+        return new HelpCommand();
     }
 
     private function expectedOutput(string $helpFlagName): string
