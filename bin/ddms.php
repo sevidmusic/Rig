@@ -4,8 +4,10 @@ require str_replace('bin', '', __DIR__) . DIRECTORY_SEPARATOR . 'vendor/autoload
 
 use ddms\classes\ui\CommandLineUI as DDMSCommandLineUI;
 use ddms\classes\command\Help as DDMSHelp;
+use ddms\classes\factory\CommandFactory;
 
 $ui = new DDMSCommandLineUI();
+$commandFactory = new CommandFactory();
 $banner = "\e[0m\e[94m    _    _\e[0m
 \e[0m\e[93m __| |__| |_ __  ___\e[0m
 \e[0m\e[94m/ _` / _` | '  \(_-<\e[0m
@@ -13,7 +15,9 @@ $banner = "\e[0m\e[94m    _    _\e[0m
 \e[0m\e[103m       v0.0.1      \e[0m";
 
 $ui->notify($banner  . PHP_EOL . "\e[0m\e[101m\e[94m    " . date('h:i:s A') . "    \e[0m", 'banner');
-$ddmsHelp = new DDMSHelp();
+
+$ddmsHelp = $commandFactory->getCommandInstance('invalidCommand', $ui);;
+#$ddmsHelp = $commandFactory->getCommandInstance('help', $ui);;
 $ddmsHelp->run($ui, $ddmsHelp->prepareArguments($argv));
 
 

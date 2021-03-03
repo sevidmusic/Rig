@@ -2,13 +2,23 @@
 
 namespace ddms\classes\factory;
 
-use ddms\interfaces\factory\CommandFactory as DDMSCommandFactory;
-use ddms\interfaces\ui\UserInterface as DDMSUserInterface;
-use ddms\interfaces\command\Command as DDMSCommand;
+use ddms\interfaces\factory\CommandFactory as DDMSCommandInterfaceFactory;
+use ddms\interfaces\ui\UserInterface as DDMSUIInterface;
+use ddms\interfaces\command\Command as DDMSCommandInterface;
+use ddms\classes\command\Help;
 
-abstract class CommandFactory implements DDMSCommandFactory
+class CommandFactory implements DDMSCommandInterfaceFactory
 {
 
-    abstract public function getCommandInstance(string $commandName, DDMSUserInterface $ddmsUserInterface): DDMSCommand;
+    public function getCommandInstance(string $commandName, DDMSUIInterface $ddmsUserInterface): DDMSCommandInterface
+    {
+        $commandClassName = 'ddms\\classes\\command\\' . ucwords($commandName);
+        $implements = (class_exists($commandClassName) ? class_implements($commandClassName) : []);
+        if(in_array(DDMSCommandInterface::class, (is_array($implements) ? $implements : []))) {
+            return new $commandClassName();
+        }
+        $ddmsUserInterface->notify(CommandFactory::class . " Error: The specified command" . $commandName . ", is not valid. Defaulting to --help.", $ddmsUserInterface::ERROR);
+        return new Help();
+    }
 
 }
