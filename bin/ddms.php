@@ -6,12 +6,12 @@ use ddms\classes\ui\CommandLineUI as DDMSCommandLineUI;
 use ddms\classes\command\DDMSHelp;
 
 $ui = new DDMSCommandLineUI();
+$banner = "\e[0m\e[94m    _    _\e[0m
+\e[0m\e[93m __| |__| |_ __  ___\e[0m
+\e[0m\e[94m/ _` / _` | '  \(_-<\e[0m
+\e[0m\e[91m\__,_\__,_|_|_|_/__/\e[0m
+\e[0m\e[103m                    \e[0m";
 
-$ui->notify(
-    "ddms is still under development.\e[0m" . PHP_EOL . PHP_EOL .
-    "\e[0m\e[107m\e[30mFor more information please visit: \e[0m\e[105m\e[30mhttps://github.com/sevidmusic/ddms\e[0m",
-    DDMSCommandLineUI::WARNING
-);
-
+$ui->notify($banner, ':)');
 $ddmsHelp = new DDMSHelp();
-$ddmsHelp->run($ui);
+$ddmsHelp->run($ui, $ddmsHelp->prepareArguments($argv));
