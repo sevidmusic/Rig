@@ -1,17 +1,13 @@
 ddms is a command line utility designed to aide in the development process
-with the Darling Data Management System.
-
-ddms is still being developed.
+with the Darling Data Management System. ddms is still under development and
+is not ready for use.
 
 For more information go to:
-
 https://github.com/sevidmusic/ddms
 
 For more information about the Darling Data Management System go to:
-
 https://github.com/sevidmusic/DarlingDataManagementSystem
 
 Finally, for additional information about both ddms, and the Darling Data Management
 System go to:
-
 http://darlingdata.tech
