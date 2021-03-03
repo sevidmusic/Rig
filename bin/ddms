@@ -6,6 +6,8 @@
 # is implemented in ddms.php
 #
 
+clear
+
 set -o posix
 
 logErrorMsg() {
