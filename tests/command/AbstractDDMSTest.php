@@ -13,19 +13,18 @@ final class AbstractDDMSTest extends TestCase
     {
 
         $mockUserInterface = $this->getMockBuilder(DDMSUserInterface::class)
-            ->getMock();
+            ->getMockForAbstractClass();
 
         $mockCommand = $this->getMockBuilder(DDMSCommand::class)
             ->setMethods(['run'])
-            ->getMock();
+            ->getMockForAbstractClass();
 
-        $mockCommand->method('run')
+        $mockCommand
+            ->method('run')
             ->willReturn(true);
 
-        $mockDDMS = $this->getMockForAbstractClass(DDMS::class);
-        $mockDDMS->expects($this->any())->method('run')
-            ->will($this->returnValue(false)
-        );
+        $mockDDMS = $this->getMockBuilder(DDMS::class)
+            ->getMockForAbstractClass();
 
         $this->assertEquals(
             $mockCommand->run($mockUserInterface, $mockCommand->prepareArguments([])),
