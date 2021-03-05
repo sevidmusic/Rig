@@ -63,7 +63,7 @@ final class MockCommand extends AbstractCommand implements Command
     public function run(UserInterface $userInterface, array $preparedArguments = ['flags' => [], 'options' => []]): bool
     {
         if(in_array('mockOutput', $preparedArguments['options'])) {
-            echo AbstractDDMSTest::MOCK_COMMAND_UI_OUTPUT;
+            $userInterface->showMessage(AbstractDDMSTest::MOCK_COMMAND_UI_OUTPUT);
         }
         return true;
     }
