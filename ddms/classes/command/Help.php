@@ -2,14 +2,14 @@
 
 namespace ddms\classes\command;
 
-use ddms\interfaces\command\Command as DDMSCommandInterface;
-use ddms\abstractions\command\AbstractCommand as DDMSCommandBase;
-use ddms\interfaces\ui\UserInterface as DDMSUserInterface;
+use ddms\interfaces\command\Command;
+use ddms\abstractions\command\AbstractCommand;
+use ddms\interfaces\ui\UserInterface;
 
-class Help extends DDMSCommandBase implements DDMSCommandInterface
+class Help extends AbstractCommand implements Command
 {
 
-    public function run(DDMSUserInterface $ddmsUI, array $preparedArguments = ['flags' => [], 'options' => []]): bool
+    public function run(UserInterface $ddmsUI, array $preparedArguments = ['flags' => [], 'options' => []]): bool
     {
         $flags = $preparedArguments['flags'];
         if(!empty($flags) && !key_exists('help', $flags)) {

@@ -3,8 +3,8 @@
 namespace tests\command\AbstractCommand;
 
 use PHPUnit\Framework\TestCase;
-use ddms\classes\command\Help as HelpCommand;
-use ddms\classes\ui\CommandLineUI as DDMSUserInterface;
+use ddms\classes\command\Help;
+use ddms\classes\ui\CommandLineUI;
 
 final class HelpTest extends TestCase
 {
@@ -12,19 +12,19 @@ final class HelpTest extends TestCase
     public function testRunOutputsHelpFile_Help_IfNoFlagsOrOptionsAreSpecified(): void
     {
         $this->expectOutputString($this->expectedOutput('help'));
-        $this->getMockHelpCommand()->run(new DDMSUserInterface());
+        $this->getMockHelp()->run(new CommandLineUI());
     }
 
     public function testRunOutputsEmptyStringIfFlagsAreSpecifiedAndHelpFlagIsNotPresent(): void
     {
         $this->expectOutputString('');
-        $this->getMockHelpCommand()->run(new DDMSUserInterface(), ['flags' => ['flag' => []], 'options' => []]);
+        $this->getMockHelp()->run(new CommandLineUI(), ['flags' => ['flag' => []], 'options' => []]);
     }
 
     public function testRunOutputsHelpFile_Help_IfHelpFlagIsTheOnlyFlagSpecifiedAndHasNoArguments(): void
     {
         $this->expectOutputString($this->expectedOutput('help'));
-        $this->getMockHelpCommand()->run(new DDMSUserInterface(), ['flags' => ['help' => []], 'options' => []]);
+        $this->getMockHelp()->run(new CommandLineUI(), ['flags' => ['help' => []], 'options' => []]);
     }
 
     private function expectedHelpFileOutput(string $helpFlagName): string
@@ -41,9 +41,9 @@ final class HelpTest extends TestCase
         return str_replace('tests/command','helpFiles', __DIR__) . DIRECTORY_SEPARATOR . $helpFlagName . '.txt';
     }
 
-    private function getMockHelpCommand(): HelpCommand
+    private function getMockHelp(): Help
     {
-        return new HelpCommand();
+        return new Help();
     }
 
     private function expectedOutput(string $helpFlagName): string

@@ -3,19 +3,19 @@
 namespace tests\command\AbstractCommand;
 
 use PHPUnit\Framework\TestCase;
-use ddms\abstractions\command\AbstractDDMS as DDMS;
-use ddms\abstractions\ui\AbstractUserInterface as DDMSUserInterface;
-use ddms\abstractions\command\AbstractCommand as DDMSCommand;
+use ddms\abstractions\command\AbstractDDMS;
+use ddms\abstractions\ui\AbstractUserInterface;
+use ddms\abstractions\command\AbstractCommand;
 
 final class AbstractDDMSTest extends TestCase
 {
     public function testRunCommandReturnsValueMatchingValueReturnedOnIndependantCallToSpecifiedCommandsRunMethod(): void
     {
 
-        $mockUserInterface = $this->getMockBuilder(DDMSUserInterface::class)
+        $mockUserInterface = $this->getMockBuilder(AbstractUserInterface::class)
             ->getMockForAbstractClass();
 
-        $mockCommand = $this->getMockBuilder(DDMSCommand::class)
+        $mockCommand = $this->getMockBuilder(AbstractCommand::class)
             ->setMethods(['run'])
             ->getMockForAbstractClass();
 
@@ -23,7 +23,7 @@ final class AbstractDDMSTest extends TestCase
             ->method('run')
             ->willReturn(true);
 
-        $mockDDMS = $this->getMockBuilder(DDMS::class)
+        $mockDDMS = $this->getMockBuilder(AbstractDDMS::class)
             ->getMockForAbstractClass();
 
         $this->assertEquals(

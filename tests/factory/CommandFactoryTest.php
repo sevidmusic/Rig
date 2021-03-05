@@ -3,30 +3,30 @@
 namespace tests\command\AbstractCommand;
 
 use PHPUnit\Framework\TestCase;
-use ddms\classes\command\Help as DDMSHelpCommand;
-use ddms\classes\ui\CommandLineUI as DDMSUserInterface;
-use ddms\classes\factory\CommandFactory as DDMSCommandFactory;;
+use ddms\classes\command\Help;
+use ddms\classes\ui\CommandLineUI;
+use ddms\classes\factory\CommandFactory;
 
 final class CommandFactoryTest extends TestCase
 {
 
-    public function testGetCommandInstanceReturnsDDMSHelpCommandInstanceIfClassCorrespondingToSpecifiedCommandNameDoesNotExist(): void {
+    public function testGetCommandInstanceReturnsHelpInstanceIfClassCorrespondingToSpecifiedCommandNameDoesNotExist(): void {
         $this->assertTrue(
-            $this->getCommandFactoryInstance()->getCommandInstance($this->getRandomName(), new DDMSUserInterface())
-            instanceof DDMSHelpCommand
+            $this->getCommandFactoryInstance()->getCommandInstance($this->getRandomName(), new CommandLineUI())
+            instanceof Help
         );
     }
 
-    public function testGetCommandInstanceReturnsDDMSHelpCommandInstanceIfSpecifiedCommandNameIs_help(): void {
+    public function testGetCommandInstanceReturnsHelpInstanceIfSpecifiedCommandNameIs_help(): void {
         $this->assertTrue(
-            $this->getCommandFactoryInstance()->getCommandInstance('help', new DDMSUserInterface())
-            instanceof DDMSHelpCommand
+            $this->getCommandFactoryInstance()->getCommandInstance('help', new CommandLineUI())
+            instanceof Help
         );
     }
 
-    private function getCommandFactoryInstance(): DDMSCommandFactory
+    private function getCommandFactoryInstance(): CommandFactory
     {
-        return new DDMSCommandFactory();
+        return new CommandFactory();
     }
 
     private function getRandomName(): string {

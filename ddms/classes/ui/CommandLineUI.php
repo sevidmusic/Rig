@@ -2,12 +2,10 @@
 
 namespace ddms\classes\ui;
 
-use ddms\interfaces\ui\UserInterface as DDMSUserInterface;
+use ddms\interfaces\ui\UserInterface;
 
-class CommandLineUI implements DDMSUserInterface
+class CommandLineUI implements UserInterface
 {
-
-    public const BANNER = 'banner';
 
     public function showMessage(string $message): void
     {

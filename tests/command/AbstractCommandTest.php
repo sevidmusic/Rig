@@ -3,7 +3,7 @@
 namespace tests\command\AbstractCommand;
 
 use PHPUnit\Framework\TestCase;
-use ddms\abstractions\command\AbstractCommand as DDMSCommand;
+use ddms\abstractions\command\AbstractCommand;
 
 final class AbstractCommandTest extends TestCase
 {
@@ -160,9 +160,9 @@ final class AbstractCommandTest extends TestCase
         return !in_array(false, $status);
     }
 
-    private function getMockCommand(): DDMSCommand
+    private function getMockCommand(): AbstractCommand
     {
-        return $this->getMockBuilder(DDMSCommand::class)->getMockForAbstractClass();
+        return $this->getMockBuilder(AbstractCommand::class)->getMockForAbstractClass();
     }
 
     /**
