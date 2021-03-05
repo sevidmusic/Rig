@@ -3,6 +3,8 @@
 namespace tests\command\AbstractCommand;
 
 use PHPUnit\Framework\TestCase;
+use ddms\interfaces\command\Command;
+use ddms\interfaces\ui\UserInterface;
 use ddms\abstractions\command\AbstractDDMS;
 use ddms\abstractions\ui\AbstractUserInterface;
 use ddms\abstractions\command\AbstractCommand;
@@ -10,7 +12,7 @@ use ddms\abstractions\command\AbstractCommand;
 final class AbstractDDMSTest extends TestCase
 {
 
-    private const MOCK_COMMAND_UI_OUTPUT = 'Testing';
+    public const MOCK_COMMAND_UI_OUTPUT = 'Testing';
 
     public function testRunCommandReturnsValueMatchingValueReturnedOnIndependantCallToSpecifiedCommandsRunMethod(): void
     {
@@ -23,8 +25,8 @@ final class AbstractDDMSTest extends TestCase
     public function testRunCommandOutputMatchesOutputOfIndpendantCallToSpecifiedCommandsRunMethod(): void
     {
         $this->expectOutputString(self::MOCK_COMMAND_UI_OUTPUT . self::MOCK_COMMAND_UI_OUTPUT);
-        $this->getMockCommand(true)->run($this->getMockUserInterface(), $this->getMockCommand()->prepareArguments([]));
-        $this->getMockDDMS()->runCommand($this->getMockUserInterface(), $this->getMockCommand(true), []);
+        $this->getMockCommand()->run($this->getMockUserInterface(), $this->getMockCommand()->prepareArguments(['mockOutput']));
+        $this->getMockDDMS()->runCommand($this->getMockUserInterface(), $this->getMockCommand(), ['mockOutput']);
     }
 
     private function getMockUserInterface(): AbstractUserInterface
@@ -34,19 +36,10 @@ final class AbstractDDMSTest extends TestCase
 
     }
 
-    private function getMockCommand(bool $mockOutput = false): AbstractCommand
+    private function getMockCommand(): AbstractCommand
     {
-        $mockCommand = $this->getMockBuilder(AbstractCommand::class)
-            ->setMethods(['run'])
-            ->getMockForAbstractClass();
 
-        $mockCommand
-            ->method('run')
-            ->will($this->returnValue(
-                $this->mockRunMethod($mockOutput)
-            ));
-
-        return $mockCommand;
+        return new MockCommand();
 
     }
 
@@ -60,6 +53,19 @@ final class AbstractDDMSTest extends TestCase
     {
         return $this->getMockBuilder(AbstractDDMS::class)
             ->getMockForAbstractClass();
+    }
+
+}
+
+final class MockCommand extends AbstractCommand implements Command
+{
+
+    public function run(UserInterface $userInterface, array $preparedArguments = ['flags' => [], 'options' => []]): bool
+    {
+        if(in_array('mockOutput', $preparedArguments['options'])) {
+            echo AbstractDDMSTest::MOCK_COMMAND_UI_OUTPUT;
+        }
+        return true;
     }
 
 }
