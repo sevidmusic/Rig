@@ -10,7 +10,7 @@ final class AbstractUserInterfaceTest extends TestCase
 {
 
     public function testShowMessageOutputsSpecifiedMessage(): void {
-        $message = 'Abstract User Interface';
+        $message = 'Abstract User Interface' . rand(1000, PHP_INT_MAX);;
         $ui = $this
             ->getMockBuilder(AbstractUserInterface::class)
             ->getMockForAbstractClass();

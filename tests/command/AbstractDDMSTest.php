@@ -22,19 +22,19 @@ final class AbstractDDMSTest extends TestCase
         );
     }
 
+    public function testRunCommandOutputMatchesOutputOfIndpendantCallToSpecifiedCommandsRunMethod(): void
+    {
+        $this->expectOutputString(self::MOCK_COMMAND_UI_OUTPUT . self::MOCK_COMMAND_UI_OUTPUT);
+        $this->getMockCommand()->run($this->getMockUserInterface(), $this->getMockCommand()->prepareArguments($this->mockArgvArrayWithFlagsAndOptions()));
+        $this->getMockDDMS()->runCommand($this->getMockUserInterface(), $this->getMockCommand(), $this->mockArgvArrayWithFlagsAndOptions());
+    }
+
     /**
      * @return array<mixed>
      */
     private function mockArgvArrayWithFlagsAndOptions(): array
     {
         return ['mockOutput', '--output', self::MOCK_COMMAND_UI_OUTPUT];
-    }
-
-    public function testRunCommandOutputMatchesOutputOfIndpendantCallToSpecifiedCommandsRunMethod(): void
-    {
-        $this->expectOutputString(self::MOCK_COMMAND_UI_OUTPUT . self::MOCK_COMMAND_UI_OUTPUT);
-        $this->getMockCommand()->run($this->getMockUserInterface(), $this->getMockCommand()->prepareArguments($this->mockArgvArrayWithFlagsAndOptions()));
-        $this->getMockDDMS()->runCommand($this->getMockUserInterface(), $this->getMockCommand(), $this->mockArgvArrayWithFlagsAndOptions());
     }
 
     private function getMockUserInterface(): AbstractUserInterface

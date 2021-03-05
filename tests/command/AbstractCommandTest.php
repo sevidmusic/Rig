@@ -76,7 +76,6 @@ final class AbstractCommandTest extends TestCase
         }
     }
 
-
     /**
      * @param array<mixed> $array
      *
@@ -136,8 +135,6 @@ final class AbstractCommandTest extends TestCase
         }
         return false;
     }
-
-
 
     /**
      * Verify that all keys in a given array are type int or string.
