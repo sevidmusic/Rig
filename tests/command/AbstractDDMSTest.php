@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\command\AbstractCommand;
+namespace tests\command;
 
 use PHPUnit\Framework\TestCase;
 use ddms\interfaces\command\Command;
@@ -49,12 +49,6 @@ final class AbstractDDMSTest extends TestCase
 
         return new MockCommand();
 
-    }
-
-    private function mockRunMethod(bool $mockOutput = false): bool
-    {
-        if($mockOutput === true) { echo self::MOCK_COMMAND_UI_OUTPUT; }
-        return true;
     }
 
     private function getMockDDMS(): AbstractDDMS
