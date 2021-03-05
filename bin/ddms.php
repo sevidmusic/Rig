@@ -3,11 +3,15 @@
 require str_replace('bin', '', __DIR__) . DIRECTORY_SEPARATOR . 'vendor/autoload.php';
 
 use ddms\classes\ui\CommandLineUI as DDMSCommandLineUI;
-use ddms\classes\command\Help as DDMSHelp;
+use ddms\classes\command\Help;
+use ddms\classes\command\DDMS;
 use ddms\classes\factory\CommandFactory;
 
 $ui = new DDMSCommandLineUI();
 $commandFactory = new CommandFactory();
+$help = new Help();
+$ddms = new DDMS();
+
 $banner = "
   \e[0m\e[94m    _    _\e[0m
   \e[0m\e[93m __| |__| |_ __  ___\e[0m
@@ -18,7 +22,4 @@ $banner = "
 ";
 
 $ui->showMessage($banner);
-
-$ddmsHelp = $commandFactory->getCommandInstance((isset($argv[1]) ? str_replace('--', '', $argv[1]) : 'help'), $ui);;
-$ddmsHelp->run($ui, $ddmsHelp->prepareArguments($argv));
-
+$ddms->runCommand($ui, $help, $argv);
