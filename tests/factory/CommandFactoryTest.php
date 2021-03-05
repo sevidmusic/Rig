@@ -11,13 +11,26 @@ final class CommandFactoryTest extends TestCase
 {
 
     public function testGetCommandInstanceReturnsDDMSHelpCommandInstanceIfClassCorrespondingToSpecifiedCommandNameDoesNotExist(): void {
-        $commandFactory = new DDMSCommandFactory();
-        $this->assertTrue($commandFactory->getCommandInstance('Foo' . rand(10000,20000) . 'Bar' . rand(1000, 2000), new DDMSUserInterface()) instanceof DDMSHelpCommand);
+        $this->assertTrue(
+            $this->getCommandFactoryInstance()->getCommandInstance($this->getRandomName(), new DDMSUserInterface())
+            instanceof DDMSHelpCommand
+        );
     }
 
     public function testGetCommandInstanceReturnsDDMSHelpCommandInstanceIfSpecifiedCommandNameIs_help(): void {
-        $commandFactory = new DDMSCommandFactory();
-        $this->assertTrue($commandFactory->getCommandInstance('help', new DDMSUserInterface()) instanceof DDMSHelpCommand);
+        $this->assertTrue(
+            $this->getCommandFactoryInstance()->getCommandInstance('help', new DDMSUserInterface())
+            instanceof DDMSHelpCommand
+        );
+    }
+
+    private function getCommandFactoryInstance(): DDMSCommandFactory
+    {
+        return new DDMSCommandFactory();
+    }
+
+    private function getRandomName(): string {
+        return 'Foo' . rand(10000,20000) . 'Bar' . rand(1000, 2000);
     }
 
 }
