@@ -12,12 +12,6 @@ final class CommandFactoryTest extends TestCase
 
     public function testGetCommandInstanceReturnsHelpInstanceIfClassCorrespondingToSpecifiedCommandNameDoesNotExist(): void {
         $commandName = $this->getRandomName();
-        $this->expectOutputString(
-            CommandFactory::class .
-            "Error:\e[0m\e[103m\e[30m `ddms --\e[0m\e[105m\e[30m" .
-            $commandName .
-            "\e[0m\e[103m\e[30m`, does not make sense. For help use `ddms --help`."
-        );
         $this->assertTrue(
             $this->getCommandFactoryInstance()->getCommandInstance($commandName, new CommandLineUI())
             instanceof Help
