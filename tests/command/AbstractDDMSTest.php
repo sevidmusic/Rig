@@ -11,10 +11,21 @@ final class AbstractDDMSTest extends TestCase
 {
     public function testRunCommandReturnsValueMatchingValueReturnedOnIndependantCallToSpecifiedCommandsRunMethod(): void
     {
+        $this->assertEquals(
+            $this->getMockCommand()->run($this->getMockUserInterface(), $this->getMockCommand()->prepareArguments([])),
+            $this->getMockDDMS()->runCommand($this->getMockUserInterface(), $this->getMockCommand(), [])
+        );
+    }
 
-        $mockUserInterface = $this->getMockBuilder(AbstractUserInterface::class)
+    private function getMockUserInterface(): AbstractUserInterface
+    {
+        return $this->getMockBuilder(AbstractUserInterface::class)
             ->getMockForAbstractClass();
 
+    }
+
+    private function getMockCommand(): AbstractCommand
+    {
         $mockCommand = $this->getMockBuilder(AbstractCommand::class)
             ->setMethods(['run'])
             ->getMockForAbstractClass();
@@ -23,12 +34,14 @@ final class AbstractDDMSTest extends TestCase
             ->method('run')
             ->willReturn(true);
 
-        $mockDDMS = $this->getMockBuilder(AbstractDDMS::class)
-            ->getMockForAbstractClass();
+        return $mockCommand;
 
-        $this->assertEquals(
-            $mockCommand->run($mockUserInterface, $mockCommand->prepareArguments([])),
-            $mockDDMS->runCommand($mockUserInterface, $mockCommand, [])
-        );
     }
+
+    private function getMockDDMS(): AbstractDDMS
+    {
+        return $this->getMockBuilder(AbstractDDMS::class)
+            ->getMockForAbstractClass();
+    }
+
 }

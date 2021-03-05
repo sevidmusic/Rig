@@ -11,20 +11,20 @@ final class HelpTest extends TestCase
 
     public function testRunOutputsHelpFile_Help_IfNoFlagsOrOptionsAreSpecified(): void
     {
-        $this->expectOutputString($this->expectedOutput('help'));
-        $this->getMockHelp()->run(new CommandLineUI());
+        $this->expectOutputString($this->expectedHelpFileOutput('help'));
+        $this->getHelpInstance()->run(new CommandLineUI());
     }
 
     public function testRunOutputsEmptyStringIfFlagsAreSpecifiedAndHelpFlagIsNotPresent(): void
     {
         $this->expectOutputString('');
-        $this->getMockHelp()->run(new CommandLineUI(), ['flags' => ['flag' => []], 'options' => []]);
+        $this->getHelpInstance()->run(new CommandLineUI(), ['flags' => ['flag' => []], 'options' => []]);
     }
 
-    public function testRunOutputsHelpFile_Help_IfHelpFlagIsTheOnlyFlagSpecifiedAndHasNoArguments(): void
+    public function testRunOutputsHelpFile_Help_IfHelpFlagIsSpecifiedAndHasNoArguments(): void
     {
-        $this->expectOutputString($this->expectedOutput('help'));
-        $this->getMockHelp()->run(new CommandLineUI(), ['flags' => ['help' => []], 'options' => []]);
+        $this->expectOutputString($this->expectedHelpFileOutput('help'));
+        $this->getHelpInstance()->run(new CommandLineUI(), ['flags' => ['help' => [], 'flag' => []], 'options' => []]);
     }
 
     private function expectedHelpFileOutput(string $helpFlagName): string
@@ -41,15 +41,9 @@ final class HelpTest extends TestCase
         return str_replace('tests/command','helpFiles', __DIR__) . DIRECTORY_SEPARATOR . $helpFlagName . '.txt';
     }
 
-    private function getMockHelp(): Help
+    private function getHelpInstance(): Help
     {
         return new Help();
-    }
-
-    private function expectedOutput(string $helpFlagName): string
-    {
-         return $this->expectedHelpFileOutput($helpFlagName);
-
     }
 
 }
