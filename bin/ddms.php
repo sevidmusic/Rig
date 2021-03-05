@@ -24,15 +24,18 @@ $banner = "
 $ui->showMessage($banner);
 $arguments = $ddms->prepareArguments($argv);
 foreach($arguments['options'] as $key => $option) {
-    $ui->showMessage(PHP_EOL . "\e[0m\e[105m\e[30m    Option \e[0m\e[101m\e[30m$key\e[0m\e[105m\e[30m: \e[0m\e[104m\e[30m$option\e[0m" . PHP_EOL);
+    $ui->showMessage(PHP_EOL . "\e[0m  \e[105m\e[30mOption \e[0m\e[101m\e[30m$key\e[0m\e[105m\e[30m: \e[0m\e[104m\e[30m$option\e[0m" . PHP_EOL);
 }
 foreach($arguments['flags'] as $key => $flags) {
-    $ui->showMessage(PHP_EOL . "\e[0m\e[105m\e[30m    Flag \e[0m\e[101m\e[30m$key\e[0m" . PHP_EOL);
+    $ui->showMessage(PHP_EOL . "\e[0m  \e[105m\e[30mFlag \e[0m\e[101m\e[30m$key\e[0m" . PHP_EOL);
     foreach($flags as $key => $flagArgument) {
-        $ui->showMessage(PHP_EOL . "\e[0m\e[105m\e[30m    Flag Argument \e[0m\e[101m\e[30m$key\e[0m\e[105m\e[30m: \e[0m\e[104m\e[30m$flagArgument\e[0m" . PHP_EOL);
+        $ui->showMessage(PHP_EOL . "\e[0m  \e[105m\e[30mFlag Argument \e[0m\e[101m\e[30m$key\e[0m\e[105m\e[30m: \e[0m\e[104m\e[30m$flagArgument\e[0m" . PHP_EOL);
     }
 }
 
 $ddms->runCommand($ui, $help, $argv);
-
-$ddms->run($ui, $ddms->prepareArguments($argv));
+try {
+    $ddms->run($ui, $ddms->prepareArguments($argv));
+} catch(\RuntimeException $ddmsError) {
+    $ui->showMessage(PHP_EOL . "\e[0m  \e[103m\e[30m" . str_replace(['Error', 'ddms --help'], ["\e[0m\e[102m\e[30mError\e[0m\e[103m\e[30m", "\e[0m\e[104m\e[30mddms --help\e[0m\e[103m\e[30m"], $ddmsError->getMessage()) . "\e[0m" . PHP_EOL);
+}
