@@ -9,12 +9,22 @@ use ddms\abstractions\command\AbstractCommand;
 
 final class AbstractDDMSTest extends TestCase
 {
+
+    private const MOCK_COMMAND_UI_OUTPUT = 'Testing';
+
     public function testRunCommandReturnsValueMatchingValueReturnedOnIndependantCallToSpecifiedCommandsRunMethod(): void
     {
         $this->assertEquals(
             $this->getMockCommand()->run($this->getMockUserInterface(), $this->getMockCommand()->prepareArguments([])),
             $this->getMockDDMS()->runCommand($this->getMockUserInterface(), $this->getMockCommand(), [])
         );
+    }
+
+    public function testRunCommandOutputMatchesOutputOfIndpendantCallToSpecifiedCommandsRunMethod(): void
+    {
+        $this->expectOutputString(self::MOCK_COMMAND_UI_OUTPUT . self::MOCK_COMMAND_UI_OUTPUT);
+        $this->getMockCommand(true)->run($this->getMockUserInterface(), $this->getMockCommand()->prepareArguments([]));
+        $this->getMockDDMS()->runCommand($this->getMockUserInterface(), $this->getMockCommand(true), []);
     }
 
     private function getMockUserInterface(): AbstractUserInterface
@@ -24,7 +34,7 @@ final class AbstractDDMSTest extends TestCase
 
     }
 
-    private function getMockCommand(): AbstractCommand
+    private function getMockCommand(bool $mockOutput = false): AbstractCommand
     {
         $mockCommand = $this->getMockBuilder(AbstractCommand::class)
             ->setMethods(['run'])
@@ -32,10 +42,18 @@ final class AbstractDDMSTest extends TestCase
 
         $mockCommand
             ->method('run')
-            ->willReturn(true);
+            ->will($this->returnValue(
+                $this->mockRunMethod($mockOutput)
+            ));
 
         return $mockCommand;
 
+    }
+
+    private function mockRunMethod(bool $mockOutput = false): bool
+    {
+        if($mockOutput === true) { echo self::MOCK_COMMAND_UI_OUTPUT; }
+        return true;
     }
 
     private function getMockDDMS(): AbstractDDMS
