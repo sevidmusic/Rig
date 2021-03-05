@@ -10,12 +10,13 @@ final class AbstractUserInterfaceTest extends TestCase
 {
 
     public function testShowMessageOutputsSpecifiedMessage(): void {
+        $message = 'Abstract User Interface';
         $ui = $this
             ->getMockBuilder(AbstractUserInterface::class)
             ->getMockForAbstractClass();
 
-        $this->expectOutputString('Foo');
-        $ui->showMessage('Foo');
+        $this->expectOutputString($message);
+        $ui->showMessage($message);
     }
 
 }
