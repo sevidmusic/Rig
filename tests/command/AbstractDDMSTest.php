@@ -12,7 +12,7 @@ use ddms\abstractions\command\AbstractCommand;
 final class AbstractDDMSTest extends TestCase
 {
 
-    public const MOCK_COMMAND_UI_OUTPUT = 'Testing';
+    private const MOCK_COMMAND_UI_OUTPUT = 'Testing';
 
     public function testRunCommandReturnsValueMatchingValueReturnedOnIndependantCallToSpecifiedCommandsRunMethod(): void
     {
@@ -22,11 +22,19 @@ final class AbstractDDMSTest extends TestCase
         );
     }
 
+    /**
+     * @return array<mixed>
+     */
+    private function mockArgvArrayWithFlagsAndOptions(): array
+    {
+        return ['mockOutput', '--output', self::MOCK_COMMAND_UI_OUTPUT];
+    }
+
     public function testRunCommandOutputMatchesOutputOfIndpendantCallToSpecifiedCommandsRunMethod(): void
     {
         $this->expectOutputString(self::MOCK_COMMAND_UI_OUTPUT . self::MOCK_COMMAND_UI_OUTPUT);
-        $this->getMockCommand()->run($this->getMockUserInterface(), $this->getMockCommand()->prepareArguments(['mockOutput']));
-        $this->getMockDDMS()->runCommand($this->getMockUserInterface(), $this->getMockCommand(), ['mockOutput']);
+        $this->getMockCommand()->run($this->getMockUserInterface(), $this->getMockCommand()->prepareArguments($this->mockArgvArrayWithFlagsAndOptions()));
+        $this->getMockDDMS()->runCommand($this->getMockUserInterface(), $this->getMockCommand(), $this->mockArgvArrayWithFlagsAndOptions());
     }
 
     private function getMockUserInterface(): AbstractUserInterface
@@ -62,8 +70,8 @@ final class MockCommand extends AbstractCommand implements Command
 
     public function run(UserInterface $userInterface, array $preparedArguments = ['flags' => [], 'options' => []]): bool
     {
-        if(in_array('mockOutput', $preparedArguments['options'])) {
-            $userInterface->showMessage(AbstractDDMSTest::MOCK_COMMAND_UI_OUTPUT);
+        if(in_array('mockOutput', $preparedArguments['options']) && isset($preparedArguments['flags']['output'][0])) {
+            $userInterface->showMessage($preparedArguments['flags']['output'][0]);
         }
         return true;
     }
