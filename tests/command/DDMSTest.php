@@ -9,6 +9,7 @@ use ddms\abstractions\command\AbstractCommand;
 use ddms\abstractions\ui\AbstractUserInterface;
 use ddms\interfaces\ui\UserInterface;
 use ddms\interfaces\command\Command;
+use \RuntimeException;
 
 final class DDMSTest extends TestCase
 {
@@ -25,6 +26,15 @@ final class DDMSTest extends TestCase
         $this->getMockDDMSCommand()->run($this->getMockUserInterface(), $this->getMockDDMSCommand()->prepareArguments($this->mockArgvArrayWithFlagsAndOptions()));
         $this->getMockDDMS()->runCommand($this->getMockUserInterface(), $this->getMockDDMSCommand(), $this->mockArgvArrayWithFlagsAndOptions());
     }
+
+    public function testRunThrowsARuntimeExceptionIfFlagsAreSpecifiedAndFirstFlagDoesNotCorrespondToAnExistingCommand(): void
+    {
+        $ddms = $this->getMockDDMS();
+        $this->expectException(RuntimeException::class);
+        $ddms->run($this->getMockUserInterface(), $ddms->prepareArguments(['--command-does-not-exist', 'flagArg1', 'flagArg2']));
+    }
+
+   # NOTE: need testDDMSPrepareArgsReturnsValueMatchingIndependantCallToRelevantCommandsPrepareArgsIfFirstFlagSpecifiedCorrespondsToAnExistingCommand(): void
 
     private function getMockDDMSCommand(): AbstractCommand
     {

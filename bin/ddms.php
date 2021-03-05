@@ -34,3 +34,5 @@ foreach($arguments['flags'] as $key => $flags) {
 }
 
 $ddms->runCommand($ui, $help, $argv);
+
+$ddms->run($ui, $ddms->prepareArguments($argv));
