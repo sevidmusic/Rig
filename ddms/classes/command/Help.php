@@ -15,7 +15,7 @@ class Help extends DDMSCommandBase implements DDMSCommandInterface
         if(!empty($flags) && !key_exists('help', $flags)) {
             return false;
         }
-        $ddmsUI->notify($this->getHelpFileOutput('help'), 'help');
+        $ddmsUI->showMessage($this->getHelpFileOutput('help'));
         return true;
     }
 

@@ -48,20 +48,7 @@ final class HelpTest extends TestCase
 
     private function expectedOutput(string $helpFlagName): string
     {
-         return sprintf(
-            "%s%s%s%s%s%s%s%s%s%s%s",
-            PHP_EOL,
-            "\e[0m\e[105m\e[30m    ",
-            "\e[0m\e[92m " . date('Y-m-d @ H:i:s') . "  \e[0m ",
-            "\e[0m\e[102m\e[30m" . 'help' . "\e[0m\e[105m\e[30m    \e[0m",
-            PHP_EOL,
-            PHP_EOL,
-            "\e[0m\e[107m\e[30m",
-            $this->expectedHelpFileOutput($helpFlagName),
-            "\e[0m",
-            PHP_EOL,
-            PHP_EOL,
-        );
+         return $this->expectedHelpFileOutput($helpFlagName);
 
     }
 

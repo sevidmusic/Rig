@@ -17,7 +17,7 @@ class CommandFactory implements DDMSCommandInterfaceFactory
         if(in_array(DDMSCommandInterface::class, (is_array($implements) ? $implements : []))) {
             return new $commandClassName();
         }
-        $ddmsUserInterface->notify(CommandFactory::class . " Error:\e[0m\e[103m\e[30m `ddms --\e[0m\e[105m\e[30m" . $commandName . "\e[0m\e[103m\e[30m`, does not make sense. For help use `ddms --help`.", $ddmsUserInterface::ERROR);
+        $ddmsUserInterface->showMessage(CommandFactory::class . " Error:\e[0m\e[103m\e[30m `ddms --\e[0m\e[105m\e[30m" . $commandName . "\e[0m\e[103m\e[30m`, does not make sense. For help use `ddms --help`.");
         return new Help();
     }
 
