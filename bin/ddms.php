@@ -39,9 +39,9 @@ if(in_array('DEBUGFLAGS' ,$arguments['options'])) {
  */
 function showOptions(UserInterface $ui, array $arguments): void
 {
-    $ui->showMessage('  Options:' . PHP_EOL);
+    $ui->showMessage(PHP_EOL . '  Options:' . PHP_EOL);
     foreach($arguments['options'] as $key => $option) {
-        $ui->showMessage("\e[0m  \e[101m\e[30m$key\e[0m\e[105m\e[30m: \e[0m\e[104m\e[30m$option\e[0m" . PHP_EOL);
+        $ui->showMessage("\e[0m  \e[101m\e[30m $key \e[0m\e[105m\e[30m : \e[0m\e[104m\e[30m $option \e[0m" . PHP_EOL);
     }
     $ui->showMessage(PHP_EOL);
 }
@@ -54,9 +54,9 @@ function showFlags(UserInterface $ui, array $arguments): void
 {
     $ui->showMessage('  Flags:' . PHP_EOL);
     foreach($arguments['flags'] as $key => $flags) {
-        $ui->showMessage("\e[0m  \e[101m\e[30m--$key\e[0m" . ": ");
+        $ui->showMessage("\e[0m  \e[101m\e[30m --$key \e[0m" . " : ");
         foreach($flags as $key => $flagArgument) {
-            $ui->showMessage("\e[0m  \e[104m\e[30m$flagArgument\e[0m" . ", ");
+            $ui->showMessage("\e[0m\e[104m\e[30m $flagArgument \e[0m" . "  ");
         }
         $ui->showMessage(PHP_EOL);
     }
