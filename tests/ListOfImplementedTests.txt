@@ -1,0 +1,22 @@
+./tests/factory/CommandFactoryTest.php     testGetCommandInstanceReturnsHelpInstanceIfClassCorrespondingToSpecifiedCommandNameDoesNotExist(): void {
+./tests/factory/CommandFactoryTest.php     testGetCommandInstanceReturnsInstanceOfSpecifiedCommandIfSpecifiedCommandExists(): void {
+./tests/ui/AbstractUserInterfaceTest.php     testShowMessageOutputsSpecifiedMessage(): void {
+./tests/ui/CommandLineUITest.php     testShowMessageOutputsSpecifiedMessage(): void {
+./tests/command/AbstractCommandTest.php     testPrepareArgumentsReturnsAnArrayWhoseNonRecursiveCountIsTwo(): void
+./tests/command/AbstractCommandTest.php     testPrepareArgumentsReturnsAnArrayWhoseTopLevelIndexesAre_flags__And__options(): void
+./tests/command/AbstractCommandTest.php     testPrepareArgumentsReturnsAnArrayThatIsAssignedAnArrayAtIndex_flags(): void
+./tests/command/AbstractCommandTest.php     testPrepareArgumentsReturnsAnArrayThatIsAssignedAnArrayWhoseKeysAreStringsAtIndex_flags():void
+./tests/command/AbstractCommandTest.php     testPrepareArgumentsReturnsAnArrayThatIsAssignedAnArrayWhoseValuesAreArraysAtIndex_flags():void
+./tests/command/AbstractCommandTest.php     testPrepareArgumentsReturnsAnArrayThatIsAssignedAnArrayOfArraysWhoseKeysAreIntsAtIndex_flags():void
+./tests/command/AbstractCommandTest.php     testPrepareArgumentsReturnsAnArrayThatIsAssignedAnArrayOfArraysWhoseValuesAreStringsAtIndex_flags():void
+./tests/command/AbstractCommandTest.php     testPrepareArgumentsReturnsAnArrayThatIsAssignedAnArrayAtIndex_options(): void
+./tests/command/AbstractCommandTest.php     testPrepareArgumentsReturnsAnArrayThatIsAssignedAnArrayWhoseKeysAreIntsAtIndex_options():void
+./tests/command/AbstractCommandTest.php     testPrepareArgumentsReturnsAnArrayThatIsAssignedAnArrayWhoseValuesAreStringsAtIndex_options():void
+./tests/command/HelpTest.php     testRunOutputsHelpFile_Help_IfNoFlagsOrOptionsAreSpecified(): void
+./tests/command/HelpTest.php     testRunOutputsEmptyStringIfFlagsAreSpecifiedAndHelpFlagIsNotPresent(): void
+./tests/command/HelpTest.php     testRunOutputsHelpFile_Help_IfHelpFlagIsSpecifiedAndHasNoArguments(): void
+./tests/command/DDMSTest.php     testRunCommandReturnValueAndOutputMatchesReturnValueAndOutputOfIndpendantCallToSpecifiedCommandsRunMethod(): void
+./tests/command/DDMSTest.php     testRunCommandReturnValueAndOutputMatchesReturnValueAndOutputOfIndpendantCallToRunMethodOfCommandThatCorrespondsToFirstFlag(): void
+./tests/command/DDMSTest.php     testRunOutputs_help_HelpFileContentsAndThrowsARuntimeExceptionIfFlagsAreSpecifiedAndFirstFlagDoesNotCorrespondToAnExistingCommand(): void
+./tests/command/AbstractDDMSTest.php     testRunCommandReturnsValueMatchingValueReturnedOnIndependantCallToSpecifiedCommandsRunMethod(): void
+./tests/command/AbstractDDMSTest.php     testRunCommandOutputMatchesOutputOfIndpendantCallToSpecifiedCommandsRunMethod(): void
