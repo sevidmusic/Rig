@@ -33,7 +33,7 @@ final class HelpTest extends TestCase
         {
             $output = file_get_contents($this->expectedHelpFilePath($helpFlagName));
         }
-        return (isset($output) && is_string($output) ? PHP_EOL . "\e[0m\e[45m\e[30m" . $output . "\e[0m" . PHP_EOL : '');
+        return (isset($output) && is_string($output) ? PHP_EOL . $output . PHP_EOL : '');
     }
 
     private function expectedHelpFilePath(string $helpFlagName): string
