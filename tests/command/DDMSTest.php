@@ -3,6 +3,7 @@
 namespace tests\command;
 
 use PHPUnit\Framework\TestCase;
+use ddms\classes\factory\CommandFactory;
 use ddms\classes\command\Help;
 use ddms\classes\command\DDMS;
 use ddms\abstractions\command\AbstractCommand;
@@ -48,9 +49,10 @@ final class DDMSTest extends TestCase
         );
     }
 
-    public function testRunThrowsARuntimeExceptionIfFlagsAreSpecifiedAndFirstFlagDoesNotCorrespondToAnExistingCommand(): void
+    public function testRunOutputs_help_HelpFileContentsAndThrowsARuntimeExceptionIfFlagsAreSpecifiedAndFirstFlagDoesNotCorrespondToAnExistingCommand(): void
     {
         $ddms = $this->getMockDDMS();
+        $this->expectOutputString(PHP_EOL . file_get_contents($this->determineHelpFilePath('help')) . PHP_EOL);
         $this->expectException(RuntimeException::class);
         $ddms->run($this->getMockUserInterface(), $ddms->prepareArguments(['--command-does-not-exist', 'flagArg1', 'flagArg2']));
     }
@@ -81,7 +83,7 @@ final class DDMSTest extends TestCase
 
     private function getMockDDMS(): DDMS
     {
-        return new DDMS();
+        return new DDMS(new CommandFactory());
     }
 
 }

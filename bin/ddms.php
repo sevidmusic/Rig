@@ -10,7 +10,7 @@ use ddms\classes\factory\CommandFactory;
 $ui = new UserInterface();
 $commandFactory = new CommandFactory();
 $help = new Help();
-$ddms = new DDMS();
+$ddms = new DDMS($commandFactory);
 $arguments = $ddms->prepareArguments($argv);
 
 $ui->showMessage(getBanner());
