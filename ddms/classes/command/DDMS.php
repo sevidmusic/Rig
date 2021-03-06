@@ -20,8 +20,9 @@ class DDMS extends AbstractDDMS implements Command
             if($this->commandExists($expectedCommandNamespace)) {
                 return true;
             }
+            return throw new RuntimeException("Error: The first flag specified MUST correspond to an existing ddms command. Please use ddms --help for more information.");
         }
-        return throw new RuntimeException("Error: The first flag specified MUST correspond to an existing ddms command. Please use ddms --help for more information.");
+        return false;
     }
 
     private function commandExists(string $expectedCommandNamespace): bool
