@@ -12,8 +12,9 @@ class DDMS extends AbstractDDMS implements Command
 
     public function run(UserInterface $userInterface, array $preparedArguments = ['flags' => [], 'options' => []]): bool
     {
-        if(!empty($preparedArguments['flags'])) {
-            $flags = array_keys($preparedArguments['flags']);
+        ['flags' => $flags] = $preparedArguments;
+        if(!empty($flags)) {
+            $flags = array_keys($flags);
             $command = $this->convertFlagToCommandName(array_shift($flags));
             $expectedCommandNamespace = "\\ddms\\classes\\command\\$command";
             if($this->commandExists($expectedCommandNamespace)) {
