@@ -33,7 +33,7 @@ final class DDMSTest extends TestCase
         $helpCommand = new Help();
         $ddms = $this->getMockDDMS();
         $ui = $this->getMockUserInterface();
-        $argv = ['--help'];
+        $argv = ['--help', '--flag1', '--flag2'];
         $this->expectOutputString(
             PHP_EOL . file_get_contents($this->determineHelpFilePath('help')) . PHP_EOL .
             PHP_EOL . file_get_contents($this->determineHelpFilePath('help')) . PHP_EOL
