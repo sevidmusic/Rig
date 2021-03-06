@@ -28,12 +28,7 @@ final class DDMSTest extends TestCase
         $this->getMockDDMS()->runCommand($this->getMockUserInterface(), $this->getMockDDMSCommand(), $this->mockArgvArrayWithFlagsAndOptions());
     }
 
-    private function determineHelpFilePath(string $helpFlagName): string
-    {
-        return str_replace('tests/command','helpFiles', __DIR__) . DIRECTORY_SEPARATOR . $helpFlagName . '.txt';
-    }
-
-    public function testRunCommandReturnValueAndOutputMatchesReturnValueAndOutputOfIndpendantCallToRunMethodOfCommandThatCorrespondsToFirstFlag(): void
+    public function testRunReturnValueAndOutputMatchesReturnValueAndOutputOfIndpendantCallToRunMethodOfExistingCommandThatCorrespondsToFirstFlag(): void
     {
         $helpCommand = new Help();
         $ddms = $this->getMockDDMS();
@@ -57,7 +52,10 @@ final class DDMSTest extends TestCase
         $ddms->run($this->getMockUserInterface(), $ddms->prepareArguments(['--command-does-not-exist', 'flagArg1', 'flagArg2']));
     }
 
-   # NOTE: need testDDMSPrepareArgsReturnsValueMatchingIndependantCallToRelevantCommandsPrepareArgsIfFirstFlagSpecifiedCorrespondsToAnExistingCommand(): void
+    private function determineHelpFilePath(string $helpFlagName): string
+    {
+        return str_replace('tests/command','helpFiles', __DIR__) . DIRECTORY_SEPARATOR . $helpFlagName . '.txt';
+    }
 
     private function getMockDDMSCommand(): AbstractCommand
     {
