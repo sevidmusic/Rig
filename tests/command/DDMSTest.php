@@ -27,6 +27,27 @@ final class DDMSTest extends TestCase
         $this->getMockDDMS()->runCommand($this->getMockUserInterface(), $this->getMockDDMSCommand(), $this->mockArgvArrayWithFlagsAndOptions());
     }
 
+    private function determineHelpFilePath(string $helpFlagName): string
+    {
+        return str_replace('tests/command','helpFiles', __DIR__) . DIRECTORY_SEPARATOR . $helpFlagName . '.txt';
+    }
+
+    public function testRunCommandReturnValueAndOutputMatchesReturnValueAndOutputOfIndpendantCallToRunMethodOfCommandThatCorrespondsToFirstFlag(): void
+    {
+        $helpCommand = new Help();
+        $ddms = $this->getMockDDMS();
+        $ui = $this->getMockUserInterface();
+        $argv = ['--help'];
+        $this->expectOutputString(
+            PHP_EOL . file_get_contents($this->determineHelpFilePath('help')) . PHP_EOL .
+            PHP_EOL . file_get_contents($this->determineHelpFilePath('help')) . PHP_EOL
+        );
+        $this->assertEquals(
+            $helpCommand->run($ui, $helpCommand->prepareArguments($argv)),
+            $ddms->run($ui, $ddms->prepareArguments($argv))
+        );
+    }
+
     public function testRunThrowsARuntimeExceptionIfFlagsAreSpecifiedAndFirstFlagDoesNotCorrespondToAnExistingCommand(): void
     {
         $ddms = $this->getMockDDMS();

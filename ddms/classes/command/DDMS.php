@@ -18,7 +18,8 @@ class DDMS extends AbstractDDMS implements Command
             $command = $this->convertFlagToCommandName(array_shift($flags));
             $expectedCommandNamespace = "\\ddms\\classes\\command\\$command";
             if($this->commandExists($expectedCommandNamespace)) {
-                return true;
+                $commandInstance = new $expectedCommandNamespace();
+                return $commandInstance->run($userInterface, $preparedArguments);
             }
             return throw new RuntimeException("Error: The first flag specified MUST correspond to an existing ddms command. Please use ddms --help for more information.");
         }
