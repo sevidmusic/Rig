@@ -3,68 +3,17 @@
 namespace tests\ui;
 
 use PHPUnit\Framework\TestCase;
-use ddms\interfaces\ui\UserInterface as DDMSUserInterface;
-use ddms\classes\ui\CommandLineUI as DDMSCommandLineUI;
+use ddms\interfaces\ui\UserInterface;
+use ddms\classes\ui\CommandLineUI;
 
 final class CommandLineUITest extends TestCase
 {
 
-    private function getExpectedOuputForNoticeType(string $message, string $noticeType = ''): string
-    {
-         return sprintf(
-            "%s%s%s%s%s%s%s%s%s%s%s",
-            PHP_EOL,
-            "\e[0m\e[105m\e[30m    ",
-            "\e[0m\e[92m " . date('Y-m-d @ H:i:s') . "  \e[0m ",
-            "\e[0m\e[102m\e[30m" . (empty($noticeType) ? DDMSCommandLineUI::NOTICE : $noticeType) . "\e[0m\e[105m\e[30m    \e[0m",
-            PHP_EOL,
-            PHP_EOL,
-            "\e[0m\e[107m\e[30m",
-            $message,
-            "\e[0m",
-            PHP_EOL,
-            PHP_EOL,
-        );
-
+    public function testShowMessageOutputsSpecifiedMessage(): void {
+        $message = PHP_EOL . "\e[0m\e[102m\e[30m    Command Line UI " . rand(1000, PHP_INT_MAX) . "    \e[0m" . PHP_EOL . PHP_EOL;
+        $ui = new CommandLineUI();
+        $this->expectOutputString($message);
+        $ui->showMessage($message);
     }
 
-    public function testNotifyOutputsMessageFormattedForNOTICETypeIfNoNoticeTypeIsSpecified(): void {
-        $message = "Foo bar baz. Bazzer foo bar baz bazzer.";
-        $ui = new DDMSCommandLineUI();
-        $expectedOutput = $this->getExpectedOuputForNoticeType($message);
-        $this->expectOutputString($expectedOutput);
-        $ui->notify($message);
-    }
-
-    public function testNotifyOutputsMessageFormattedForNOTICETypeIfNOTICENoticeTypeIsSpecified(): void {
-        $message = "Foo bar baz. Bazzer foo bar baz bazzer.";
-        $ui = new DDMSCommandLineUI();
-        $expectedOutput = $this->getExpectedOuputForNoticeType($message, DDMSCommandLineUI::NOTICE);
-        $this->expectOutputString($expectedOutput);
-        $ui->notify($message, DDMSCommandLineUI::NOTICE);
-    }
-
-    public function testNotifyOutputsMessageFormattedForERRORTypeIfERRORNoticeTypeIsSpecified(): void {
-        $message = "Foo bar baz. Bazzer foo bar baz bazzer.";
-        $ui = new DDMSCommandLineUI();
-        $expectedOutput = $this->getExpectedOuputForNoticeType($message, DDMSCommandLineUI::ERROR);
-        $this->expectOutputString($expectedOutput);
-        $ui->notify($message, DDMSCommandLineUI::ERROR);
-    }
-
-    public function testNotifyOutputsMessageFormattedForWARNINGTypeIfWARNINGNoticeTypeIsSpecified(): void {
-        $message = "Foo bar baz. Bazzer foo bar baz bazzer.";
-        $ui = new DDMSCommandLineUI();
-        $expectedOutput = $this->getExpectedOuputForNoticeType($message, DDMSCommandLineUI::WARNING);
-        $this->expectOutputString($expectedOutput);
-        $ui->notify($message, DDMSCommandLineUI::WARNING);
-    }
-
-    public function testNotifyOutputsMessageFormattedForSUCCESSTypeIfSUCCESSNoticeTypeIsSpecified(): void {
-        $message = "Foo bar baz. Bazzer foo bar baz bazzer.";
-        $ui = new DDMSCommandLineUI();
-        $expectedOutput = $this->getExpectedOuputForNoticeType($message, DDMSCommandLineUI::SUCCESS);
-        $this->expectOutputString($expectedOutput);
-        $ui->notify($message, DDMSCommandLineUI::SUCCESS);
-    }
 }

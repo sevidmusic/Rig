@@ -2,13 +2,13 @@
 
 namespace ddms\abstractions\ui;
 
-use ddms\interfaces\ui\UserInterface as DDMSUserInterface;
+use ddms\interfaces\ui\UserInterface;
 
-abstract class AbstractUserInterface implements DDMSUserInterface
+abstract class AbstractUserInterface implements UserInterface
 {
 
-    public function notify(string $message, string $noticeType = self::NOTICE): void
+    public function showMessage(string $message): void
     {
-        echo $noticeType . ': ' . $message;
+        echo $message;
     }
 }
