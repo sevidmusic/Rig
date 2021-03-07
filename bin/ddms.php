@@ -19,3 +19,10 @@ try {
     $ui->showMessage($ddmsError->getMessage());
 }
 
+if(in_array('start-server', array_keys($ddms->prepareArguments($argv)['flags']))) {
+    $serverLogPath = escapeshellarg('/tmp/ddms-php-built-in-server.log');
+    shell_exec(
+        'php -S localhost:8080 >> ' . $serverLogPath .
+        ' 2>> ' . $serverLogPath . ' &'
+    );
+}
