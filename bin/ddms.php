@@ -18,7 +18,7 @@ $ui->showBanner();
 try {
     $ddms->run($ui, $ddms->prepareArguments($argv));
 } catch(\RuntimeException $ddmsError) {
-    $ui->showMessage(getDevInvalidCommandMsg($ddmsError));
+    $ui->showMessage($ddmsError->getMessage());
 }
 
 if(in_array('DEBUGOPTIONS' ,$arguments['options'])) {
@@ -29,19 +29,4 @@ if(in_array('DEBUGFLAGS' ,$arguments['options'])) {
     $ui->showFlags($arguments);
 }
 
-function getDevInvalidCommandMsg(\RuntimeException $ddmsError): string
-{
-    return PHP_EOL .
-            "\e[0m  \e[103m\e[30m" .
-            str_replace(
-                [
-                    'Error',
-                    'ddms --help'
-                ],
-                [
-                    "\e[0m\e[102m\e[30mError\e[0m\e[103m\e[30m",
-                    "\e[0m\e[104m\e[30mddms --help\e[0m\e[103m\e[30m"
-                ],
-                $ddmsError->getMessage()
-            ) . "\e[0m" . PHP_EOL;
-}
+

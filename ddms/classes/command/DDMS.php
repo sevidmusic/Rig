@@ -24,7 +24,7 @@ class DDMS extends AbstractDDMS implements Command
                 return $this->commandFactory->getCommandInstance($command, $userInterface)->run($userInterface, $preparedArguments);
             }
             $this->commandFactory->getCommandInstance('Help', $userInterface)->run($userInterface, $this->prepareArguments(['--help']));
-            return throw new RuntimeException("Error: The first flag specified MUST correspond to an existing ddms command. Please use ddms --help for more information.");
+            return throw new RuntimeException($this->getInvalidCommandMsg());
         }
         return false;
     }
@@ -45,4 +45,20 @@ class DDMS extends AbstractDDMS implements Command
         return str_replace(' ', '', ucwords(str_replace('-', ' ', $string)));
     }
 
+    private function getInvalidCommandMsg(): string
+    {
+        return PHP_EOL .
+                "\e[0m  \e[103m\e[30m" .
+                str_replace(
+                    [
+                        'Error',
+                        'ddms --help'
+                    ],
+                    [
+                        "\e[0m\e[102m\e[30mError\e[0m\e[103m\e[30m",
+                        "\e[0m\e[104m\e[30mddms --help\e[0m\e[103m\e[30m"
+                    ],
+                    "Error: The first flag specified MUST correspond to an existing ddms command. Please use ddms --help for more information."
+                ) . "\e[0m" . PHP_EOL;
+    }
 }
