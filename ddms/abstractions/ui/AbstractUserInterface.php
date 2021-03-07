@@ -11,4 +11,15 @@ abstract class AbstractUserInterface implements UserInterface
     {
         echo $message;
     }
+
+    /**
+     * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $arguments
+     */
+    abstract public function showOptions(array $arguments): void;
+
+    /**
+     * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $arguments
+     */
+    abstract public function showFlags(array $arguments): void;
+
 }
