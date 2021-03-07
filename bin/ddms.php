@@ -10,8 +10,9 @@ use ddms\classes\factory\CommandFactory;
 $ui = new UserInterface();
 $ddms = new DDMS(new CommandFactory());
 
-$ui->showBanner();
-
+if($ui instanceof UserInterface) {
+    $ui->showBanner();
+}
 try {
     $ddms->run($ui, $ddms->prepareArguments($argv));
 } catch(\RuntimeException $ddmsError) {
