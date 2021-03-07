@@ -23,6 +23,11 @@ if(in_array('start-server', array_keys($ddms->prepareArguments($argv)['flags']))
     $serverLogPath = escapeshellarg('/tmp/ddms-php-built-in-server.log');
     $port = escapeshellarg($ddms->prepareArguments($argv)['flags']['port'][0] ?? strval(rand(8000, 8999)));
     $rootDirectory = escapeshellarg($ddms->prepareArguments($argv)['flags']['root-dir'][0] ?? escapeshellarg(__DIR__));
+    $ui->showMessage(
+        PHP_EOL . "\e[0m    \e[92mStarting development server\e[0m" . PHP_EOL .
+        "\e[0m    \e[30m\e[105mPort:\e[0m \e[93mhttp://localhost:$port\e[0m" . PHP_EOL .
+        "\e[0m    \e[30m\e[105mRoot directory:\e[0m \e[95m$rootDirectory\e[0m" . PHP_EOL
+    );
     shell_exec(
         'php -S localhost:' . $port . ' -t ' . $rootDirectory . ' >> ' . $serverLogPath .
         ' 2>> ' . $serverLogPath . ' &'
