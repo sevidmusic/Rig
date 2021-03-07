@@ -18,11 +18,19 @@ final class CommandFactoryTest extends TestCase
         );
     }
 
-    public function testGetCommandInstanceReturnsHelpInstanceIfSpecifiedCommandNameIs_help(): void {
+    public function testGetCommandInstanceReturnsInstanceOfSpecifiedCommandIfSpecifiedCommandExists(): void {
+        $commandName = $this->getRandomExistingCommandName();
+        $expectedCommandNamespace = 'ddms\\classes\\command\\' . $commandName;
         $this->assertTrue(
-            $this->getCommandFactoryInstance()->getCommandInstance('help', new CommandLineUI())
-            instanceof Help
+            $this->getCommandFactoryInstance()->getCommandInstance($commandName, new CommandLineUI())
+            instanceof $expectedCommandNamespace
         );
+    }
+
+    private function getRandomExistingCommandName(): string
+    {
+        $existinCommandNames = ['help'];
+        return $existinCommandNames[array_rand($existinCommandNames)];
     }
 
     private function getCommandFactoryInstance(): CommandFactory
