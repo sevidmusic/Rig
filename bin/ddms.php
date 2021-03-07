@@ -25,8 +25,3 @@ if(in_array('DEBUGOPTIONS' ,$arguments['options'])) {
     $ui->showOptions($arguments);
 }
 
-if(in_array('DEBUGFLAGS' ,$arguments['options'])) {
-    $ui->showFlags($arguments);
-}
-
-
