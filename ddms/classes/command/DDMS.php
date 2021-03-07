@@ -17,11 +17,15 @@ class DDMS extends AbstractDDMS implements Command
     {
         ['flags' => $flags] = $preparedArguments;
         if(!empty($flags)) {
-            $flags = array_keys($flags);
-            $command = $this->convertFlagToCommandName(array_shift($flags));
+            $flagNames = array_keys($flags);
+            $command = $this->convertFlagToCommandName(array_shift($flagNames));
             $expectedCommandNamespace = "\\ddms\\classes\\command\\$command";
             if($this->commandExists($expectedCommandNamespace)) {
-                return $this->commandFactory->getCommandInstance($command, $userInterface)->run($userInterface, $preparedArguments);
+                $result = $this->commandFactory->getCommandInstance($command, $userInterface)->run($userInterface, $preparedArguments);
+                if(in_array('debug', $flagNames, true) && in_array('flags', $flags['debug'], true)) {
+                    $userInterface->showFlags($preparedArguments);
+                }
+                return $result;
             }
             $this->commandFactory->getCommandInstance('Help', $userInterface)->run($userInterface, $this->prepareArguments(['--help']));
             return throw new RuntimeException($this->getInvalidCommandMsg());
