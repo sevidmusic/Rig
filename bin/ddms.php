@@ -8,10 +8,7 @@ use ddms\classes\command\DDMS;
 use ddms\classes\factory\CommandFactory;
 
 $ui = new UserInterface();
-$commandFactory = new CommandFactory();
-$help = new Help();
-$ddms = new DDMS($commandFactory);
-$arguments = $ddms->prepareArguments($argv);
+$ddms = new DDMS(new CommandFactory());
 
 $ui->showBanner();
 
@@ -19,9 +16,5 @@ try {
     $ddms->run($ui, $ddms->prepareArguments($argv));
 } catch(\RuntimeException $ddmsError) {
     $ui->showMessage($ddmsError->getMessage());
-}
-
-if(in_array('DEBUGOPTIONS' ,$arguments['options'])) {
-    $ui->showOptions($arguments);
 }
 
