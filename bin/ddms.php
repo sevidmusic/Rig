@@ -21,8 +21,11 @@ try {
 
 if(in_array('start-server', array_keys($ddms->prepareArguments($argv)['flags']))) {
     $serverLogPath = escapeshellarg('/tmp/ddms-php-built-in-server.log');
+    $port = escapeshellarg($ddms->prepareArguments($argv)['flags']['port'][0] ?? strval(rand(8000, 8999)));
+    $rootDirectory = escapeshellarg($ddms->prepareArguments($argv)['flags']['root-dir'][0] ?? escapeshellarg(__DIR__));
     shell_exec(
-        'php -S localhost:8080 >> ' . $serverLogPath .
+        'php -S localhost:' . $port . ' -t ' . $rootDirectory . ' >> ' . $serverLogPath .
         ' 2>> ' . $serverLogPath . ' &'
+        #^ space before 2>> is required! or redirect will break!
     );
 }
