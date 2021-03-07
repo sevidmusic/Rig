@@ -57,12 +57,33 @@ final class DDMSTest extends TestCase
         $ddms->run($this->getMockUserInterface(), $ddms->prepareArguments($argv));
     }
 
+    public function testRunOutputIncludesOutputOfUserInterface_showOptions_MethodIf_debug_FlagsIsSpecifiedWithFlagArgument_options(): void
+    {
+        $helpCommand = new Help();
+        $ddms = $this->getMockDDMS();
+        $argv = ['--help', '--debug', 'options'];
+        $this->expectOutputString(
+            PHP_EOL . file_get_contents($this->determineHelpFilePath('help')) . PHP_EOL .
+            $this->expectedShowOptionsOutput($ddms->prepareArguments($argv))
+        );
+        $ddms->run($this->getMockUserInterface(), $ddms->prepareArguments($argv));
+    }
+
     public function testRunOutputs_help_HelpFileContentsAndThrowsARuntimeExceptionIfFlagsAreSpecifiedAndFirstFlagDoesNotCorrespondToAnExistingCommand(): void
     {
         $ddms = $this->getMockDDMS();
         $this->expectOutputString(PHP_EOL . file_get_contents($this->determineHelpFilePath('help')) . PHP_EOL);
         $this->expectException(RuntimeException::class);
         $ddms->run($this->getMockUserInterface(), $ddms->prepareArguments(['--command-does-not-exist', 'flagArg1', 'flagArg2']));
+    }
+
+    /**
+     * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $arguments
+     */
+    public function expectedShowOptionsOutput(array $arguments): string
+    {
+        $mockUI = new MockDDMSUserInterface();
+        return $mockUI->expectedShowOptionsOutput($arguments);
     }
 
     /**
@@ -137,6 +158,20 @@ final class MockDDMSUserInterface extends AbstractUserInterface implements UserI
         }
         $this->showMessage(PHP_EOL);
     }
+
+    /**
+     * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $arguments
+     */
+    public function expectedShowOptionsOutput(array $arguments): string
+    {
+        $output = (PHP_EOL . '  Options:' . PHP_EOL);
+        foreach($arguments['options'] as $key => $option) {
+            $output .= ("    $key : $option" . PHP_EOL);
+        }
+        $output .= (PHP_EOL);
+        return $output;
+    }
+
 
     /**
      * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $arguments

@@ -22,6 +22,9 @@ class DDMS extends AbstractDDMS implements Command
             $expectedCommandNamespace = "\\ddms\\classes\\command\\$command";
             if($this->commandExists($expectedCommandNamespace)) {
                 $result = $this->commandFactory->getCommandInstance($command, $userInterface)->run($userInterface, $preparedArguments);
+                if(in_array('debug', $flagNames, true) && in_array('options', $flags['debug'], true)) {
+                    $userInterface->showOptions($preparedArguments);
+                }
                 if(in_array('debug', $flagNames, true) && in_array('flags', $flags['debug'], true)) {
                     $userInterface->showFlags($preparedArguments);
                 }
