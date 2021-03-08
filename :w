@@ -22,7 +22,6 @@ try {
 }
 
 mockStartServerRun($ui, $argv, $ddms);
-mockViewServerLogRun($ui, $argv, $ddms);
 
 /**
  * @param array<mixed> $argv
@@ -32,13 +31,8 @@ function mockStartServerRun(UserInterface $ui, array $argv, Command $mockThis): 
     if(in_array('start-server', array_keys($mockThis->prepareArguments($argv)['flags']))) {
         startServer($mockThis->prepareArguments($argv), $ui);
     }
-}
 
-/**
- * @param array<mixed> $argv
- */
-function mockViewServerLogRun(UserInterface $ui, array $argv, Command $mockThis): void
-{
+
     if(in_array('view-server-log', array_keys($mockThis->prepareArguments($argv)['flags']))) {
         $ui->showMessage(PHP_EOL . "\e[0m  \e[105m\e[30mPhp Built In Server Log  \e[0m" . PHP_EOL);
         viewServerLog($mockThis->prepareArguments($argv), $ui);
