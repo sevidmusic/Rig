@@ -57,16 +57,19 @@ function startServer(array $preparedArguments, UserInterface $ui): void
     $serverLogPath = escapeshellarg('/tmp/ddms-php-built-in-server.log');
     $localhost = escapeshellarg('localhost:' . ($flags['port'][0] ?? strval(rand(8000, 8999))));
     $rootDirectory = escapeshellarg($flags['root-dir'][0] ?? escapeshellarg(__DIR__));
+    $domain = escapeshellarg('http://' . str_replace("'", '', $localhost));
+    var_dump($domain);
     shell_exec(
         '/usr/bin/php -S ' . $localhost . ' -t ' . $rootDirectory .
         ' >> ' . $serverLogPath .
         ' 2>> ' . $serverLogPath .
         ' & sleep .09' .
+        ' & xdg-open ' . $domain . ' &> /dev/null' .
         ' & disown'
     );
     $ui->showMessage(
         PHP_EOL . "\e[0m    \e[92mStarting development server\e[0m" . PHP_EOL .
-        "\e[0m    \e[30m\e[105mPort:\e[0m \e[93mhttp://$localhost\e[0m" . PHP_EOL .
+        "\e[0m    \e[30m\e[105mPort:\e[0m \e[93m$domain\e[0m" . PHP_EOL .
         "\e[0m    \e[30m\e[105mRoot directory:\e[0m \e[95m$rootDirectory\e[0m" . PHP_EOL
     );
 }
