@@ -60,12 +60,12 @@ function startServer(array $preparedArguments, UserInterface $ui): void
     $openInBrowser = (isset($flags['open-in-browser']) ? true : false);
     $domain = escapeshellarg('http://' . str_replace("'", '', $localhost));
     shell_exec(
-        '/usr/bin/php -S ' . $localhost . ' -t ' . $rootDirectory .
-        ' >> ' . $serverLogPath .
-        ' 2>> ' . $serverLogPath .
-        ' & sleep .09' .
-        ($openInBrowser ? ' & xdg-open ' . $domain . ' &> /dev/null' : '') .
-        ' & disown'
+        '/usr/bin/php -S ' . $localhost . ' -t ' . $rootDirectory . # start PHP built in server
+        ' >> ' . $serverLogPath . # redirect sdout to server log
+        ' 2>> ' . $serverLogPath . # redirect sderr to server log
+        ' & sleep .09' . # give server a momement, this also allows --view-server-log to read log right away
+        ($openInBrowser ? ' & xdg-open ' . $domain . ' &> /dev/null' : '') . # open in browsr if --open-in-browser flag specified
+        ' & disown' # send all to bg and disown
     );
     $ui->showMessage(
         PHP_EOL . "\e[0m    \e[92mStarting development server\e[0m" . PHP_EOL .
@@ -79,8 +79,28 @@ function startServer(array $preparedArguments, UserInterface $ui): void
  */
 function viewServerLog(array $preparedArguments, UserInterface $ui): void
 {
-    $serverLogPath = '/tmp/ddms-php-built-in-server.log';
-    $log = (file_exists($serverLogPath) ? file_get_contents($serverLogPath) : false);
+    $nLines = 3;
+    $offset = -($nLines + 1);
     $errorMsg = PHP_EOL . "\e[0m  \e[106m\e[30mServer log is empty\e[0m" . PHP_EOL;
-    $ui->showMessage((is_string($log) && !empty($log) ? str_replace('[', '  [', $log) : $errorMsg));
+    $serverLogPath = '/tmp/ddms-php-built-in-server.log';
+    $log = (file_exists($serverLogPath) ? file_get_contents($serverLogPath) : '');
+    $log = (is_string($log) && !empty($log) ? str_replace('[', '  [', $log) : $errorMsg);
+    $ui->showMessage(getLines($log, -10, 10));
 }
+
+/**
+ * Get n lines starting at specified line number.
+ * @param int $offset The offset to start at. Negative offsets will start -($offset) from last line.
+ * @param int $numberOfLines The number of lines to return including the starting line.
+ *                           If 0 is specified all lines following the starting line
+ *                           will be returned.
+ */
+function getLines(string $input, int $offset, int|null $numberOfLines = null): string
+{
+    --$offset;
+    $lines = explode(PHP_EOL, $input);
+    $lastLine = $lines[(count($lines) - 2)];
+    $requestedLines = array_slice($lines, $offset, $numberOfLines);
+    return implode(PHP_EOL, $requestedLines);
+}
+
