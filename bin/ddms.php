@@ -35,10 +35,10 @@ try {
  * # Start on localhost:8080, root will be current dir, no php ini
  * ddms --start-server
  */
-#mockStartServerRun($ui, $argv, $ddms);
-#mockViewServerLogRun($ui, $argv, $ddms);
-
+mockStartServerRun($ui, $argv, $ddms);
+mockViewServerLogRun($ui, $argv, $ddms);
 mockViewActiveServers($ui, $argv, $ddms);
+
 /**
  * @param array<mixed> $argv
  */
