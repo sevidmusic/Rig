@@ -79,15 +79,22 @@ function startServer(array $preparedArguments, UserInterface $ui): void
  */
 function viewServerLog(array $preparedArguments, UserInterface $ui): void
 {
-    $nLines = 3;
-    $offset = -($nLines + 1);
-    $errorMsg = PHP_EOL . "\e[0m  \e[106m\e[30mServer log is empty\e[0m" . PHP_EOL;
-    $serverLogPath = '/tmp/ddms-php-built-in-server.log';
-    $log = (file_exists($serverLogPath) ? file_get_contents($serverLogPath) : '');
-    $log = (is_string($log) && !empty($log) ? str_replace('[', '  [', $log) : $errorMsg);
-    $ui->showMessage(getLines($log, 0, 10));
+    ['flags' => $flags] = $preparedArguments;
+    $offset = intval(($flags['view-server-log'][0] ?? -2));
+    $numberOfLines = intval(($flags['view-server-log'][1] ?? 1));
+    $log = (file_exists(getServerLogPath()) ? file_get_contents(getServerLogPath()) : '');
+    $logLines = (is_string($log) && !empty($log) ? str_replace('[', '  [', $log) : getServerLogEmptyMessage());
+    $ui->showMessage(getLines($logLines, $offset, $numberOfLines));
 }
 
+function getServerLogPath(): string
+{
+    return '/tmp/ddms-php-built-in-server.log';
+}
+function getServerLogEmptyMessage(): string
+{
+    return PHP_EOL . "\e[0m  \e[106m\e[30mServer log is empty\e[0m" . PHP_EOL;
+}
 /**
  * Get n lines starting at specified line number.
  * @param int $offset The offset to start at. Negative offsets will start -($offset) from last line.
@@ -95,7 +102,7 @@ function viewServerLog(array $preparedArguments, UserInterface $ui): void
  *                           If 0 is specified all lines following the starting line
  *                           will be returned.
  */
-function getLines(string $input, int $offset, int|null $numberOfLines = null): string
+function getLines(string $input, int $offset, int $numberOfLines): string
 {
     ($offset === 0 ?? --$offset);
     $lines = explode(PHP_EOL, $input);
