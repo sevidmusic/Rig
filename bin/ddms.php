@@ -35,9 +35,10 @@ try {
  * # Start on localhost:8080, root will be current dir, no php ini
  * ddms --start-server
  */
-mockStartServerRun($ui, $argv, $ddms);
-mockViewServerLogRun($ui, $argv, $ddms);
+#mockStartServerRun($ui, $argv, $ddms);
+#mockViewServerLogRun($ui, $argv, $ddms);
 
+mockViewActiveServers($ui, $argv, $ddms);
 /**
  * @param array<mixed> $argv
  */
@@ -48,6 +49,15 @@ function mockStartServerRun(UserInterface $ui, array $argv, Command $mockThis): 
     }
 }
 
+/**
+ * @param array<mixed> $argv
+ */
+function mockViewActiveServers(UserInterface $ui, array $argv, Command $mockThis): void
+{
+    if(in_array('view-active-servers', array_keys($mockThis->prepareArguments($argv)['flags']))) {
+        viewActiveServers($ui);
+    }
+}
 /**
  * @param array<mixed> $argv
  */
@@ -135,7 +145,11 @@ function getLines(string $input, int $offset, int $limit): string
     return implode(PHP_EOL, $requestedLines);
 }
 
+function viewActiveServers(UserInterface $ui): void
+{
+    # Get active servers:
+    $output = shell_exec('printf "%s" "$(/usr/bin/ps -aux | /usr/bin/grep -Eo \'php -S localhost:[0-9][0-9][0-9][0-9]\' | /usr/bin/sed \'s,php -S localhost,  http://localhost,g\')"');
+    $ui->showMessage((is_string($output) ? PHP_EOL . PHP_EOL . "\e[0m  \e[102m\e[30mActive Servers\e[0m" . PHP_EOL  .  "\e[0m\e[107m\e[30m" . PHP_EOL . $output . "\e[0m" . PHP_EOL : PHP_EOL .  "\e[0m  \e[103m\e[30mNo active servers\e[0m" . PHP_EOL));
+}
 
-# Get active servers:
-# printf "%s" "$(ps -aux | grep -Eo 'php -S localhost:[0-9][0-9][0-9][0-9]' | sed 's,php -S localhost,http://localhost,g')"
 
