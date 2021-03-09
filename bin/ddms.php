@@ -37,7 +37,7 @@ try {
  */
 mockStartServerRun($ui, $argv, $ddms);
 mockViewServerLogRun($ui, $argv, $ddms);
-mockViewActiveServers($ui, $argv, $ddms);
+mockViewActiveServersRun($ui, $argv, $ddms);
 
 /**
  * @param array<mixed> $argv
@@ -52,7 +52,7 @@ function mockStartServerRun(UserInterface $ui, array $argv, Command $mockThis): 
 /**
  * @param array<mixed> $argv
  */
-function mockViewActiveServers(UserInterface $ui, array $argv, Command $mockThis): void
+function mockViewActiveServersRun(UserInterface $ui, array $argv, Command $mockThis): void
 {
     if(in_array('view-active-servers', array_keys($mockThis->prepareArguments($argv)['flags']))) {
         viewActiveServers($ui);
