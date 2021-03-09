@@ -20,7 +20,21 @@ try {
 } catch(\RuntimeException $ddmsError) {
     $ui->showMessage($ddmsError->getMessage());
 }
-
+/**
+ * -- StartServer Command --
+ * Examples:
+ * # start on localhost:8080, root will be current dir, use ./dev-php.ini
+ * ddms --start-server --port "8080" --root-directory "./" --php-ini "./dev-php.ini"
+ *
+ * #  start on localhost:8729, root will be /home/user/sites, no php ini
+ * ddms --start-server --port "8729" --root-directory "/home/user/sites"
+ *
+ * # start on localhost:8920, root will be current dir, no php ini
+ * ddms --start-server --port "8920"
+ *
+ * # Start on localhost:8080, root will be current dir, no php ini
+ * ddms --start-server
+ */
 mockStartServerRun($ui, $argv, $ddms);
 mockViewServerLogRun($ui, $argv, $ddms);
 
