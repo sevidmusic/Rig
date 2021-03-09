@@ -67,11 +67,6 @@ function startServer(array $preparedArguments, UserInterface $ui): void
         ($openInBrowser ? ' & xdg-open ' . $domain . ' &> /dev/null' : '') . # open in browsr if --open-in-browser flag specified
         ' & disown' # send all to bg and disown
     );
-    $ui->showMessage(
-        PHP_EOL . "\e[0m    \e[92mStarting development server\e[0m" . PHP_EOL .
-        "\e[0m    \e[30m\e[105mPort:\e[0m \e[93m$domain\e[0m" . PHP_EOL .
-        "\e[0m    \e[30m\e[105mRoot directory:\e[0m \e[95m$rootDirectory\e[0m" . PHP_EOL
-    );
 }
 
 function readServerLogFile(): string
