@@ -88,7 +88,7 @@ function viewServerLog(array $preparedArguments, UserInterface $ui): void
     $offset = intval(($flags['view-server-log'][0] ?? 0));
     $numberOfLines = intval(($flags['view-server-log'][1] ?? 0));
     $log = readServerLogFile();
-    $logLines = (is_string($log) && !empty($log) ? str_replace('[', '  [', $log) : getServerLogEmptyMessage());
+    $logLines = (!empty($log) ? str_replace('[', '  [', $log) : getServerLogEmptyMessage());
     $ui->showMessage(getLines($logLines, $offset, $numberOfLines));
 }
 
