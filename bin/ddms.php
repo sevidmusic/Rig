@@ -57,14 +57,14 @@ function startServer(array $preparedArguments, UserInterface $ui): void
     $serverLogPath = escapeshellarg('/tmp/ddms-php-built-in-server.log');
     $localhost = escapeshellarg('localhost:' . ($flags['port'][0] ?? strval(rand(8000, 8999))));
     $rootDirectory = escapeshellarg($flags['root-dir'][0] ?? escapeshellarg(__DIR__));
+    $openInBrowser = (isset($flags['open-in-browser']) ? true : false);
     $domain = escapeshellarg('http://' . str_replace("'", '', $localhost));
-    var_dump($domain);
     shell_exec(
         '/usr/bin/php -S ' . $localhost . ' -t ' . $rootDirectory .
         ' >> ' . $serverLogPath .
         ' 2>> ' . $serverLogPath .
         ' & sleep .09' .
-        ' & xdg-open ' . $domain . ' &> /dev/null' .
+        ($openInBrowser ? ' & xdg-open ' . $domain . ' &> /dev/null' : '') .
         ' & disown'
     );
     $ui->showMessage(
