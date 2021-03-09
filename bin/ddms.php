@@ -135,3 +135,7 @@ function getLines(string $input, int $offset, int $limit): string
     return implode(PHP_EOL, $requestedLines);
 }
 
+
+# Get active servers:
+# printf "%s" "$(ps -aux | grep -Eo 'php -S localhost:[0-9][0-9][0-9][0-9]' | sed 's,php -S localhost,http://localhost,g')"
+
