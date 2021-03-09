@@ -85,7 +85,7 @@ function viewServerLog(array $preparedArguments, UserInterface $ui): void
     $serverLogPath = '/tmp/ddms-php-built-in-server.log';
     $log = (file_exists($serverLogPath) ? file_get_contents($serverLogPath) : '');
     $log = (is_string($log) && !empty($log) ? str_replace('[', '  [', $log) : $errorMsg);
-    $ui->showMessage(getLines($log, -10, 10));
+    $ui->showMessage(getLines($log, 0, 10));
 }
 
 /**
@@ -97,7 +97,7 @@ function viewServerLog(array $preparedArguments, UserInterface $ui): void
  */
 function getLines(string $input, int $offset, int|null $numberOfLines = null): string
 {
-    --$offset;
+    ($offset === 0 ?? --$offset);
     $lines = explode(PHP_EOL, $input);
     $lastLine = $lines[(count($lines) - 2)];
     $requestedLines = array_slice($lines, $offset, $numberOfLines);
