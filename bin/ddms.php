@@ -80,8 +80,8 @@ function startServer(array $preparedArguments, UserInterface $ui): void
 function viewServerLog(array $preparedArguments, UserInterface $ui): void
 {
     ['flags' => $flags] = $preparedArguments;
-    $offset = intval(($flags['view-server-log'][0] ?? -2));
-    $numberOfLines = intval(($flags['view-server-log'][1] ?? 1));
+    $offset = intval(($flags['view-server-log'][0] ?? 0));
+    $numberOfLines = intval(($flags['view-server-log'][1] ?? 0));
     $log = (file_exists(getServerLogPath()) ? file_get_contents(getServerLogPath()) : '');
     $logLines = (is_string($log) && !empty($log) ? str_replace('[', '  [', $log) : getServerLogEmptyMessage());
     $ui->showMessage(getLines($logLines, $offset, $numberOfLines));
@@ -97,17 +97,16 @@ function getServerLogEmptyMessage(): string
 }
 /**
  * Get n lines starting at specified line number.
- * @param int $offset The offset to start at. Negative offsets will start -($offset) from last line.
+ * @param int $offset The offset to start at. Negative offsets will start at last line.
  * @param int $numberOfLines The number of lines to return including the starting line.
- *                           If 0 is specified all lines following the starting line
- *                           will be returned.
+ *                           If 0 is specified all lines will be returned.
  */
 function getLines(string $input, int $offset, int $numberOfLines): string
 {
-    ($offset === 0 ?? --$offset);
+    $offset = ($offset !== 0 ? --$offset : $offset);
     $lines = explode(PHP_EOL, $input);
     $lastLine = $lines[(count($lines) - 2)];
-    $requestedLines = array_slice($lines, $offset, $numberOfLines);
+    $requestedLines = array_slice($lines, $offset, ($numberOfLines === 0 ? null : $numberOfLines));
     return implode(PHP_EOL, $requestedLines);
 }
 
