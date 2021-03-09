@@ -74,6 +74,11 @@ function startServer(array $preparedArguments, UserInterface $ui): void
     );
 }
 
+function readServerLogFile(): string
+{
+    $log = (file_exists(getServerLogPath()) ? file_get_contents(getServerLogPath()) : '');
+    return (is_string($log) ? $log : '');
+}
 /**
  * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
  */
@@ -82,7 +87,7 @@ function viewServerLog(array $preparedArguments, UserInterface $ui): void
     ['flags' => $flags] = $preparedArguments;
     $offset = intval(($flags['view-server-log'][0] ?? 0));
     $numberOfLines = intval(($flags['view-server-log'][1] ?? 0));
-    $log = (file_exists(getServerLogPath()) ? file_get_contents(getServerLogPath()) : '');
+    $log = readServerLogFile();
     $logLines = (is_string($log) && !empty($log) ? str_replace('[', '  [', $log) : getServerLogEmptyMessage());
     $ui->showMessage(getLines($logLines, $offset, $numberOfLines));
 }
@@ -97,15 +102,25 @@ function getServerLogEmptyMessage(): string
 }
 /**
  * Get n lines starting at specified line number.
- * @param int $offset The offset to start at. Negative offsets will start at last line.
+ * @param int $offset The offset to start at. Positive offsets correspond to lines
+ *                    starting from first line. 0 and 1 both point to first line.
+ *                    For example, the following do the same thing:
+ *                      getLines($input, 0, 1);
+                        getLines($input, 1, 1);
+
+ *                    Negative offsets correspond to lines starting from last line.
+ *                    For example, to get just the last line, use either of the
+ *                    following:
+ *                      getLines($input, -1);
+                        getLines($input, -1, 1);
  * @param int $numberOfLines The number of lines to return including the starting line.
  *                           If 0 is specified all lines will be returned.
  */
 function getLines(string $input, int $offset, int $numberOfLines): string
 {
-    $offset = ($offset !== 0 ? --$offset : $offset);
-    $lines = explode(PHP_EOL, $input);
-    $lastLine = $lines[(count($lines) - 2)];
+    $offset = ($offset > 0 ? --$offset : $offset);
+    $lines = array_filter(explode(PHP_EOL, $input));
+    $lastLine = $lines[(count($lines) - 1)];
     $requestedLines = array_slice($lines, $offset, ($numberOfLines === 0 ? null : $numberOfLines));
     return implode(PHP_EOL, $requestedLines);
 }
