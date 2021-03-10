@@ -1,0 +1,137 @@
+<?php
+
+require str_replace('bin', '', __DIR__) . DIRECTORY_SEPARATOR . 'vendor/autoload.php';
+
+use ddms\classes\ui\CommandLineUI;
+use ddms\classes\command\Help;
+use ddms\classes\command\DDMS;
+use ddms\interfaces\command\Command;
+use ddms\interfaces\ui\UserInterface;
+use ddms\classes\factory\CommandFactory;
+
+$ui = new CommandLineUI();
+$ddms = new DDMS(new CommandFactory());
+
+if($ui instanceof CommandLineUI) {
+    $ui->showBanner();
+}
+try {
+    $ddms->run($ui, $ddms->prepareArguments($argv));
+} catch(\RuntimeException $ddmsError) {
+    $ui->showMessage($ddmsError->getMessage());
+}
+/**
+ * -- StartServer Command --
+ * Examples:
+ * # start on localhost:8080, root will be current dir, use ./dev-php.ini
+ * ddms --start-server --port "8080" --root-directory "./" --php-ini "./dev-php.ini"
+ *
+ * #  start on localhost:8729, root will be /home/user/sites, no php ini
+ * ddms --start-server --port "8729" --root-directory "/home/user/sites"
+ *
+ * # start on localhost:8920, root will be current dir, no php ini
+ * ddms --start-server --port "8920"
+ *
+ * # Start on localhost:8080, root will be current dir, no php ini
+ * ddms --start-server
+ */
+mockStartServerRun($ui, $argv, $ddms);
+mockViewServerLogRun($ui, $argv, $ddms);
+
+/**
+ * @param array<mixed> $argv
+ */
+function mockStartServerRun(UserInterface $ui, array $argv, Command $mockThis): void
+{
+    if(in_array('start-server', array_keys($mockThis->prepareArguments($argv)['flags']))) {
+        startServer($mockThis->prepareArguments($argv), $ui);
+    }
+}
+
+/**
+ * @param array<mixed> $argv
+ */
+function mockViewServerLogRun(UserInterface $ui, array $argv, Command $mockThis): void
+{
+    if(in_array('view-server-log', array_keys($mockThis->prepareArguments($argv)['flags']))) {
+        $ui->showMessage(PHP_EOL . "\e[0m  \e[105m\e[30mPhp Built In Server Log  \e[0m" . PHP_EOL);
+        viewServerLog($mockThis->prepareArguments($argv), $ui);
+    }
+}
+
+
+
+/**
+ * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
+ * &> /dev/null & xdg-open "http://localhost:${1:-8080}" &>/dev/null & disown
+ */
+function startServer(array $preparedArguments, UserInterface $ui): void
+{
+    ['flags' => $flags] = $preparedArguments;
+    $serverLogPath = escapeshellarg('/tmp/ddms-php-built-in-server.log');
+    $localhost = escapeshellarg('localhost:' . ($flags['port'][0] ?? strval(rand(8000, 8999))));
+    $rootDirectory = escapeshellarg($flags['root-dir'][0] ?? escapeshellarg(__DIR__));
+    $openInBrowser = (isset($flags['open-in-browser']) ? true : false);
+    $domain = escapeshellarg('http://' . str_replace("'", '', $localhost));
+    shell_exec(
+        '/usr/bin/php -S ' . $localhost . ' -t ' . $rootDirectory . # start PHP built in server
+        ' >> ' . $serverLogPath . # redirect sdout to server log
+        ' 2>> ' . $serverLogPath . # redirect sderr to server log
+        ' & sleep .09' . # give server a momement, this also allows --view-server-log to read log right away
+        ($openInBrowser ? ' & xdg-open ' . $domain . ' &> /dev/null' : '') . # open in browsr if --open-in-browser flag specified
+        ' & disown' # send all to bg and disown
+    );
+}
+
+function readServerLogFile(): string
+{
+    $log = (file_exists(getServerLogPath()) ? file_get_contents(getServerLogPath()) : '');
+    return (is_string($log) ? $log : '');
+}
+/**
+ * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
+ */
+function viewServerLog(array $preparedArguments, UserInterface $ui): void
+{
+    ['flags' => $flags] = $preparedArguments;
+    $offset = intval(($flags['view-server-log'][0] ?? 0));
+    $limit = intval(($flags['view-server-log'][1] ?? 0));
+    $log = readServerLogFile();
+    $logLines = (!empty($log) ? str_replace('[', '  [', $log) : getServerLogEmptyMessage());
+    $ui->showMessage(getLines($logLines, $offset, $limit));
+}
+
+function getServerLogPath(): string
+{
+    return '/tmp/ddms-php-built-in-server.log';
+}
+function getServerLogEmptyMessage(): string
+{
+    return PHP_EOL . "\e[0m  \e[106m\e[30mServer log is empty\e[0m" . PHP_EOL;
+}
+/**
+ * Get n lines starting at specified line number.
+ * @param int $offset The offset to start at. Positive offsets correspond to lines
+ *                    starting from first line. 0 and 1 both point to first line.
+ *                    For example, the following do the same thing:
+ *                      getLines($input, 0, 1);
+ *                      getLines($input, 1, 1);
+ *
+ *                    Negative offsets correspond to lines starting from last line.
+ *                    For example, to get just the last line, use either of the
+ *                    following:
+ *                      getLines($input, -1);
+ *                      getLines($input, -1, 1);
+ * @param int $limit The number of lines to return including the line at the specified
+ *                   offset. If 0 is specified all lines starting from the line at the
+ *                   specified offset will be returned.
+ */
+function getLines(string $input, int $offset, int $limit): string
+{
+    $offset = ($offset > 0 ? --$offset : $offset);
+    $lines = array_filter(explode(PHP_EOL, $input));
+    $lastLine = $lines[(count($lines) - 1)];
+    $requestedLines = array_slice($lines, $offset, ($limit === 0 ? null : $limit));
+    return implode(PHP_EOL, $requestedLines);
+}
+
