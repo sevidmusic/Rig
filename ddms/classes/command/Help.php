@@ -15,8 +15,20 @@ class Help extends AbstractCommand implements Command
         if(!empty($flags) && !key_exists('help', $flags)) {
             return false;
         }
-        $ddmsUI->showMessage($this->getHelpFileOutput('help'));
+        $ddmsUI->showMessage($this->getHelpFileOutput($this->determineHelpFlagName($flags)));
         return true;
+    }
+
+    /**
+     * @param array<string, array<int, string>> $flags
+     */
+    private function determineHelpFlagName(array $flags): string
+    {
+        $firstHelpOption = ($flags['help'][0] ?? 'help');
+        unset($flags['help']);
+        $flagNames = array_keys($flags);
+        $helpFlagName = ($flagNames[0] ?? $firstHelpOption);
+        return (file_exists($this->determineHelpFilePath($helpFlagName)) ? $helpFlagName : 'help');
     }
 
     private function getHelpFileOutput(string $helpFlagName): string
@@ -30,7 +42,7 @@ class Help extends AbstractCommand implements Command
 
     private function determineHelpFilePath(string $helpFlagName): string
     {
-        return str_replace('ddms/classes/command','helpFiles', __DIR__) . DIRECTORY_SEPARATOR . $helpFlagName . '.txt';
+        return str_replace('ddms/classes/command','helpFiles', __DIR__) . DIRECTORY_SEPARATOR . str_replace('--', '', $helpFlagName) . '.txt';
     }
 
 }
