@@ -38,6 +38,12 @@ final class HelpTest extends TestCase
         $this->getHelpInstance()->run(new CommandLineUI(), ['flags' => ['help' => ['view-active-servers'], 'flag' => []], 'options' => []]);
     }
 
+    public function testRunOutputsHelpFileForSpecifiedFlagIfHelpFlagIsPresentAndHasNoArgumentsAndFirstFlagAfterHelpFlagCorrespondsToAHelpFile(): void
+    {
+        $this->expectOutputString($this->expectedHelpFileOutput('view-active-servers'));
+        $this->getHelpInstance()->run(new CommandLineUI(), ['flags' => ['help' => [], 'view-active-servers' => [], 'flag' => []], 'options' => []]);
+    }
+
     private function expectedHelpFileOutput(string $helpFlagName): string
     {
         return ($this->getHelpFileContents($helpFlagName) ?? '');
