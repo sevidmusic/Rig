@@ -24,21 +24,28 @@ class Help extends AbstractCommand implements Command
      */
     private function determineHelpFlagName(array $flags): string
     {
-        $firstHelpOption = ($flags['help'][0] ?? 'help');
+        $firstHelpOption = ($flags['help'][0] ?? null);
         unset($flags['help']);
         $flagNames = array_keys($flags);
-        $helpFlagName = ($flagNames[0] ?? $firstHelpOption);
+        $helpFlagName = ($firstHelpOption ?? $flagNames[0] ?? '');
         return (file_exists($this->determineHelpFilePath($helpFlagName)) ? $helpFlagName : 'help');
     }
 
     private function getHelpFileOutput(string $helpFlagName): string
     {
+        return ($this->getHelpFileContents($helpFlagName) ?? '');
+    }
+
+    private function getHelpFileContents(string $helpFlagName): string|null
+    {
         if(file_exists($this->determineHelpFilePath($helpFlagName)))
         {
             $output = file_get_contents($this->determineHelpFilePath($helpFlagName));
+            return (is_string($output) ? $output : null);
         }
-        return (isset($output) && is_string($output) ? PHP_EOL . $output . PHP_EOL : '');
+        return null;
     }
+
 
     private function determineHelpFilePath(string $helpFlagName): string
     {
