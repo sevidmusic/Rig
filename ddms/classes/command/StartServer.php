@@ -24,7 +24,7 @@ class StartServer extends AbstractCommand implements Command
         ['flags' => $flags] = $preparedArguments;
         $serverLogPath = escapeshellarg('/tmp/ddms-php-built-in-server.log');
         $localhost = escapeshellarg(
-            'localhost:' . ($flags['port'][0] ?? strval(rand(8000, 8999)))
+            'localhost:' . ($flags['port'][0] ?? '8080')
         );
         $rootDirectory = escapeshellarg(($flags['root-dir'][0] ?? __DIR__));
         $openInBrowser = (isset($flags['open-in-browser']) ? true : false);
