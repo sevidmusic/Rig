@@ -27,14 +27,12 @@ class StartServer extends AbstractCommand implements Command
             'localhost:' . ($flags['port'][0] ?? '8080')
         );
         $rootDirectory = escapeshellarg(($flags['root-dir'][0] ?? '/tmp'));
-        $openInBrowser = (isset($flags['open-in-browser']) ? true : false);
         $domain = escapeshellarg('http://' . str_replace("'", '', $localhost));
         shell_exec(
             '/usr/bin/php -S ' . $localhost . ' -t ' . $rootDirectory .
             ' >> ' . $serverLogPath .
             ' 2>> ' . $serverLogPath .
-            ' & sleep .09' .
-            ($openInBrowser ? ' & xdg-open ' . $domain . ' &> /dev/null' : '') .
+            (isset($flags['open-in-browser']) ? ' & xdg-open ' . $domain . ' &> /dev/null' : '') .
             ' & disown'
         );
     }

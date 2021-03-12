@@ -17,16 +17,24 @@
   --ini-file          Path to a php.ini file to use to configure php for the server.
                       This flag is optional, no default.
 
+  --open-in-browser   Attempt to open the url for the new server instance in a web
+                      broswer via xdg-open.
+                      WARNING: This flag will not always work. It uses xdg-open
+                               under the hood, if your on linux you will need to
+                               install xdg-open if it is not already installed.
+                               On other OS's, this flag will fail.
+                               Also, if multiple built in server instances were
+                               started with this flag present, this flag may begin
+                               to fail as the number of server instances started
+                               with this flag increases.
   Examples:
 
   ddms --start-server
 
-  ddms --start-server --port 8927
+  ddms --start-server --port 8927 --open-in-browser
 
   ddms --start-server --port 8975 --root-directory "${HOME}/DarlingDataManagementSystem/"
 
-  ddms --start-server  --port 8943 --root-directory "${HOME}/DarlingDataManagementSystem/"
-                       --ini-file "./php.ini"
 
 
   WARNING: Do not use PHP's built in server in production, it is meant for development
@@ -36,3 +44,4 @@
   Once a sever is started, it can be used to run one or more Darling Data Managment
   System Apps in development.
 
+  To get a list of active servers use `ddms --view-active-servers`
