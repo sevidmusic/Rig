@@ -16,7 +16,7 @@ final class StartServerTest extends TestCase
         $startServer->run(
             new CommandLineUI(),
             $startServer->prepareArguments(
-                ['flags' => ['--start-server' => []], 'options' => []]
+                ['--start-server']
             )
         );
         $finalServerCount = count($this->activeServers());
@@ -30,11 +30,24 @@ final class StartServerTest extends TestCase
         $startServer->run(
             new CommandLineUI(),
             $startServer->prepareArguments(
-                ['flags' => ['--start-server' => []], 'options' => []]
+                ['--start-server']
             )
         );
-    var_dump($this->activeServers('urls'));
         $this->assertTrue(in_array('http://localhost:8080', $this->activeServers('urls')));
+    }
+
+    public function testStartServerStartsAServerOnSpecifiedPortIfPortIsSpecified(): void
+    {
+        $this->killAllServers();
+        $randomPort = strval(rand(8000, 8999));
+        $startServer = new StartServer();
+        $startServer->run(
+            new CommandLineUI(),
+            $startServer->prepareArguments(
+                ['--start-server', '--port', $randomPort]
+            )
+        );
+        $this->assertTrue(in_array('http://localhost:' . $randomPort, $this->activeServers('urls')));
     }
 
     private function killAllServers(): void
