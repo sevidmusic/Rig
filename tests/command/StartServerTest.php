@@ -73,6 +73,9 @@ final class StartServerTest extends TestCase
         if($target === 'pid') {
             return explode(PHP_EOL, $this->psPhpProcessIds());
         }
+        if($target === 'roots') {
+            return explode(PHP_EOL, $this->psRootDirectories());
+        }
         return explode(PHP_EOL, $this->psPhpProcesses());
     }
 
@@ -123,5 +126,46 @@ final class StartServerTest extends TestCase
         );
     }
 
+    public function testStartServerStartsAServerUsing_tmp_DirectoryAsRootDirectoryIfRootDirIsNotSpecified(): void
+    {
+        $this->killAllServers();
+        $startServer = new StartServer();
+        $startServer->run(
+            new CommandLineUI(),
+            $startServer->prepareArguments(
+                ['--start-server']
+            )
+        );
+        $this->assertTrue(in_array('/tmp', $this->activeServers('roots')));
+    }
+
+    public function testStartServerStartsAServerUsingSpecifiedDirectoryAsRootDirectoryIfRootDirIsSpecified(): void
+    {
+        $this->killAllServers();
+        $startServer = new StartServer();
+        $startServer->run(
+            new CommandLineUI(),
+            $startServer->prepareArguments(
+                ['--start-server', '--root-dir', __DIR__]
+            )
+        );
+        $this->assertTrue(in_array(__DIR__, $this->activeServers('roots')));
+    }
+
+    /**
+     * @return string Results of `p -aux | grep -E '[php] -S` | awk '{print $2}'`
+     */
+    private function psRootDirectories(): string
+    {
+        return strval(
+            shell_exec(
+                'printf "%s" "$(' .
+                    '/usr/bin/ps -aux | ' .
+                    '/usr/bin/grep -E \'[p]hp -S\' | ' .
+                    '/usr/bin/awk \'{print $15}\'' .
+                ')"'
+            )
+        );
+    }
 
 }
