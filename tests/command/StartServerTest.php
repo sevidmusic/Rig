@@ -63,6 +63,20 @@ final class StartServerTest extends TestCase
         $this->assertTrue(in_array('http://localhost:8080', $this->activeServers('urls')));
     }
 
+    public function testStartServerStartsAServerOnSpecifiedPortIfPortIsSpecified(): void
+    {
+        $this->killAllServers();
+        $randomPort = strval(rand(8000, 8999));
+        $startServer = new StartServer();
+        $startServer->run(
+            new CommandLineUI(),
+            $startServer->prepareArguments(
+                ['--start-server', '--port', $randomPort]
+            )
+        );
+        $this->assertTrue(in_array('http://localhost:' . $randomPort, $this->activeServers('urls')));
+    }
+
     public function testStartServerStartsAServerUsing_tmp_DirectoryAsRootDirectoryIfRootDirIsNotSpecified(): void
     {
         $this->killAllServers();
@@ -89,18 +103,17 @@ final class StartServerTest extends TestCase
         $this->assertTrue(in_array(__DIR__, $this->activeServers('roots')));
     }
 
-    public function testStartServerStartsAServerOnSpecifiedPortIfPortIsSpecified(): void
+    public function testStartServerStartsAServerUsingSpecifiedPhpIniIfPhpIniIsSpecified(): void
     {
         $this->killAllServers();
-        $randomPort = strval(rand(8000, 8999));
         $startServer = new StartServer();
         $startServer->run(
             new CommandLineUI(),
             $startServer->prepareArguments(
-                ['--start-server', '--port', $randomPort]
+                ['--start-server', '--php-ini', '/etc/php/php.ini']
             )
         );
-        $this->assertTrue(in_array('http://localhost:' . $randomPort, $this->activeServers('urls')));
+        $this->assertTrue(in_array('/etc/php/php.ini', $this->activeServers('ini')));
     }
 
     private function killAllServers(): void
@@ -130,6 +143,9 @@ final class StartServerTest extends TestCase
         }
         if($target === 'roots') {
             return explode(PHP_EOL, $this->psRootDirectories());
+        }
+        if($target === 'ini') {
+            return explode(PHP_EOL, $this->psPhpIni());
         }
         return explode(PHP_EOL, $this->psPhpProcesses());
     }
@@ -214,5 +230,23 @@ final class StartServerTest extends TestCase
             )
         );
     }
+
+    /**
+     * @return string Results of `p -aux | grep -E '[php] -S` | awk '{print $15}'`
+     */
+    private function psPhpIni(): string
+    {
+        return strval(
+            shell_exec(
+                'printf "%s" "$(' .
+                    '/usr/bin/ps -aux | ' .
+                    '/usr/bin/grep -E \'[p]hp[.]ini\' | ' .
+                    '/usr/bin/awk \'{print $17}\'' .
+                ')"'
+            )
+        );
+    }
+
+
 
 }

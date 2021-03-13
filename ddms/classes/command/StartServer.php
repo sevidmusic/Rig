@@ -30,6 +30,7 @@ class StartServer extends AbstractCommand implements Command
         $domain = escapeshellarg('http://' . str_replace("'", '', $localhost));
         shell_exec(
             '/usr/bin/php -S ' . $localhost . ' -t ' . $rootDirectory .
+            (isset($flags['php-ini'][0]) ? ' -c ' . escapeshellarg($flags['php-ini'][0]) : '') .
             ' >> ' . $serverLogPath .
             ' 2>> ' . $serverLogPath .
             (isset($flags['open-in-browser']) ? ' & xdg-open ' . $domain . ' &> /dev/null' : '') .
