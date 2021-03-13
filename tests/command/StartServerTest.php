@@ -79,8 +79,10 @@ final class StartServerTest extends TestCase
 
     private function killAllServers(): void
     {
-        foreach($this->activeServers('pid') as $serverInfo) {
-            exec('/usr/bin/kill ' . escapeshellarg($serverInfo));
+        foreach($this->activeServers('pid') as $pid) {
+            if(!empty($pid) && is_numeric($pid)) {
+                exec('/usr/bin/kill ' . escapeshellarg($pid));
+            }
         }
     }
     /**
