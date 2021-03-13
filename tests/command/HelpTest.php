@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\command\AbstractCommand;
+namespace tests\command;
 
 use PHPUnit\Framework\TestCase;
 use ddms\classes\command\Help;
@@ -15,25 +15,48 @@ final class HelpTest extends TestCase
         $this->getHelpInstance()->run(new CommandLineUI());
     }
 
-    public function testRunOutputsEmptyStringIfFlagsAreSpecifiedAndHelpFlagIsNotPresent(): void
+    public function testRunHasNoOutputsAndReturnsFalseIfFlagsAreSpecifiedButHelpFlagIsNotPresent(): void
     {
         $this->expectOutputString('');
-        $this->getHelpInstance()->run(new CommandLineUI(), ['flags' => ['flag' => []], 'options' => []]);
+        $this->assertFalse(
+            $this->getHelpInstance()->run(
+                new CommandLineUI(),
+                ['flags' => ['flag1' => ['arg'], 'flag2' => ['arg']], 'options' => ['option']]
+            )
+        );
     }
 
-    public function testRunOutputsHelpFile_Help_IfHelpFlagIsSpecifiedAndHasNoArguments(): void
+    public function testRunOutputsHelpFile_Help_IfHelpFlagIsPresentAndNotFollowedByAnArgumentOrFlagThatCorrespondsToAHelpFile(): void
     {
         $this->expectOutputString($this->expectedHelpFileOutput('help'));
-        $this->getHelpInstance()->run(new CommandLineUI(), ['flags' => ['help' => [], 'flag' => []], 'options' => []]);
+        $this->getHelpInstance()->run(new CommandLineUI(), ['flags' => ['help' => ['foo'], 'flag1' => ['arg']], 'options' => ['option']]);
+    }
+
+    public function testRunOutputsHelpFileForSpecifiedArgumentIfHelpFlagIsPresentAndFirstArgumentCorrespondsToAHelpFile(): void
+    {
+        $this->expectOutputString($this->expectedHelpFileOutput('view-active-servers'));
+        $this->getHelpInstance()->run(new CommandLineUI(), ['flags' => ['help' => ['view-active-servers'], 'flag' => []], 'options' => []]);
+    }
+
+    public function testRunOutputsHelpFileForSpecifiedFlagIfHelpFlagIsPresentAndHasNoArgumentsAndFirstFlagAfterHelpFlagCorrespondsToAHelpFile(): void
+    {
+        $this->expectOutputString($this->expectedHelpFileOutput('view-active-servers'));
+        $this->getHelpInstance()->run(new CommandLineUI(), ['flags' => ['help' => [], 'view-active-servers' => [], 'flag' => []], 'options' => []]);
     }
 
     private function expectedHelpFileOutput(string $helpFlagName): string
     {
+        return ($this->getHelpFileContents($helpFlagName) ?? '');
+    }
+
+    private function getHelpFileContents(string $helpFlagName): string|null
+    {
         if(file_exists($this->expectedHelpFilePath($helpFlagName)))
         {
             $output = file_get_contents($this->expectedHelpFilePath($helpFlagName));
+            return (is_string($output) ? $output : '');
         }
-        return (isset($output) && is_string($output) ? PHP_EOL . $output . PHP_EOL : '');
+        return null;
     }
 
     private function expectedHelpFilePath(string $helpFlagName): string
