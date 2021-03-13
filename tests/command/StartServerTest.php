@@ -63,6 +63,32 @@ final class StartServerTest extends TestCase
         $this->assertTrue(in_array('http://localhost:8080', $this->activeServers('urls')));
     }
 
+    public function testStartServerStartsAServerUsing_tmp_DirectoryAsRootDirectoryIfRootDirIsNotSpecified(): void
+    {
+        $this->killAllServers();
+        $startServer = new StartServer();
+        $startServer->run(
+            new CommandLineUI(),
+            $startServer->prepareArguments(
+                ['--start-server']
+            )
+        );
+        $this->assertTrue(in_array('/tmp', $this->activeServers('roots')));
+    }
+
+    public function testStartServerStartsAServerUsingSpecifiedDirectoryAsRootDirectoryIfRootDirIsSpecified(): void
+    {
+        $this->killAllServers();
+        $startServer = new StartServer();
+        $startServer->run(
+            new CommandLineUI(),
+            $startServer->prepareArguments(
+                ['--start-server', '--root-dir', __DIR__]
+            )
+        );
+        $this->assertTrue(in_array(__DIR__, $this->activeServers('roots')));
+    }
+
     public function testStartServerStartsAServerOnSpecifiedPortIfPortIsSpecified(): void
     {
         $this->killAllServers();
@@ -155,34 +181,8 @@ final class StartServerTest extends TestCase
         );
     }
 
-    public function testStartServerStartsAServerUsing_tmp_DirectoryAsRootDirectoryIfRootDirIsNotSpecified(): void
-    {
-        $this->killAllServers();
-        $startServer = new StartServer();
-        $startServer->run(
-            new CommandLineUI(),
-            $startServer->prepareArguments(
-                ['--start-server']
-            )
-        );
-        $this->assertTrue(in_array('/tmp', $this->activeServers('roots')));
-    }
-
-    public function testStartServerStartsAServerUsingSpecifiedDirectoryAsRootDirectoryIfRootDirIsSpecified(): void
-    {
-        $this->killAllServers();
-        $startServer = new StartServer();
-        $startServer->run(
-            new CommandLineUI(),
-            $startServer->prepareArguments(
-                ['--start-server', '--root-dir', __DIR__]
-            )
-        );
-        $this->assertTrue(in_array(__DIR__, $this->activeServers('roots')));
-    }
-
     /**
-     * @return string Results of `p -aux | grep -E '[php] -S` | awk '{print $2}'`
+     * @return string Results of `p -aux | grep -E '[php] -S` | awk '{print $15}'`
      */
     private function psRootDirectories(): string
     {
