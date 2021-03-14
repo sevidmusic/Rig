@@ -1,10 +1,12 @@
-  ddms --start-server --port --root-directory --ini-file
+
+  `ddms --start-server --port --root-directory --ini-file`
 
   Description:
 
   Start a PHP built in server instance on the specified --port, using the specified
-  --root-directory as the server's root directory, and the specified
-  --ini-file to configure php for the server instance.
+  --root-directory as the server's root directory, the specified --ini-file to
+  configure php for the server instance, and optionally attempt to open the server
+  instance's root url in a web browser via xdg-open.
 
   Flags:
 
