@@ -1,6 +1,4 @@
 
-  Help:
-
   `ddms --view-active-servers`
 
   List the active PHP built in server instances.
