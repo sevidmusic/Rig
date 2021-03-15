@@ -24,7 +24,8 @@ abstract class AbstractCommand implements Command
     {
         ['flags' => $flags] = $flagsAndOptions;
         if(!in_array('ddms-internal-flag-pwd', array_keys($flags)) || !isset($flags['ddms-internal-flag-pwd'][0]) || !file_exists($flags['ddms-internal-flag-pwd'][0])) {
-            $flagsAndOptions['flags']['ddms-internal-flag-pwd'] = [DIRECTORY_SEPARATOR . 'tmp' . DIRECTORY_SEPARATOR];
+            $ddmsTmpDirPath = str_replace('ddms' . DIRECTORY_SEPARATOR . 'abstractions' . DIRECTORY_SEPARATOR . 'command', 'tmp', __DIR__);
+            $flagsAndOptions['flags']['ddms-internal-flag-pwd'] = [$ddmsTmpDirPath];
         }
         return $flagsAndOptions;
     }

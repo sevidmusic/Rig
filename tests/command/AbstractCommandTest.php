@@ -31,6 +31,14 @@ final class AbstractCommandTest extends TestCase
         );
     }
 
+    public function testPrepareArgumentsReturnsArrayWhose_ddms_internal_flag_pwd_FlagsFirstArgumentIsAssignedPathTo_ddms_tmp_DirectoryIf_ddms_internal_flag_pwd_FlagsFirstSpecifiedArgumentIsNotAPathToAnExistingDirectory(): void
+    {
+        $this->assertEquals(
+            realpath(str_replace('tests' . DIRECTORY_SEPARATOR . 'command', 'tmp', __DIR__)),
+            $this->getMockCommand()->prepareArguments(['--ddms-internal-flag-pwd', 'FooBar' . strval(rand(1000, 9999))])['flags']['ddms-internal-flag-pwd'][0]
+        );
+    }
+
     public function testPrepareArgumentsReturnsAnArrayWhoseNonRecursiveCountIsTwo(): void
     {
         $this->assertEquals(2, count($this->getMockCommand()->prepareArguments($this->getMockArray())));
