@@ -13,8 +13,22 @@ abstract class AbstractCommand implements Command
 
     public function prepareArguments(array $argv): array
     {
-        return $this->distiguishFlagsAndOptions($this->flattenArray($this->convertValuesToStrings($argv)));
+        return $this->validateArguments($this->distiguishFlagsAndOptions($this->flattenArray($this->convertValuesToStrings($argv))));
     }
+
+    /**
+     * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $flagsAndOptions
+     * @return array{"flags": array<string, array<int, string>>, "options": array<int, string>} $flagsAndOptions
+     */
+    private function validateArguments(array $flagsAndOptions): array
+    {
+        ['flags' => $flags] = $flagsAndOptions;
+        if(!in_array('ddms-internal-flag-pwd', array_keys($flags)) || !isset($flags['ddms-internal-flag-pwd'][0]) || !file_exists($flags['ddms-internal-flag-pwd'][0])) {
+            $flagsAndOptions['flags']['ddms-internal-flag-pwd'] = [DIRECTORY_SEPARATOR . 'tmp' . DIRECTORY_SEPARATOR];
+        }
+        return $flagsAndOptions;
+    }
+
 
     /**
      * @param array<int, string> $argv
