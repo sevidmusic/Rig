@@ -1,6 +1,8 @@
 <?php
 
-/** Apps/<APP_NAME>/Components.php */
+/**
+ * Apps/<APP_NAME>/Components.php
+ */
 
 use DarlingDataManagementSystem\classes\component\Factory\App\AppComponentsFactory;
 
@@ -25,7 +27,7 @@ function loadComponentConfigFiles(string $configurationDirectoryName, AppCompone
 
 $appComponentsFactory = new AppComponentsFactory(
     ...AppComponentsFactory::buildConstructorArgs(
-    AppComponentsFactory::buildDomain('http://localhost:8080')
+    AppComponentsFactory::buildDomain('_DOMAIN_')
     )
 );
 

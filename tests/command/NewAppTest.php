@@ -158,6 +158,28 @@ final class NewAppTest extends TestCase
         $this->removeDirectory($expectedAppDirectoryPath);
     }
 
+    public function testRunSets_DOMAIN_To_httplocalhost8080_InNewAppsComponentsPhpIf_domain_FlagIsNotPresent(): void
+    {
+        $newApp = new NewApp();
+        $ui = new CommandLineUI();
+        $name = 'Foo' . strval(rand(1000,9999));
+        $argv = ['--new-app', '--name', $name ];
+        $preparedArguments = $newApp->prepareArguments($argv);
+        ['flags' => $flags] = $preparedArguments;
+        $expectedAppDirectoryPath = $flags['ddms-internal-flag-pwd'][0] . DIRECTORY_SEPARATOR . $name;
+        $expectedcomponentsPhpFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'Components.php';
+        $expectedComponentsPhpFileTemplatePath = str_replace('tests' . DIRECTORY_SEPARATOR . 'command', 'FileTemplates', __DIR__) . DIRECTORY_SEPARATOR . 'Components.php';
+        $newApp->run($ui, $preparedArguments);
+        $this->assertEquals(
+            str_replace(
+                '_DOMAIN_',
+                'http://localhost:8080/',
+                strval(file_get_contents($expectedComponentsPhpFileTemplatePath))
+            ),
+            file_get_contents($expectedcomponentsPhpFilePath)
+        );
+    }
+
     private function removeDirectory(string $dir): void
     {
         if (is_dir($dir)) {

@@ -18,6 +18,27 @@ class NewApp extends AbstractCommand implements Command
         }
         $appDirectoryPath = $flags['ddms-internal-flag-pwd'][0] . DIRECTORY_SEPARATOR . $flags['name'][0];
         if(!is_dir($appDirectoryPath)) {
+            $this->createAppsDirectoryStructure($appDirectoryPath);
+            $this->createAppsComponentsPhp($appDirectoryPath);
+            return true;
+        }
+        $userInterface->showMessage('An App named ' .  $flags['name'][0] . ' already exists. Please specify a unique name.');
+        return false;
+    }
+
+    private function createAppsComponentsPhp(string $appDirectoryPath): void
+    {
+        $componentPhpFileTemplatePath = str_replace(
+            'ddms' . DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR . 'command',
+            'FileTemplates' . DIRECTORY_SEPARATOR . 'Components.php',
+            __DIR__
+        );
+        $componentsPhpTemplate = strval(file_get_contents($componentPhpFileTemplatePath));
+        $content = str_replace('_DOMAIN_', 'http://localhost:8080/', $componentsPhpTemplate);
+        file_put_contents($appDirectoryPath . DIRECTORY_SEPARATOR . 'Components.php', $content);
+    }
+
+    private function createAppsDirectoryStructure(string $appDirectoryPath): void {
             mkdir($appDirectoryPath);
             mkdir($appDirectoryPath . DIRECTORY_SEPARATOR . 'css');
             mkdir($appDirectoryPath . DIRECTORY_SEPARATOR . 'js');
@@ -26,16 +47,7 @@ class NewApp extends AbstractCommand implements Command
             mkdir($appDirectoryPath . DIRECTORY_SEPARATOR . 'Responses');
             mkdir($appDirectoryPath . DIRECTORY_SEPARATOR . 'Requests');
             mkdir($appDirectoryPath . DIRECTORY_SEPARATOR . 'OutputComponents');
-            copy(
-                str_replace(
-                    'ddms' . DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR . 'command',
-                    'FileTemplates' . DIRECTORY_SEPARATOR . 'Components.php',
-                    __DIR__
-                ),
-                $appDirectoryPath . DIRECTORY_SEPARATOR . 'Components.php'
-            );
-        }
-        return true;
     }
 
 }
+
