@@ -180,6 +180,73 @@ final class NewAppTest extends TestCase
         );
     }
 
+    public function testRunSets_DOMAIN_To_httplocalhost8080_InNewAppsComponentsPhpIf_domain_FlagIsPresentButHasNoArguments(): void
+    {
+        $newApp = new NewApp();
+        $ui = new CommandLineUI();
+        $name = 'Foo' . strval(rand(1000,9999));
+        $argv = ['--new-app', '--name', $name, '--domain'];
+        $preparedArguments = $newApp->prepareArguments($argv);
+        ['flags' => $flags] = $preparedArguments;
+        $expectedAppDirectoryPath = $flags['ddms-internal-flag-pwd'][0] . DIRECTORY_SEPARATOR . $name;
+        $expectedcomponentsPhpFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'Components.php';
+        $expectedComponentsPhpFileTemplatePath = str_replace('tests' . DIRECTORY_SEPARATOR . 'command', 'FileTemplates', __DIR__) . DIRECTORY_SEPARATOR . 'Components.php';
+        $newApp->run($ui, $preparedArguments);
+        $this->assertEquals(
+            str_replace(
+                '_DOMAIN_',
+                'http://localhost:8080/',
+                strval(file_get_contents($expectedComponentsPhpFileTemplatePath))
+            ),
+            file_get_contents($expectedcomponentsPhpFilePath)
+        );
+    }
+
+    public function testRunSets_DOMAIN_To_httplocalhost8080_InNewAppsComponentsPhpIf_domain_FlagIsPresentButFirstArgumentIsNotAValidDomain(): void
+    {
+        $newApp = new NewApp();
+        $ui = new CommandLineUI();
+        $name = 'Foo' . strval(rand(1000,9999));
+        $argv = ['--new-app', '--name', $name, '--domain', 'FooBar' . strval(rand(1000, 9999))];
+        $preparedArguments = $newApp->prepareArguments($argv);
+        ['flags' => $flags] = $preparedArguments;
+        $expectedAppDirectoryPath = $flags['ddms-internal-flag-pwd'][0] . DIRECTORY_SEPARATOR . $name;
+        $expectedcomponentsPhpFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'Components.php';
+        $expectedComponentsPhpFileTemplatePath = str_replace('tests' . DIRECTORY_SEPARATOR . 'command', 'FileTemplates', __DIR__) . DIRECTORY_SEPARATOR . 'Components.php';
+        $newApp->run($ui, $preparedArguments);
+        $this->assertEquals(
+            str_replace(
+                '_DOMAIN_',
+                'http://localhost:8080/',
+                strval(file_get_contents($expectedComponentsPhpFileTemplatePath))
+            ),
+            file_get_contents($expectedcomponentsPhpFilePath)
+        );
+    }
+
+    public function testRunSets_DOMAIN_ToSpecifiedDomainInNewAppsComponentsPhpIf_domain_FlagIsPresentAndFirstArgumentIsAValidDomain(): void
+    {
+        $newApp = new NewApp();
+        $ui = new CommandLineUI();
+        $name = 'Foo' . strval(rand(1000,9999));
+        $domain = 'http://localhost:' . strval(rand(8000, 8999));
+        $argv = ['--new-app', '--name', $name, '--domain', $domain];
+        $preparedArguments = $newApp->prepareArguments($argv);
+        ['flags' => $flags] = $preparedArguments;
+        $expectedAppDirectoryPath = $flags['ddms-internal-flag-pwd'][0] . DIRECTORY_SEPARATOR . $name;
+        $expectedcomponentsPhpFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'Components.php';
+        $expectedComponentsPhpFileTemplatePath = str_replace('tests' . DIRECTORY_SEPARATOR . 'command', 'FileTemplates', __DIR__) . DIRECTORY_SEPARATOR . 'Components.php';
+        $newApp->run($ui, $preparedArguments);
+        $this->assertEquals(
+            str_replace(
+                '_DOMAIN_',
+                $domain,
+                strval(file_get_contents($expectedComponentsPhpFileTemplatePath))
+            ),
+            file_get_contents($expectedcomponentsPhpFilePath)
+        );
+    }
+
     private function removeDirectory(string $dir): void
     {
         if (is_dir($dir)) {

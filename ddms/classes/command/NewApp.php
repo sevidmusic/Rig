@@ -19,14 +19,17 @@ class NewApp extends AbstractCommand implements Command
         $appDirectoryPath = $flags['ddms-internal-flag-pwd'][0] . DIRECTORY_SEPARATOR . $flags['name'][0];
         if(!is_dir($appDirectoryPath)) {
             $this->createAppsDirectoryStructure($appDirectoryPath);
-            $this->createAppsComponentsPhp($appDirectoryPath);
+            $this->createAppsComponentsPhp($appDirectoryPath, $preparedArguments);
             return true;
         }
         $userInterface->showMessage('An App named ' .  $flags['name'][0] . ' already exists. Please specify a unique name.');
         return false;
     }
 
-    private function createAppsComponentsPhp(string $appDirectoryPath): void
+    /**
+     * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
+     */
+    private function createAppsComponentsPhp(string $appDirectoryPath, array $preparedArguments): void
     {
         $componentPhpFileTemplatePath = str_replace(
             'ddms' . DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR . 'command',
@@ -34,8 +37,20 @@ class NewApp extends AbstractCommand implements Command
             __DIR__
         );
         $componentsPhpTemplate = strval(file_get_contents($componentPhpFileTemplatePath));
-        $content = str_replace('_DOMAIN_', 'http://localhost:8080/', $componentsPhpTemplate);
+        $content = str_replace('_DOMAIN_', $this->determineDomain($preparedArguments), $componentsPhpTemplate);
         file_put_contents($appDirectoryPath . DIRECTORY_SEPARATOR . 'Components.php', $content);
+    }
+
+    /**
+     * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
+     */
+    private function determineDomain(array $preparedArguments): string
+    {
+        ['flags' => $flags] = $preparedArguments;
+        if(isset($flags['domain']) && isset($flags['domain'][0]) && filter_var($flags['domain'][0], FILTER_VALIDATE_URL)) {
+            return $flags['domain'][0];
+        }
+        return 'http://localhost:8080/';
     }
 
     private function createAppsDirectoryStructure(string $appDirectoryPath): void {
