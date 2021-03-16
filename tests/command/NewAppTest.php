@@ -95,6 +95,54 @@ final class NewAppTest extends TestCase
         $this->removeDirectory($expectedAppDirectoryPath);
     }
 
+    public function testRunCreatesNewAppsResponsesDirectory(): void
+    {
+        $newApp = new NewApp();
+        $ui = new CommandLineUI();
+        $name = 'Foo';
+        $argv = ['--new-app', '--name', $name ];
+        $preparedArguments = $newApp->prepareArguments($argv);
+        ['flags' => $flags] = $preparedArguments;
+        $expectedAppDirectoryPath = $flags['ddms-internal-flag-pwd'][0] . DIRECTORY_SEPARATOR . $name;
+        $expectedresponsesDirectoryPath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'Responses';
+        $newApp->run($ui, $preparedArguments);
+        $this->assertTrue(file_exists($expectedresponsesDirectoryPath));
+        $this->assertTrue(is_dir($expectedresponsesDirectoryPath));
+        $this->removeDirectory($expectedAppDirectoryPath);
+    }
+
+    public function testRunCreatesNewAppsRequestsDirectory(): void
+    {
+        $newApp = new NewApp();
+        $ui = new CommandLineUI();
+        $name = 'Foo';
+        $argv = ['--new-app', '--name', $name ];
+        $preparedArguments = $newApp->prepareArguments($argv);
+        ['flags' => $flags] = $preparedArguments;
+        $expectedAppDirectoryPath = $flags['ddms-internal-flag-pwd'][0] . DIRECTORY_SEPARATOR . $name;
+        $expectedrequestsDirectoryPath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'Requests';
+        $newApp->run($ui, $preparedArguments);
+        $this->assertTrue(file_exists($expectedrequestsDirectoryPath));
+        $this->assertTrue(is_dir($expectedrequestsDirectoryPath));
+        $this->removeDirectory($expectedAppDirectoryPath);
+    }
+
+    public function testRunCreatesNewAppsOutputComponentsDirectory(): void
+    {
+        $newApp = new NewApp();
+        $ui = new CommandLineUI();
+        $name = 'Foo';
+        $argv = ['--new-app', '--name', $name ];
+        $preparedArguments = $newApp->prepareArguments($argv);
+        ['flags' => $flags] = $preparedArguments;
+        $expectedAppDirectoryPath = $flags['ddms-internal-flag-pwd'][0] . DIRECTORY_SEPARATOR . $name;
+        $expectedoutputComponentsDirectoryPath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'OutputComponents';
+        $newApp->run($ui, $preparedArguments);
+        $this->assertTrue(file_exists($expectedoutputComponentsDirectoryPath));
+        $this->assertTrue(is_dir($expectedoutputComponentsDirectoryPath));
+        $this->removeDirectory($expectedAppDirectoryPath);
+    }
+
     public function testRunCreatesNewAppsComponentsPhpFile(): void
     {
         $newApp = new NewApp();
