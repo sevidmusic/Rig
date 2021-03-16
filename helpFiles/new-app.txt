@@ -1,0 +1,19 @@
+
+ `ddms --new-app --name [--domain]`
+
+  Description:
+
+  Creates a new Darling Data Managment System App in the current working directory.
+
+  Arguments:
+
+  --name The name to assign to the new App
+
+  [--domain] The default domain to assign to the new App. Default: http://localhost:8080/
+
+  Examples:
+
+  `ddms --new-app --name "HelloWorld"`
+
+  `ddms --new-app --name "HelloWorld" --domain "http://localhost:8765"`
+
