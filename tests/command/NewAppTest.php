@@ -63,6 +63,22 @@ final class NewAppTest extends TestCase
         $this->removeDirectory($expectedAppDirectoryPath);
     }
 
+    public function testRunCreatesNewAppsDynamicOutputDirectory(): void
+    {
+        $newApp = new NewApp();
+        $ui = new CommandLineUI();
+        $name = 'Foo';
+        $argv = ['--new-app', '--name', $name ];
+        $preparedArguments = $newApp->prepareArguments($argv);
+        ['flags' => $flags] = $preparedArguments;
+        $expectedAppDirectoryPath = $flags['ddms-internal-flag-pwd'][0] . DIRECTORY_SEPARATOR . $name;
+        $expectedDynamicOutputDirectoryPath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'DynamicOutput';
+        $newApp->run($ui, $preparedArguments);
+        $this->assertTrue(file_exists($expectedDynamicOutputDirectoryPath));
+        $this->assertTrue(is_dir($expectedDynamicOutputDirectoryPath));
+        $this->removeDirectory($expectedAppDirectoryPath);
+    }
+
     private function removeDirectory(string $dir): void
     {
         if (is_dir($dir)) {
