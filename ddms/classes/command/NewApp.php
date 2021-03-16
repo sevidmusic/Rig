@@ -20,6 +20,7 @@ class NewApp extends AbstractCommand implements Command
         if(!is_dir($appDirectoryPath)) {
             mkdir($appDirectoryPath);
             mkdir($appDirectoryPath . DIRECTORY_SEPARATOR . 'css');
+            mkdir($appDirectoryPath . DIRECTORY_SEPARATOR . 'js');
         }
         return true;
     }
