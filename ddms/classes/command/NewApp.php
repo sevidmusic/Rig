@@ -17,13 +17,12 @@ class NewApp extends AbstractCommand implements Command
             throw new RuntimeException('  You must specify a name for the new App');
         }
         $appDirectoryPath = $flags['ddms-internal-flag-pwd'][0] . DIRECTORY_SEPARATOR . $flags['name'][0];
-        if(!is_dir($appDirectoryPath)) {
-            $this->createAppsDirectoryStructure($appDirectoryPath);
-            $this->createAppsComponentsPhp($appDirectoryPath, $preparedArguments);
-            return true;
+        if(is_dir($appDirectoryPath)) {
+            throw new RuntimeException('An App named ' .  $flags['name'][0] . ' already exists. Please specify a unique name.');
         }
-        $userInterface->showMessage('An App named ' .  $flags['name'][0] . ' already exists. Please specify a unique name.');
-        return false;
+        $this->createAppsDirectoryStructure($appDirectoryPath);
+        $this->createAppsComponentsPhp($appDirectoryPath, $preparedArguments);
+        return true;
     }
 
     /**
