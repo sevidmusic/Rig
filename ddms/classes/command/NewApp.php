@@ -16,7 +16,11 @@ class NewApp extends AbstractCommand implements Command
         if(!in_array('name', array_keys($flags))) {
             throw new RuntimeException('  You must specify a name for the new App');
         }
-        mkdir($flags['ddms-internal-flag-pwd'][0] . DIRECTORY_SEPARATOR . $flags['name'][0]);
+        $appDirectoryPath = $flags['ddms-internal-flag-pwd'][0] . DIRECTORY_SEPARATOR . $flags['name'][0];
+        if(!is_dir($appDirectoryPath)) {
+            mkdir($appDirectoryPath);
+            mkdir($appDirectoryPath . DIRECTORY_SEPARATOR . 'css');
+        }
         return true;
     }
 
