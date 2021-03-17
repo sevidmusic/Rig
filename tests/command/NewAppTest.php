@@ -20,9 +20,10 @@ final class NewAppTest extends TestCase
 
     public function testRunThrowsRuntimeExceptionIfExpectedPathToNewAppDirectoryIsUnavailable() : void
     {
+        $preparedArguments = $this->getNewApp()->prepareArguments(['--new-app', '--name', $this->getRandomAppName()]);
         $this->expectException(\RuntimeException::class);
-        $this->getNewApp()->run($this->getUserInterface(), $this->getNewApp()->prepareArguments(['--new-app', '--name', 'Foo']));
-        $this->getNewApp()->run($this->getUserInterface(), $this->getNewApp()->prepareArguments(['--new-app', '--name', 'Foo']));
+        $this->getNewApp()->run($this->getUserInterface(), $preparedArguments);
+        $this->getNewApp()->run($this->getUserInterface(), $preparedArguments);
     }
 
     public function testRunCreatesNewAppDirectoryAtPathAssignedTo_ddms_internal_flag_pwd_Flag(): void
@@ -157,6 +158,7 @@ final class NewAppTest extends TestCase
             ),
             file_get_contents($expectedcomponentsPhpFilePath)
         );
+        $this->removeDirectory($this->expectedAppDirectoryPath($preparedArguments));
     }
 
     public function testRunSets_DOMAIN_To_httplocalhost8080_InNewAppsComponentsPhpIf_domain_FlagIsPresentButHasNoArguments(): void
@@ -176,6 +178,7 @@ final class NewAppTest extends TestCase
             ),
             file_get_contents($expectedcomponentsPhpFilePath)
         );
+        $this->removeDirectory($this->expectedAppDirectoryPath($preparedArguments));
     }
 
     public function testRunSets_DOMAIN_To_httplocalhost8080_InNewAppsComponentsPhpIf_domain_FlagIsPresentButFirstArgumentIsNotAValidDomain(): void
@@ -195,6 +198,7 @@ final class NewAppTest extends TestCase
             ),
             file_get_contents($expectedcomponentsPhpFilePath)
         );
+        $this->removeDirectory($this->expectedAppDirectoryPath($preparedArguments));
     }
 
     public function testRunSets_DOMAIN_ToSpecifiedDomainInNewAppsComponentsPhpIf_domain_FlagIsPresentAndFirstArgumentIsAValidDomain(): void
@@ -215,6 +219,7 @@ final class NewAppTest extends TestCase
             ),
             file_get_contents($expectedcomponentsPhpFilePath)
         );
+        $this->removeDirectory($this->expectedAppDirectoryPath($preparedArguments));
     }
 
     /**
@@ -223,7 +228,7 @@ final class NewAppTest extends TestCase
     private function expectedAppDirectoryPath(array $preparedArguments) : string
     {
         ['flags' => $flags] = $preparedArguments;
-        return ($flags['ddms-internal-flag-pwd'][0] ?? DIRECTORY_SEPARATOR . 'tmp') . DIRECTORY_SEPARATOR . ($flags['name'][0] ?? 'BadTestArgToNewAppNameFlagError');
+        return ($flags['ddms-apps-directory-path'][0] ?? DIRECTORY_SEPARATOR . 'tmp') . DIRECTORY_SEPARATOR . ($flags['name'][0] ?? 'BadTestArgToNewAppNameFlagError');
     }
 
     private function removeDirectory(string $dir): void

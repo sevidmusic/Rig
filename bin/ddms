@@ -40,4 +40,5 @@ loadLibrary() {
 
 [[ -z "$(command -v php)" ]] && logErrorMsgAndExit1 "php is not available!"
 
-"$(command -v php)" "$(determineDDMSDirectoryPath)/ddms.php" $@ --ddms-internal-flag-pwd "$(pwd)"
+"$(command -v php)" "$(determineDDMSDirectoryPath)/ddms.php" $@
+

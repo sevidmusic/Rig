@@ -11,6 +11,14 @@
   `ddms --help [FLAG]`
   `ddms --start-server [--port] [--root-dir] [--php-ini] [--open-in-browser]`
   `ddms --view-active-servers`
+  `ddms --new-app --name [--domain]`
+
+  For more information about a specific command use `ddms --help [FLAG]`. For
+  example, to get help information about the --new-app command use either of
+  the following calls to --help:
+
+    `ddms --help --new-app`
+    `ddms --help new-app`
 
   For more information go to:
   https://github.com/sevidmusic/ddms

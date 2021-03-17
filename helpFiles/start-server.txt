@@ -13,7 +13,7 @@
   --port              A port between 8000 and 8999. This flag is optional, defaults
                       to 8080.
 
-  --root-directory    The directory to use as the server's root directory. This flag
+  --root-dir          The directory to use as the server's root directory. This flag
                       is optional, defaults to current directory.
 
   --ini-file          Path to a php.ini file to use to configure php for the server.
