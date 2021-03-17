@@ -24,7 +24,6 @@ final class NewAppTest extends TestCase
         $this->expectException(\RuntimeException::class);
         $this->getNewApp()->run($this->getUserInterface(), $preparedArguments);
         $this->getNewApp()->run($this->getUserInterface(), $preparedArguments);
-        $this->removeDirectory($this->expectedAppDirectoryPath($preparedArguments));
     }
 
     public function testRunCreatesNewAppDirectoryAtPathAssignedTo_ddms_internal_flag_pwd_Flag(): void
