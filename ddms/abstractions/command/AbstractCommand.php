@@ -23,13 +23,25 @@ abstract class AbstractCommand implements Command
     private function validateArguments(array $flagsAndOptions): array
     {
         ['flags' => $flags] = $flagsAndOptions;
-        if(!in_array('ddms-apps-directory-path', array_keys($flags)) || !isset($flags['ddms-apps-directory-path'][0]) || !file_exists($flags['ddms-apps-directory-path'][0])) {
-            $ddmsTmpDirPath = str_replace('ddms' . DIRECTORY_SEPARATOR . 'abstractions' . DIRECTORY_SEPARATOR . 'command', 'tmp', __DIR__);
+        if(!in_array('ddms-apps-directory-path', array_keys($flags)) || !isset($flags['ddms-apps-directory-path'][0]) || !file_exists($flags['ddms-apps-directory-path'][0]) || !is_dir($flags['ddms-apps-directory-path'][0])) {
+            $ddmsTmpDirPath = $this->determineDefaultAppsDirectoryPath($flags);
             $flagsAndOptions['flags']['ddms-apps-directory-path'] = [$ddmsTmpDirPath];
         }
         return $flagsAndOptions;
     }
 
+    /**
+     * @param array<string, array<int, string>> $flags
+     */
+    private function determineDefaultAppsDirectoryPath(array $flags): string
+    {
+        $expectedDarlingDMSAppsDirectory = strval(realpath(str_replace('vendor' . DIRECTORY_SEPARATOR . 'darling' . DIRECTORY_SEPARATOR . 'ddms' . DIRECTORY_SEPARATOR . 'ddms' . DIRECTORY_SEPARATOR . 'abstractions' . DIRECTORY_SEPARATOR .  'command', 'Apps', __DIR__)));
+        $ddmsTmpDirectoryPath = strval(realpath(str_replace('ddms' . DIRECTORY_SEPARATOR . 'abstractions' . DIRECTORY_SEPARATOR . 'command', 'tmp', __DIR__)));
+        if(!in_array('ddms-apps-directory-path', array_keys($flags)) && file_exists($expectedDarlingDMSAppsDirectory) && is_dir($expectedDarlingDMSAppsDirectory)) {
+            return $expectedDarlingDMSAppsDirectory;
+        }
+        return $ddmsTmpDirectoryPath;
+    }
 
     /**
      * @param array<int, string> $argv

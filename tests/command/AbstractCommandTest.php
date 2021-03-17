@@ -48,10 +48,19 @@ final class AbstractCommandTest extends TestCase
         );
     }
 
-    public function testPrepareArgumentsReturnsArrayWhose_ddms_apps_directory_path_FlagsFirstArgumentIsAssignedPathTo_ddms_tmp_DirectoryIf_ddms_apps_directory_path_FlagIsNotSpecified(): void
+    public function testPrepareArgumentsReturnsArrayWhose_ddms_apps_directory_path_FlagsFirstArgumentIsAssignedPathToExpectedDarlingDataManagementSystemAppsDirectoryOr_ddms_tmp_DirectoryIf_ddms_apps_directory_path_FlagIsNotSpecified(): void
     {
+        $expectedDarlingDMSAppsDirectory = strval(realpath(str_replace('vendor' . DIRECTORY_SEPARATOR . 'darling' . DIRECTORY_SEPARATOR . 'ddms' . DIRECTORY_SEPARATOR . 'tests' . DIRECTORY_SEPARATOR .  'command', 'Apps', __DIR__)));
+        $ddmsTmpDirectoryPath = strval(realpath(str_replace('tests' . DIRECTORY_SEPARATOR . 'command', 'tmp', __DIR__)));
+        if(file_exists($expectedDarlingDMSAppsDirectory) && is_dir($expectedDarlingDMSAppsDirectory)) {
+            $this->assertEquals(
+                $expectedDarlingDMSAppsDirectory,
+                $this->getMockCommand()->prepareArguments([])['flags']['ddms-apps-directory-path'][0]
+            );
+            return;
+        }
         $this->assertEquals(
-            realpath(str_replace('tests' . DIRECTORY_SEPARATOR . 'command', 'tmp', __DIR__)),
+            $ddmsTmpDirectoryPath,
             $this->getMockCommand()->prepareArguments([])['flags']['ddms-apps-directory-path'][0]
         );
     }
