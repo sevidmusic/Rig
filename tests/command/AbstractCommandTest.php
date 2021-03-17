@@ -8,34 +8,51 @@ use ddms\abstractions\command\AbstractCommand;
 final class AbstractCommandTest extends TestCase
 {
 
-    public function testPrepareArgumentsReturnsArrayWith_ddms_internal_flag_pwd_FlagPresent(): void
+    public function testPrepareArgumentsReturnsArrayWith_ddms_apps_directory_path_FlagPresent(): void
     {
-        $this->assertTrue(isset($this->getMockCommand()->prepareArguments($this->getMockArray())['flags']['ddms-internal-flag-pwd']));
+        $this->assertTrue(isset($this->getMockCommand()->prepareArguments($this->getMockArray())['flags']['ddms-apps-directory-path']));
     }
 
-    public function testPrepareArgumentsReturnsArrayWhose_ddms_internal_flag_pwd_FlagIsAssignedAtLeastOneArgument(): void
+    public function testPrepareArgumentsReturnsArrayWhose_ddms_apps_directory_path_FlagIsAssignedAtLeastOneArgument(): void
     {
-        $this->assertTrue(isset($this->getMockCommand()->prepareArguments($this->getMockArray())['flags']['ddms-internal-flag-pwd'][0]));
+        $this->assertTrue(isset($this->getMockCommand()->prepareArguments($this->getMockArray())['flags']['ddms-apps-directory-path'][0]));
     }
 
-    public function testPrepareArgumentsReturnsArrayWhose_ddms_internal_flag_pwd_FlagsFirstAssignedArgumentIsAPathToAnExistingDirectory(): void
+    public function testPrepareArgumentsReturnsArrayWhose_ddms_apps_directory_path_FlagsFirstAssignedArgumentIsAPathToAnExistingDirectoryEvenIfFirstSpecifiedArgumentIsNotAPathToAnExistingDirectory(): void
     {
-        $this->assertTrue(file_exists($this->getMockCommand()->prepareArguments(['--ddms-internal-flag-pwd', 'FooBar' . strval(rand(1000,999))])['flags']['ddms-internal-flag-pwd'][0]));
+        $this->assertTrue(file_exists($this->getMockCommand()->prepareArguments(['--ddms-apps-directory-path', 'FooBar' . strval(rand(1000,999))])['flags']['ddms-apps-directory-path'][0]));
+        $this->assertTrue(is_dir($this->getMockCommand()->prepareArguments(['--ddms-apps-directory-path', 'FooBar' . strval(rand(1000,999))])['flags']['ddms-apps-directory-path'][0]));
     }
 
-    public function testPrepareArgumentsReturnsArrayWhose_ddms_internal_flag_pwd_FlagsFirstAssignedArgumentMatchesSpecifiedArgumentIfFirstArgumentIsAPathToAnExistingDirectory(): void
+    public function testPrepareArgumentsReturnsArrayWhose_ddms_apps_directory_path_FlagsFirstAssignedArgumentMatchesSpecifiedArgumentIfSpecifiedArgumentIsAPathToAnExistingDirectory(): void
     {
         $this->assertEquals(
             __DIR__,
-            $this->getMockCommand()->prepareArguments(['--ddms-internal-flag-pwd', __DIR__])['flags']['ddms-internal-flag-pwd'][0]
+            $this->getMockCommand()->prepareArguments(['--ddms-apps-directory-path', __DIR__])['flags']['ddms-apps-directory-path'][0]
         );
     }
 
-    public function testPrepareArgumentsReturnsArrayWhose_ddms_internal_flag_pwd_FlagsFirstArgumentIsAssignedPathTo_ddms_tmp_DirectoryIf_ddms_internal_flag_pwd_FlagsFirstSpecifiedArgumentIsNotAPathToAnExistingDirectory(): void
+    public function testPrepareArgumentsReturnsArrayWhose_ddms_apps_directory_path_FlagsFirstArgumentIsAssignedPathTo_ddms_tmp_DirectoryIfFirstSpecifiedArgumentIsNotAPathToAnExistingDirectory(): void
     {
         $this->assertEquals(
             realpath(str_replace('tests' . DIRECTORY_SEPARATOR . 'command', 'tmp', __DIR__)),
-            $this->getMockCommand()->prepareArguments(['--ddms-internal-flag-pwd', 'FooBar' . strval(rand(1000, 9999))])['flags']['ddms-internal-flag-pwd'][0]
+            $this->getMockCommand()->prepareArguments(['--ddms-apps-directory-path', 'FooBar' . strval(rand(1000, 9999))])['flags']['ddms-apps-directory-path'][0]
+        );
+    }
+
+    public function testPrepareArgumentsReturnsArrayWhose_ddms_apps_directory_path_FlagsFirstArgumentIsAssignedPathTo_ddms_tmp_DirectoryIf_ddms_apps_directory_path_FlagIsSpecifiedWithNoArguments(): void
+    {
+        $this->assertEquals(
+            realpath(str_replace('tests' . DIRECTORY_SEPARATOR . 'command', 'tmp', __DIR__)),
+            $this->getMockCommand()->prepareArguments(['--ddms-apps-directory-path'])['flags']['ddms-apps-directory-path'][0]
+        );
+    }
+
+    public function testPrepareArgumentsReturnsArrayWhose_ddms_apps_directory_path_FlagsFirstArgumentIsAssignedPathTo_ddms_tmp_DirectoryIf_ddms_apps_directory_path_FlagIsNotSpecified(): void
+    {
+        $this->assertEquals(
+            realpath(str_replace('tests' . DIRECTORY_SEPARATOR . 'command', 'tmp', __DIR__)),
+            $this->getMockCommand()->prepareArguments([])['flags']['ddms-apps-directory-path'][0]
         );
     }
 

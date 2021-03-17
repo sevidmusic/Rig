@@ -228,7 +228,7 @@ final class NewAppTest extends TestCase
     private function expectedAppDirectoryPath(array $preparedArguments) : string
     {
         ['flags' => $flags] = $preparedArguments;
-        return ($flags['ddms-internal-flag-pwd'][0] ?? DIRECTORY_SEPARATOR . 'tmp') . DIRECTORY_SEPARATOR . ($flags['name'][0] ?? 'BadTestArgToNewAppNameFlagError');
+        return ($flags['ddms-apps-directory-path'][0] ?? DIRECTORY_SEPARATOR . 'tmp') . DIRECTORY_SEPARATOR . ($flags['name'][0] ?? 'BadTestArgToNewAppNameFlagError');
     }
 
     private function removeDirectory(string $dir): void

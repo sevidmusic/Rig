@@ -16,7 +16,7 @@ class NewApp extends AbstractCommand implements Command
         if(!in_array('name', array_keys($flags))) {
             throw new RuntimeException('  You must specify a name for the new App');
         }
-        $appDirectoryPath = $flags['ddms-internal-flag-pwd'][0] . DIRECTORY_SEPARATOR . $flags['name'][0];
+        $appDirectoryPath = $flags['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $flags['name'][0];
         if(is_dir($appDirectoryPath)) {
             throw new RuntimeException('An App named ' .  $flags['name'][0] . ' already exists. Please specify a unique name.');
         }

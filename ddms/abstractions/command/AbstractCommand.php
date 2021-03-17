@@ -23,9 +23,9 @@ abstract class AbstractCommand implements Command
     private function validateArguments(array $flagsAndOptions): array
     {
         ['flags' => $flags] = $flagsAndOptions;
-        if(!in_array('ddms-internal-flag-pwd', array_keys($flags)) || !isset($flags['ddms-internal-flag-pwd'][0]) || !file_exists($flags['ddms-internal-flag-pwd'][0])) {
+        if(!in_array('ddms-apps-directory-path', array_keys($flags)) || !isset($flags['ddms-apps-directory-path'][0]) || !file_exists($flags['ddms-apps-directory-path'][0])) {
             $ddmsTmpDirPath = str_replace('ddms' . DIRECTORY_SEPARATOR . 'abstractions' . DIRECTORY_SEPARATOR . 'command', 'tmp', __DIR__);
-            $flagsAndOptions['flags']['ddms-internal-flag-pwd'] = [$ddmsTmpDirPath];
+            $flagsAndOptions['flags']['ddms-apps-directory-path'] = [$ddmsTmpDirPath];
         }
         return $flagsAndOptions;
     }
