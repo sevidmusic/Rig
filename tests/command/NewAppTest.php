@@ -11,6 +11,8 @@ final class NewAppTest extends TestCase
 {
     private UserInterface $ui;
     private NewApp $newApp;
+    /** @var array <int, string> $createdApps */
+    private static $createdApps = [];
 
     public function testRunThrowsRuntimeExceptionIf_name_IsNotSpecified() : void
     {
@@ -33,9 +35,8 @@ final class NewAppTest extends TestCase
         $preparedArguments = $this->getNewApp()->prepareArguments($argv);
         ['flags' => $flags] = $preparedArguments;
         $this->getNewApp()->run($this->getUserInterface(), $preparedArguments);
-        $this->assertTrue(file_exists($this->expectedAppDirectoryPath($preparedArguments)));
-        $this->assertTrue(is_dir($this->expectedAppDirectoryPath($preparedArguments)));
-        $this->removeDirectory($this->expectedAppDirectoryPath($preparedArguments));
+        $this->assertTrue(file_exists(self::expectedAppDirectoryPath($preparedArguments)));
+        $this->assertTrue(is_dir(self::expectedAppDirectoryPath($preparedArguments)));
     }
 
     public function testRunCreatesNewAppsCssDirectory(): void
@@ -44,11 +45,10 @@ final class NewAppTest extends TestCase
         $argv = ['--new-app', '--name', $name ];
         $preparedArguments = $this->getNewApp()->prepareArguments($argv);
         ['flags' => $flags] = $preparedArguments;
-        $expectedCssDirectoryPath = $this->expectedAppDirectoryPath($preparedArguments) . DIRECTORY_SEPARATOR . 'css';
+        $expectedCssDirectoryPath = self::expectedAppDirectoryPath($preparedArguments) . DIRECTORY_SEPARATOR . 'css';
         $this->getNewApp()->run($this->getUserInterface(), $preparedArguments);
         $this->assertTrue(file_exists($expectedCssDirectoryPath));
         $this->assertTrue(is_dir($expectedCssDirectoryPath));
-        $this->removeDirectory($this->expectedAppDirectoryPath($preparedArguments));
     }
 
     public function testRunCreatesNewAppsJsDirectory(): void
@@ -57,11 +57,10 @@ final class NewAppTest extends TestCase
         $argv = ['--new-app', '--name', $name ];
         $preparedArguments = $this->getNewApp()->prepareArguments($argv);
         ['flags' => $flags] = $preparedArguments;
-        $expectedJsDirectoryPath = $this->expectedAppDirectoryPath($preparedArguments) . DIRECTORY_SEPARATOR . 'js';
+        $expectedJsDirectoryPath = self::expectedAppDirectoryPath($preparedArguments) . DIRECTORY_SEPARATOR . 'js';
         $this->getNewApp()->run($this->getUserInterface(), $preparedArguments);
         $this->assertTrue(file_exists($expectedJsDirectoryPath));
         $this->assertTrue(is_dir($expectedJsDirectoryPath));
-        $this->removeDirectory($this->expectedAppDirectoryPath($preparedArguments));
     }
 
     public function testRunCreatesNewAppsDynamicOutputDirectory(): void
@@ -70,11 +69,10 @@ final class NewAppTest extends TestCase
         $argv = ['--new-app', '--name', $name ];
         $preparedArguments = $this->getNewApp()->prepareArguments($argv);
         ['flags' => $flags] = $preparedArguments;
-        $expectedDynamicOutputDirectoryPath = $this->expectedAppDirectoryPath($preparedArguments) . DIRECTORY_SEPARATOR . 'DynamicOutput';
+        $expectedDynamicOutputDirectoryPath = self::expectedAppDirectoryPath($preparedArguments) . DIRECTORY_SEPARATOR . 'DynamicOutput';
         $this->getNewApp()->run($this->getUserInterface(), $preparedArguments);
         $this->assertTrue(file_exists($expectedDynamicOutputDirectoryPath));
         $this->assertTrue(is_dir($expectedDynamicOutputDirectoryPath));
-        $this->removeDirectory($this->expectedAppDirectoryPath($preparedArguments));
     }
 
     public function testRunCreatesNewAppsResourcesDirectory(): void
@@ -83,11 +81,10 @@ final class NewAppTest extends TestCase
         $argv = ['--new-app', '--name', $name ];
         $preparedArguments = $this->getNewApp()->prepareArguments($argv);
         ['flags' => $flags] = $preparedArguments;
-        $expectedresourcesDirectoryPath = $this->expectedAppDirectoryPath($preparedArguments) . DIRECTORY_SEPARATOR . 'resources';
+        $expectedresourcesDirectoryPath = self::expectedAppDirectoryPath($preparedArguments) . DIRECTORY_SEPARATOR . 'resources';
         $this->getNewApp()->run($this->getUserInterface(), $preparedArguments);
         $this->assertTrue(file_exists($expectedresourcesDirectoryPath));
         $this->assertTrue(is_dir($expectedresourcesDirectoryPath));
-        $this->removeDirectory($this->expectedAppDirectoryPath($preparedArguments));
     }
 
     public function testRunCreatesNewAppsResponsesDirectory(): void
@@ -96,11 +93,10 @@ final class NewAppTest extends TestCase
         $argv = ['--new-app', '--name', $name ];
         $preparedArguments = $this->getNewApp()->prepareArguments($argv);
         ['flags' => $flags] = $preparedArguments;
-        $expectedresponsesDirectoryPath = $this->expectedAppDirectoryPath($preparedArguments) . DIRECTORY_SEPARATOR . 'Responses';
+        $expectedresponsesDirectoryPath = self::expectedAppDirectoryPath($preparedArguments) . DIRECTORY_SEPARATOR . 'Responses';
         $this->getNewApp()->run($this->getUserInterface(), $preparedArguments);
         $this->assertTrue(file_exists($expectedresponsesDirectoryPath));
         $this->assertTrue(is_dir($expectedresponsesDirectoryPath));
-        $this->removeDirectory($this->expectedAppDirectoryPath($preparedArguments));
     }
 
     public function testRunCreatesNewAppsRequestsDirectory(): void
@@ -109,11 +105,10 @@ final class NewAppTest extends TestCase
         $argv = ['--new-app', '--name', $name ];
         $preparedArguments = $this->getNewApp()->prepareArguments($argv);
         ['flags' => $flags] = $preparedArguments;
-        $expectedrequestsDirectoryPath = $this->expectedAppDirectoryPath($preparedArguments) . DIRECTORY_SEPARATOR . 'Requests';
+        $expectedrequestsDirectoryPath = self::expectedAppDirectoryPath($preparedArguments) . DIRECTORY_SEPARATOR . 'Requests';
         $this->getNewApp()->run($this->getUserInterface(), $preparedArguments);
         $this->assertTrue(file_exists($expectedrequestsDirectoryPath));
         $this->assertTrue(is_dir($expectedrequestsDirectoryPath));
-        $this->removeDirectory($this->expectedAppDirectoryPath($preparedArguments));
     }
 
     public function testRunCreatesNewAppsOutputComponentsDirectory(): void
@@ -122,11 +117,10 @@ final class NewAppTest extends TestCase
         $argv = ['--new-app', '--name', $name ];
         $preparedArguments = $this->getNewApp()->prepareArguments($argv);
         ['flags' => $flags] = $preparedArguments;
-        $expectedoutputComponentsDirectoryPath = $this->expectedAppDirectoryPath($preparedArguments) . DIRECTORY_SEPARATOR . 'OutputComponents';
+        $expectedoutputComponentsDirectoryPath = self::expectedAppDirectoryPath($preparedArguments) . DIRECTORY_SEPARATOR . 'OutputComponents';
         $this->getNewApp()->run($this->getUserInterface(), $preparedArguments);
         $this->assertTrue(file_exists($expectedoutputComponentsDirectoryPath));
         $this->assertTrue(is_dir($expectedoutputComponentsDirectoryPath));
-        $this->removeDirectory($this->expectedAppDirectoryPath($preparedArguments));
     }
 
     public function testRunCreatesNewAppsComponentsPhpFile(): void
@@ -135,19 +129,18 @@ final class NewAppTest extends TestCase
         $argv = ['--new-app', '--name', $name ];
         $preparedArguments = $this->getNewApp()->prepareArguments($argv);
         ['flags' => $flags] = $preparedArguments;
-        $expectedcomponentsPhpFilePath = $this->expectedAppDirectoryPath($preparedArguments) . DIRECTORY_SEPARATOR . 'Components.php';
+        $expectedcomponentsPhpFilePath = self::expectedAppDirectoryPath($preparedArguments) . DIRECTORY_SEPARATOR . 'Components.php';
         $this->getNewApp()->run($this->getUserInterface(), $preparedArguments);
         $this->assertTrue(file_exists($expectedcomponentsPhpFilePath));
-        $this->removeDirectory($this->expectedAppDirectoryPath($preparedArguments));
     }
 
     public function testRunSets_DOMAIN_To_httplocalhost8080_InNewAppsComponentsPhpIf_domain_FlagIsNotPresent(): void
     {
-        $name = 'Foo' . strval(rand(1000,9999));
+        $name = $this->getRandomAppName();
         $argv = ['--new-app', '--name', $name ];
         $preparedArguments = $this->getNewApp()->prepareArguments($argv);
         ['flags' => $flags] = $preparedArguments;
-        $expectedcomponentsPhpFilePath = $this->expectedAppDirectoryPath($preparedArguments) . DIRECTORY_SEPARATOR . 'Components.php';
+        $expectedcomponentsPhpFilePath = self::expectedAppDirectoryPath($preparedArguments) . DIRECTORY_SEPARATOR . 'Components.php';
         $expectedComponentsPhpFileTemplatePath = str_replace('tests' . DIRECTORY_SEPARATOR . 'command', 'FileTemplates', __DIR__) . DIRECTORY_SEPARATOR . 'Components.php';
         $this->getNewApp()->run($this->getUserInterface(), $preparedArguments);
         $this->assertEquals(
@@ -158,16 +151,15 @@ final class NewAppTest extends TestCase
             ),
             file_get_contents($expectedcomponentsPhpFilePath)
         );
-        $this->removeDirectory($this->expectedAppDirectoryPath($preparedArguments));
     }
 
     public function testRunSets_DOMAIN_To_httplocalhost8080_InNewAppsComponentsPhpIf_domain_FlagIsPresentButHasNoArguments(): void
     {
-        $name = 'Foo' . strval(rand(1000,9999));
+        $name = $this->getRandomAppName();
         $argv = ['--new-app', '--name', $name, '--domain'];
         $preparedArguments = $this->getNewApp()->prepareArguments($argv);
         ['flags' => $flags] = $preparedArguments;
-        $expectedcomponentsPhpFilePath = $this->expectedAppDirectoryPath($preparedArguments) . DIRECTORY_SEPARATOR . 'Components.php';
+        $expectedcomponentsPhpFilePath = self::expectedAppDirectoryPath($preparedArguments) . DIRECTORY_SEPARATOR . 'Components.php';
         $expectedComponentsPhpFileTemplatePath = str_replace('tests' . DIRECTORY_SEPARATOR . 'command', 'FileTemplates', __DIR__) . DIRECTORY_SEPARATOR . 'Components.php';
         $this->getNewApp()->run($this->getUserInterface(), $preparedArguments);
         $this->assertEquals(
@@ -178,16 +170,15 @@ final class NewAppTest extends TestCase
             ),
             file_get_contents($expectedcomponentsPhpFilePath)
         );
-        $this->removeDirectory($this->expectedAppDirectoryPath($preparedArguments));
     }
 
     public function testRunSets_DOMAIN_To_httplocalhost8080_InNewAppsComponentsPhpIf_domain_FlagIsPresentButFirstArgumentIsNotAValidDomain(): void
     {
-        $name = 'Foo' . strval(rand(1000,9999));
+        $name = $this->getRandomAppName();
         $argv = ['--new-app', '--name', $name, '--domain', 'FooBar' . strval(rand(1000, 9999))];
         $preparedArguments = $this->getNewApp()->prepareArguments($argv);
         ['flags' => $flags] = $preparedArguments;
-        $expectedcomponentsPhpFilePath = $this->expectedAppDirectoryPath($preparedArguments) . DIRECTORY_SEPARATOR . 'Components.php';
+        $expectedcomponentsPhpFilePath = self::expectedAppDirectoryPath($preparedArguments) . DIRECTORY_SEPARATOR . 'Components.php';
         $expectedComponentsPhpFileTemplatePath = str_replace('tests' . DIRECTORY_SEPARATOR . 'command', 'FileTemplates', __DIR__) . DIRECTORY_SEPARATOR . 'Components.php';
         $this->getNewApp()->run($this->getUserInterface(), $preparedArguments);
         $this->assertEquals(
@@ -198,17 +189,16 @@ final class NewAppTest extends TestCase
             ),
             file_get_contents($expectedcomponentsPhpFilePath)
         );
-        $this->removeDirectory($this->expectedAppDirectoryPath($preparedArguments));
     }
 
     public function testRunSets_DOMAIN_ToSpecifiedDomainInNewAppsComponentsPhpIf_domain_FlagIsPresentAndFirstArgumentIsAValidDomain(): void
     {
-        $name = 'Foo' . strval(rand(1000,9999));
+        $name = $this->getRandomAppName();
         $domain = 'http://localhost:' . strval(rand(8000, 8999));
         $argv = ['--new-app', '--name', $name, '--domain', $domain];
         $preparedArguments = $this->getNewApp()->prepareArguments($argv);
         ['flags' => $flags] = $preparedArguments;
-        $expectedcomponentsPhpFilePath = $this->expectedAppDirectoryPath($preparedArguments) . DIRECTORY_SEPARATOR . 'Components.php';
+        $expectedcomponentsPhpFilePath = self::expectedAppDirectoryPath($preparedArguments) . DIRECTORY_SEPARATOR . 'Components.php';
         $expectedComponentsPhpFileTemplatePath = str_replace('tests' . DIRECTORY_SEPARATOR . 'command', 'FileTemplates', __DIR__) . DIRECTORY_SEPARATOR . 'Components.php';
         $this->getNewApp()->run($this->getUserInterface(), $preparedArguments);
         $this->assertEquals(
@@ -219,19 +209,19 @@ final class NewAppTest extends TestCase
             ),
             file_get_contents($expectedcomponentsPhpFilePath)
         );
-        $this->removeDirectory($this->expectedAppDirectoryPath($preparedArguments));
     }
 
     /**
      * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
      */
-    private function expectedAppDirectoryPath(array $preparedArguments) : string
+    private static function expectedAppDirectoryPath(array $preparedArguments) : string
     {
         ['flags' => $flags] = $preparedArguments;
-        return ($flags['ddms-apps-directory-path'][0] ?? DIRECTORY_SEPARATOR . 'tmp') . DIRECTORY_SEPARATOR . ($flags['name'][0] ?? 'BadTestArgToNewAppNameFlagError');
+        $path = ($flags['ddms-apps-directory-path'][0] ?? DIRECTORY_SEPARATOR . 'tmp') . DIRECTORY_SEPARATOR . ($flags['name'][0] ?? 'BadTestArgToNewAppNameFlagError');
+        return $path;
     }
 
-    private function removeDirectory(string $dir): void
+    private static function removeDirectory(string $dir): void
     {
         if (is_dir($dir)) {
             $contents = scandir($dir);
@@ -240,7 +230,7 @@ final class NewAppTest extends TestCase
                 if ($item != "." && $item != "..") {
                     $itemPath = $dir . DIRECTORY_SEPARATOR . $item;
                     (is_dir($itemPath) === true && is_link($itemPath) === false)
-                        ? $this->removeDirectory($itemPath)
+                        ? self::removeDirectory($itemPath)
                         : unlink($itemPath);
                 }
             }
@@ -264,8 +254,25 @@ final class NewAppTest extends TestCase
         return $this->ui;
     }
 
+    public static function registerAppName(string $appName): void
+    {
+        array_push(self::$createdApps, $appName);
+    }
+
     private function getRandomAppName(): string
     {
-        return 'App' . strval(rand(1000,9999));
+        $appName = 'App' . strval(rand(1000,9999));
+        self::registerAppName($appName);
+        return $appName;
     }
+
+    public static function tearDownAfterClass(): void
+    {
+        $newApp = new NewApp();
+        foreach(self::$createdApps as $appName) {
+            $preparedArguments = $newApp->prepareArguments(['--name', $appName]);
+            self::removeDirectory(self::expectedAppDirectoryPath($preparedArguments));
+        }
+    }
+
 }
