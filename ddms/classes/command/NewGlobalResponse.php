@@ -17,14 +17,6 @@ class NewGlobalResponse extends AbstractCommand implements Command
     }
 
     /**
-     * @param array <string, array<int, string>> $flags
-     */
-    private function determineAppDirectoryPath(array $flags): string
-    {
-        return  $flags['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $flags['for-app'][0];
-    }
-
-    /**
      * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
      * @return array{"flags": array<string, array<int, string>>, "options": array<int, string>}
      */
@@ -42,5 +34,14 @@ class NewGlobalResponse extends AbstractCommand implements Command
         }
         return $preparedArguments;
     }
+
+    /**
+     * @param array <string, array<int, string>> $flags
+     */
+    private function determineAppDirectoryPath(array $flags): string
+    {
+        return  $flags['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $flags['for-app'][0];
+    }
+
 
 }
