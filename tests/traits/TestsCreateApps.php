@@ -46,7 +46,7 @@ trait TestsCreateApps
 
     protected static function getRandomAppName(): string
     {
-        $appName = 'App' . strval(rand(1000,9999));
+        $appName = 'App' . strval(rand(0, PHP_INT_MAX));
         self::registerAppName($appName);
         return $appName;
     }
