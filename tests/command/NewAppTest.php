@@ -28,7 +28,7 @@ final class NewAppTest extends TestCase
         $this->getNewApp()->run($this->getUserInterface(), $preparedArguments);
     }
 
-    public function testRunCreatesNewAppDirectoryAtPathAssignedTo_ddms_internal_flag_pwd_Flag(): void
+    public function testRunCreatesNewAppDirectoryAtPathAssignedTo_ddms_apps_directory_path_Flag(): void
     {
         $name = $this->getRandomAppName();
         $argv = ['--new-app', '--name', $name ];
