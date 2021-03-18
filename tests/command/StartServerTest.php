@@ -247,6 +247,9 @@ final class StartServerTest extends TestCase
         );
     }
 
-
+    public static function tearDownAfterClass(): void
+    {
+        var_dump(shell_exec('/usr/bin/killall firefox'));
+    }
 
 }
