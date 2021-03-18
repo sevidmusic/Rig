@@ -12,11 +12,7 @@ class NewGlobalResponse extends AbstractCommand implements Command
 
     public function run(UserInterface $userInterface, array $preparedArguments = ['flags' => [], 'options' => []]): bool
     {
-        $this->validateArguments($preparedArguments);
-        ['flags' => $flags] = $preparedArguments;
-        if(!file_exists($this->determineAppDirectoryPath($flags)) || !is_dir($this->determineAppDirectoryPath($flags))) {
-            throw new RuntimeException('  An App does not exist at' . $this->determineAppDirectoryPath($flags));
-        }
+        ['flags' => $flags] = $this->validateArguments($preparedArguments);
         return true;
     }
 
@@ -30,8 +26,9 @@ class NewGlobalResponse extends AbstractCommand implements Command
 
     /**
      * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
+     * @return array{"flags": array<string, array<int, string>>, "options": array<int, string>}
      */
-    private function validateArguments(array $preparedArguments): void
+    private function validateArguments(array $preparedArguments): array
     {
         ['flags' => $flags] = $preparedArguments;
         if(!isset($flags['name'][0])) {
@@ -40,6 +37,10 @@ class NewGlobalResponse extends AbstractCommand implements Command
         if(!isset($flags['for-app'][0])) {
             throw new RuntimeException('  Please specify the name of the App to create the new GlobalResponse for');
         }
+        if(!file_exists($this->determineAppDirectoryPath($flags)) || !is_dir($this->determineAppDirectoryPath($flags))) {
+            throw new RuntimeException('  An App does not exist at' . $this->determineAppDirectoryPath($flags));
+        }
+        return $preparedArguments;
     }
 
 }
