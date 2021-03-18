@@ -211,6 +211,22 @@ final class NewAppTest extends TestCase
         );
     }
 
+    private function getNewApp(): NewApp
+    {
+        if(!isset($this->newApp)) {
+            $this->newApp = new NewApp();
+        }
+        return $this->newApp;
+    }
+
+    private function getUserInterface(): UserInterface
+    {
+        if(!isset($this->ui)) {
+            $this->ui = new CommandLineUI();
+        }
+        return $this->ui;
+    }
+
     /**
      * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
      */
@@ -238,28 +254,12 @@ final class NewAppTest extends TestCase
         }
     }
 
-    private function getNewApp(): NewApp
-    {
-        if(!isset($this->newApp)) {
-            $this->newApp = new NewApp();
-        }
-        return $this->newApp;
-    }
-
-    private function getUserInterface(): UserInterface
-    {
-        if(!isset($this->ui)) {
-            $this->ui = new CommandLineUI();
-        }
-        return $this->ui;
-    }
-
     public static function registerAppName(string $appName): void
     {
         array_push(self::$createdApps, $appName);
     }
 
-    private function getRandomAppName(): string
+    private static function getRandomAppName(): string
     {
         $appName = 'App' . strval(rand(1000,9999));
         self::registerAppName($appName);
