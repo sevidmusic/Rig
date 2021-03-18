@@ -254,7 +254,7 @@ final class NewAppTest extends TestCase
         }
     }
 
-    public static function registerAppName(string $appName): void
+    private static function registerAppName(string $appName): void
     {
         array_push(self::$createdApps, $appName);
     }
