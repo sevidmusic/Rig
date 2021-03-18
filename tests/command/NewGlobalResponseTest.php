@@ -7,9 +7,12 @@ use ddms\classes\command\NewGlobalResponse;
 use ddms\classes\ui\CommandLineUI;
 use ddms\interfaces\ui\UserInterface;
 use \RuntimeException;
+use tests\traits\TestsCreateApps;
 
 final class NewGlobalResponseTest extends TestCase
 {
+
+    use TestsCreateApps;
 
     public function testRunThrowsRuntimeExceptionIf_name_IsNotSpecified(): void
     {
