@@ -6,13 +6,14 @@ use PHPUnit\Framework\TestCase;
 use ddms\classes\command\NewApp;
 use ddms\classes\ui\CommandLineUI;
 use ddms\interfaces\ui\UserInterface;
+use tests\traits\TestsCreateApps;
 
 final class NewAppTest extends TestCase
 {
+
+    use TestsCreateApps;
     private UserInterface $ui;
     private NewApp $newApp;
-    /** @var array <int, string> $createdApps */
-    private static $createdApps = [];
 
     public function testRunThrowsRuntimeExceptionIf_name_IsNotSpecified() : void
     {
@@ -225,54 +226,6 @@ final class NewAppTest extends TestCase
             $this->ui = new CommandLineUI();
         }
         return $this->ui;
-    }
-
-    /**
-     * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
-     */
-    private static function expectedAppDirectoryPath(array $preparedArguments) : string
-    {
-        ['flags' => $flags] = $preparedArguments;
-        $path = ($flags['ddms-apps-directory-path'][0] ?? DIRECTORY_SEPARATOR . 'tmp') . DIRECTORY_SEPARATOR . ($flags['name'][0] ?? 'BadTestArgToNewAppNameFlagError');
-        return $path;
-    }
-
-    private static function removeDirectory(string $dir): void
-    {
-        if (is_dir($dir)) {
-            $contents = scandir($dir);
-            $contents = (is_array($contents) ? $contents : []);
-            foreach ($contents as $item) {
-                if ($item != "." && $item != "..") {
-                    $itemPath = $dir . DIRECTORY_SEPARATOR . $item;
-                    (is_dir($itemPath) === true && is_link($itemPath) === false)
-                        ? self::removeDirectory($itemPath)
-                        : unlink($itemPath);
-                }
-            }
-            rmdir($dir);
-        }
-    }
-
-    private static function registerAppName(string $appName): void
-    {
-        array_push(self::$createdApps, $appName);
-    }
-
-    private static function getRandomAppName(): string
-    {
-        $appName = 'App' . strval(rand(1000,9999));
-        self::registerAppName($appName);
-        return $appName;
-    }
-
-    public static function tearDownAfterClass(): void
-    {
-        $newApp = new NewApp();
-        foreach(self::$createdApps as $appName) {
-            $preparedArguments = $newApp->prepareArguments(['--name', $appName]);
-            self::removeDirectory(self::expectedAppDirectoryPath($preparedArguments));
-        }
     }
 
 }
