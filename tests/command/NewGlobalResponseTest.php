@@ -76,10 +76,7 @@ final class NewGlobalResponseTest extends TestCase
 
     public function testRunThrowsRuntimeExceptionIfSpecifiedPositionIsNotNumeric(): void
     {
-        $appName = self::getRandomAppName();
-        $newApp = new NewApp();
-        $newAppPreparedArguments = $newApp->prepareArguments(['--name', $appName]);
-        $newApp->run(new CommandLineUI(), $newAppPreparedArguments);
+        $appName = $this->createTestAppReturnName();
         $responseName = $appName . 'GlobalResponse';
         $newGlobalResponse = new NewGlobalResponse();
         $this->expectException(RuntimeException::class);
