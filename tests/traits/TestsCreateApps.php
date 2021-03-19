@@ -18,7 +18,7 @@ trait TestsCreateApps
     protected static function expectedAppDirectoryPath(array $preparedArguments) : string
     {
         ['flags' => $flags] = $preparedArguments;
-        $path = ($flags['ddms-apps-directory-path'][0] ?? DIRECTORY_SEPARATOR . 'tmp') . DIRECTORY_SEPARATOR . ($flags['name'][0] ?? 'BadTestArgToNewAppNameFlagError');
+        $path = ($flags['ddms-apps-directory-path'][0] ?? DIRECTORY_SEPARATOR . 'tmp') . DIRECTORY_SEPARATOR . ($flags['for-app'][0] ?? ($flags['name'][0] ?? 'BadTestArgToNewAppNameFlagError'));
         return $path;
     }
 

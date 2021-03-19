@@ -14,6 +14,7 @@ class NewGlobalResponse extends AbstractCommand implements Command
     {
         ['flags' => $flags] = $this->validateArguments($preparedArguments);
         $template = strval(file_get_contents($this->pathToGlobalResponseTemplate()));
+#var_dump(($flags['position'][0] ?? 'No Position Set'));
         $content = str_replace(['_NAME_', '_POSITION_'], [$flags['name'][0], ($flags['position'][0] ?? '0')], $template);
         return boolval(file_put_contents($this->pathToNewGlobalResponse($flags), $content));
     }
@@ -51,6 +52,9 @@ class NewGlobalResponse extends AbstractCommand implements Command
         }
         if(!file_exists($this->determineAppDirectoryPath($flags)) || !is_dir($this->determineAppDirectoryPath($flags))) {
             throw new RuntimeException('  An App does not exist at' . $this->determineAppDirectoryPath($flags));
+        }
+        if(isset($flags['position'][0]) && !is_numeric($flags['position'][0])) {
+            throw new RuntimeException('  Please specify a numeric position for the new GlobalResponse. For example `--position 1`.');
         }
         return $preparedArguments;
     }

@@ -38,21 +38,86 @@ final class NewGlobalResponseTest extends TestCase
 
     public function testRunCreatesNewGlobalResponseForSpecifiedApp(): void
     {
+        $appName = $this->createTestAppReturnName();
+        $responseName = $appName . 'GlobalResponse';
+        $newGlobalResponse = new NewGlobalResponse();
+        $preparedArguments = $newGlobalResponse->prepareArguments(['--name', $responseName, '--for-app', $appName]);
+        $newGlobalResponse->run(new CommandLineUI(), $preparedArguments);
+        $this->assertTrue(file_exists($this->expectedGlobalResponsePath($preparedArguments)));
+    }
+
+    public function testRunSetsPositionTo_0_IfPositionIsNotSpecified(): void
+    {
+        $appName = $this->createTestAppReturnName();
+        $responseName = $appName . 'GlobalResponse';
+        $newGlobalResponse = new NewGlobalResponse();
+        $preparedArguments = $newGlobalResponse->prepareArguments(['--name', $responseName, '--for-app', $appName]);
+        $newGlobalResponse->run(new CommandLineUI(), $preparedArguments);
+        $this->assertEquals($this->determineExpectedGlobalResponsePhpContent($preparedArguments), $this->getNewGlobalResponseContent($preparedArguments));
+    }
+
+    /**
+     * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
+     */
+    private function getNewGlobalResponseContent($preparedArguments): string
+    {
+        return strval(file_get_contents($this->expectedGlobalResponsePath($preparedArguments)));
+    }
+
+    public function testRunSetsPositionTo_0_IfPositionIsSpecifiedWithNoValue(): void
+    {
+        $appName = $this->createTestAppReturnName();
+        $responseName = $appName . 'GlobalResponse';
+        $newGlobalResponse = new NewGlobalResponse();
+        $preparedArguments = $newGlobalResponse->prepareArguments(['--name', $responseName, '--for-app', $appName, '--position']);
+        $newGlobalResponse->run(new CommandLineUI(), $preparedArguments);
+        $this->assertEquals($this->determineExpectedGlobalResponsePhpContent($preparedArguments), file_get_contents($this->expectedGlobalResponsePath($preparedArguments)));
+    }
+
+    public function testRunThrowsRuntimeExceptionIfSpecifiedPositionIsNotNumeric(): void
+    {
         $appName = self::getRandomAppName();
         $newApp = new NewApp();
         $newAppPreparedArguments = $newApp->prepareArguments(['--name', $appName]);
         $newApp->run(new CommandLineUI(), $newAppPreparedArguments);
         $responseName = $appName . 'GlobalResponse';
         $newGlobalResponse = new NewGlobalResponse();
-        $newGlobalResponse->run(new CommandLineUI(), $newGlobalResponse->prepareArguments(['--name', $responseName, '--for-app', $appName]));
-        $this->assertTrue(file_exists($this->expectedGlobalResponsePath($newAppPreparedArguments, $responseName)));
+        $this->expectException(RuntimeException::class);
+        $newGlobalResponse->run(new CommandLineUI(), $newGlobalResponse->prepareArguments(['--name', $responseName, '--for-app', $appName, '--position', 'FooBarBaz']));
+    }
+/*
+    public function testRunSetsPositionToSpecifiedPositionIfSpecifiedPositionIsNumeric(): void
+    {
+    }
+*/
+    /**
+     * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
+     */
+    private function expectedGlobalResponsePath(array $preparedArguments): string
+    {
+        return self::expectedAppDirectoryPath($preparedArguments) . DIRECTORY_SEPARATOR . 'Responses' . DIRECTORY_SEPARATOR . $preparedArguments['flags']['name'][0] . '.php';
+    }
+
+    private function createTestAppReturnName(): string
+    {
+        $appName = self::getRandomAppName();
+        $newApp = new NewApp();
+        $newAppPreparedArguments = $newApp->prepareArguments(['--name', $appName]);
+        $newApp->run(new CommandLineUI(), $newAppPreparedArguments);
+        return $appName;
     }
 
     /**
      * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
      */
-    private function expectedGlobalResponsePath(array $preparedArguments, string $responseName): string
+    private function determineExpectedGlobalResponsePhpContent(array $preparedArguments): string
     {
-        return self::expectedAppDirectoryPath($preparedArguments) . DIRECTORY_SEPARATOR . 'Responses' . DIRECTORY_SEPARATOR . $responseName . '.php';
+        return str_replace(['_NAME_', '_POSITION_'], [$preparedArguments['flags']['name'][0], ($preparedArguments['flags']['position'][0] ?? '0')], strval(file_get_contents($this->expectedTemplateFilePath())));
     }
+
+    private function expectedTemplateFilePath(): string
+    {
+        return str_replace('tests' . DIRECTORY_SEPARATOR . 'command', 'FileTemplates', __DIR__) . DIRECTORY_SEPARATOR . 'GlobalResponse.php';
+    }
+
 }
