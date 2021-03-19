@@ -247,9 +247,4 @@ final class StartServerTest extends TestCase
         );
     }
 
-    public static function tearDownAfterClass(): void
-    {
-        exec('/usr/bin/killall firefox');
-    }
-
 }
