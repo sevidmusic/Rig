@@ -74,11 +74,16 @@ final class NewGlobalResponseTest extends TestCase
         $this->expectException(RuntimeException::class);
         $newGlobalResponse->run(new CommandLineUI(), $newGlobalResponse->prepareArguments(['--name', $responseName, '--for-app', $appName, '--position', 'FooBarBaz']));
     }
-/*
+
     public function testRunSetsPositionToSpecifiedPositionIfSpecifiedPositionIsNumeric(): void
     {
+        $appName = $this->createTestAppReturnName();
+        $responseName = $appName . 'GlobalResponse';
+        $newGlobalResponse = new NewGlobalResponse();
+        $preparedArguments = $newGlobalResponse->prepareArguments(['--name', $responseName, '--for-app', $appName, '--position', '420']);
+        $newGlobalResponse->run(new CommandLineUI(), $preparedArguments);
+        $this->assertEquals($this->determineExpectedGlobalResponsePhpContent($preparedArguments), file_get_contents($this->expectedGlobalResponsePath($preparedArguments)));
     }
-*/
 
     /**
      * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
