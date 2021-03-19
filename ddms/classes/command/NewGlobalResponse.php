@@ -13,7 +13,27 @@ class NewGlobalResponse extends AbstractCommand implements Command
     public function run(UserInterface $userInterface, array $preparedArguments = ['flags' => [], 'options' => []]): bool
     {
         ['flags' => $flags] = $this->validateArguments($preparedArguments);
-        return true;
+        $template = strval(file_get_contents($this->pathToGlobalResponseTemplate()));
+        $content = str_replace(['_NAME_', '_POSITION_'], [$flags['name'][0], ($flags['position'][0] ?? '0')], $template);
+        return boolval(file_put_contents($this->pathToNewGlobalResponse($flags), $content));
+    }
+
+    private function pathToGlobalResponseTemplate(): string
+    {
+        $templatePath = str_replace('ddms' . DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR . 'command', 'FileTemplates', __DIR__) . DIRECTORY_SEPARATOR . 'GlobalResponse.php';
+        if(!file_exists($templatePath)) {
+            throw new RuntimeException('Error: The GlobalResponse.php file template is missing! You will not be able to create new GlobalResponses until the GlobalResponse.php template is restored at FileTemplates/GlobalResponse.php');
+        }
+        return $templatePath;
+
+    }
+
+    /**
+     * @param array<string,array<int,string>> $flags
+     */
+    private function pathToNewGlobalResponse(array $flags): string
+    {
+        return $flags['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $flags['for-app'][0] . DIRECTORY_SEPARATOR . 'Responses' . DIRECTORY_SEPARATOR . $flags['name'][0] . '.php';
     }
 
     /**
