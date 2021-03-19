@@ -56,14 +56,6 @@ final class NewGlobalResponseTest extends TestCase
         $this->assertEquals($this->determineExpectedGlobalResponsePhpContent($preparedArguments), $this->getNewGlobalResponseContent($preparedArguments));
     }
 
-    /**
-     * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
-     */
-    private function getNewGlobalResponseContent($preparedArguments): string
-    {
-        return strval(file_get_contents($this->expectedGlobalResponsePath($preparedArguments)));
-    }
-
     public function testRunSetsPositionTo_0_IfPositionIsSpecifiedWithNoValue(): void
     {
         $appName = $this->createTestAppReturnName();
@@ -87,6 +79,15 @@ final class NewGlobalResponseTest extends TestCase
     {
     }
 */
+
+    /**
+     * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
+     */
+    private function getNewGlobalResponseContent($preparedArguments): string
+    {
+        return strval(file_get_contents($this->expectedGlobalResponsePath($preparedArguments)));
+    }
+
     /**
      * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
      */
