@@ -46,6 +46,9 @@ class NewGlobalResponse extends AbstractCommand implements Command
         if(!isset($flags['name'][0])) {
             throw new RuntimeException('  Please specify a name for the new GlobalResponse.');
         }
+        if(!ctype_alnum($flags['name'][0])) {
+            throw new RuntimeException('  Please specify an alphanumeric name for the new GlobalResponse.');
+        }
         if(!isset($flags['for-app'][0])) {
             throw new RuntimeException('  Please specify the name of the App to create the new GlobalResponse for');
         }

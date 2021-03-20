@@ -96,6 +96,17 @@ final class NewGlobalResponseTest extends TestCase
         $newGlobalResponse->run(new CommandLineUI(), $preparedArguments);
     }
 
+    public function testRunThrowsRuntimeExpceptionIfSpecifiedNameIsNotAlphaNumeric(): void
+    {
+        #ctype_alnum($string)
+        $appName = $this->createTestAppReturnName();
+        $responseName = $appName . 'GlobalResponse';
+        $newGlobalResponse = new NewGlobalResponse();
+        $preparedArguments = $newGlobalResponse->prepareArguments(['--name', $responseName . '_-_FOO', '--for-app', $appName]);
+        $this->expectException(RuntimeException::class);
+        $newGlobalResponse->run(new CommandLineUI(), $preparedArguments);
+    }
+
     /**
      * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
      */
