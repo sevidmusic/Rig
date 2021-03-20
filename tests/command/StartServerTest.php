@@ -247,6 +247,4 @@ final class StartServerTest extends TestCase
         );
     }
 
-
-
 }

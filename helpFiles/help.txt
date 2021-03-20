@@ -1,17 +1,28 @@
 
-  `ddms [--help] [--start-server] [--view-active-servers]`
+  ```
+    ddms [--help] [--start-server] [--view-active-servers] [--new-app]
+         [--new-global-response] [--ddms-apps-directory-path]`
+  ```
+
+  Description:
 
   ddms is a command line utility designed to aide in the development process
   with the Darling Data Management System. ddms provides a number of commands
   that can be used to perform common development tasks.
 
-  ddms is still under development. At the moment, the following commands are
-  available:
+  Flags:
 
-  `ddms --help [FLAG]`
-  `ddms --start-server [--port] [--root-dir] [--php-ini] [--open-in-browser]`
-  `ddms --view-active-servers`
-  `ddms --new-app --name [--domain]`
+  `ddms --help [FLAG]`         Show this help message, or the appropriate help
+                               message for the specified FLAG.
+
+  `ddms --start-server`        Start a development server.
+
+  `ddms --view-active-servers` Show active development servers.
+
+  `ddms --new-app`             Create a new Darling Data Management System App.
+
+  `ddms --new-global-response` Create a new GlobalResponse for a Darling Data
+                               Management System App.
 
   For more information about a specific command use `ddms --help [FLAG]`. For
   example, to get help information about the --new-app command use either of
@@ -20,7 +31,7 @@
     `ddms --help --new-app`
     `ddms --help new-app`
 
-  For more information go to:
+  For more information about ddms go to:
   https://github.com/sevidmusic/ddms
 
   For more information about the Darling Data Management System go to:
