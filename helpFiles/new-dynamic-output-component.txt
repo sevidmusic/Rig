@@ -1,0 +1,22 @@
+ddms --new-dynamic-output-component --for-app --name [--container] [--position] [--file-name]
+
+Description:
+
+Create a new DynamicOutputComponent for the specified App.
+
+Flags:
+
+  --for--app   The name of the App to create the new DynamicOutputComponent for.
+
+  --name       A alphanumeric name to assign to the new DynamicOutputComponent
+
+  [--container]  The container to store the new DynamicOutputComponent in. Defaults to `DynamicOutput`
+
+  [--position]   A numeric position to assign to the new DynamicOutputComponent, defaults to 0.
+
+  [--file-name]   The name of the file that generates the DynamicOutputComponent's output. This
+
+               file MUST exist in either the relevant App's `DynamicOutput` directory, or the
+
+               Darling Data Management System's `SharedDynamicOutput` directory.
+

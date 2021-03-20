@@ -1,0 +1,22 @@
+ddms --new-global-response --for-app [--name] [--position]
+
+Description:
+
+Configure a new GlobalResponse for the specified App.
+
+Flags:
+
+--for-app The name of the App to create the GlobalResponse for.
+
+--name A name to assign to the new GlobalResponse.
+
+[--position] A position to assign to the new GlobalResponse. Defaults to 0.
+
+Examples:
+
+
+  ddms --new-global-response --for-app HelloWorld --name Foo
+
+  ddms --new-global-response --for-app HelloWorld --name Bar --position 3
+
+
