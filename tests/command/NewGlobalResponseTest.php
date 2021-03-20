@@ -107,6 +107,16 @@ final class NewGlobalResponseTest extends TestCase
         $newGlobalResponse->run(new CommandLineUI(), $preparedArguments);
     }
 
+    public function testRunSetsNameToSpecifiedNameIfSpecifiedNameIsAlphaNumeric(): void
+    {
+        $appName = $this->createTestAppReturnName();
+        $responseName = $appName . 'GlobalResponse';
+        $newGlobalResponse = new NewGlobalResponse();
+        $preparedArguments = $newGlobalResponse->prepareArguments(['--name', $responseName, '--for-app', $appName]);
+        $newGlobalResponse->run(new CommandLineUI(), $preparedArguments);
+        $this->assertEquals($this->determineExpectedGlobalResponsePhpContent($preparedArguments), file_get_contents($this->expectedGlobalResponsePath($preparedArguments)));
+    }
+
     /**
      * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
      */
