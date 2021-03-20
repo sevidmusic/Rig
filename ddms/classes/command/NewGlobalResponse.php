@@ -52,6 +52,9 @@ class NewGlobalResponse extends AbstractCommand implements Command
         if(!file_exists($this->determineAppDirectoryPath($flags)) || !is_dir($this->determineAppDirectoryPath($flags))) {
             throw new RuntimeException('  An App does not exist at' . $this->determineAppDirectoryPath($flags));
         }
+        if(file_exists($this->pathToNewGlobalResponse($flags))) {
+            throw new RuntimeException('  Please specify a unique name for the new GlobalResponse');
+        }
         if(isset($flags['position'][0]) && !is_numeric($flags['position'][0])) {
             throw new RuntimeException('  Please specify a numeric position for the new GlobalResponse. For example `--position 1`.');
         }

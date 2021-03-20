@@ -85,6 +85,17 @@ final class NewGlobalResponseTest extends TestCase
         $this->assertEquals($this->determineExpectedGlobalResponsePhpContent($preparedArguments), file_get_contents($this->expectedGlobalResponsePath($preparedArguments)));
     }
 
+    public function testRunThrowsRuntimeExceptionIfGlobalResponseAlreadyExists(): void
+    {
+        $appName = $this->createTestAppReturnName();
+        $responseName = $appName . 'GlobalResponse';
+        $newGlobalResponse = new NewGlobalResponse();
+        $preparedArguments = $newGlobalResponse->prepareArguments(['--name', $responseName, '--for-app', $appName]);
+        $newGlobalResponse->run(new CommandLineUI(), $preparedArguments);
+        $this->expectException(RuntimeException::class);
+        $newGlobalResponse->run(new CommandLineUI(), $preparedArguments);
+    }
+
     /**
      * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
      */
