@@ -102,7 +102,7 @@ final class NewGlobalResponseTest extends TestCase
         $appName = $this->createTestAppReturnName();
         $responseName = $appName . 'GlobalResponse';
         $newGlobalResponse = new NewGlobalResponse();
-        $preparedArguments = $newGlobalResponse->prepareArguments(['--name', $responseName . '_-_FOO', '--for-app', $appName]);
+        $preparedArguments = $newGlobalResponse->prepareArguments(['--name', $responseName . '!@#$%^&*()_+=-\][\';"\\,.', '--for-app', $appName]);
         $this->expectException(RuntimeException::class);
         $newGlobalResponse->run(new CommandLineUI(), $preparedArguments);
     }
