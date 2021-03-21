@@ -142,7 +142,6 @@ final class NewDynamicOutputComponentTest extends TestCase
 
     public function testRunThrowsRuntimeExpceptionIfSpecifiedNameIsNotAlphaNumeric(): void
     {
-        #ctype_alnum($string)
         $appName = $this->createTestAppReturnName();
         $dynamicOutputComponentName = $appName . 'DynamicOutputComponent';
         $newDynamicOutputComponent = new NewDynamicOutputComponent();
@@ -181,7 +180,7 @@ final class NewDynamicOutputComponentTest extends TestCase
         $this->assertEquals($this->determineExpectedDynamicOutputComponentPhpContent($preparedArguments), $this->getNewDynamicOutputComponentContent($preparedArguments));
     }
 
-    public function testRunCreatesDynamicOutputFileNamed_name_WithExtension_php_IfFileNameIsNotSpecified(): void
+    public function testRunCreatesDynamicOutputFileNamed_name_WithExtension_php_InAppsDynamicOutputDirectoryIfFileNameIsNotSpecified(): void
     {
         $appName = $this->createTestAppReturnName();
         $dynamicOutputComponentName = $appName . 'DynamicOutputComponent';
@@ -219,7 +218,7 @@ final class NewDynamicOutputComponentTest extends TestCase
         $this->assertEquals($this->determineExpectedDynamicOutputComponentPhpContent($preparedArguments), $this->getNewDynamicOutputComponentContent($preparedArguments));
     }
 
-    public function testRunCreatesDynamicOutputFileNamed_file_name_IfFileNameIsSpecified(): void
+    public function testRunCreatesDynamicOutputFileNamed_file_name_InAppsDynamicOutputDirectoryIfFileNameIsSpecified(): void
     {
         $appName = $this->createTestAppReturnName();
         $fileName = 'FooBarBaz' . strval(rand(420, 4200)) . '.html';
