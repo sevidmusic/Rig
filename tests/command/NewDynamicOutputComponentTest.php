@@ -248,6 +248,11 @@ final class NewDynamicOutputComponentTest extends TestCase
         );
     }
 
+/**
+testRunDoesNotCreateDynamicOutputFileInAppsDynamicOutputDirectoryIfDynamicOutputFileAlreadyExists()
+testRunDoesNotCreateDynamicOutputFileInSharedDynamicOutputDirectoryIfSharedFlagIsPresentAndDynamicOutputFileAlreadyExists()
+
+**/
     /**
      * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
      */

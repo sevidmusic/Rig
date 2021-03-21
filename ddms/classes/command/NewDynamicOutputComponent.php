@@ -26,6 +26,9 @@ class NewDynamicOutputComponent extends AbstractCommand implements Command
             $this->pathToNewDynamicOutputComponent($flags),
             $this->generateDynamicOutputComponentFileContent($flags)
         );
+        if(isset($flags['shared']) && !file_exists($this->determineSharedDynamicOutputDirectoryPath($flags))) {
+           mkdir($this->determineSharedDynamicOutputDirectoryPath($flags));
+        }
         file_put_contents(
             $this->pathToNewDynamicOutputFile($flags),
             ''
@@ -82,11 +85,26 @@ class NewDynamicOutputComponent extends AbstractCommand implements Command
     {
         return (
             isset($flags['shared'])
-            ? str_replace('Apps', 'SharedDynamicOutput', $flags['ddms-apps-directory-path'][0]) . DIRECTORY_SEPARATOR . ($flags['file-name'][0] ?? $flags['name'][0] . '.php')
-            : $flags['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $flags['for-app'][0] . DIRECTORY_SEPARATOR . 'DynamicOutput' . DIRECTORY_SEPARATOR . ($flags['file-name'][0] ?? $flags['name'][0] . '.php')
+            ? $this->determineSharedDynamicOutputDirectoryPath($flags) . DIRECTORY_SEPARATOR . ($flags['file-name'][0] ?? $flags['name'][0] . '.php')
+            : $this->determineAppsDynamicOutputDirectoryPath($flags) . DIRECTORY_SEPARATOR . ($flags['file-name'][0] ?? $flags['name'][0] . '.php')
         );
     }
 
+    /**
+     * @param array<string,array<int,string>> $flags
+     */
+    private function determineAppsDynamicOutputDirectoryPath(array $flags): string
+    {
+        return $flags['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $flags['for-app'][0] . DIRECTORY_SEPARATOR . 'DynamicOutput';
+    }
+
+    /**
+     * @param array<string,array<int,string>> $flags
+     */
+    private function determineSharedDynamicOutputDirectoryPath(array $flags): string
+    {
+        return str_replace('Apps', 'SharedDynamicOutput', $flags['ddms-apps-directory-path'][0]);
+    }
     /**
      * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
      * @return array{"flags": array<string, array<int, string>>, "options": array<int, string>}
