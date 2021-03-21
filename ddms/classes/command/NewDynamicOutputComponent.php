@@ -28,7 +28,6 @@ class NewDynamicOutputComponent extends AbstractCommand implements Command
         );
 
         if(!file_exists($this->pathToNewDynamicOutputFile($flags))) {
-
             if(isset($flags['shared']) && !file_exists($this->determineSharedDynamicOutputDirectoryPath($flags))) {
                mkdir($this->determineSharedDynamicOutputDirectoryPath($flags));
             }
@@ -107,7 +106,7 @@ class NewDynamicOutputComponent extends AbstractCommand implements Command
      */
     private function determineSharedDynamicOutputDirectoryPath(array $flags): string
     {
-        return str_replace('Apps', 'SharedDynamicOutput', $flags['ddms-apps-directory-path'][0]);
+        return str_replace(['Apps', 'tmp'], 'SharedDynamicOutput', $flags['ddms-apps-directory-path'][0]);
     }
     /**
      * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
