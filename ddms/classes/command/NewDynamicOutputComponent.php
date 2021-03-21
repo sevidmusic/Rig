@@ -26,13 +26,17 @@ class NewDynamicOutputComponent extends AbstractCommand implements Command
             $this->pathToNewDynamicOutputComponent($flags),
             $this->generateDynamicOutputComponentFileContent($flags)
         );
-        if(isset($flags['shared']) && !file_exists($this->determineSharedDynamicOutputDirectoryPath($flags))) {
-           mkdir($this->determineSharedDynamicOutputDirectoryPath($flags));
+
+        if(!file_exists($this->pathToNewDynamicOutputFile($flags))) {
+
+            if(isset($flags['shared']) && !file_exists($this->determineSharedDynamicOutputDirectoryPath($flags))) {
+               mkdir($this->determineSharedDynamicOutputDirectoryPath($flags));
+            }
+            file_put_contents(
+                $this->pathToNewDynamicOutputFile($flags),
+                ''
+            );
         }
-        file_put_contents(
-            $this->pathToNewDynamicOutputFile($flags),
-            ''
-        );
     }
 
     /**

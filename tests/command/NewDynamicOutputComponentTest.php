@@ -248,8 +248,22 @@ final class NewDynamicOutputComponentTest extends TestCase
         );
     }
 
+    public function testRunDoesNotCreateDynamicOutputFileInAppsDynamicOutputDirectoryIfDynamicOutputFileAlreadyExists(): void
+    {
+        $appName = $this->createTestAppReturnName();
+        $fileName = 'FooBarBaz' . strval(rand(420, 4200)) . '.html';
+        $dynamicOutputComponentName = $appName . 'DynamicOutputComponent';
+        $newDynamicOutputComponent = new NewDynamicOutputComponent();
+        $preparedArguments = $newDynamicOutputComponent->prepareArguments(['--name', $dynamicOutputComponentName, '--for-app', $appName, '--file-name', $fileName]);
+        $expectedFilePath = $this->expectedDynamicOutputFileDirectoryPath($preparedArguments) . DIRECTORY_SEPARATOR . $fileName;
+        $expectedContent = 'Expected Content' . strval(rand(420, PHP_INT_MAX));
+        file_put_contents($expectedFilePath, $expectedContent);
+        $newDynamicOutputComponent->run(new CommandLineUI(), $preparedArguments);
+        $this->assertTrue(file_exists($expectedFilePath));
+        $this->assertEquals($expectedContent, file_get_contents($expectedFilePath));
+    }
+
 /**
-testRunDoesNotCreateDynamicOutputFileInAppsDynamicOutputDirectoryIfDynamicOutputFileAlreadyExists()
 testRunDoesNotCreateDynamicOutputFileInSharedDynamicOutputDirectoryIfSharedFlagIsPresentAndDynamicOutputFileAlreadyExists()
 
 **/
