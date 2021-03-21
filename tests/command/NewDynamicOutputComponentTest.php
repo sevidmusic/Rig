@@ -161,8 +161,6 @@ final class NewDynamicOutputComponentTest extends TestCase
         $this->assertEquals($this->determineExpectedDynamicOutputComponentPhpContent($preparedArguments), file_get_contents($this->expectedDynamicOutputComponentPath($preparedArguments)));
     }
 
-###
-
     public function testRunSets_for_app_As_app_name(): void
     {
         $appForApp = $this->createTestAppReturnName();
@@ -192,7 +190,21 @@ final class NewDynamicOutputComponentTest extends TestCase
         $newDynamicOutputComponent->run(new CommandLineUI(), $preparedArguments);
         $this->assertTrue(
             file_exists(
-                $this->expectedAppDirectoryPath($preparedArguments) . DIRECTORY_SEPARATOR . 'DynamicOutput' . DIRECTORY_SEPARATOR . $dynamicOutputComponentName . '.php'
+                $this->expectedDynamicOutputFileDirectoryPath($preparedArguments) . DIRECTORY_SEPARATOR . $dynamicOutputComponentName . '.php'
+            )
+        );
+    }
+
+    public function testRunCreatesDynamicOutputFileNamed_name_WithExtension_php_InSharedDynamicOutputDirectoryIfSharedFlagsIsPresentAndFileNameIsNotSpecified(): void
+    {
+        $appName = $this->createTestAppReturnName();
+        $dynamicOutputComponentName = $appName . 'DynamicOutputComponent';
+        $newDynamicOutputComponent = new NewDynamicOutputComponent();
+        $preparedArguments = $newDynamicOutputComponent->prepareArguments(['--name', $dynamicOutputComponentName, '--for-app', $appName, '--shared']);
+        $newDynamicOutputComponent->run(new CommandLineUI(), $preparedArguments);
+        $this->assertTrue(
+            file_exists(
+                $this->expectedDynamicOutputFileDirectoryPath($preparedArguments) . DIRECTORY_SEPARATOR . $dynamicOutputComponentName . '.php'
             )
         );
     }
@@ -217,12 +229,55 @@ final class NewDynamicOutputComponentTest extends TestCase
         $newDynamicOutputComponent->run(new CommandLineUI(), $preparedArguments);
         $this->assertTrue(
             file_exists(
-                $this->expectedAppDirectoryPath($preparedArguments) . DIRECTORY_SEPARATOR . 'DynamicOutput' . DIRECTORY_SEPARATOR . $fileName
+                $this->expectedDynamicOutputFileDirectoryPath($preparedArguments) . DIRECTORY_SEPARATOR . $fileName
             )
         );
     }
 
-###
+    public function testRunCreatesDynamicOutputFileNamed_file_name_InSharedDynamicOutputDirectoryIfSharedFlagIsPresentAndFileNameIsSpecified(): void
+    {
+        $appName = $this->createTestAppReturnName();
+        $fileName = 'FooBarBaz' . strval(rand(420, 4200)) . '.html';
+        $dynamicOutputComponentName = $appName . 'DynamicOutputComponent';
+        $newDynamicOutputComponent = new NewDynamicOutputComponent();
+        $preparedArguments = $newDynamicOutputComponent->prepareArguments(['--name', $dynamicOutputComponentName, '--for-app', $appName, '--file-name', $fileName, '--shared']);
+        $newDynamicOutputComponent->run(new CommandLineUI(), $preparedArguments);
+        $this->assertTrue(
+            file_exists(
+                $this->expectedDynamicOutputFileDirectoryPath($preparedArguments) . DIRECTORY_SEPARATOR . $fileName
+            )
+        );
+    }
+
+    /**
+     * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
+     */
+    private function expectedDynamicOutputFileDirectoryPath(array $preparedArguments): string
+    {
+        return (
+            isset($preparedArguments['flags']['shared'])
+            ? $this->expectedSharedDynamicOutputDirectoryPath($preparedArguments)
+            : $this->expectedAppDynamicOutputDirectoryPath($preparedArguments)
+        );
+    }
+
+    /**
+     * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
+     */
+    private function expectedAppDynamicOutputDirectoryPath(array $preparedArguments): string
+    {
+        return $this->expectedAppDirectoryPath($preparedArguments) . DIRECTORY_SEPARATOR . 'DynamicOutput';
+    }
+
+    /**
+     * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
+     */
+    private function expectedSharedDynamicOutputDirectoryPath(array $preparedArguments): string
+    {
+        return str_replace('Apps' . DIRECTORY_SEPARATOR . $preparedArguments['flags']['for-app'][0], 'SharedDynamicOutput', $this->expectedAppDirectoryPath($preparedArguments));
+    }
+
+
     /**
      * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
      */

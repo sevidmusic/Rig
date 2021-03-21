@@ -80,7 +80,11 @@ class NewDynamicOutputComponent extends AbstractCommand implements Command
      */
     private function pathToNewDynamicOutputFile(array $flags): string
     {
-        return $flags['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $flags['for-app'][0] . DIRECTORY_SEPARATOR . 'DynamicOutput' . DIRECTORY_SEPARATOR . ($flags['file-name'][0] ?? $flags['name'][0] . '.php');
+        return (
+            isset($flags['shared'])
+            ? str_replace('Apps', 'SharedDynamicOutput', $flags['ddms-apps-directory-path'][0]) . DIRECTORY_SEPARATOR . ($flags['file-name'][0] ?? $flags['name'][0] . '.php')
+            : $flags['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $flags['for-app'][0] . DIRECTORY_SEPARATOR . 'DynamicOutput' . DIRECTORY_SEPARATOR . ($flags['file-name'][0] ?? $flags['name'][0] . '.php')
+        );
     }
 
     /**
