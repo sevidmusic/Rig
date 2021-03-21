@@ -173,6 +173,55 @@ final class NewDynamicOutputComponentTest extends TestCase
         $this->assertEquals($this->determineExpectedDynamicOutputComponentPhpContent($preparedArguments), file_get_contents($this->expectedDynamicOutputComponentPath($preparedArguments)));
     }
 
+    public function testRunSetsDynamicOutputFileTo_name_withExtension_php_IfFileNameIsNotSpecified(): void
+    {
+        $appName = $this->createTestAppReturnName();
+        $dynamicOutputComponentName = $appName . 'DynamicOutputComponent';
+        $newDynamicOutputComponent = new NewDynamicOutputComponent();
+        $preparedArguments = $newDynamicOutputComponent->prepareArguments(['--name', $dynamicOutputComponentName, '--for-app', $appName]);
+        $newDynamicOutputComponent->run(new CommandLineUI(), $preparedArguments);
+        $this->assertEquals($this->determineExpectedDynamicOutputComponentPhpContent($preparedArguments), $this->getNewDynamicOutputComponentContent($preparedArguments));
+    }
+
+    public function testRunCreatesDynamicOutputFileNamed_name_WithExtension_php_IfFileNameIsNotSpecified(): void
+    {
+        $appName = $this->createTestAppReturnName();
+        $dynamicOutputComponentName = $appName . 'DynamicOutputComponent';
+        $newDynamicOutputComponent = new NewDynamicOutputComponent();
+        $preparedArguments = $newDynamicOutputComponent->prepareArguments(['--name', $dynamicOutputComponentName, '--for-app', $appName]);
+        $newDynamicOutputComponent->run(new CommandLineUI(), $preparedArguments);
+        $this->assertTrue(
+            file_exists(
+                $this->expectedAppDirectoryPath($preparedArguments) . DIRECTORY_SEPARATOR . 'DynamicOutput' . DIRECTORY_SEPARATOR . $dynamicOutputComponentName . '.php'
+            )
+        );
+    }
+
+    public function testRunSetsDynamicOutputFileTo_file_name_IfFileNameIsSpecified(): void
+    {
+        $appName = $this->createTestAppReturnName();
+        $dynamicOutputComponentName = $appName . 'DynamicOutputComponent';
+        $newDynamicOutputComponent = new NewDynamicOutputComponent();
+        $preparedArguments = $newDynamicOutputComponent->prepareArguments(['--name', $dynamicOutputComponentName, '--for-app', $appName, '--file-name', 'FooBar' . strval(rand(420, 4200))]);
+        $newDynamicOutputComponent->run(new CommandLineUI(), $preparedArguments);
+        $this->assertEquals($this->determineExpectedDynamicOutputComponentPhpContent($preparedArguments), $this->getNewDynamicOutputComponentContent($preparedArguments));
+    }
+
+    public function testRunCreatesDynamicOutputFileNamed_file_name_IfFileNameIsSpecified(): void
+    {
+        $appName = $this->createTestAppReturnName();
+        $fileName = 'FooBarBaz' . strval(rand(420, 4200)) . '.html';
+        $dynamicOutputComponentName = $appName . 'DynamicOutputComponent';
+        $newDynamicOutputComponent = new NewDynamicOutputComponent();
+        $preparedArguments = $newDynamicOutputComponent->prepareArguments(['--name', $dynamicOutputComponentName, '--for-app', $appName, '--file-name', $fileName]);
+        $newDynamicOutputComponent->run(new CommandLineUI(), $preparedArguments);
+        $this->assertTrue(
+            file_exists(
+                $this->expectedAppDirectoryPath($preparedArguments) . DIRECTORY_SEPARATOR . 'DynamicOutput' . DIRECTORY_SEPARATOR . $fileName
+            )
+        );
+    }
+
 ###
     /**
      * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
@@ -210,13 +259,14 @@ final class NewDynamicOutputComponentTest extends TestCase
                 '_POSITION_',
                 '_CONTAINER_',
                 '_FOR_APP_',
-                # '_DYNAMIC_OUTPUT_FILE_',
+                '_DYNAMIC_OUTPUT_FILE_',
             ],
             [
                 $preparedArguments['flags']['name'][0],
                 ($preparedArguments['flags']['position'][0] ?? '0'),
                 ($preparedArguments['flags']['container'][0] ?? 'DynamicOutputComponents'),
                 $preparedArguments['flags']['for-app'][0],
+                ($preparedArguments['flags']['file-name'][0] ?? $preparedArguments['flags']['name'][0] . '.php'),
             ],
             strval(file_get_contents($this->expectedTemplateFilePath()))
         );

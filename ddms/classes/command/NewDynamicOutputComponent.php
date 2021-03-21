@@ -13,11 +13,22 @@ class NewDynamicOutputComponent extends AbstractCommand implements Command
     public function run(UserInterface $userInterface, array $preparedArguments = ['flags' => [], 'options' => []]): bool
     {
         ['flags' => $flags] = $this->validateArguments($preparedArguments);
-        return boolval(
-            file_put_contents(
-                $this->pathToNewDynamicOutputComponent($flags),
-                $this->generateDynamicOutputComponentFileContent($flags)
-            )
+        $this->createFiles($flags);
+        return true;
+    }
+
+    /**
+     * @param array<string, array<int, string>> $flags
+     */
+    private function createFiles(array $flags): void
+    {
+        file_put_contents(
+            $this->pathToNewDynamicOutputComponent($flags),
+            $this->generateDynamicOutputComponentFileContent($flags)
+        );
+        file_put_contents(
+            $this->pathToNewDynamicOutputFile($flags),
+            ''
         );
     }
 
@@ -32,13 +43,15 @@ class NewDynamicOutputComponent extends AbstractCommand implements Command
                 '_NAME_',
                 '_POSITION_',
                 '_CONTAINER_',
-                '_FOR_APP_'
+                '_FOR_APP_',
+                '_DYNAMIC_OUTPUT_FILE_'
             ],
             [
                 $flags['name'][0],
                 ($flags['position'][0] ?? '0'),
                 ($flags['container'][0] ?? 'DynamicOutputComponents'),
                 $flags['for-app'][0],
+                ($flags['file-name'][0] ?? $flags['name'][0] . '.php'),
             ],
             $template
         );
@@ -60,6 +73,14 @@ class NewDynamicOutputComponent extends AbstractCommand implements Command
     private function pathToNewDynamicOutputComponent(array $flags): string
     {
         return $flags['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $flags['for-app'][0] . DIRECTORY_SEPARATOR . 'OutputComponents' . DIRECTORY_SEPARATOR . $flags['name'][0] . '.php';
+    }
+
+    /**
+     * @param array<string,array<int,string>> $flags
+     */
+    private function pathToNewDynamicOutputFile(array $flags): string
+    {
+        return $flags['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $flags['for-app'][0] . DIRECTORY_SEPARATOR . 'DynamicOutput' . DIRECTORY_SEPARATOR . ($flags['file-name'][0] ?? $flags['name'][0] . '.php');
     }
 
     /**
