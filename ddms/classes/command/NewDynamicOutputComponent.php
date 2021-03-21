@@ -31,12 +31,14 @@ class NewDynamicOutputComponent extends AbstractCommand implements Command
             [
                 '_NAME_',
                 '_POSITION_',
-                '_CONTAINER_'
+                '_CONTAINER_',
+                '_FOR_APP_'
             ],
             [
                 $flags['name'][0],
                 ($flags['position'][0] ?? '0'),
                 ($flags['container'][0] ?? 'DynamicOutputComponents'),
+                $flags['for-app'][0],
             ],
             $template
         );

@@ -161,6 +161,19 @@ final class NewDynamicOutputComponentTest extends TestCase
         $this->assertEquals($this->determineExpectedDynamicOutputComponentPhpContent($preparedArguments), file_get_contents($this->expectedDynamicOutputComponentPath($preparedArguments)));
     }
 
+###
+
+    public function testRunSets_for_app_As_app_name(): void
+    {
+        $appForApp = $this->createTestAppReturnName();
+        $dynamicOutputComponentForApp = $appForApp . 'DynamicOutputComponent';
+        $newDynamicOutputComponent = new NewDynamicOutputComponent();
+        $preparedArguments = $newDynamicOutputComponent->prepareArguments(['--name', $dynamicOutputComponentForApp, '--for-app', $appForApp]);
+        $newDynamicOutputComponent->run(new CommandLineUI(), $preparedArguments);
+        $this->assertEquals($this->determineExpectedDynamicOutputComponentPhpContent($preparedArguments), file_get_contents($this->expectedDynamicOutputComponentPath($preparedArguments)));
+    }
+
+###
     /**
      * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
      */
@@ -196,13 +209,14 @@ final class NewDynamicOutputComponentTest extends TestCase
                 '_NAME_',
                 '_POSITION_',
                 '_CONTAINER_',
-                # '_FILE_NAME_',
-                # '_FOR_APP_',
+                '_FOR_APP_',
+                # '_DYNAMIC_OUTPUT_FILE_',
             ],
             [
                 $preparedArguments['flags']['name'][0],
                 ($preparedArguments['flags']['position'][0] ?? '0'),
                 ($preparedArguments['flags']['container'][0] ?? 'DynamicOutputComponents'),
+                $preparedArguments['flags']['for-app'][0],
             ],
             strval(file_get_contents($this->expectedTemplateFilePath()))
         );
