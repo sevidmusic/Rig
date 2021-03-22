@@ -1,5 +1,5 @@
 
-  `ddms --start-server --port --root-directory --ini-file`
+  ddms --start-server --port --root-directory --ini-file
 
   Description:
 
@@ -46,4 +46,4 @@
   Once a sever is started, it can be used to run one or more Darling Data Managment
   System Apps in development.
 
-  To get a list of active servers use `ddms --view-active-servers`
+  To get a list of active servers use ddms --view-active-servers

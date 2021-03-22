@@ -1,22 +1,63 @@
-ddms --new-dynamic-output-component --for-app --name [--container] [--position] [--file-name]
 
-Description:
+  ddms --new-dynamic-output-component --for-app --name [--container] [--position]
+                                      [--file-name] [--shared]
+                                      [--ddms-apps-directory-path]
 
-Create a new DynamicOutputComponent for the specified App.
+  Description:
 
-Flags:
+  Create a new DynamicOutputComponent for the specified App.
 
-  --for--app   The name of the App to create the new DynamicOutputComponent for.
+  Flags:
 
-  --name       A alphanumeric name to assign to the new DynamicOutputComponent
+  --for--app                   The name of the App to create the new DynamicOutputComponent
+                               for.
 
-  [--container]  The container to store the new DynamicOutputComponent in. Defaults to `DynamicOutput`
+  --name                       An alphanumeric name to assign to the new DynamicOutputComponent.
 
-  [--position]   A numeric position to assign to the new DynamicOutputComponent, defaults to 0.
+  [--container]                The container to store the new DynamicOutputComponent
+                               in. Defaults to DynamicOutput.
 
-  [--file-name]   The name of the file that generates the DynamicOutputComponent's output. This
+  [--position]                 A numeric position to assign to the new DynamicOutputComponent,
+                               defaults to 0.
 
-               file MUST exist in either the relevant App's `DynamicOutput` directory, or the
+  [--file-name]                The name of the file that generates the DynamicOutputComponent's
+                               output. If not specified, the file-name will be assumed to match
+                               --name with .php appended, for example:
 
-               Darling Data Management System's `SharedDynamicOutput` directory.
+                                 ddmms --new-dynamic-output-component --for-app HelloWorld --name Foo
+
+                               Would assume the --file-name to be: Foo.php
+
+                               ddms will create the file if it does not already exist.
+
+                               The file is expected to exist either in the relevant
+                               App's DynamicOutput directory, or, if the --shared
+                               flag is specified, in the Darling Data Management System's
+                               SharedDynamicOutput directory.
+
+  [--shared]                   If specified, ddms will assume the dynamic output
+                               file that generates the output for the DynamicOutputComponent
+                               exists, or should be created at the following path
+                               relative to the ddms's root directory:
+
+                                 ../../../SharedDynamicOutput
+
+
+  [--ddms-apps-directory-path] Path to the Darling Data Management Apps
+                               directory or, an alternative directory.
+
+                               If not specified, ddms will attempt to locate
+                               the Apps directory, if it cannot find it ddms
+                               will set --ddms-apps-directory-path to the
+                               path to ddms's tmp directory.
+
+                               ddms will look for the Apps directory at
+                               the following path relative to ddms's root
+                               directory for an Apps directory:
+
+                                 ../../../Apps
+
+                               Defaults to:
+
+                                 ./tmp
 

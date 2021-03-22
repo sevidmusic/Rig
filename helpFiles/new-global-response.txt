@@ -1,19 +1,37 @@
-ddms --new-global-response --for-app [--name] [--position]
 
-Description:
+  ddms --new-global-response --for-app [--name] [--position] [--ddms-apps-directory-path]
 
-Configure a new GlobalResponse for the specified App.
+  Description:
 
-Flags:
+  Create a new GlobalResponse for the specified App.
 
---for-app The name of the App to create the GlobalResponse for.
+  Flags:
 
---name A name to assign to the new GlobalResponse.
+  --for-app                    The name of the App to create the GlobalResponse for.
 
-[--position] A position to assign to the new GlobalResponse. Defaults to 0.
+  --name                       A name to assign to the new GlobalResponse.
 
-Examples:
+  [--position]                 A position to assign to the new GlobalResponse. Defaults to 0.
 
+  [--ddms-apps-directory-path] Path to the Darling Data Management Apps
+                               directory or, an alternative directory.
+
+                               If not specified, ddms will attempt to locate
+                               the Apps directory, if it cannot find it ddms
+                               will set --ddms-apps-directory-path to the
+                               path to ddms's tmp directory.
+
+                               ddms will look for the Apps directory at
+                               the following path relative to ddms's root
+                               directory for an Apps directory:
+
+                                 ../../../Apps
+
+                               Defaults to:
+
+                                 ./tmp
+
+  Examples:
 
   ddms --new-global-response --for-app HelloWorld --name Foo
 
