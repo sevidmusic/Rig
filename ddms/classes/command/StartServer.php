@@ -26,7 +26,7 @@ class StartServer extends AbstractCommand implements Command
         $localhost = escapeshellarg(
             'localhost:' . ($flags['port'][0] ?? '8080')
         );
-        $rootDirectory = escapeshellarg(($flags['root-dir'][0] ?? '/tmp'));
+        $rootDirectory = escapeshellarg(($flags['root-dir'][0] ?? $this->defaultServerRoot($flags)));
         $domain = escapeshellarg('http://' . str_replace("'", '', $localhost));
         shell_exec(
             '/usr/bin/php -S ' . $localhost . ' -t ' . $rootDirectory .
@@ -36,5 +36,14 @@ class StartServer extends AbstractCommand implements Command
             (isset($flags['open-in-browser']) ? ' & xdg-open ' . $domain . ' &> /dev/null' : '') .
             ' & disown'
         );
+    }
+
+
+    /**
+     * @param array<string, array<int, string>> $flags
+     */
+    private function defaultServerRoot(array $flags): string
+    {
+        return str_replace(['Apps', 'tmp'], '', $flags['ddms-apps-directory-path'][0]);
     }
 }
