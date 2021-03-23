@@ -9,4 +9,3 @@
 
     ddms --view-active-servers
 
-

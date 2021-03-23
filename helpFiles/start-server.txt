@@ -5,26 +5,44 @@
 
   Start a PHP built in server instance at http://localhost:[--port]
 
+  WARNING: Do not use PHP's built in server in production, it is meant for development
+           only. For more information view the documentation at:
+
+           https://www.php.net/manual/en/features.commandline.webserver.php
+
+  Once a sever is started, it can be used to run one or more Darling Data Managment
+  System Apps in development.
+
+  To get a list of active servers use ddms --view-active-servers
+
   Flags:
 
   [--port]              A port between 8000 and 8999. Defaults to: 8080
 
   [--root-dir]          The directory to use as the server's root directory.
                         Defaults to directory above --ddms-apps-directory-path.
+                        For example, if --ddms-apps-directory-path is:
+
+                           $HOME/DarlingDataManagementSystem/Apps
+
+                        Then default --root-dir will be:
+
+                           $HOME/DarlingDataManagementSystem
 
   [--ini-file]          Path to a php.ini file to use to configure php for the
                         server instance. This flag is optional, no default.
 
-  [--open-in-browser]   Attempt to open the url for the new server instance in a web
-                        broswer via xdg-open.
+  [--open-in-browser]   Attempt to open the root url for the new server instance
+                        in a web broswer via xdg-open.
+
                         WARNING: This flag will not always work. It uses xdg-open
-                               under the hood, if your on linux you will need to
-                               install xdg-open if it is not already installed.
-                               On other OS's, this flag will fail.
-                               Also, if multiple built in server instances were
-                               started with this flag present, this flag may begin
-                               to fail as the number of server instances started
-                               with this flag increases.
+                                 under the hood, if xdg-open is not available then
+                                 this flag will fail.
+
+                                 Also, if multiple built in server instances were
+                                 started with this flag present, this flag may begin
+                                 to fail as the number of server instances started
+                                 with this flag increases.
   Examples:
 
   ddms --start-server
@@ -35,11 +53,4 @@
 
 
 
-  WARNING: Do not use PHP's built in server in production, it is meant for development
-           only. For more information view the documentation at:
-           https://www.php.net/manual/en/features.commandline.webserver.php
 
-  Once a sever is started, it can be used to run one or more Darling Data Managment
-  System Apps in development.
-
-  To get a list of active servers use ddms --view-active-servers

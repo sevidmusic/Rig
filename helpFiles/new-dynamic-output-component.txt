@@ -34,13 +34,13 @@
 
                                The file is expected to exist either in the relevant
                                App's DynamicOutput directory, or, if the --shared
-                               flag is specified, in the Darling Data Management System's
-                               SharedDynamicOutput directory.
+                               flag is specified, in the expected Darling Data
+                               Management System's SharedDynamicOutput directory.
 
-  [--shared]                   If specified, ddms will assume the dynamic output
-                               file that generates the output for the DynamicOutputComponent
-                               exists, or should be created at the following path
-                               relative to the --ddms-apps-directory-path:
+  [--shared]                   If specified, ddms will assume the file that generates
+                               the output for the DynamicOutputComponent exists,
+                               or should be created at the following path relative
+                               to the --ddms-apps-directory-path:
 
                                ../SharedDynamicOutput
 
