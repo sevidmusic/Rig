@@ -1,13 +1,21 @@
 
   ddms [--help] [--start-server] [--view-active-servers] [--new-app]
        [--new-global-response] [--new-dynamic-output-component]
-       [--ddms-apps-directory-path]
+       [--ddms-apps-directory-path] [--debug]
 
   Description:
 
   ddms is a command line utility designed to aide in the development process
   with the Darling Data Management System. ddms provides a number of commands
   that can be used to perform common development tasks.
+
+  For more information about ddms go to:
+
+    https://github.com/sevidmusic/ddms
+
+  For more information about the Darling Data Management System go to:
+
+    https://github.com/sevidmusic/DarlingDataManagementSystem
 
   Flags:
 
@@ -45,19 +53,22 @@
 
                                         ./tmp
 
-  For more information about a specific command use ddms --help [FLAG]. For
-  example, to get help information about the --new-app command use either of
-  the following calls to --help:
+  [--debug]                           Show debug information for the current call
+                                      to ddms based on the specified argument.
+                                      The following arguments are possible, at
+                                      least one is expected.
 
-    ddms --help --new-app
+                                        flags :   This will cause ddms to output
+                                                  the flags passed to ddms and their
+                                                  arguments.
 
-    ddms --help new-app
+                                        options : This will cause ddms to output
+                                                  any options passed to ddms.
 
-  For more information about ddms go to:
+  Examples:
 
-    https://github.com/sevidmusic/ddms
+  ddms --help
 
-  For more information about the Darling Data Management System go to:
+  ddms --help --new-app
 
-    https://github.com/sevidmusic/DarlingDataManagementSystem
-
+  ddms --start-server --debug flags

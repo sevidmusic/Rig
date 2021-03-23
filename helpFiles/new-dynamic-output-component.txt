@@ -1,7 +1,7 @@
 
-  ddms --new-dynamic-output-component --for-app --name [--container] [--position]
-                                      [--file-name] [--shared]
-                                      [--ddms-apps-directory-path]
+  ddms --new-dynamic-output-component --for-app --name
+                                      [--container] [--position] [--file-name]
+                                      [--shared] [--ddms-apps-directory-path]
 
   Description:
 
@@ -15,18 +15,20 @@
   --name                       An alphanumeric name to assign to the new DynamicOutputComponent.
 
   [--container]                The container to store the new DynamicOutputComponent
-                               in. Defaults to DynamicOutput.
+                               data in, defaults to DynamicOutput.
 
   [--position]                 A numeric position to assign to the new DynamicOutputComponent,
                                defaults to 0.
 
   [--file-name]                The name of the file that generates the DynamicOutputComponent's
                                output. If not specified, the file-name will be assumed to match
-                               --name with .php appended, for example:
+                               --name with the .php extension appended, for example:
 
                                  ddmms --new-dynamic-output-component --for-app HelloWorld --name Foo
 
-                               Would assume the --file-name to be: Foo.php
+                               Would assume the --file-name to be:
+
+                                 Foo.php
 
                                ddms will create the file if it does not already exist.
 
@@ -38,10 +40,14 @@
   [--shared]                   If specified, ddms will assume the dynamic output
                                file that generates the output for the DynamicOutputComponent
                                exists, or should be created at the following path
-                               relative to the ddms's root directory:
+                               relative to the --ddms-apps-directory-path:
 
-                                 ../../../SharedDynamicOutput
+                               ../SharedDynamicOutput
 
+                               If the dynamic output file has to be created, and the
+                               --shared flag is specified, and the SharedDynamicOutput
+                               directory does not exist at the expected path, it will
+                               be created.
 
   [--ddms-apps-directory-path] Path to the Darling Data Management Apps
                                directory or, an alternative directory.
@@ -53,7 +59,7 @@
 
                                ddms will look for the Apps directory at
                                the following path relative to ddms's root
-                               directory for an Apps directory:
+                               directory:
 
                                  ../../../Apps
 
@@ -61,3 +67,10 @@
 
                                  ./tmp
 
+  Examples:
+
+  ddms --new-dynamic-output-component --for-app HelloWorld --name Foo --container HelloWorldOutput
+
+  ddms --new-dynamic-output-component --for-app HelloWorld --name Foo --position 3
+
+  ddms --new-dynamic-output-component --for-app HelloWorld --name Foo --file-name Baz.html --shared
