@@ -1,6 +1,6 @@
 <?php
 
-/** APP_NAME | REQUEST_NAME.php */
+/** _NAME_.php */
 
 $appComponentsFactory->buildRequest(
     '_NAME_',
