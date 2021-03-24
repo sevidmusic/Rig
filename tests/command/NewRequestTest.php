@@ -117,6 +117,16 @@ final class NewRequestTest extends TestCase
         $this->assertEquals($this->determineExpectedRequestPhpContent($preparedArguments), file_get_contents($this->expectedRequestPath($preparedArguments)));
     }
 
+    public function testRunSetsRelativeUrlTo_index_php_IfRelativeUrlIsNotSpecified(): void
+    {
+        $appName = $this->createTestAppReturnName();
+        $requestName = $appName . 'Request';
+        $newRequest = new NewRequest();
+        $preparedArguments = $newRequest->prepareArguments(['--name', $requestName, '--for-app', $appName]);
+        $newRequest->run(new CommandLineUI(), $preparedArguments);
+        $this->assertEquals($this->determineExpectedRequestPhpContent($preparedArguments), $this->getNewRequestContent($preparedArguments));
+    }
+
     /**
      * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
      */
@@ -150,11 +160,13 @@ final class NewRequestTest extends TestCase
         return str_replace(
             [
                 '_NAME_',
-                '_CONTAINER_'
+                '_CONTAINER_',
+                '_RELATIVE_URL_'
             ],
             [
                 $preparedArguments['flags']['name'][0],
-                ($preparedArguments['flags']['container'][0] ?? 'Requests')
+                ($preparedArguments['flags']['container'][0] ?? 'Requests'),
+                ($preparedArguments['flags']['relative-url'][0] ?? 'index.php')
             ],
             strval(file_get_contents($this->expectedTemplateFilePath()))
         );

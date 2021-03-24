@@ -13,8 +13,7 @@ class NewRequest extends AbstractCommand implements Command
     public function run(UserInterface $userInterface, array $preparedArguments = ['flags' => [], 'options' => []]): bool
     {
         ['flags' => $flags] = $this->validateArguments($preparedArguments);
-        $template = strval(file_get_contents($this->pathToRequestTemplate()));
-        $content = str_replace(['_NAME_', '_CONTAINER_'], [$flags['name'][0], ($flags['container'][0] ?? 'Requests')], $template);
+        $content = $this->generateRequestConfigContent($flags);
         $userInterface->showMessage(
             PHP_EOL .
             'Creating new Request for App ' . $flags['for-app'][0] . ' at ' . $this->pathToNewRequest($flags) .
@@ -22,6 +21,15 @@ class NewRequest extends AbstractCommand implements Command
             PHP_EOL
         );
         return boolval(file_put_contents($this->pathToNewRequest($flags), $content));
+    }
+
+    /**
+     * @param array<string, array<int, string>> $flags
+     */
+    private function generateRequestConfigContent(array $flags): string
+    {
+        $template = strval(file_get_contents($this->pathToRequestTemplate()));
+        return str_replace(['_NAME_', '_CONTAINER_', '_RELATIVE_URL_'], [$flags['name'][0], ($flags['container'][0] ?? 'Requests'), ($flags['relative-url'] ?? 'index.php')], $template);
     }
 
     private function pathToRequestTemplate(): string
