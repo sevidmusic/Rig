@@ -127,6 +127,35 @@ final class NewRequestTest extends TestCase
         $this->assertEquals($this->determineExpectedRequestPhpContent($preparedArguments), $this->getNewRequestContent($preparedArguments));
     }
 
+    public function testRunThrowsRuntimeExceptionIfRelativeUrlIsNotValid(): void
+    {
+        $appName = $this->createTestAppReturnName();
+        $requestName = $appName . 'Request';
+        $newRequest = new NewRequest();
+        $this->expectException(RuntimeException::class);
+        $newRequest->run(new CommandLineUI(), $newRequest->prepareArguments(['--name', $requestName, '--for-app', $appName, '--relative-url', $this->getRandomInvalidRelativeUrl()]));
+    }
+
+    public function testRunSetsRelativeUrlToSpecifiedRelativeUrlIfSpecifiedRelativeUrlIsValid(): void
+    {
+        $appName = $this->createTestAppReturnName();
+        $requestName = $appName . 'Request';
+        $newRequest = new NewRequest();
+        $preparedArguments = $newRequest->prepareArguments(['--name', $requestName, '--for-app', $appName, '--relative-url', 'index.php?foo=bar&baz=biz']);
+        $newRequest->run(new CommandLineUI(), $preparedArguments);
+        $this->assertEquals($this->determineExpectedRequestPhpContent($preparedArguments), file_get_contents($this->expectedRequestPath($preparedArguments)));
+    }
+
+    private function getRandomInvalidRelativeUrl(): string
+    {
+        $invalidUrls = [
+            'http://localhost:' . strval(rand(8000, 8999)) . '/index.php',
+            'localhost:' . strval(rand(8000, 8999)) . '/index.php',
+            'localhost/index.php',
+        ];
+        return $invalidUrls[array_rand($invalidUrls)];
+    }
+
     /**
      * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
      */

@@ -29,7 +29,7 @@ class NewRequest extends AbstractCommand implements Command
     private function generateRequestConfigContent(array $flags): string
     {
         $template = strval(file_get_contents($this->pathToRequestTemplate()));
-        return str_replace(['_NAME_', '_CONTAINER_', '_RELATIVE_URL_'], [$flags['name'][0], ($flags['container'][0] ?? 'Requests'), ($flags['relative-url'] ?? 'index.php')], $template);
+        return str_replace(['_NAME_', '_CONTAINER_', '_RELATIVE_URL_'], [$flags['name'][0], ($flags['container'][0] ?? 'Requests'), ($flags['relative-url'][0] ?? 'index.php')], $template);
     }
 
     private function pathToRequestTemplate(): string
@@ -75,7 +75,25 @@ class NewRequest extends AbstractCommand implements Command
         if(isset($flags['container'][0]) && !ctype_alnum($flags['container'][0])) {
             throw new RuntimeException('  Please specify a numeric container for the new Request. For example `--container 1`.');
         }
+        if(isset($flags['relative-url'][0])) {
+            $this->validateRelativeUrl($flags);
+        }
         return $preparedArguments;
+    }
+
+    /**
+     * @param array<string, array<int, string>> $flags
+     */
+    private function validateRelativeUrl(array $flags) : void
+    {
+        $tests = [
+            substr($flags['relative-url'][0], 0,5) !== 'http:',
+            substr($flags['relative-url'][0], 0,9) !== 'localhost',
+            filter_var('http://testdom.ain/' . $flags['relative-url'][0], FILTER_VALIDATE_URL) !== false,
+        ];
+        if(in_array(false, $tests, true)) {
+            throw new RuntimeException('  "' . $flags['relative-url'][0]  . '" is not a valid relative url. Please specify a valid relative url for the new Request. For example `index.php?foo=bar&baz=biz`.');
+        }
     }
 
     /**
