@@ -15,6 +15,12 @@ class NewGlobalResponse extends AbstractCommand implements Command
         ['flags' => $flags] = $this->validateArguments($preparedArguments);
         $template = strval(file_get_contents($this->pathToGlobalResponseTemplate()));
         $content = str_replace(['_NAME_', '_POSITION_'], [$flags['name'][0], ($flags['position'][0] ?? '0')], $template);
+        $userInterface->showMessage(
+            PHP_EOL .
+            'Creating new GlobalResponse for App ' . $flags['for-app'][0] . ' at ' . $this->pathToNewGlobalResponse($flags) .
+            PHP_EOL .
+            PHP_EOL
+        );
         return boolval(file_put_contents($this->pathToNewGlobalResponse($flags), $content));
     }
 

@@ -17,7 +17,7 @@ final class StartServerTest extends TestCase
         $startServer->run(
             new CommandLineUI(),
             $startServer->prepareArguments(
-                ['--start-server']
+                []
             )
         );
         $finalServerCount = count($this->activeServers());
@@ -32,7 +32,7 @@ final class StartServerTest extends TestCase
         $startServer->run(
             new CommandLineUI(),
             $startServer->prepareArguments(
-                ['--start-server', '--port', strval(rand(8000, 8999)), '--open-in-browser']
+                ['--port', strval(rand(8000, 8999)), '--open-in-browser']
             )
         );
         /**
@@ -57,7 +57,7 @@ final class StartServerTest extends TestCase
         $startServer->run(
             new CommandLineUI(),
             $startServer->prepareArguments(
-                ['--start-server']
+                []
             )
         );
         $this->assertTrue(in_array('http://localhost:8080', $this->activeServers('urls')));
@@ -71,23 +71,23 @@ final class StartServerTest extends TestCase
         $startServer->run(
             new CommandLineUI(),
             $startServer->prepareArguments(
-                ['--start-server', '--port', $randomPort]
+                ['--port', $randomPort]
             )
         );
         $this->assertTrue(in_array('http://localhost:' . $randomPort, $this->activeServers('urls')));
     }
 
-    public function testStartServerStartsAServerUsing_tmp_DirectoryAsRootDirectoryIfRootDirIsNotSpecified(): void
+    public function testStartServerStartsAServerUsingDirectoryAboveAppsDirectoryAsServersRootDirectoryIfRootDirIsNotSpecified(): void
     {
         $this->killAllServers();
         $startServer = new StartServer();
+        $preparedArguments = $startServer->prepareArguments([]);
         $startServer->run(
             new CommandLineUI(),
-            $startServer->prepareArguments(
-                ['--start-server']
-            )
+            $preparedArguments
         );
-        $this->assertTrue(in_array('/tmp', $this->activeServers('roots')));
+        $appsDirectoryPath = str_replace(['Apps', 'tmp'], '', $preparedArguments['flags']['ddms-apps-directory-path'][0]);
+        $this->assertTrue(in_array($appsDirectoryPath, $this->activeServers('roots')));
     }
 
     public function testStartServerStartsAServerUsingSpecifiedDirectoryAsRootDirectoryIfRootDirIsSpecified(): void
@@ -97,7 +97,7 @@ final class StartServerTest extends TestCase
         $startServer->run(
             new CommandLineUI(),
             $startServer->prepareArguments(
-                ['--start-server', '--root-dir', __DIR__]
+                ['--root-dir', __DIR__]
             )
         );
         $this->assertTrue(in_array(__DIR__, $this->activeServers('roots')));
@@ -110,7 +110,7 @@ final class StartServerTest extends TestCase
         $startServer->run(
             new CommandLineUI(),
             $startServer->prepareArguments(
-                ['--start-server', '--php-ini', '/etc/php/php.ini']
+                ['--php-ini', '/etc/php/php.ini']
             )
         );
         $this->assertTrue(in_array('/etc/php/php.ini', $this->activeServers('ini')));

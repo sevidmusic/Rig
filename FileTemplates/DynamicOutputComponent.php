@@ -1,12 +1,12 @@
 <?php
 
-/** APP_NAME | DYNAMIC_OUTPUT_COMPONENT_NAME.php */
+/** _NAME_.php */
 
  $appComponentsFactory->buildDynamicOutputComponent(
-    'DYNAMIC_OUTPUT_COMPONENT_NAME',
-    'DYNAMIC_OUTPUT_COMPONENT_CONTAINER',
-    DYNAMIC_OUTPUT_COMPONENT_POSITION,
-    'APP_NAME',
-    'DYNAMIC_OUTPUT_FILE'
+    '_NAME_',
+    '_CONTAINER_',
+    _POSITION_,
+    '_FOR_APP_',
+    '_DYNAMIC_OUTPUT_FILE_'
 );
 

@@ -1,8 +1,7 @@
 
-  ```
-    ddms [--help] [--start-server] [--view-active-servers] [--new-app]
-         [--new-global-response] [--ddms-apps-directory-path]`
-  ```
+  ddms [--help] [--start-server] [--view-active-servers] [--new-app]
+       [--new-global-response] [--new-dynamic-output-component]
+       [--ddms-apps-directory-path] [--debug]
 
   Description:
 
@@ -10,30 +9,66 @@
   with the Darling Data Management System. ddms provides a number of commands
   that can be used to perform common development tasks.
 
-  Flags:
-
-  `ddms --help [FLAG]`         Show this help message, or the appropriate help
-                               message for the specified FLAG.
-
-  `ddms --start-server`        Start a development server.
-
-  `ddms --view-active-servers` Show active development servers.
-
-  `ddms --new-app`             Create a new Darling Data Management System App.
-
-  `ddms --new-global-response` Create a new GlobalResponse for a Darling Data
-                               Management System App.
-
-  For more information about a specific command use `ddms --help [FLAG]`. For
-  example, to get help information about the --new-app command use either of
-  the following calls to --help:
-
-    `ddms --help --new-app`
-    `ddms --help new-app`
-
   For more information about ddms go to:
-  https://github.com/sevidmusic/ddms
+
+    https://github.com/sevidmusic/ddms
 
   For more information about the Darling Data Management System go to:
-  https://github.com/sevidmusic/DarlingDataManagementSystem
 
+    https://github.com/sevidmusic/DarlingDataManagementSystem
+
+  Flags:
+
+  ddms --help [FLAG]                  Show this help message, or the appropriate
+                                      help message for the specified FLAG.
+
+  ddms --start-server                 Start a development server.
+
+  ddms --view-active-servers          Show active development servers.
+
+  ddms --new-app                      Create a new Darling Data Management System
+                                      App.
+
+  ddms --new-global-response          Create a new GlobalResponse for a Darling
+                                      Data Management System App.
+
+  ddms --new-dynamic-output-component Create a new DynamicOutputComponent for a
+                                      Darling Data Management System.
+
+  [--ddms-apps-directory-path]        Path to the Darling Data Management Apps
+                                      directory or, an alternative directory.
+
+                                      If not specified, ddms will attempt to locate
+                                      the Apps directory, if it cannot find it ddms
+                                      will set --ddms-apps-directory-path to the
+                                      path to ddms's tmp directory.
+
+                                      ddms will look for the Apps directory at
+                                      the following path relative to ddms's root
+                                      directory for an Apps directory:
+
+                                        ../../../Apps
+
+                                      Defaults to:
+
+                                        ./tmp
+
+  [--debug]                           Show debug information for the current call
+                                      to ddms based on the specified argument.
+                                      The following arguments are possible, at
+                                      least one is expected.
+
+                                        flags :   This will cause ddms to output
+                                                  the flags passed to ddms and their
+                                                  arguments.
+
+                                        options : This will cause ddms to output
+                                                  any options passed to ddms.
+
+  Examples:
+
+  ddms --help
+
+  ddms --help --new-app
+
+  ddms --start-server --debug flags

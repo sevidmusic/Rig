@@ -1,6 +1,12 @@
 <?php
 
-require str_replace('bin', '', __DIR__) . DIRECTORY_SEPARATOR . 'vendor/autoload.php';
+$darlingDataManagementSystemAutoloader = strval(realpath(str_replace('darling' . DIRECTORY_SEPARATOR . 'ddms' . DIRECTORY_SEPARATOR . 'bin', '', __DIR__) . DIRECTORY_SEPARATOR . 'autoload.php'));
+$standaloneAutoloader = strval(realpath(str_replace('bin', '', __DIR__) . DIRECTORY_SEPARATOR . 'vendor/autoload.php'));
+if(file_exists($darlingDataManagementSystemAutoloader)) {
+    require $darlingDataManagementSystemAutoloader;
+} else {
+    require $standaloneAutoloader;
+}
 
 use ddms\classes\ui\CommandLineUI;
 use ddms\classes\command\Help;
