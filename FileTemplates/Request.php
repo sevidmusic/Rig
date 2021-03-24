@@ -1,9 +1,9 @@
 <?php
 
-/** APP_NAME | REQUEST_NAME.php */
+/** _NAME_.php */
 
 $appComponentsFactory->buildRequest(
-    'REQUEST_NAME',
-    'REQUEST_CONTAINER',
-    $appComponentsFactory->getApp()->getAppDomain()->getUrl() . '/RELATIVE_URL',
+    '_NAME_',
+    '_CONTAINER_',
+    $appComponentsFactory->getApp()->getAppDomain()->getUrl() . '/_RELATIVE_URL_',
 );
