@@ -127,6 +127,16 @@ final class NewRequestTest extends TestCase
         $this->assertEquals($this->determineExpectedRequestPhpContent($preparedArguments), $this->getNewRequestContent($preparedArguments));
     }
 
+    public function testRunSetsRelativeUrlTo_index_php_IfRelativeUrlIsSpecifiedWithNoValue(): void
+    {
+        $appName = $this->createTestAppReturnName();
+        $requestName = $appName . 'Request';
+        $newRequest = new NewRequest();
+        $preparedArguments = $newRequest->prepareArguments(['--name', $requestName, '--for-app', $appName, '--relative-url']);
+        $newRequest->run(new CommandLineUI(), $preparedArguments);
+        $this->assertEquals($this->determineExpectedRequestPhpContent($preparedArguments), file_get_contents($this->expectedRequestPath($preparedArguments)));
+    }
+
     public function testRunThrowsRuntimeExceptionIfRelativeUrlIsNotValid(): void
     {
         $appName = $this->createTestAppReturnName();
