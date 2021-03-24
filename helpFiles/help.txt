@@ -1,7 +1,7 @@
 
   ddms [--help] [--start-server] [--view-active-servers] [--new-app]
        [--new-global-response] [--new-dynamic-output-component]
-       [--ddms-apps-directory-path] [--debug]
+       [--new-request] [--ddms-apps-directory-path] [--debug]
 
   Description:
 
@@ -19,21 +19,24 @@
 
   Flags:
 
-  ddms --help [FLAG]                  Show this help message, or the appropriate
+  [--help] [FLAG]                     Show this help message, or the appropriate
                                       help message for the specified FLAG.
 
-  ddms --start-server                 Start a development server.
+  [--start-server]                    Start a development server.
 
-  ddms --view-active-servers          Show active development servers.
+  [--view-active-servers]             Show active development servers.
 
-  ddms --new-app                      Create a new Darling Data Management System
+  [--new-app]                         Create a new Darling Data Management System
                                       App.
 
-  ddms --new-global-response          Create a new GlobalResponse for a Darling
+  [--new-global-response]             Create a new GlobalResponse for a Darling
                                       Data Management System App.
 
-  ddms --new-dynamic-output-component Create a new DynamicOutputComponent for a
+  [--new-dynamic-output-component]    Create a new DynamicOutputComponent for a
                                       Darling Data Management System.
+
+  [--new-request]                     Create a new Request for a Darling Data
+                                      Management System App.
 
   [--ddms-apps-directory-path]        Path to the Darling Data Management Apps
                                       directory or, an alternative directory.
