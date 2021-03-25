@@ -1,10 +1,10 @@
 <?php
 
-/** APP_NAME | OUTPUT_COMPONENT_NAME.php */
+/** _NAME_.php */
 
- $appComponentsFactory->buildOutputComponent(
-    'OUTPUT_COMPONENT_NAME',
-    'OUTPUT_COMPONENT_CONTAINER',
-    'OUTPUT',
-    OUTPUT_COMPONENT_POSITION
+$appComponentsFactory->buildOutputComponent(
+    '_NAME_',
+    '_CONTAINER_',
+    '_OUTPUT_',
+    _POSITION_
 );
