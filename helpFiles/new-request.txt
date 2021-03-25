@@ -1,0 +1,49 @@
+
+  ddms --new-request --for-app --name
+                     [--relative-url] [--ddms-apps-directory-path]
+
+  Description:
+
+  Create a new Request for the specified App.
+
+  Flags:
+
+  --for-app                    The name of the App to create the Request
+                               for.
+
+  --name                       A name to assign to the new Request.
+
+  --relative-url               A relative url to assign to the new Request.
+                               For example:
+
+o                                 index.php?foo=bar
+
+                               Defaults to:
+
+                                 index.php
+
+  [--ddms-apps-directory-path] Path to the Darling Data Management Apps
+                               directory or, an alternative directory.
+
+                               If not specified, ddms will attempt to locate
+                               the Apps directory, if it cannot find it ddms
+                               will set --ddms-apps-directory-path to the
+                               path to ddms's tmp directory.
+
+                               ddms will look for the Apps directory at
+                               the following path relative to ddms's root
+                               directory for an Apps directory:
+
+                                 ../../../Apps
+
+                               Defaults to:
+
+                                 ./tmp
+
+  Examples:
+
+  ddms --new-request --for-app HelloWorld --name Foo
+
+  ddms --new-request --for-app HelloWorld --name Bar --relative-url "index.php?page=foo"
+
+

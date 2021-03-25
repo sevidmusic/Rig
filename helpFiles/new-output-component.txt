@@ -1,0 +1,48 @@
+
+  ddms --new-output-component --for-app --name --output
+                              [--container] [--position] [--ddms-apps-directory-path]
+
+  Description:
+
+  Create a new DynamicOutputComponent for the specified App.
+
+  Flags:
+
+  --for--app                   The name of the App to create the new DynamicOutputComponent
+                               for.
+
+  --name                       An alphanumeric name to assign to the new DynamicOutputComponent.
+
+  --output                     The output to assign to the new OutputComponent.
+
+  [--container]                The container to store the new DynamicOutputComponent
+                               data in, defaults to DynamicOutput.
+
+  [--position]                 A numeric position to assign to the new DynamicOutputComponent,
+                               defaults to 0.
+
+  [--ddms-apps-directory-path] Path to the Darling Data Management Apps
+                               directory or, an alternative directory.
+
+                               If not specified, ddms will attempt to locate
+                               the Apps directory, if it cannot find it ddms
+                               will set --ddms-apps-directory-path to the
+                               path to ddms's tmp directory.
+
+                               ddms will look for the Apps directory at
+                               the following path relative to ddms's root
+                               directory:
+
+                                 ../../../Apps
+
+                               Defaults to:
+
+                                 ./tmp
+
+  Examples:
+
+  ddms --new-output-component --for-app HelloWorld --name Foo --container HelloWorldOutput
+
+  ddms --new-output-component --for-app HelloWorld --name Foo --position 3
+
+  ddms --new-output-component --for-app HelloWorld --name Foo --file-name Baz.html --shared

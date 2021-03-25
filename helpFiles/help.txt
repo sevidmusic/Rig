@@ -1,12 +1,13 @@
 
   ddms [--help] [--start-server] [--view-active-servers] [--new-app]
        [--new-global-response] [--new-dynamic-output-component]
-       [--new-request] [--ddms-apps-directory-path] [--debug]
+       [--new-request] [--new-output-component] [--ddms-apps-directory-path]
+       [--debug]
 
   Description:
 
   ddms is a command line utility designed to aide in the development process
-  with the Darling Data Management System. ddms provides a number of commands
+  with the Darling Data Management System. ddms provides a number of flags
   that can be used to perform common development tasks.
 
   For more information about ddms go to:
@@ -37,6 +38,9 @@
 
   [--new-request]                     Create a new Request for a Darling Data
                                       Management System App.
+
+  [--new-output-component]            Create a new OutputComponent for a Darling
+                                      Data Management System App.
 
   [--ddms-apps-directory-path]        Path to the Darling Data Management Apps
                                       directory or, an alternative directory.
