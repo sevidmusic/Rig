@@ -60,6 +60,14 @@ trait TestsCreateApps
         }
     }
 
+    protected function createTestAppReturnName(): string
+    {
+        $appName = self::getRandomAppName();
+        $newApp = new NewApp();
+        $newAppPreparedArguments = $newApp->prepareArguments(['--name', $appName]);
+        $newApp->run(new CommandLineUI(), $newAppPreparedArguments);
+        return $appName;
+    }
 
 
 }

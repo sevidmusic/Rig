@@ -191,15 +191,6 @@ final class NewOutputComponentTest extends TestCase
         return self::expectedAppDirectoryPath($preparedArguments) . DIRECTORY_SEPARATOR . 'OutputComponents' . DIRECTORY_SEPARATOR . $preparedArguments['flags']['name'][0] . '.php';
     }
 
-    private function createTestAppReturnName(): string
-    {
-        $appName = self::getRandomAppName();
-        $newApp = new NewApp();
-        $newAppPreparedArguments = $newApp->prepareArguments(['--name', $appName]);
-        $newApp->run(new CommandLineUI(), $newAppPreparedArguments);
-        return $appName;
-    }
-
     /**
      * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
      */
