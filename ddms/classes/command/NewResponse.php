@@ -70,13 +70,5 @@ class NewResponse extends AbstractCommand implements Command
         return $preparedArguments;
     }
 
-    /**
-     * @param array <string, array<int, string>> $flags
-     */
-    private function determineAppDirectoryPath(array $flags): string
-    {
-        return  $flags['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $flags['for-app'][0];
-    }
-
 
 }

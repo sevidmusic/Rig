@@ -136,4 +136,12 @@ abstract class AbstractCommand implements Command
         return $convertedValues;
     }
 
+    /**
+     * @param array <string, array<int, string>> $flags
+     */
+    protected function determineAppDirectoryPath(array $flags): string
+    {
+        return  $flags['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $flags['for-app'][0];
+    }
+
 }
