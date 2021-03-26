@@ -37,7 +37,7 @@ final class AssignToResponseTest extends TestCase
         $newAssignToResponse->run(new CommandLineUI(), $newAssignToResponse->prepareArguments(['--for-app', 'Foo' . strval(rand(420, 4200)), '--response', 'Foo']));
     }
 
-    public function testRunThrowsRuntimeExceptionIfAtLeastOneAssigneeIsNotSpecified() : void
+    public function testRunThrowsRuntimeExceptionIfAtLeastOneComponentToBeAssignedIsNotSpecified() : void
     {
         $appName = $this->createTestAppReturnName();
         $assignToResponse = new AssignToResponse();
