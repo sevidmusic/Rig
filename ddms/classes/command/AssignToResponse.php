@@ -31,5 +31,18 @@ class AssignToResponse extends AbstractCommand implements Command
         if(!file_exists($this->determineAppDirectoryPath($flags)) || !is_dir($this->determineAppDirectoryPath($flags))) {
             throw new RuntimeException('  An App does not exist at' . $this->determineAppDirectoryPath($flags));
         }
+        if(!file_exists($this->determineResponsePath($flags)) || !is_dir($this->determineResponsePath($flags))) {
+            throw new RuntimeException('  An App does not exist at' . $this->determineAppDirectoryPath($flags));
+        }
+        if(!isset($flags['requests'][0]) && !isset($flags['output-components'][0]) && !isset($flags['dynamic-output-components'][0])) {
+            throw new RuntimeException('  You must specify at least one assigne via --dyanmic...');
+        }
+    }
+
+    /**
+     * @param array<string, array<int, string>> $flags
+     */
+    private function determineResponsePath($flags): string {
+        return $this->determineAppDirectoryPath($flags) . DIRECTORY_SEPARATOR . 'Responses' . DIRECTORY_SEPARATOR . $flags['response'][0];
     }
 }

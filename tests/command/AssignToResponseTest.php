@@ -3,7 +3,7 @@
 namespace tests\command;
 
 use PHPUnit\Framework\TestCase;
-use ddms\classes\command\NewApp;
+use ddms\classes\command\NewRequest;
 use ddms\classes\command\AssignToResponse;
 use ddms\classes\ui\CommandLineUI;
 use ddms\interfaces\ui\UserInterface;
@@ -35,6 +35,32 @@ final class AssignToResponseTest extends TestCase
         $newAssignToResponse = new AssignToResponse();
         $this->expectException(RuntimeException::class);
         $newAssignToResponse->run(new CommandLineUI(), $newAssignToResponse->prepareArguments(['--for-app', 'Foo' . strval(rand(420, 4200)), '--response', 'Foo']));
+    }
+
+    public function testRunThrowsRuntimeExceptionIfAtLeastOneAssigneeIsNotSpecified() : void
+    {
+        $appName = $this->createTestAppReturnName();
+        $assignToResponse = new AssignToResponse();
+        $this->expectException(RuntimeException::class);
+        $assignToResponse->run(new CommandLineUI(), $assignToResponse->prepareArguments(['--for-app', $appName, '--response', 'Foo']));
+    }
+
+    public function testRunThrowsRuntimeExceptionIfSpecifiedResponseDoesNotExist(): void
+    {
+        $appName = $this->createTestAppReturnName();
+        $requestName = $this->createTestRequestReturnName($appName);;
+        $newAssignToResponse = new AssignToResponse();
+        $this->expectException(RuntimeException::class);
+        $newAssignToResponse->run(new CommandLineUI(), $newAssignToResponse->prepareArguments(['--for-app', $appName, '--response', 'Foo', '--requests', $requestName]));
+    }
+
+    private function createTestRequestReturnName(string $appName): string
+    {
+        $requestName = self::getRandomAppName();
+        $newApp = new NewRequest();
+        $newAppPreparedArguments = $newApp->prepareArguments(['--name', $requestName, '--for-app', $appName]);
+        $newApp->run(new CommandLineUI(), $newAppPreparedArguments);
+        return $requestName;
     }
 
 }
