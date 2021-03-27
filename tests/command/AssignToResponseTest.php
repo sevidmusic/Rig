@@ -106,6 +106,26 @@ final class AssignToResponseTest extends TestCase
         );
     }
 
+    public function testRunThrowsRuntimeExceptionIfAnyOfTheSpecifiedComponentsToBeAssignedDoNotExist(): void
+    {
+        $this->expectException(RuntimeException::class);
+        $this->assignToResponse->run(
+            $this->ui,
+            $this->assignToResponse->prepareArguments(
+                [
+                    '--for-app',
+                    $this->appName,
+                    '--response',
+                    $this->responseName,
+                    '--requests',
+                    $this->requestName,
+                    '--output-components',
+                    self::getRandomAppName()
+                ]
+            )
+        );
+    }
+
     private function createTestRequestReturnName(string $appName, UserInterface $ui): string
     {
         $requestName = self::getRandomAppName() . 'Request';
