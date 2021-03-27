@@ -16,68 +16,66 @@ final class AssignToResponseTest extends TestCase
 
     use TestsCreateApps;
 
+    private string $appName;
+    private string $requestName;
+    private string $responseName;
+    private UserInterface $ui;
+    private AssignToResponse $assignToResponse;
+
+    protected function setup(): void
+    {
+        $this->ui = new CommandLineUI();
+        $this->appName = $this->createTestAppReturnName();
+        $this->requestName = $this->createTestRequestReturnName($this->appName, $this->ui);;
+        $this->responseName = $this->createTestResponseReturnName($this->appName, $this->ui);
+        $this->assignToResponse = new AssignToResponse();
+    }
+
     public function testRunThrowsExceptionIf_response_IsNotSpecified(): void
     {
-        $appName = $this->createTestAppReturnName();
-        $requestName = $this->createTestRequestReturnName($appName);;
-        $assignToResponse = new AssignToResponse();
         $this->expectException(RuntimeException::class);
-        $assignToResponse->run(new CommandLineUI(), $assignToResponse->prepareArguments(['--for-app', $appName, '--requests', $requestName]));
+        $this->assignToResponse->run($this->ui, $this->assignToResponse->prepareArguments(['--for-app', $this->appName, '--requests', $this->requestName]));
     }
 
     public function testRunThrowsExceptionIf_for_app_IsNotSpecified(): void
     {
-        $appName = $this->createTestAppReturnName();
-        $requestName = $this->createTestRequestReturnName($appName);
-        $responseName = $this->createTestResponseReturnName($appName);
-        $assignToResponse = new AssignToResponse();
         $this->expectException(RuntimeException::class);
-        $assignToResponse->run(new CommandLineUI(), $assignToResponse->prepareArguments(['--response', $responseName, '--requests', $requestName]));
+        $this->assignToResponse->run($this->ui, $this->assignToResponse->prepareArguments(['--response', $this->responseName, '--requests', $this->requestName]));
     }
 
     public function testRunThrowsRuntimeExceptionIfSpecifiedAppDoesNotExist(): void
     {
-        $appName = $this->createTestAppReturnName();
-        $requestName = $this->createTestRequestReturnName($appName);
-        $responseName = $this->createTestResponseReturnName($appName);
-        $assignToResponse = new AssignToResponse();
         $this->expectException(RuntimeException::class);
-        $assignToResponse->run(new CommandLineUI(), $assignToResponse->prepareArguments(['--for-app', 'Foo' . strval(rand(420, 4200)),'--response', $responseName, '--requests', $requestName]));
+        $this->assignToResponse->run($this->ui, $this->assignToResponse->prepareArguments(['--for-app', self::getRandomAppName(), '--response', $this->responseName, '--requests', $this->requestName]));
     }
 
     public function testRunThrowsRuntimeExceptionIfAtLeastOneComponentToBeAssignedIsNotSpecified() : void
     {
-        $appName = $this->createTestAppReturnName();
-        $responseName = $this->createTestResponseReturnName($appName);
-        $assignToResponse = new AssignToResponse();
         $this->expectException(RuntimeException::class);
-        $assignToResponse->run(new CommandLineUI(), $assignToResponse->prepareArguments(['--for-app', $appName, '--response', $responseName]));
+        $this->assignToResponse->run($this->ui, $this->assignToResponse->prepareArguments(['--for-app', $this->appName, '--response', $this->responseName]));
     }
 
     public function testRunThrowsRuntimeExceptionIfSpecifiedResponseDoesNotExist(): void
     {
-        $appName = $this->createTestAppReturnName();
-        $requestName = $this->createTestRequestReturnName($appName);;
-        $newAssignToResponse = new AssignToResponse();
         $this->expectException(RuntimeException::class);
-        $newAssignToResponse->run(new CommandLineUI(), $newAssignToResponse->prepareArguments(['--for-app', $appName, '--response', 'Foo' . strval(rand(420, 4200)), '--requests', $requestName]));
+        $this->assignToResponse->run($this->ui, $this->assignToResponse->prepareArguments(['--for-app', $this->appName, '--response', self::getRandomAppName(), '--requests', $this->requestName]));
     }
 
-    private function createTestRequestReturnName(string $appName): string
+    private function createTestRequestReturnName(string $appName, UserInterface $ui): string
     {
         $requestName = self::getRandomAppName() . 'Request';
         $newApp = new NewRequest();
         $newAppPreparedArguments = $newApp->prepareArguments(['--name', $requestName, '--for-app', $appName]);
-        $newApp->run(new CommandLineUI(), $newAppPreparedArguments);
+        $newApp->run($ui, $newAppPreparedArguments);
         return $requestName;
     }
 
-    private function createTestResponseReturnName(string $appName): string
+    private function createTestResponseReturnName(string $appName, UserInterface $ui): string
     {
         $responseName = self::getRandomAppName() . 'Response';
         $newApp = new NewResponse();
         $newAppPreparedArguments = $newApp->prepareArguments(['--name', $responseName, '--for-app', $appName]);
-        $newApp->run(new CommandLineUI(), $newAppPreparedArguments);
+        $newApp->run($ui, $newAppPreparedArguments);
         return $responseName;
     }
 
