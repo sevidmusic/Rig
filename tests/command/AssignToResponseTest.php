@@ -130,7 +130,7 @@ final class AssignToResponseTest extends TestCase
         );
     }
 
-/*    public function testRunAssignsAllSpecifiedComponentsToSpecifiedResponse(): void
+    public function testRunAssignsAllSpecifiedComponentsToSpecifiedResponse(): void
     {
         $preparedArguments = $this->assignToResponse->prepareArguments(
             [
@@ -154,7 +154,7 @@ final class AssignToResponseTest extends TestCase
         throw new RuntimeException($expectedContent);
         # $this->assignToResponse->run($this->ui, $preparedArguments);
     }
-*/
+
     /**
      * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
      */
@@ -176,8 +176,20 @@ final class AssignToResponseTest extends TestCase
      */
     private function expectedAssignments(array $preparedArguments): string {
         $assignments = '';
-        foreach($preparedArguments['flags']['requests'] as $requestName) {
-            $assignments .= $this->generateNewEntry($requestName, $preparedArguments, 'Requests');
+        $assignments .= $this->generateAssignments($preparedArguments, 'Requests', 'requests');
+        $assignments .= $this->generateAssignments($preparedArguments, 'OutputComponents', 'dynamic-output-components');
+        $assignments .= $this->generateAssignments($preparedArguments, 'OutputComponents', 'output-components');
+        return $assignments;
+    }
+
+    /**
+     * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
+     */
+    private function generateAssignments(array $preparedArguments, string $componentDirName, string $flagName): string
+    {
+        $assignments = '';
+        foreach($preparedArguments['flags'][$flagName] as $requestName) {
+            $assignments .= $this->generateNewEntry($requestName, $preparedArguments, $componentDirName);
         }
         return $assignments;
     }
@@ -195,7 +207,7 @@ final class AssignToResponseTest extends TestCase
             [
                 $componentName,
                 'Request',
-                $this->determineContainer($componentName, $preparedArguments, 'Requests')
+                $this->determineContainer($componentName, $preparedArguments, $componentDirName)
             ],
             $this->getResponseAssingmentTemplate()
         );
