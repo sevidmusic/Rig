@@ -1,8 +1,8 @@
 
   ddms [--help] [--start-server] [--view-active-servers] [--new-app]
        [--new-global-response] [--new-dynamic-output-component]
-       [--new-request] [--new-output-component] [--ddms-apps-directory-path]
-       [--debug]
+       [--new-request] [--new-output-component] [--assign-to-response]
+       [--ddms-apps-directory-path] [--debug]
 
   Description:
 
@@ -41,6 +41,10 @@
 
   [--new-output-component]            Create a new OutputComponent for a Darling
                                       Data Management System App.
+
+  [--assign-to-response]              Assign one or more Requests, OutputComponents,
+                                      or DynamicOutputComponents to an existing
+                                      Response or GlobalResponse.
 
   [--ddms-apps-directory-path]        Path to the Darling Data Management Apps
                                       directory or, an alternative directory.
