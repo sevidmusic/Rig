@@ -12,10 +12,12 @@ class AssignToResponse extends AbstractCommand implements Command
 
     private const RESPONSES_POSITION_REGEX = '/[0-9][,]/';
     private const RESPONSES_POSITION_FOUND_VALUE = '$0';
+    private UserInterface $ui;
 
     public function run(UserInterface $userInterface, array $preparedArguments = ['flags' => [], 'options' => []]): bool
     {
         ['flags' => $flags] = $preparedArguments;
+        $this->ui = $userInterface;
         $this->validateFlags($flags);
         $this->assignToResponse($flags);
         return true;
@@ -34,6 +36,7 @@ class AssignToResponse extends AbstractCommand implements Command
             )
         );
         file_put_contents($this->determineResponsePath($flags), $newResponseContent);
+        $this->showMessage('Finished adding new assignments to ' . $flags['response'][0] . ' Response at path ' . $this->determineResponsePath($flags));
     }
 
     /**
@@ -42,10 +45,23 @@ class AssignToResponse extends AbstractCommand implements Command
     private function getAssignments(array $flags): string
     {
         $assignments = '';
+        $this->showMessage($this->assingingToResponseMessage('Requests', $flags['response'][0]));
         $assignments .= $this->generateAssignments($flags, 'Requests', 'requests');
+        $this->showMessage($this->assingingToResponseMessage('OutputComponents', $flags['response'][0]));
         $assignments .= $this->generateAssignments($flags, 'OutputComponents', 'output-components');
+        $this->showMessage($this->assingingToResponseMessage('DynamicOutputComponents', $flags['response'][0]));
         $assignments .= $this->generateAssignments($flags, 'OutputComponents', 'dynamic-output-components');
         return $assignments;
+    }
+
+    private function assingingToResponseMessage(string $what, string $responseName): string
+    {
+        return 'Assigning '. $what . ' to ' . $responseName . ' Response.';
+    }
+
+    private function showMessage(string $message): void
+    {
+        $this->ui->showMessage(PHP_EOL . $message . PHP_EOL);
     }
 
     /**
@@ -55,6 +71,7 @@ class AssignToResponse extends AbstractCommand implements Command
     {
         $assignments = '';
         foreach($flags[$flagName] as $componentName) {
+            $this->showMessage($this->assingingToResponseMessage($componentName, $flags['response'][0]));
             $assignments .= $this->generateNewEntry($componentName, $flags, $componentDirName, $flagName);
         }
         return $assignments;
