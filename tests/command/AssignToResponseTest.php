@@ -151,8 +151,8 @@ final class AssignToResponseTest extends TestCase
             ]
         );
         $expectedContent = $this->expectedModifiedResponseContent($preparedArguments);
-        throw new RuntimeException($expectedContent);
-        # $this->assignToResponse->run($this->ui, $preparedArguments);
+        $this->assignToResponse->run($this->ui, $preparedArguments);
+        $this->assertEquals($expectedContent, $this->getResponseContent($preparedArguments));
     }
 
     /**
@@ -160,12 +160,12 @@ final class AssignToResponseTest extends TestCase
      */
     private function expectedModifiedResponseContent(array $preparedArguments): string
     {
-        $initialResponseContent = $this->getInitialResponseContent($preparedArguments);
+        $initialResponseContent = $this->getResponseContent($preparedArguments);
         $assignmentString = $this->expectedAssignments($preparedArguments);
         return strval(
             preg_replace(
                 self::RESPONSES_POSITION_REGEX,
-                self::RESPONSES_POSITION_FOUND_VALUE . PHP_EOL . $assignmentString . PHP_EOL,
+                self::RESPONSES_POSITION_FOUND_VALUE . $assignmentString,
                 $initialResponseContent
             )
         );
@@ -176,9 +176,9 @@ final class AssignToResponseTest extends TestCase
      */
     private function expectedAssignments(array $preparedArguments): string {
         $assignments = '';
-        $assignments .= $this->generateAssignments($preparedArguments, 'OutputComponents', 'dynamic-output-components');
         $assignments .= $this->generateAssignments($preparedArguments, 'Requests', 'requests');
         $assignments .= $this->generateAssignments($preparedArguments, 'OutputComponents', 'output-components');
+        $assignments .= $this->generateAssignments($preparedArguments, 'OutputComponents', 'dynamic-output-components');
         return $assignments;
     }
 
@@ -272,7 +272,7 @@ final class AssignToResponseTest extends TestCase
     /**
      * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
      */
-    private function getInitialResponseContent(array $preparedArguments) : string
+    private function getResponseContent(array $preparedArguments) : string
     {
         $this->testResponseExists($preparedArguments);
         return strval(
