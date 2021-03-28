@@ -7,6 +7,6 @@ use DarlingDataManagementSystem\classes\component\DynamicOutputComponent;
 
 $appComponentsFactory->buildGlobalResponse(
     '_NAME_',
-    _POSITION_
+    _POSITION_,
 );
 
