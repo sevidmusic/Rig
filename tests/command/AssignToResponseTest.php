@@ -176,8 +176,8 @@ final class AssignToResponseTest extends TestCase
      */
     private function expectedAssignments(array $preparedArguments): string {
         $assignments = '';
-        $assignments .= $this->generateAssignments($preparedArguments, 'Requests', 'requests');
         $assignments .= $this->generateAssignments($preparedArguments, 'OutputComponents', 'dynamic-output-components');
+        $assignments .= $this->generateAssignments($preparedArguments, 'Requests', 'requests');
         $assignments .= $this->generateAssignments($preparedArguments, 'OutputComponents', 'output-components');
         return $assignments;
     }
@@ -189,7 +189,7 @@ final class AssignToResponseTest extends TestCase
     {
         $assignments = '';
         foreach($preparedArguments['flags'][$flagName] as $requestName) {
-            $assignments .= $this->generateNewEntry($requestName, $preparedArguments, $componentDirName);
+            $assignments .= $this->generateNewEntry($requestName, $preparedArguments, $componentDirName, $flagName);
         }
         return $assignments;
     }
@@ -197,7 +197,7 @@ final class AssignToResponseTest extends TestCase
     /**
      * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
      */
-    private function generateNewEntry(string $componentName, array $preparedArguments, string $componentDirName): string {
+    private function generateNewEntry(string $componentName, array $preparedArguments, string $componentDirName, string $flagName): string {
         return str_replace(
             [
                 '_NAME_',
@@ -206,11 +206,16 @@ final class AssignToResponseTest extends TestCase
             ],
             [
                 $componentName,
-                'Request',
+                $this->determineComponentType($flagName),
                 $this->determineContainer($componentName, $preparedArguments, $componentDirName)
             ],
             $this->getResponseAssingmentTemplate()
         );
+    }
+
+    private function determineComponentType(string $flagName) : string
+    {
+        return str_replace([' ', 'ts'], ['', 't'], ucwords(str_replace('-', ' ', $flagName)));
     }
 
     /**
@@ -384,17 +389,4 @@ final class AssignToResponseTest extends TestCase
     }
 
 }
-/*
-            $newEntry = str_replace(
-                [
-                    '_NAME_',
-                    '_TYPE_'
-                ],
-                [
-                    $requestName,
-                    'Request'
-                ],
-                $responseAssignementTemplate
-            );
-*/
 
