@@ -189,7 +189,7 @@ final class AssignToResponseTest extends TestCase
     {
         $assignments = '';
         foreach($preparedArguments['flags'][$flagName] as $requestName) {
-            $assignments .= $this->generateNewEntry($requestName, $preparedArguments, $componentDirName, $flagName);
+            $assignments .= PHP_EOL . $this->generateNewEntry($requestName, $preparedArguments, $componentDirName, $flagName);
         }
         return $assignments;
     }
