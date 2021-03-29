@@ -69,10 +69,11 @@ class AssignToResponse extends AbstractCommand implements Command
      */
     private function generateAssignments(array $flags, string $componentDirName, string $flagName): string
     {
+        if(!isset($flags[$flagName])) { return ''; }
         $assignments = '';
         foreach($flags[$flagName] as $componentName) {
             $this->showMessage($this->assingingToResponseMessage($componentName, $flags['response'][0]));
-            $assignments .= $this->generateNewEntry($componentName, $flags, $componentDirName, $flagName);
+            $assignments .= PHP_EOL . $this->generateNewEntry($componentName, $flags, $componentDirName, $flagName);
         }
         return $assignments;
     }
