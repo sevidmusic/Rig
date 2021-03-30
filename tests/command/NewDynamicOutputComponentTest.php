@@ -365,4 +365,56 @@ testRunDoesNotCreateDynamicOutputFileInSharedDynamicOutputDirectoryIfSharedFlagI
         return str_replace('tests' . DIRECTORY_SEPARATOR . 'command', 'FileTemplates', __DIR__) . DIRECTORY_SEPARATOR . 'DynamicOutputComponent.php';
     }
 
+################
+
+    public function testRunThrowsRuntimeExpceptionIf_initial_output_FlagIsSpecifiedAndCreationOfNewDynamicOutputFileWouldOverwriteAnExistingDynamicOutputFile(): void
+    {
+        $appName = $this->createTestAppReturnName();
+        $arguments = [
+            '--name', 'FirstDynamicOutputComponent',
+            '--file-name', 'dynamicOutputFile.txt',
+            '--for-app', $appName,
+            '--initial-output', 'Foo bar baz'
+        ];
+        $newDynamicOutputComponent = new NewDynamicOutputComponent();
+        $preparedArguments = $newDynamicOutputComponent->prepareArguments($arguments);
+        $newDynamicOutputComponent->run(new CommandLineUI(), $preparedArguments);
+        $arguments['--name'] = 'SecondDynamicOutputComponent';
+        $preparedArguments = $newDynamicOutputComponent->prepareArguments($arguments);
+        $this->expectException(RuntimeException::class);
+        $newDynamicOutputComponent->run(new CommandLineUI(), $preparedArguments);
+    }
+
+    public function testRunThrowsRuntimeExpceptionIf_initial_output_file_FlagIsSpecifiedAndCreationOfNewDynamicOutputFileWouldOverwriteAnExistingDynamicOutputFile(): void
+    {
+        $appName = $this->createTestAppReturnName();
+        $arguments = [
+            '--name', 'FirstDynamicOutputComponent',
+            '--file-name', 'dynamicOutputFile.txt',
+            '--for-app', $appName,
+            '--initial-output-file', __FILE__
+        ];
+        $newDynamicOutputComponent = new NewDynamicOutputComponent();
+        $preparedArguments = $newDynamicOutputComponent->prepareArguments($arguments);
+        $newDynamicOutputComponent->run(new CommandLineUI(), $preparedArguments);
+        $arguments['--name'] = 'SecondDynamicOutputComponent';
+        $preparedArguments = $newDynamicOutputComponent->prepareArguments($arguments);
+        $this->expectException(RuntimeException::class);
+        $newDynamicOutputComponent->run(new CommandLineUI(), $preparedArguments);
+    }
+
+    public function testRunThrowsRuntimeExpceptionIfSpecified_initial_output_file_DoesNotExist(): void
+    {
+        $appName = $this->createTestAppReturnName();
+        $arguments = [
+            '--name', 'FirstDynamicOutputComponent',
+            '--file-name', 'dynamicOutputFile.txt',
+            '--for-app', $appName,
+            '--initial-output-file', 'Foo' . strval(rand(420, 4200))
+        ];
+        $newDynamicOutputComponent = new NewDynamicOutputComponent();
+        $preparedArguments = $newDynamicOutputComponent->prepareArguments($arguments);
+        $this->expectException(RuntimeException::class);
+        $newDynamicOutputComponent->run(new CommandLineUI(), $preparedArguments);
+    }
 }

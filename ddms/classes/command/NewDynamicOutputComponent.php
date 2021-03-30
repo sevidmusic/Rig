@@ -111,9 +111,17 @@ class NewDynamicOutputComponent extends AbstractCommand implements Command
     {
         return (
             isset($flags['shared'])
-            ? $this->determineSharedDynamicOutputDirectoryPath($flags) . DIRECTORY_SEPARATOR . ($flags['file-name'][0] ?? $flags['name'][0] . '.php')
-            : $this->determineAppsDynamicOutputDirectoryPath($flags) . DIRECTORY_SEPARATOR . ($flags['file-name'][0] ?? $flags['name'][0] . '.php')
+            ? $this->determineSharedDynamicOutputDirectoryPath($flags) . DIRECTORY_SEPARATOR . $this->determineDynamicOutputFileName($flags)
+            : $this->determineAppsDynamicOutputDirectoryPath($flags) . DIRECTORY_SEPARATOR . $this->determineDynamicOutputFileName($flags)
         );
+    }
+
+    /**
+     * @param array<string,array<int,string>> $flags
+     */
+    private function determineDynamicOutputFileName(array $flags) : string
+    {
+        return ($flags['file-name'][0] ?? $flags['name'][0] . '.php');
     }
 
     /**
@@ -159,7 +167,24 @@ class NewDynamicOutputComponent extends AbstractCommand implements Command
         if(isset($flags['position'][0]) && !is_numeric($flags['position'][0])) {
             throw new RuntimeException('  Please specify a numeric position for the new DynamicOutputComponent. For example `--position 1`.');
         }
+        if(isset($flags['initial-output'][0]) && file_exists($this->pathToNewDynamicOutputFile($flags))) {
+            throw new RuntimeException($this->dynamicOutputFileExistsMessage($flags));
+        }
+        if(isset($flags['initial-output-file'][0]) && file_exists($this->pathToNewDynamicOutputFile($flags))) {
+            throw new RuntimeException($this->dynamicOutputFileExistsMessage($flags));
+        }
+        if(isset($flags['initial-output-file'][0]) && !file_exists($flags['initial-output-file'][0])) {
+            throw new RuntimeException('  The specified --initial-output-file does not exist at ' . $flags['initial-output-file'][0] . ' Please specify an existing --initial-output-file');
+        }
         return $preparedArguments;
+    }
+
+    /**
+     * @param array<string,array<int,string>> $flags
+     */
+    private function dynamicOutputFileExistsMessage(array $flags): string
+    {
+        return '  A dynamic output file named ' . $this->determineDynamicOutputFileName($flags) . ' already exists, please use the --file-name flag to specify a unique file name for the new dynamic output file that will be created for the new DynamicOutputComponent.';
     }
 
 }
