@@ -173,6 +173,9 @@ class NewDynamicOutputComponent extends AbstractCommand implements Command
         if(isset($flags['initial-output-file'][0]) && file_exists($this->pathToNewDynamicOutputFile($flags))) {
             throw new RuntimeException($this->dynamicOutputFileExistsMessage($flags));
         }
+        if(isset($flags['initial-output-file'][0]) && !file_exists($flags['initial-output-file'][0])) {
+            throw new RuntimeException('  The specified --initial-output-file does not exist at ' . $flags['initial-output-file'][0] . ' Please specify an existing --initial-output-file');
+        }
         return $preparedArguments;
     }
 

@@ -403,4 +403,18 @@ testRunDoesNotCreateDynamicOutputFileInSharedDynamicOutputDirectoryIfSharedFlagI
         $newDynamicOutputComponent->run(new CommandLineUI(), $preparedArguments);
     }
 
+    public function testRunThrowsRuntimeExpceptionIfSpecified_initial_output_file_DoesNotExist(): void
+    {
+        $appName = $this->createTestAppReturnName();
+        $arguments = [
+            '--name', 'FirstDynamicOutputComponent',
+            '--file-name', 'dynamicOutputFile.txt',
+            '--for-app', $appName,
+            '--initial-output-file', 'Foo' . strval(rand(420, 4200))
+        ];
+        $newDynamicOutputComponent = new NewDynamicOutputComponent();
+        $preparedArguments = $newDynamicOutputComponent->prepareArguments($arguments);
+        $this->expectException(RuntimeException::class);
+        $newDynamicOutputComponent->run(new CommandLineUI(), $preparedArguments);
+    }
 }
