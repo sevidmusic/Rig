@@ -433,7 +433,7 @@ testRunDoesNotCreateDynamicOutputFileInSharedDynamicOutputDirectoryIfSharedFlagI
         $newDynamicOutputComponent->run(new CommandLineUI(), $preparedArguments);
     }
 
-    public function testRunDynamicOutputFilesContentToSpecifiedInitialOutputIf_initial_output_FlagIsSpecified(): void
+    public function testRunSetDynamicOutputFilesContentToSpecifiedInitialOutputIf_initial_output_FlagIsSpecified(): void
     {
         $appName = $this->createTestAppReturnName();
         $initialOutput = 'Foo bar ' . strval(rand(420, 4200));
