@@ -60,7 +60,7 @@ class NewDynamicOutputComponent extends AbstractCommand implements Command
         if(isset($flags['initial-output-file'][0]) && file_exists($flags['initial-output-file'][0])) {
             return strval(file_get_contents($flags['initial-output-file'][0]));
         }
-        return ($flags['initial-output'][0] ?? '');
+        return (!empty($flags['initial-output']) ? implode(' ', $flags['initial-output']) : '');
     }
 
     private function showMessage(string $message) : void
