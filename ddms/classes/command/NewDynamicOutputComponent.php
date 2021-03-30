@@ -43,13 +43,24 @@ class NewDynamicOutputComponent extends AbstractCommand implements Command
             }
             file_put_contents(
                 $this->pathToNewDynamicOutputFile($flags),
-                ''
+                $this->determineInitialDynamicOutputFileContent($flags)
             );
             $this->showMessage(
                 'Creating dynamic output file for new DynamicOutputComponent at ' .
                 $this->pathToNewDynamicOutputFile($flags)
             );
         }
+    }
+
+    /**
+     * @param array<string, array<int, string>> $flags
+     */
+    private function determineInitialDynamicOutputFileContent(array $flags): string
+    {
+        if(isset($flags['initial-output-file'][0]) && file_exists($flags['initial-output-file'][0])) {
+            return strval(file_get_contents($flags['initial-output-file'][0]));
+        }
+        return (!empty($flags['initial-output']) ? implode(' ', $flags['initial-output']) : '');
     }
 
     private function showMessage(string $message) : void
@@ -175,6 +186,9 @@ class NewDynamicOutputComponent extends AbstractCommand implements Command
         }
         if(isset($flags['initial-output-file'][0]) && !file_exists($flags['initial-output-file'][0])) {
             throw new RuntimeException('  The specified --initial-output-file does not exist at ' . $flags['initial-output-file'][0] . ' Please specify an existing --initial-output-file');
+        }
+        if(isset($flags['initial-output'][0]) && isset($flags['initial-output-file'][0])) {
+            throw new RuntimeException('  The --initial-output and --initial-output-file flags cannot be used together.  For help use ddms --help --new-dynamic-output-file');
         }
         return $preparedArguments;
     }

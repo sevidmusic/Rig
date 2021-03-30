@@ -417,4 +417,66 @@ testRunDoesNotCreateDynamicOutputFileInSharedDynamicOutputDirectoryIfSharedFlagI
         $this->expectException(RuntimeException::class);
         $newDynamicOutputComponent->run(new CommandLineUI(), $preparedArguments);
     }
+
+    public function testRunThrowsRuntimeExpceptionIfBoth_initial_output_And_initial_output_file_FlagsAreSpecified(): void
+    {
+        $appName = $this->createTestAppReturnName();
+        $arguments = [
+            '--name', $appName . 'DynamicOutputComponent',
+            '--for-app', $appName,
+            '--initial-output', 'Foo bar baz',
+            '--initial-output-file', __FILE__
+        ];
+        $newDynamicOutputComponent = new NewDynamicOutputComponent();
+        $preparedArguments = $newDynamicOutputComponent->prepareArguments($arguments);
+        $this->expectException(RuntimeException::class);
+        $newDynamicOutputComponent->run(new CommandLineUI(), $preparedArguments);
+    }
+
+    public function testRunSetDynamicOutputFilesContentToSpecifiedInitialOutputIf_initial_output_FlagIsSpecified(): void
+    {
+        $appName = $this->createTestAppReturnName();
+        $initialOutput = 'Foo bar ' . strval(rand(420, 4200));
+        $dynamicOutputComponentName = $appName . 'DynamicOutputComponent';
+        $fileName = $dynamicOutputComponentName . '.html';
+        $newDynamicOutputComponent = new NewDynamicOutputComponent();
+        $preparedArguments = $newDynamicOutputComponent->prepareArguments(['--name', $dynamicOutputComponentName, '--for-app', $appName, '--initial-output', $initialOutput, '--file-name', $fileName]);
+        $newDynamicOutputComponent->run(new CommandLineUI(), $preparedArguments);
+        $this->assertEquals($initialOutput, $this->getDynamicOutputFileContents($fileName, $preparedArguments));
+    }
+
+    public function testRunSetDynamicOutputFilesContentToMatchSpecifiedFilesContentIf_initial_output_file_FlagIsSpecified(): void
+    {
+        $appName = $this->createTestAppReturnName();
+        $expectedOutputFilePath = __FILE__;
+        $expectedOutput = strval(file_get_contents($expectedOutputFilePath));
+        $dynamicOutputComponentName = $appName . 'DynamicOutputComponent';
+        $fileName = $dynamicOutputComponentName . '.php';
+        $newDynamicOutputComponent = new NewDynamicOutputComponent();
+        $preparedArguments = $newDynamicOutputComponent->prepareArguments(['--name', $dynamicOutputComponentName, '--for-app', $appName, '--initial-output-file', $expectedOutputFilePath]);
+        $newDynamicOutputComponent->run(new CommandLineUI(), $preparedArguments);
+        $this->assertEquals($expectedOutput, $this->getDynamicOutputFileContents($fileName, $preparedArguments));
+    }
+
+    /**
+     * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
+     */
+    private function getDynamicOutputFileContents(string $fileName, array $preparedArguments): string
+    {
+        return strval(file_get_contents($this->determineDynamicOutputFilePath($fileName, $preparedArguments)));
+    }
+
+    /**
+     * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
+     */
+    private function determineDynamicOutputFilePath(string $fileName, array $preparedArguments): string
+    {
+        $dynamicOutputFilePath = $this->expectedAppDynamicOutputDirectoryPath($preparedArguments) . DIRECTORY_SEPARATOR . $fileName;
+        if(!file_exists($dynamicOutputFilePath)) {
+            throw new RuntimeException('  NewDynamicOutputComponentTest Error: A dynamic output file does not exist at the expected path: ' . $dynamicOutputFilePath);
+        }
+        return $dynamicOutputFilePath;
+    }
+
 }
+
