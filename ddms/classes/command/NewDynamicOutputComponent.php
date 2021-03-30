@@ -43,7 +43,7 @@ class NewDynamicOutputComponent extends AbstractCommand implements Command
             }
             file_put_contents(
                 $this->pathToNewDynamicOutputFile($flags),
-                ''
+                ($flags['initial-output'][0] ?? '')
             );
             $this->showMessage(
                 'Creating dynamic output file for new DynamicOutputComponent at ' .

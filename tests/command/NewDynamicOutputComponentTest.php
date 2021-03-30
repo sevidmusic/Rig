@@ -432,5 +432,30 @@ testRunDoesNotCreateDynamicOutputFileInSharedDynamicOutputDirectoryIfSharedFlagI
         $this->expectException(RuntimeException::class);
         $newDynamicOutputComponent->run(new CommandLineUI(), $preparedArguments);
     }
+
+    public function testRunDynamicOutputFilesContentToSpecifiedInitialOutputIf_initial_output_FlagIsSpecified(): void
+    {
+        $appName = $this->createTestAppReturnName();
+        $initialOutput = 'Foo bar ' . strval(rand(420, 4200));
+        $dynamicOutputComponentName = $appName . 'DynamicOutputComponent';
+        $fileName = $dynamicOutputComponentName . '.html';
+        $newDynamicOutputComponent = new NewDynamicOutputComponent();
+        $preparedArguments = $newDynamicOutputComponent->prepareArguments(['--name', $dynamicOutputComponentName, '--for-app', $appName, '--initial-output', $initialOutput, '--file-name', $fileName]);
+        $newDynamicOutputComponent->run(new CommandLineUI(), $preparedArguments);
+        $this->assertEquals($initialOutput, strval(file_get_contents($this->determineDynamicOutputFilePath($fileName, $preparedArguments))));
+    }
+
+    /**
+     * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
+     */
+    private function determineDynamicOutputFilePath(string $fileName, array $preparedArguments): string
+    {
+        $dynamicOutputFilePath = $this->expectedAppDynamicOutputDirectoryPath($preparedArguments) . DIRECTORY_SEPARATOR . $fileName;
+        if(!file_exists($dynamicOutputFilePath)) {
+            throw new RuntimeException('  NewDynamicOutputComponentTest Error: A dynamic output file does not exist at the expected path: ' . $dynamicOutputFilePath);
+        }
+        return $dynamicOutputFilePath;
+    }
+
 }
 
