@@ -417,4 +417,20 @@ testRunDoesNotCreateDynamicOutputFileInSharedDynamicOutputDirectoryIfSharedFlagI
         $this->expectException(RuntimeException::class);
         $newDynamicOutputComponent->run(new CommandLineUI(), $preparedArguments);
     }
+
+    public function testRunThrowsRuntimeExpceptionIfBoth_initial_output_And_initial_output_file_FlagsAreSpecified(): void
+    {
+        $appName = $this->createTestAppReturnName();
+        $arguments = [
+            '--name', $appName . 'DynamicOutputComponent',
+            '--for-app', $appName,
+            '--initial-output', 'Foo bar baz',
+            '--initial-output-file', __FILE__
+        ];
+        $newDynamicOutputComponent = new NewDynamicOutputComponent();
+        $preparedArguments = $newDynamicOutputComponent->prepareArguments($arguments);
+        $this->expectException(RuntimeException::class);
+        $newDynamicOutputComponent->run(new CommandLineUI(), $preparedArguments);
+    }
 }
+

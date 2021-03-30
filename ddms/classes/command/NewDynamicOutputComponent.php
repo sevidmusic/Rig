@@ -176,6 +176,9 @@ class NewDynamicOutputComponent extends AbstractCommand implements Command
         if(isset($flags['initial-output-file'][0]) && !file_exists($flags['initial-output-file'][0])) {
             throw new RuntimeException('  The specified --initial-output-file does not exist at ' . $flags['initial-output-file'][0] . ' Please specify an existing --initial-output-file');
         }
+        if(isset($flags['initial-output'][0]) && isset($flags['initial-output-file'][0])) {
+            throw new RuntimeException('  The --initial-output and --initial-output-file flags cannot be used together.  For help use ddms --help --new-dynamic-output-file');
+        }
         return $preparedArguments;
     }
 
