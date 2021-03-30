@@ -442,7 +442,28 @@ testRunDoesNotCreateDynamicOutputFileInSharedDynamicOutputDirectoryIfSharedFlagI
         $newDynamicOutputComponent = new NewDynamicOutputComponent();
         $preparedArguments = $newDynamicOutputComponent->prepareArguments(['--name', $dynamicOutputComponentName, '--for-app', $appName, '--initial-output', $initialOutput, '--file-name', $fileName]);
         $newDynamicOutputComponent->run(new CommandLineUI(), $preparedArguments);
-        $this->assertEquals($initialOutput, strval(file_get_contents($this->determineDynamicOutputFilePath($fileName, $preparedArguments))));
+        $this->assertEquals($initialOutput, $this->getDynamicOutputFileContents($fileName, $preparedArguments));
+    }
+
+    public function testRunSetDynamicOutputFilesContentToMatchSpecifiedFilesContentIf_initial_output_file_FlagIsSpecified(): void
+    {
+        $appName = $this->createTestAppReturnName();
+        $expectedOutputFilePath = __FILE__;
+        $expectedOutput = strval(file_get_contents($expectedOutputFilePath));
+        $dynamicOutputComponentName = $appName . 'DynamicOutputComponent';
+        $fileName = $dynamicOutputComponentName . '.php';
+        $newDynamicOutputComponent = new NewDynamicOutputComponent();
+        $preparedArguments = $newDynamicOutputComponent->prepareArguments(['--name', $dynamicOutputComponentName, '--for-app', $appName, '--initial-output-file', $expectedOutputFilePath]);
+        $newDynamicOutputComponent->run(new CommandLineUI(), $preparedArguments);
+        $this->assertEquals($expectedOutput, $this->getDynamicOutputFileContents($fileName, $preparedArguments));
+    }
+
+    /**
+     * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
+     */
+    private function getDynamicOutputFileContents(string $fileName, array $preparedArguments): string
+    {
+        return strval(file_get_contents($this->determineDynamicOutputFilePath($fileName, $preparedArguments)));
     }
 
     /**

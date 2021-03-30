@@ -43,13 +43,24 @@ class NewDynamicOutputComponent extends AbstractCommand implements Command
             }
             file_put_contents(
                 $this->pathToNewDynamicOutputFile($flags),
-                ($flags['initial-output'][0] ?? '')
+                $this->determineInitialDynamicOutputFileContent($flags)
             );
             $this->showMessage(
                 'Creating dynamic output file for new DynamicOutputComponent at ' .
                 $this->pathToNewDynamicOutputFile($flags)
             );
         }
+    }
+
+    /**
+     * @param array<string, array<int, string>> $flags
+     */
+    private function determineInitialDynamicOutputFileContent(array $flags): string
+    {
+        if(isset($flags['initial-output-file'][0]) && file_exists($flags['initial-output-file'][0])) {
+            return strval(file_get_contents($flags['initial-output-file'][0]));
+        }
+        return ($flags['initial-output'][0] ?? '');
     }
 
     private function showMessage(string $message) : void
