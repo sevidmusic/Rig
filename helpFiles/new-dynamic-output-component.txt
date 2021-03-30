@@ -1,6 +1,7 @@
 
   ddms --new-dynamic-output-component --for-app --name
                                       [--container] [--position] [--file-name]
+                                      [--initial-output] [--initial-output-file]
                                       [--shared] [--ddms-apps-directory-path]
 
   Description:
@@ -36,6 +37,23 @@
                                App's DynamicOutput directory, or, if the --shared
                                flag is specified, in the expected Darling Data
                                Management System's SharedDynamicOutput directory.
+
+  [--initial-output]           The initial output to assign as the content of the
+                               new dynamic output file that will be created for
+                               the new DynamicOutputComponent. This flag will fail
+                               if the creation of the new dynamic output file would
+                               overwrite an existing dynamic output file. It will
+                               also fail if the --initial-output-file flag is also
+                               specified.
+
+  [initial-output-file]        A path to a file whose content will be used as the
+                               new dynamic output file that will be created for
+                               the new DynamicOutputComponent. This flag will fail
+                               if the creation of the new dynamic output file would
+                               overwrite an existing dynamic output file. It will
+                               also fail if the --initial-output flag is also
+                               specified.
+
 
   [--shared]                   If specified, ddms will assume the file that generates
                                the output for the DynamicOutputComponent exists,
