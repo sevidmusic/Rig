@@ -94,18 +94,22 @@ final class NewAppPackageTest extends TestCase
     }
 
     public function testRunCreatesNewAppPackageDirectoryInCurrentWorkingDirectoryIfPathIsNotSpecified(): void {
+        $appPackageName = 'NewTestAppPackage' . strval(rand(420, 4200));
         $newAppPackage =  new NewAppPackage();
         $preparedArguments = $newAppPackage->prepareArguments(
             [
                 '--name',
-                'PackageName',
+                $appPackageName
             ]
         );
         $newAppPackage->run($this->getUI(), $preparedArguments);
         $this->assertTrue(
-            file_exists($this->expectedNewAppPackagePathIfPathIsNotSpecified('PackageName')),
-            'Expected New App Package Path: ' . $this->expectedNewAppPackagePathIfPathIsNotSpecified('PackageName')
+            file_exists($this->expectedNewAppPackagePathIfPathIsNotSpecified($appPackageName)),
+            'Expected New App Package Path: ' . $this->expectedNewAppPackagePathIfPathIsNotSpecified($appPackageName)
         );
+        if(file_exists($this->expectedNewAppPackagePathIfPathIsNotSpecified($appPackageName))) {
+            self::removeDirectory($this->expectedNewAppPackagePathIfPathIsNotSpecified($appPackageName));
+        }
     }
 
     private function expectedNewAppPackagePathIfPathIsNotSpecified(string $name): string {
@@ -127,4 +131,22 @@ final class NewAppPackageTest extends TestCase
     private function getAvailablePath(string $name): string {
         return strval(realpath(str_replace('tests' . DIRECTORY_SEPARATOR . 'command', 'tmp', __DIR__))) . DIRECTORY_SEPARATOR . $name;
     }
+
+    private static function removeDirectory(string $dir): void
+    {
+        if (is_dir($dir)) {
+            $directoryListing = scandir($dir);
+            $contents = (is_array($directoryListing) ? $directoryListing : []);
+            foreach ($contents as $item) {
+                if ($item != "." && $item != "..") {
+                    $itemPath = $dir . DIRECTORY_SEPARATOR . $item;
+                    (is_dir($itemPath) === true && is_link($itemPath) === false)
+                        ? self::removeDirectory($itemPath)
+                        : unlink($itemPath);
+                }
+            }
+            rmdir($dir);
+        }
+    }
+
 }
