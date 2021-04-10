@@ -14,6 +14,11 @@ final class NewAppPackageTest extends TestCase
 
     use TestsCreateApps;
 
+    /**
+     * @var array <int, string> $generatedPaths
+     */
+    private array $generatedPaths = [];
+
     public function testRunThrowsRuntimeExceptionIfNameIsNotSpecified(): void
     {
         $this->expectException(RuntimeException::class);
@@ -94,7 +99,7 @@ final class NewAppPackageTest extends TestCase
     }
 
     public function testRunCreatesNewAppPackageDirectoryInCurrentWorkingDirectoryIfPathIsNotSpecified(): void {
-        $appPackageName = 'NewTestAppPackage' . strval(rand(420, 4200));
+        $appPackageName = $this->getRandomName();
         $newAppPackage =  new NewAppPackage();
         $preparedArguments = $newAppPackage->prepareArguments(
             [
@@ -107,17 +112,32 @@ final class NewAppPackageTest extends TestCase
             file_exists($this->expectedNewAppPackagePathIfPathIsNotSpecified($appPackageName)),
             'Expected New App Package Path: ' . $this->expectedNewAppPackagePathIfPathIsNotSpecified($appPackageName)
         );
-        if(file_exists($this->expectedNewAppPackagePathIfPathIsNotSpecified($appPackageName))) {
-            self::removeDirectory($this->expectedNewAppPackagePathIfPathIsNotSpecified($appPackageName));
+        sleep(5);
+    }
+
+    protected function tearDown(): void {
+        $paths = array_unique($this->generatedPaths);
+        foreach($paths as $path) {
+            if(file_exists($path)) {
+                self::removeDirectory($path);
+            }
         }
     }
 
+    private function getRandomName(): string {
+        return 'NewTestAppPackage' . strval(rand(420, 4200));
+    }
+
     private function expectedNewAppPackagePathIfPathIsNotSpecified(string $name): string {
-        return strval(realpath(strval(getcwd()))) . DIRECTORY_SEPARATOR . $name;
+        $path = strval(realpath(strval(getcwd()))) . DIRECTORY_SEPARATOR . $name;
+        array_push($this->generatedPaths, $path);
+        return $path;
     }
 
     private function expectedNewAppPackagePathIfPathIsSpecified(string $name, string $path): string {
-        return strval(realpath($path)) . DIRECTORY_SEPARATOR . $name;
+        $path = strval(realpath($path)) . DIRECTORY_SEPARATOR . $name;
+        array_push($this->generatedPaths, $path);
+        return $path;
     }
 
     private function getUI(): UserInterface {
