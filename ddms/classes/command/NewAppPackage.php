@@ -16,9 +16,20 @@ class NewAppPackage extends AbstractCommand implements Command
 
     public function run(UserInterface $userInterface, array $preparedArguments = ['flags' => [], 'options' => []]): bool {
         $this->currentUserInterface = $userInterface;
-        ['flags' => $flags] = $this->validateArguments($preparedArguments);
-#        $this->showMessage('  Creating new App Package, ' . $flags['name'][0] . ' at path ' . $flags['path'][0] . PHP_EOL . PHP_EOL);
+        $flags = $this->validateArgumentsAndReturnFlags($preparedArguments);
+        $this->createAppPackage($flags);
         return true;
+    }
+
+    /**
+     * @param array <string, array<int, string>> $flags
+     */
+    private function createAppPackage(array $flags): void {
+        $this->determineNewAppPackagePath($flags);
+        if(!mkdir($this->determineNewAppPackagePath($flags), 0755))
+        {
+            throw new RuntimeException('  Failed to create NewAppPackage\'s directory at ' . $this->determineNewAppPackagePath($flags));
+        }
     }
 
     private function showMessage(string $message) : void
@@ -32,9 +43,9 @@ class NewAppPackage extends AbstractCommand implements Command
 
     /**
      * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
-     * @return array{"flags": array<string, array<int, string>>, "options": array<int, string>}
+     * @return array<string, array<int, string>>
      */
-    private function validateArguments(array $preparedArguments): array
+    private function validateArgumentsAndReturnFlags(array $preparedArguments): array
     {
         ['flags' => $flags] = $preparedArguments;
         if(!isset($flags['name'][0])) {
@@ -55,7 +66,7 @@ class NewAppPackage extends AbstractCommand implements Command
         if(!filter_var($flags['domain'][0], FILTER_VALIDATE_URL)) {
             throw new RuntimeException('  The domain, ' . $flags['domain'][0] . ', does not appear to be a valid domain. Please specify a domain that will pass PHP\'s FILTER_VALIDATE_URL filter.');
         }
-        return $preparedArguments;
+        return $flags;
     }
 
     /**

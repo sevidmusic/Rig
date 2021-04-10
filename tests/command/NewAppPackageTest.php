@@ -93,6 +93,29 @@ final class NewAppPackageTest extends TestCase
         $newAppPackage->run($this->getUI(), $preparedArguments);
     }
 
+    public function testRunCreatesNewAppPackageDirectoryInCurrentWorkingDirectoryIfPathIsNotSpecified(): void {
+        $newAppPackage =  new NewAppPackage();
+        $preparedArguments = $newAppPackage->prepareArguments(
+            [
+                '--name',
+                'PackageName',
+            ]
+        );
+        $newAppPackage->run($this->getUI(), $preparedArguments);
+        $this->assertTrue(
+            file_exists($this->expectedNewAppPackagePathIfPathIsNotSpecified('PackageName')),
+            'Expected New App Package Path: ' . $this->expectedNewAppPackagePathIfPathIsNotSpecified('PackageName')
+        );
+    }
+
+    private function expectedNewAppPackagePathIfPathIsNotSpecified(string $name): string {
+        return strval(realpath(strval(getcwd()))) . DIRECTORY_SEPARATOR . $name;
+    }
+
+    private function expectedNewAppPackagePathIfPathIsSpecified(string $name, string $path): string {
+        return strval(realpath($path)) . DIRECTORY_SEPARATOR . $name;
+    }
+
     private function getUI(): UserInterface {
         return new CommandLineUI();
     }
