@@ -112,7 +112,6 @@ final class NewAppPackageTest extends TestCase
             file_exists($this->expectedNewAppPackagePathIfPathIsNotSpecified($appPackageName)),
             'Expected New App Package Path: ' . $this->expectedNewAppPackagePathIfPathIsNotSpecified($appPackageName)
         );
-        sleep(5);
     }
 
     protected function tearDown(): void {
