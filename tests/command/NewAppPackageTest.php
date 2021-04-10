@@ -50,16 +50,44 @@ final class NewAppPackageTest extends TestCase
         $newAppPackage->run($this->getUI(), $preparedArguments);
     }
 
-    public function testRunThrowsRuntimeExceptionIfSpecifiedPathIsNotAvailable(): void
+    public function testRunThrowsRuntimeExceptionIfSpecifiedPathIsNotAvailableToCreateNewAppPackage(): void
     {
         $this->expectException(RuntimeException::class);
         $newAppPackage =  new NewAppPackage();
         $preparedArguments = $newAppPackage->prepareArguments(
             [
                 '--name',
-                'HelloWorld',
+                # Specifying current working directory as the target directory from
+                # the context of this script will target the ddms directory, which
+                # means the target directory in the context of this script will
+                # contain a directory named ddms, i.e. path/to/ddms/ddms, so the
+                # name ddms can be used for this test since a directory named ddms
+                # will exist so an App Package named ddms should not be created
+                # and run() should throw a RuntimeException.
+                'ddms',
                 '--path',
-                $this->getUnavailablePath()
+                realpath(strval(getcwd()))
+            ]
+        );
+        $newAppPackage->run($this->getUI(), $preparedArguments);
+    }
+
+    public function testRunThrowsRuntimeExceptionIfPathIsNotSpecifiedAndExpectedPathToNewAppPackageInCurrentWorkingDirectoryIsNotAvailable(): void
+    {
+        $this->expectException(RuntimeException::class);
+        $newAppPackage =  new NewAppPackage();
+        $preparedArguments = $newAppPackage->prepareArguments(
+            [
+                '--name',
+                # Not specifying the --path will result in ddms using the current
+                # working directory as the target directory, which, from the
+                # context of this script will be the ddms directory. This means
+                # the target directory in the context of this script will contain
+                # a directory named ddms, i.e. path/to/ddms/ddms, so the name ddms
+                # can be used for this test since a directory named ddms will exist
+                # so an App Package named ddms should not be created and run()
+                # should throw a RuntimeException.
+                'ddms',
             ]
         );
         $newAppPackage->run($this->getUI(), $preparedArguments);

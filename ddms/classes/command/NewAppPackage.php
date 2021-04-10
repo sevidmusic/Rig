@@ -43,11 +43,14 @@ class NewAppPackage extends AbstractCommand implements Command
         if(!ctype_alnum($flags['name'][0])) {
             throw new RuntimeException('  Please specify an alphanumeric name for the new App Package.');
         }
-        if(!isset($flags['path'][0])) {
-            $flags['path'][0] = 'http://localhost:8080/';
+        if(!isset($flags['domain'][0])) {
+            $flags['domain'][0] = 'http://localhost:8080/';
         }
-        if(file_exists($flags['path'][0])) {
-            throw new RuntimeException('  The path, ' . $flags['path'][0] . ', is not available. Please specify an available path for the new App Package.');
+        if(!isset($flags['path'][0])) {
+            $flags['path'][0] = strval(realpath(strval(getcwd())));
+        }
+        if(file_exists($this->determineNewAppPackagePath($flags))) {
+            throw new RuntimeException('  The path, ' . $this->determineNewAppPackagePath($flags) . ', is not available. Please specify an available path for the new App Package.');
         }
         if(!filter_var($flags['domain'][0], FILTER_VALIDATE_URL)) {
             throw new RuntimeException('  The domain, ' . $flags['domain'][0] . ', does not appear to be a valid domain. Please specify a domain that will pass PHP\'s FILTER_VALIDATE_URL filter.');
@@ -55,5 +58,11 @@ class NewAppPackage extends AbstractCommand implements Command
         return $preparedArguments;
     }
 
+    /**
+     * @param array<string, array<int, string>> $flags
+     */
+    public function determineNewAppPackagePath(array $flags) : string {
+        return $flags['path'][0] . DIRECTORY_SEPARATOR . $flags['name'][0];
+    }
 
 }
