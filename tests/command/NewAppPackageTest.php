@@ -114,6 +114,22 @@ final class NewAppPackageTest extends TestCase
         );
     }
 
+    public function testRunCreatesNewAppPackagesCssDirectoryIfPathIsNotSpecified(): void {
+        $appPackageName = $this->getRandomName();
+        $newAppPackage =  new NewAppPackage();
+        $preparedArguments = $newAppPackage->prepareArguments(
+            [
+                '--name',
+                $appPackageName
+            ]
+        );
+        $newAppPackage->run($this->getUI(), $preparedArguments);
+        $this->assertTrue(
+            file_exists($this->expectedNewAppPackagePathIfPathIsNotSpecified($appPackageName) . DIRECTORY_SEPARATOR . 'css'),
+            'Expected New App Package Path: ' . $this->expectedNewAppPackagePathIfPathIsNotSpecified($appPackageName) . DIRECTORY_SEPARATOR . 'css'
+        );
+    }
+
     protected function tearDown(): void {
         $paths = array_unique($this->generatedPaths);
         foreach($paths as $path) {

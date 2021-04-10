@@ -26,10 +26,20 @@ class NewAppPackage extends AbstractCommand implements Command
      */
     private function createAppPackage(array $flags): void {
         $this->determineNewAppPackagePath($flags);
-        if(!mkdir($this->determineNewAppPackagePath($flags), 0755))
-        {
+        if(!mkdir($this->determineNewAppPackagePath($flags), 0755)) {
             throw new RuntimeException('  Failed to create NewAppPackage\'s directory at ' . $this->determineNewAppPackagePath($flags));
         }
+        if(!mkdir($this->determineNewAppPackagesCssDirectoryPath($flags), 0755)) {
+            throw new RuntimeException('  Failed to create NewAppPackage\'s css directory at ' . $this->determineNewAppPackagesCssDirectoryPath($flags));
+        }
+
+    }
+
+    /**
+     * @param array <string, array<int, string>> $flags
+     */
+    private function determineNewAppPackagesCssDirectoryPath(array $flags): string {
+        return $this->determineNewAppPackagePath($flags) . DIRECTORY_SEPARATOR . 'css';
     }
 
     private function showMessage(string $message) : void
