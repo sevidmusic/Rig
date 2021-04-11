@@ -210,6 +210,25 @@ final class NewAppPackageTest extends TestCase
         );
     }
 
+    public function testRunSetDomainInNewAppPackagesMakeShToSepcifiedDomainIfDomanIsSpecifiedButPathIsNotSpecified(): void {
+        $appPackageName = $this->getRandomName();
+        $domain = 'http://localhost:' . strval(rand(8000, 8999)) . '/';
+        $newAppPackage =  new NewAppPackage();
+        $preparedArguments = $newAppPackage->prepareArguments(
+            [
+                '--name',
+                $appPackageName,
+                '--domain',
+                $domain
+            ]
+        );
+        $newAppPackage->run($this->getUI(), $preparedArguments);
+        $this->assertEquals(
+            $this->expectedMakeShFileContent($appPackageName, $domain),
+            file_get_contents($this->expectedNewAppPackagePathIfPathIsNotSpecified($appPackageName) . DIRECTORY_SEPARATOR . 'make.sh'),
+        );
+    }
+
     public function testRunCreatesNewAppPackageDirectoryAtSpecifiedPathIfPathIsSpecified(): void {
         $appPackageName = $this->getRandomName();
         $path = DIRECTORY_SEPARATOR . 'tmp';
@@ -339,6 +358,28 @@ final class NewAppPackageTest extends TestCase
         $newAppPackage->run($this->getUI(), $preparedArguments);
         $this->assertEquals(
             $this->expectedMakeShFileContent($appPackageName),
+            file_get_contents($this->expectedNewAppPackagePathIfPathIsSpecified($appPackageName, $path) . DIRECTORY_SEPARATOR . 'make.sh'),
+        );
+    }
+
+    public function testRunSetDomainInNewAppPackagesMakeShToSepcifiedDomainIfDomanIsSpecifiedAndPathIsAlsoSpecified(): void {
+        $appPackageName = $this->getRandomName();
+        $path = DIRECTORY_SEPARATOR . 'tmp';
+        $domain = 'http://localhost:' . strval(rand(8000, 8999)) . '/';
+        $newAppPackage =  new NewAppPackage();
+        $preparedArguments = $newAppPackage->prepareArguments(
+            [
+                '--name',
+                $appPackageName,
+                '--path',
+                $path,
+                '--domain',
+                $domain
+            ]
+        );
+        $newAppPackage->run($this->getUI(), $preparedArguments);
+        $this->assertEquals(
+            $this->expectedMakeShFileContent($appPackageName, $domain),
             file_get_contents($this->expectedNewAppPackagePathIfPathIsSpecified($appPackageName, $path) . DIRECTORY_SEPARATOR . 'make.sh'),
         );
     }
