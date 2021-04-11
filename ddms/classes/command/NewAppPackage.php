@@ -18,6 +18,7 @@ class NewAppPackage extends AbstractCommand implements Command
         $this->currentUserInterface = $userInterface;
         $flags = $this->validateArgumentsAndReturnFlags($preparedArguments);
         $this->createAppPackage($flags);
+        $this->showMessage('  Created new App Package at ' . $this->determineNewAppPackagePath($flags) . ' which will generate an App named "' . $flags['name'][0]  .  '" whose default domain will be "' . $flags['domain'][0] . '"');
         return true;
     }
 
@@ -29,21 +30,27 @@ class NewAppPackage extends AbstractCommand implements Command
         if(!mkdir($this->determineNewAppPackagePath($flags), 0755)) {
             throw new RuntimeException('  Failed to create NewAppPackage\'s directory at ' . $this->determineNewAppPackagePath($flags));
         }
+        $this->showMessage('  Created new App Package\'s directory at ' . $this->determineNewAppPackagePath($flags));
         if(!mkdir($this->determineNewAppPackagesCssDirectoryPath($flags), 0755)) {
             throw new RuntimeException('  Failed to create NewAppPackage\'s css directory at ' . $this->determineNewAppPackagesCssDirectoryPath($flags));
         }
+        $this->showMessage('  Created new App Package\'s css directory at ' . $this->determineNewAppPackagesCssDirectoryPath($flags));
         if(!mkdir($this->determineNewAppPackagesJsDirectoryPath($flags), 0755)) {
             throw new RuntimeException('  Failed to create NewAppPackage\'s js directory at ' . $this->determineNewAppPackagesJsDirectoryPath($flags));
         }
+        $this->showMessage('  Created new App Package\'s js directory at ' . $this->determineNewAppPackagesJsDirectoryPath($flags));
         if(!mkdir($this->determineNewAppPackagesDynamicOutputDirectoryPath($flags), 0755)) {
             throw new RuntimeException('  Failed to create NewAppPackage\'s DynamicOutput directory at ' . $this->determineNewAppPackagesDynamicOutputDirectoryPath($flags));
         }
+        $this->showMessage('  Created new App Package\'s DynamicOutput directory at ' . $this->determineNewAppPackagesDynamicOutputDirectoryPath($flags));
         if(!mkdir($this->determineNewAppPackagesResourcesDirectoryPath($flags), 0755)) {
             throw new RuntimeException('  Failed to create NewAppPackage\'s resources directory at ' . $this->determineNewAppPackagesResourcesDirectoryPath($flags));
         }
+        $this->showMessage('  Created new App Package\'s resoureces directory at ' . $this->determineNewAppPackagesResourcesDirectoryPath($flags));
         if(file_put_contents($this->determineNewAppPackagesMakeShPath($flags), $this->generateMakeShFileContent($flags)) === false) {
             throw new RuntimeException('  Failed to create NewAppPackage\'s make.sh at ' . $this->determineNewAppPackagesMakeShPath($flags));
         }
+        $this->showMessage('  Created new App Package\'s make.sh at ' . $this->determineNewAppPackagesMakeShPath($flags));
     }
 
     /**
@@ -127,10 +134,13 @@ class NewAppPackage extends AbstractCommand implements Command
             throw new RuntimeException('  Please specify an alphanumeric name for the new App Package.');
         }
         if(!isset($flags['domain'][0])) {
+            $this->showMessage('  --domain was not specified, domain will be "http://localhost:8080/"');
             $flags['domain'][0] = 'http://localhost:8080/';
         }
         if(!isset($flags['path'][0])) {
-            $flags['path'][0] = strval(realpath(strval(getcwd())));
+            $path = strval(realpath(strval(getcwd())));
+            $this->showMessage('  --path was not specified, path will be assumed to be "' . $path . '"');
+            $flags['path'][0] = $path;
         }
         if(file_exists($this->determineNewAppPackagePath($flags))) {
             throw new RuntimeException('  The path, ' . $this->determineNewAppPackagePath($flags) . ', is not available. Please specify an available path for the new App Package.');
@@ -145,7 +155,7 @@ class NewAppPackage extends AbstractCommand implements Command
      * @param array<string, array<int, string>> $flags
      */
     public function determineNewAppPackagePath(array $flags) : string {
-        return $flags['path'][0] . DIRECTORY_SEPARATOR . $flags['name'][0];
+        return strval(realpath($flags['path'][0])) . DIRECTORY_SEPARATOR . $flags['name'][0];
     }
 
 }
