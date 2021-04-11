@@ -210,6 +210,139 @@ final class NewAppPackageTest extends TestCase
         );
     }
 
+    public function testRunCreatesNewAppPackageDirectoryAtSpecifiedPathIfPathIsSpecified(): void {
+        $appPackageName = $this->getRandomName();
+        $path = DIRECTORY_SEPARATOR . 'tmp';
+        $newAppPackage =  new NewAppPackage();
+        $preparedArguments = $newAppPackage->prepareArguments(
+            [
+                '--name',
+                $appPackageName,
+                '--path',
+                $path
+            ]
+        );
+        $newAppPackage->run($this->getUI(), $preparedArguments);
+        $this->assertTrue(
+            file_exists($this->expectedNewAppPackagePathIfPathIsSpecified($appPackageName, $path)),
+            'Expected New App Package Path: ' . $this->expectedNewAppPackagePathIfPathIsSpecified($appPackageName, $path)
+        );
+    }
+
+    public function testRunCreatesNewAppPackagesCssDirectoryIfPathIsSpecified(): void {
+        $appPackageName = $this->getRandomName();
+        $path = DIRECTORY_SEPARATOR . 'tmp';
+        $newAppPackage =  new NewAppPackage();
+        $preparedArguments = $newAppPackage->prepareArguments(
+            [
+                '--name',
+                $appPackageName,
+                '--path',
+                $path
+            ]
+        );
+        $newAppPackage->run($this->getUI(), $preparedArguments);
+        $this->assertTrue(
+            file_exists($this->expectedNewAppPackagePathIfPathIsSpecified($appPackageName, $path) . DIRECTORY_SEPARATOR . 'css'),
+            'Expected New App Package Path: ' . $this->expectedNewAppPackagePathIfPathIsSpecified($appPackageName, $path) . DIRECTORY_SEPARATOR . 'css'
+        );
+    }
+
+    public function testRunCreatesNewAppPackagesJsDirectoryIfPathIsSpecified(): void {
+        $appPackageName = $this->getRandomName();
+        $path = DIRECTORY_SEPARATOR . 'tmp';
+        $newAppPackage =  new NewAppPackage();
+        $preparedArguments = $newAppPackage->prepareArguments(
+            [
+                '--name',
+                $appPackageName,
+                '--path',
+                $path
+            ]
+        );
+        $newAppPackage->run($this->getUI(), $preparedArguments);
+        $this->assertTrue(
+            file_exists($this->expectedNewAppPackagePathIfPathIsSpecified($appPackageName, $path) . DIRECTORY_SEPARATOR . 'js'),
+            'Expected New App Package Path: ' . $this->expectedNewAppPackagePathIfPathIsSpecified($appPackageName, $path) . DIRECTORY_SEPARATOR . 'js'
+        );
+    }
+
+    public function testRunCreatesNewAppPackagesDynamicOutputDirectoryIfPathIsSpecified(): void {
+        $appPackageName = $this->getRandomName();
+        $path = DIRECTORY_SEPARATOR . 'tmp';
+        $newAppPackage =  new NewAppPackage();
+        $preparedArguments = $newAppPackage->prepareArguments(
+            [
+                '--name',
+                $appPackageName,
+                '--path',
+                $path
+            ]
+        );
+        $newAppPackage->run($this->getUI(), $preparedArguments);
+        $this->assertTrue(
+            file_exists($this->expectedNewAppPackagePathIfPathIsSpecified($appPackageName, $path) . DIRECTORY_SEPARATOR . 'DynamicOutput'),
+            'Expected New App Package Path: ' . $this->expectedNewAppPackagePathIfPathIsSpecified($appPackageName, $path) . DIRECTORY_SEPARATOR . 'DynamicOutput'
+        );
+    }
+
+    public function testRunCreatesNewAppPackagesResourcesDirectoryIfPathIsSpecified(): void {
+        $appPackageName = $this->getRandomName();
+        $path = DIRECTORY_SEPARATOR . 'tmp';
+        $newAppPackage =  new NewAppPackage();
+        $preparedArguments = $newAppPackage->prepareArguments(
+            [
+                '--name',
+                $appPackageName,
+                '--path',
+                $path
+            ]
+        );
+        $newAppPackage->run($this->getUI(), $preparedArguments);
+        $this->assertTrue(
+            file_exists($this->expectedNewAppPackagePathIfPathIsSpecified($appPackageName, $path) . DIRECTORY_SEPARATOR . 'resources'),
+            'Expected New App Package Path: ' . $this->expectedNewAppPackagePathIfPathIsSpecified($appPackageName, $path) . DIRECTORY_SEPARATOR . 'resources'
+        );
+    }
+
+    public function testRunCreatesNewAppPackagesMakeShIfPathIsSpecified(): void {
+        $appPackageName = $this->getRandomName();
+        $path = DIRECTORY_SEPARATOR . 'tmp';
+        $newAppPackage =  new NewAppPackage();
+        $preparedArguments = $newAppPackage->prepareArguments(
+            [
+                '--name',
+                $appPackageName,
+                '--path',
+                $path
+            ]
+        );
+        $newAppPackage->run($this->getUI(), $preparedArguments);
+        $this->assertTrue(
+            file_exists($this->expectedNewAppPackagePathIfPathIsSpecified($appPackageName, $path) . DIRECTORY_SEPARATOR . 'make.sh'),
+            'Expected New App Package Path: ' . $this->expectedNewAppPackagePathIfPathIsSpecified($appPackageName, $path) . DIRECTORY_SEPARATOR . 'make.sh'
+        );
+    }
+
+    public function testRunCreatesNewAppPackagesMakeShWhoseContentMatchesExpectedContentIfPathIsSpecified(): void {
+        $appPackageName = $this->getRandomName();
+        $path = DIRECTORY_SEPARATOR . 'tmp';
+        $newAppPackage =  new NewAppPackage();
+        $preparedArguments = $newAppPackage->prepareArguments(
+            [
+                '--name',
+                $appPackageName,
+                '--path',
+                $path
+            ]
+        );
+        $newAppPackage->run($this->getUI(), $preparedArguments);
+        $this->assertEquals(
+            $this->expectedMakeShFileContent($appPackageName),
+            file_get_contents($this->expectedNewAppPackagePathIfPathIsSpecified($appPackageName, $path) . DIRECTORY_SEPARATOR . 'make.sh'),
+        );
+    }
+
     private function expectedMakeShFileContent(string $appPackageName, string $domain = 'http://localhost:8080/'): string {
         return str_replace(['_NAME_', '_DOMAIN_'], [$appPackageName, $domain], strval(file_get_contents($this->determineMakeShFileTemplatePath())));
     }
