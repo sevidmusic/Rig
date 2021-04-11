@@ -178,6 +178,46 @@ final class NewAppPackageTest extends TestCase
         );
     }
 
+    public function testRunCreatesNewAppPackagesMakeShIfPathIsNotSpecified(): void {
+        $appPackageName = $this->getRandomName();
+        $newAppPackage =  new NewAppPackage();
+        $preparedArguments = $newAppPackage->prepareArguments(
+            [
+                '--name',
+                $appPackageName
+            ]
+        );
+        $newAppPackage->run($this->getUI(), $preparedArguments);
+        $this->assertTrue(
+            file_exists($this->expectedNewAppPackagePathIfPathIsNotSpecified($appPackageName) . DIRECTORY_SEPARATOR . 'make.sh'),
+            'Expected New App Package Path: ' . $this->expectedNewAppPackagePathIfPathIsNotSpecified($appPackageName) . DIRECTORY_SEPARATOR . 'make.sh'
+        );
+    }
+
+    public function testRunCreatesNewAppPackagesMakeShWhoseContentMatchesExpectedContentIfPathIsNotSpecified(): void {
+        $appPackageName = $this->getRandomName();
+        $newAppPackage =  new NewAppPackage();
+        $preparedArguments = $newAppPackage->prepareArguments(
+            [
+                '--name',
+                $appPackageName
+            ]
+        );
+        $newAppPackage->run($this->getUI(), $preparedArguments);
+        $this->assertEquals(
+            $this->expectedMakeShFileContent($appPackageName),
+            file_get_contents($this->expectedNewAppPackagePathIfPathIsNotSpecified($appPackageName) . DIRECTORY_SEPARATOR . 'make.sh'),
+        );
+    }
+
+    private function expectedMakeShFileContent(string $appPackageName, string $domain = 'http://localhost:8080/'): string {
+        return str_replace(['_NAME_', '_DOMAIN_'], [$appPackageName, $domain], strval(file_get_contents($this->determineMakeShFileTemplatePath())));
+    }
+
+    private function determineMakeShFileTemplatePath(): string {
+        return strval(realpath(str_replace('tests' . DIRECTORY_SEPARATOR . 'command', 'FileTemplates' . DIRECTORY_SEPARATOR . 'make.sh', __DIR__)));
+    }
+
     protected function tearDown(): void {
         $paths = array_unique($this->generatedPaths);
         foreach($paths as $path) {

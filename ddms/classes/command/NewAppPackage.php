@@ -39,8 +39,41 @@ class NewAppPackage extends AbstractCommand implements Command
             throw new RuntimeException('  Failed to create NewAppPackage\'s DynamicOutput directory at ' . $this->determineNewAppPackagesDynamicOutputDirectoryPath($flags));
         }
         if(!mkdir($this->determineNewAppPackagesResourcesDirectoryPath($flags), 0755)) {
-            throw new RuntimeException('  Failed to create NewAppPackage\'s js directory at ' . $this->determineNewAppPackagesResourcesDirectoryPath($flags));
+            throw new RuntimeException('  Failed to create NewAppPackage\'s resources directory at ' . $this->determineNewAppPackagesResourcesDirectoryPath($flags));
         }
+        if(file_put_contents($this->determineNewAppPackagesMakeShPath($flags), $this->generateMakeShFileContent($flags)) === false) {
+            throw new RuntimeException('  Failed to create NewAppPackage\'s make.sh at ' . $this->determineNewAppPackagesMakeShPath($flags));
+        }
+    }
+
+    /**
+     * @param array <string, array<int, string>> $flags
+     */
+    private function generateMakeShFileContent($flags): string {
+       return str_replace(['_NAME_', '_DOMAIN_'], [$flags['name'][0], $flags['domain'][0]], $this->getMakeShTemplate());
+    }
+
+    private function getMakeShTemplate(): string {
+        return strval(file_get_contents($this->makeShTemplatePath()));
+    }
+
+    private function makeShTemplatePath(): string {
+        return strval(
+            realpath(
+                str_replace(
+                    'ddms' . DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR . 'command',
+                    'FileTemplates' . DIRECTORY_SEPARATOR . 'make.sh',
+                    __DIR__
+                )
+            )
+        );
+    }
+
+    /**
+     * @param array <string, array<int, string>> $flags
+     */
+    private function determineNewAppPackagesMakeShPath(array $flags): string {
+        return $this->determineNewAppPackagePath($flags) . DIRECTORY_SEPARATOR . 'make.sh';
     }
 
     /**
