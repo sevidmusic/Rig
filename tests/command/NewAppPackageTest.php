@@ -130,6 +130,54 @@ final class NewAppPackageTest extends TestCase
         );
     }
 
+    public function testRunCreatesNewAppPackagesJsDirectoryIfPathIsNotSpecified(): void {
+        $appPackageName = $this->getRandomName();
+        $newAppPackage =  new NewAppPackage();
+        $preparedArguments = $newAppPackage->prepareArguments(
+            [
+                '--name',
+                $appPackageName
+            ]
+        );
+        $newAppPackage->run($this->getUI(), $preparedArguments);
+        $this->assertTrue(
+            file_exists($this->expectedNewAppPackagePathIfPathIsNotSpecified($appPackageName) . DIRECTORY_SEPARATOR . 'js'),
+            'Expected New App Package Path: ' . $this->expectedNewAppPackagePathIfPathIsNotSpecified($appPackageName) . DIRECTORY_SEPARATOR . 'js'
+        );
+    }
+
+    public function testRunCreatesNewAppPackagesDynamicOutputDirectoryIfPathIsNotSpecified(): void {
+        $appPackageName = $this->getRandomName();
+        $newAppPackage =  new NewAppPackage();
+        $preparedArguments = $newAppPackage->prepareArguments(
+            [
+                '--name',
+                $appPackageName
+            ]
+        );
+        $newAppPackage->run($this->getUI(), $preparedArguments);
+        $this->assertTrue(
+            file_exists($this->expectedNewAppPackagePathIfPathIsNotSpecified($appPackageName) . DIRECTORY_SEPARATOR . 'DynamicOutput'),
+            'Expected New App Package Path: ' . $this->expectedNewAppPackagePathIfPathIsNotSpecified($appPackageName) . DIRECTORY_SEPARATOR . 'DynamicOutput'
+        );
+    }
+
+    public function testRunCreatesNewAppPackagesResourcesDirectoryIfPathIsNotSpecified(): void {
+        $appPackageName = $this->getRandomName();
+        $newAppPackage =  new NewAppPackage();
+        $preparedArguments = $newAppPackage->prepareArguments(
+            [
+                '--name',
+                $appPackageName
+            ]
+        );
+        $newAppPackage->run($this->getUI(), $preparedArguments);
+        $this->assertTrue(
+            file_exists($this->expectedNewAppPackagePathIfPathIsNotSpecified($appPackageName) . DIRECTORY_SEPARATOR . 'resources'),
+            'Expected New App Package Path: ' . $this->expectedNewAppPackagePathIfPathIsNotSpecified($appPackageName) . DIRECTORY_SEPARATOR . 'resources'
+        );
+    }
+
     protected function tearDown(): void {
         $paths = array_unique($this->generatedPaths);
         foreach($paths as $path) {

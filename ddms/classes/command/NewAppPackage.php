@@ -32,7 +32,15 @@ class NewAppPackage extends AbstractCommand implements Command
         if(!mkdir($this->determineNewAppPackagesCssDirectoryPath($flags), 0755)) {
             throw new RuntimeException('  Failed to create NewAppPackage\'s css directory at ' . $this->determineNewAppPackagesCssDirectoryPath($flags));
         }
-
+        if(!mkdir($this->determineNewAppPackagesJsDirectoryPath($flags), 0755)) {
+            throw new RuntimeException('  Failed to create NewAppPackage\'s js directory at ' . $this->determineNewAppPackagesJsDirectoryPath($flags));
+        }
+        if(!mkdir($this->determineNewAppPackagesDynamicOutputDirectoryPath($flags), 0755)) {
+            throw new RuntimeException('  Failed to create NewAppPackage\'s DynamicOutput directory at ' . $this->determineNewAppPackagesDynamicOutputDirectoryPath($flags));
+        }
+        if(!mkdir($this->determineNewAppPackagesResourcesDirectoryPath($flags), 0755)) {
+            throw new RuntimeException('  Failed to create NewAppPackage\'s js directory at ' . $this->determineNewAppPackagesResourcesDirectoryPath($flags));
+        }
     }
 
     /**
@@ -40,6 +48,27 @@ class NewAppPackage extends AbstractCommand implements Command
      */
     private function determineNewAppPackagesCssDirectoryPath(array $flags): string {
         return $this->determineNewAppPackagePath($flags) . DIRECTORY_SEPARATOR . 'css';
+    }
+
+    /**
+     * @param array <string, array<int, string>> $flags
+     */
+    private function determineNewAppPackagesJsDirectoryPath(array $flags): string {
+        return $this->determineNewAppPackagePath($flags) . DIRECTORY_SEPARATOR . 'js';
+    }
+
+    /**
+     * @param array <string, array<int, string>> $flags
+     */
+    private function determineNewAppPackagesDynamicOutputDirectoryPath(array $flags): string {
+        return $this->determineNewAppPackagePath($flags) . DIRECTORY_SEPARATOR . 'DynamicOutput';
+    }
+
+    /**
+     * @param array <string, array<int, string>> $flags
+     */
+    private function determineNewAppPackagesResourcesDirectoryPath(array $flags): string {
+        return $this->determineNewAppPackagePath($flags) . DIRECTORY_SEPARATOR . 'resources';
     }
 
     private function showMessage(string $message) : void
