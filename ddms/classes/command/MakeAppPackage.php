@@ -19,14 +19,28 @@ class MakeAppPackage extends AbstractCommand implements Command
         $this->validateArguments($preparedArguments);
         $this->validateAppPackagesMakeSh($preparedArguments);
         $this->makeAppPackage($preparedArguments);
+        $this->showMessage(
+            '  Successfully made App Package at ' .
+            $preparedArguments['flags']['path'][0] .
+            ' into an App at ' .
+            $preparedArguments['flags']['ddms-apps-directory-path'][0] .
+            DIRECTORY_SEPARATOR . $this->determineAppName($preparedArguments)
+        );
         return true;
+    }
+
+    private function showMessage(string $message): void
+    {
+        $this->currentUserInterface->showMessage(
+            PHP_EOL . $message . PHP_EOL . PHP_EOL
+        );
     }
 
     /**
      * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
      */
     private function makeAppPackage(array $preparedArguments): void {
-        exec($this->determineMakeShPath($preparedArguments));
+        $this->showMessage(strval(shell_exec($this->determineMakeShPath($preparedArguments))));
     }
 
     /**
