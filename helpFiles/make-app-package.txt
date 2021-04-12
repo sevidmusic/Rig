@@ -1,0 +1,14 @@
+  ddms --make-app-package --path
+
+  Description:
+
+  Make an App Package into an App.
+
+  Flags:
+
+  --path The path to the App Package to make.
+
+  Examples:
+
+  ddms --make-app-package --path /path/to/AppPackage
+
