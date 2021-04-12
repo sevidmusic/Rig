@@ -74,7 +74,7 @@ final class MakeAppPackageTest extends TestCase
         $makeAppPackage->run(new CommandLineUI(), $preparedArguments);
     }
 
-    public function testRunThrowsRuntimeExceptionIfSpecifiedPathIncludesA_make_sh_WhoseCallToDdmsNewAppUsesWrongName(): void
+    public function testRunThrowsRuntimeExceptionIfSpecifiedPathIncludesA_make_sh_WhoseCallToDdmsNewAppUsesANameThatDoesNotMatchTheAppPackagesName(): void
     {
         $makeAppPackage = new MakeAppPackage();
         $preparedArguments = $makeAppPackage->prepareArguments(
