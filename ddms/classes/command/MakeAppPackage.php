@@ -18,7 +18,15 @@ class MakeAppPackage extends AbstractCommand implements Command
         $this->currentUserInterface = $userInterface;
         $this->validateArguments($preparedArguments);
         $this->validateAppPackagesMakeSh($preparedArguments);
+        $this->makeAppPackage($preparedArguments);
         return true;
+    }
+
+    /**
+     * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
+     */
+    private function makeAppPackage(array $preparedArguments): void {
+        exec($this->determineMakeShPath($preparedArguments));
     }
 
     /**
@@ -35,6 +43,9 @@ class MakeAppPackage extends AbstractCommand implements Command
         if(!file_exists($preparedArguments['flags']['path'][0] . DIRECTORY_SEPARATOR . 'make.sh')) {
             throw new RuntimeException('  Please specify a path to an actual App Package.' . PHP_EOL);
         }
+        if(file_exists($preparedArguments['flags']['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $this->determineAppName($preparedArguments))) {
+            throw new RuntimeException('  An App named ' . $this->determineAppName($preparedArguments) . ' already exists. This App Package cannot be built unless it is removed.' . PHP_EOL);
+        }
     }
 
     /**
@@ -44,6 +55,15 @@ class MakeAppPackage extends AbstractCommand implements Command
     {
         $this->validateMakeShCallsToDdmsNewApp($preparedArguments);
         $this->validateMakeShIsExecutable($preparedArguments);
+        $this->validateMakeShsCallToDdmsNewAppUseCorrectName($preparedArguments);
+    }
+
+    /**
+     * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
+     */
+    private function getMakeShContent($preparedArguments): string
+    {
+        return strval(file_get_contents($this->determineMakeShPath($preparedArguments)));
     }
 
     /**
@@ -51,7 +71,7 @@ class MakeAppPackage extends AbstractCommand implements Command
      */
     private function validateMakeShCallsToDdmsNewApp(array $preparedArguments): void
     {
-        $makeShContent = strval(file_get_contents($this->determineMakeShPath($preparedArguments)));
+        $makeShContent = $this->getMakeShContent($preparedArguments);
         $callsToDdmsNewApp = substr_count($makeShContent, 'ddms --new-app');
         if($callsToDdmsNewApp !== 1) {
             switch($callsToDdmsNewApp < 1) {
@@ -78,9 +98,29 @@ class MakeAppPackage extends AbstractCommand implements Command
      */
     private function validateMakeShIsExecutable(array $preparedArguments): void
     {
-        if(substr(sprintf('%o', fileperms('/home/darling/Downloads/vendor/darling/ddms/testAppPackages/ddmsTestAppPackageInValidMakeShNotExecutable/make.sh')), -4, 2) < 6) {
+        if(!is_executable($this->determineMakeShPath($preparedArguments))) {
            throw new RuntimeException('    Make sh not exec');
         }
+    }
+
+    /**
+     * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
+     */
+    private function validateMakeShsCallToDdmsNewAppUseCorrectName(array $preparedArguments): void
+    {
+        $makeShContent = $this->getMakeShContent($preparedArguments);
+        $expectedName = $this->determineAppName($preparedArguments);
+        if(!str_contains($makeShContent, 'ddms --new-app --name ' . $expectedName)) {
+           throw new RuntimeException('    Make sh not use correct name, expected: ' . $expectedName);
+        }
+    }
+
+    /**
+     * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
+     */
+    private function determineAppName(array $preparedArguments): string
+    {
+        return strval(basename($preparedArguments['flags']['path'][0]));
     }
 
     /**
