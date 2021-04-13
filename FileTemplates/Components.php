@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Apps/<APP_NAME>/Components.php
+ * Components.php
  */
 
 use DarlingDataManagementSystem\classes\component\Factory\App\AppComponentsFactory;
@@ -9,13 +9,15 @@ use DarlingDataManagementSystem\classes\component\Factory\App\AppComponentsFacto
 ini_set('display_errors', true);
 
 require(
-    '..' .
-    DIRECTORY_SEPARATOR .
-    '..' .
-    DIRECTORY_SEPARATOR .
-    'vendor' .
-    DIRECTORY_SEPARATOR .
-    'autoload.php'
+    strval(
+        realpath(
+            str_replace(
+                'Apps' . DIRECTORY_SEPARATOR . strval(basename(__DIR__)),
+                'vendor' . DIRECTORY_SEPARATOR . 'autoload.php',
+                __DIR__
+            )
+        )
+    )
 );
 
 function loadComponentConfigFiles(string $configurationDirectoryName, AppComponentsFactory $appComponentsFactory): void {
