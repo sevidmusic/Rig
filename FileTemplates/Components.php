@@ -27,9 +27,15 @@ function loadComponentConfigFiles(string $configurationDirectoryName, AppCompone
     }
 }
 
+$specifiedDomain = ($argv[1] ?? '');
+
+if(filter_var($specifiedDomain, FILTER_VALIDATE_URL)) {
+    $useDomain = $argv[1];
+}
+
 $appComponentsFactory = new AppComponentsFactory(
     ...AppComponentsFactory::buildConstructorArgs(
-    AppComponentsFactory::buildDomain('_DOMAIN_')
+    AppComponentsFactory::buildDomain(($useDomain ?? '_DOMAIN_'))
     )
 );
 
