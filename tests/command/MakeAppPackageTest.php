@@ -138,6 +138,63 @@ final class MakeAppPackageTest extends TestCase
         );
     }
 
+    public function testRunCopiesAppPackageFilesAndDirectoriesToNewApp() : void
+    {
+        $makeAppPackage = new MakeAppPackage();
+        $appPackagePath = $this->pathToValidAppPackage();
+        $preparedArguments = $makeAppPackage->prepareArguments(
+            [
+                '--path',
+                $appPackagePath
+            ]
+        );
+        $makeAppPackage->run(new CommandLineUI(), $preparedArguments);
+        $expectedFilePaths = $this->expectedNewAppFilePaths($appPackagePath, $preparedArguments);
+        foreach($expectedFilePaths as $path) {
+            $this->assertTrue(
+                file_exists($path),
+                'With the exception of files that end with extension .sh, ddms --make-app-package MUST copy all files and directories defined by the App Package to the new App. ' . PHP_EOL . 'The following file or directory should have been created: ' . PHP_EOL . PHP_EOL .'    ' . $path . PHP_EOL
+            );
+        }
+    }
+
+    /**
+     * @param string $appPackagePath Path to the App Package that made the new App.
+     * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
+     * @return array <int, string> Array of paths of all files and sub directories that are under the specified $path
+     */
+    private function expectedNewAppFilePaths(string $appPackagePath, array $preparedArguments) : array
+    {
+        $appPackageFilePaths = $this->scanDirRecursive($appPackagePath);
+        $paths = [];
+        foreach($appPackageFilePaths as $path) {
+            if(substr($path, -3, 3) === '.sh') { continue; }
+            $path = str_replace($appPackagePath, $this->expectedNewAppPath($preparedArguments), $path);
+            array_push($paths, $path);
+        }
+        return $paths;
+    }
+
+    /**
+     * @param string $path The path to scan.
+     * @return array <int, string> Array of paths of all files and sub directories that are under the specified $path
+     */
+    private function scanDirRecursive(string $path) : array
+    {
+        $scan = scandir($path);
+        $ls = array_diff((is_array($scan) ? $scan: []), ['.', '..']);
+        $paths = [];
+        foreach($ls as $listing) {
+            $subPath = $path . DIRECTORY_SEPARATOR . $listing;
+            array_push($paths, $subPath);
+            if(is_dir($subPath)) {
+                $paths = array_merge($paths, $this->scanDirRecursive($subPath));
+            }
+        }
+        $paths = array_unique($paths);
+        return $paths;
+    }
+
     protected function tearDown(): void
     {
         $makeAppPackage = new MakeAppPackage();

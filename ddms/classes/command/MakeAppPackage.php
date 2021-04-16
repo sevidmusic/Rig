@@ -41,6 +41,53 @@ class MakeAppPackage extends AbstractCommand implements Command
      */
     private function makeAppPackage(array $preparedArguments): void {
         $this->showMessage(strval(shell_exec($this->determineMakeShPath($preparedArguments))));
+        $this->copyAppPackageFilesAndDirectories($preparedArguments);
+    }
+
+    /**
+     * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
+     */
+    private function copyAppPackageFilesAndDirectories(array $preparedArguments): void
+    {
+        $appPackgePath = $this->appPackagePath($preparedArguments);
+        $newAppPath = $this->newAppPath($preparedArguments);
+        $this->copyFilesFromSourceRecursivlyecursive($appPackgePath, $newAppPath);
+    }
+
+    /**
+     * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
+     */
+    private function appPackagePath(array $preparedArguments) : string
+    {
+        return $preparedArguments['flags']['path'][0];
+    }
+
+    /**
+     * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
+     */
+    private function newAppPath(array $preparedArguments) : string
+    {
+        return $preparedArguments['flags']['ddms-apps-directory-path'][0] .
+               DIRECTORY_SEPARATOR .
+               basename($this->appPackagePath($preparedArguments));
+    }
+
+    private function copyFilesFromSourceRecursivlyecursive(string $sourceDirectory, string $destinationDirectory) : void
+    {
+        $ls = $this->scanDirRecursive($sourceDirectory);
+        foreach($ls as $source) {
+            if(substr($source, -3, 3) === '.sh') { continue; }
+            $destination = str_replace($sourceDirectory, $destinationDirectory, $source);
+            # handle directories
+            if(is_dir($source)) {
+                if(!file_exists($destination)) {
+                    mkdir($destination, 0755);
+                }
+                continue;
+            }
+            if(file_exists($destination)) { continue; }
+            copy($source, $destination);
+        }
     }
 
     /**
@@ -143,6 +190,26 @@ class MakeAppPackage extends AbstractCommand implements Command
     private function determineMakeShPath($preparedArguments): string
     {
         return $preparedArguments['flags']['path'][0] . DIRECTORY_SEPARATOR . 'make.sh';
+    }
+
+    /**
+     * @param string $path The path to scan.
+     * @return array <int, string> Array of paths of all files and sub directories that are under the specified $path
+     */
+    private function scanDirRecursive(string $path) : array
+    {
+        $scan = scandir($path);
+        $ls = array_diff((is_array($scan) ? $scan: []), ['.', '..']);
+        $paths = [];
+        foreach($ls as $listing) {
+            $subPath = $path . DIRECTORY_SEPARATOR . $listing;
+            array_push($paths, $subPath);
+            if(is_dir($subPath)) {
+                $paths = array_merge($paths, $this->scanDirRecursive($subPath));
+            }
+        }
+        $paths = array_unique($paths);
+        return $paths;
     }
 
 }
