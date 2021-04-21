@@ -87,7 +87,7 @@ final class MakeAppPackageTest extends TestCase
         $makeAppPackage->run(new CommandLineUI(), $preparedArguments);
     }
 
-    public function testRunThrowsRuntimeExceptionIfAppWasAlreadyMade(): void
+    public function testRunReplacesExistingAppFilesThatCorrespondToAppPackageFilesWithAppPackageVersions(): void
     {
         $makeAppPackage = new MakeAppPackage();
         $this->registerAppName(strval(basename($this->pathToValidAppPackage())));
@@ -97,9 +97,35 @@ final class MakeAppPackageTest extends TestCase
                 $this->pathToValidAppPackage()
             ]
         );
+        $relativePathToAppPackageFile = DIRECTORY_SEPARATOR . 'DynamicOutput' . DIRECTORY_SEPARATOR . 'DynamicOutputFile.txt';
+        $appPackageFilePath = $this->pathToValidAppPackage() . $relativePathToAppPackageFile ;
+        $expectedFilePathInApp = $this->expectedNewAppPath($preparedArguments) . $relativePathToAppPackageFile;
         $makeAppPackage->run(new CommandLineUI(), $preparedArguments);
-        $this->expectException(RuntimeException::class);
+        $this->createOrModifyFileUsingRandomData($appPackageFilePath);
+        $modifiedContent = file_get_contents($appPackageFilePath);
         $makeAppPackage->run(new CommandLineUI(), $preparedArguments);
+        $this->assertEquals(
+            $modifiedContent,
+            file_get_contents($expectedFilePathInApp),
+            'ddms --make-app-package MUST always copy all files and directories defined by the App Package to the new App even if the file or directory was already created for the new App.'
+        );
+    }
+
+    /**
+     * Create or modify a randomfile.txt file in the specified path.
+     */
+    private function createOrModifyFileUsingRandomData(string $randomFilePath): void
+    {
+        $originalContent = (file_exists($randomFilePath) ? file_get_contents($randomFilePath) : '');
+        $randomFileContent = 'Modified File' . PHP_EOL . str_shuffle('A Foo B bar x baz T foo bar bazz bazzer' . strval(rand(PHP_INT_MIN, PHP_INT_MAX)));
+        if(file_exists($randomFilePath)) { unlink($randomFilePath); }
+        file_put_contents($randomFilePath, $randomFileContent, LOCK_SH);
+        /** Make sure content was modified **/
+        $this->assertNotEquals(
+            $originalContent,
+            file_get_contents($randomFilePath),
+            'WARNING: File at ' . $randomFilePath . ' was not modified, tests relying on this method can not be performed accurately.'
+        );
     }
 
     public function testRunResultsInANewAppWithExpectedFilesAndDirectoriesPresent(): void

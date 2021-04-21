@@ -2,3 +2,4 @@
 .phpunit*
 /tmp/
 /SharedDynamicOutput
+DynamicOutputFile.txt

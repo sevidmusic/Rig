@@ -45,7 +45,7 @@ final class StartServerTest extends TestCase
          * In general, xdg-open may not always succeed, which does not mean that
          * an attempt to open the browser was made.
          */
-        sleep(1);
+        sleep(2);
         $finalServerCount = $this->numberOfBrowserProcesses();
         $this->assertTrue($initialServerCount < $finalServerCount);
     }
