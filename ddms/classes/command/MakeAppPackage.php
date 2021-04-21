@@ -85,7 +85,6 @@ class MakeAppPackage extends AbstractCommand implements Command
                 }
                 continue;
             }
-            if(file_exists($destination)) { continue; }
             copy($source, $destination);
         }
     }
@@ -104,9 +103,9 @@ class MakeAppPackage extends AbstractCommand implements Command
         if(!file_exists($preparedArguments['flags']['path'][0] . DIRECTORY_SEPARATOR . 'make.sh')) {
             throw new RuntimeException('  Please specify a path to an actual App Package.' . PHP_EOL);
         }
-        if(file_exists($preparedArguments['flags']['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $this->determineAppName($preparedArguments))) {
-            throw new RuntimeException('  An App named ' . $this->determineAppName($preparedArguments) . ' already exists. This App Package cannot be built unless it is removed.' . PHP_EOL);
-        }
+#        if(file_exists($preparedArguments['flags']['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $this->determineAppName($preparedArguments))) {
+#            throw new RuntimeException('  An App named ' . $this->determineAppName($preparedArguments) . ' already exists. This App Package cannot be built unless it is removed.' . PHP_EOL);
+#        }
     }
 
     /**

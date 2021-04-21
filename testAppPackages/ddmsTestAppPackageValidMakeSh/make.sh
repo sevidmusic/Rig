@@ -7,3 +7,5 @@ set -o posix
 
 /home/darling/Downloads/vendor/darling/ddms/bin/ddms --new-app --name ddmsTestAppPackageValidMakeSh --domain "http://localhost:8080/" --debug flags options
 
+/home/darling/Downloads/vendor/darling/ddms/bin/ddms --new-dynamic-output-component --name DynamicOutputComponent --for-app ddmsTestAppPackageValidMakeSh
+
