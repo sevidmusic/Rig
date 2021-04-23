@@ -40,8 +40,37 @@ class MakeAppPackage extends AbstractCommand implements Command
      * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
      */
     private function makeAppPackage(array $preparedArguments): void {
+        $this->removeAppIfItExists($preparedArguments);
         $this->showMessage(strval(shell_exec($this->determineMakeShPath($preparedArguments))));
         $this->copyAppPackageFilesAndDirectories($preparedArguments);
+    }
+
+    /**
+     * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments
+     */
+    private function removeAppIfItExists(array $preparedArguments) : void {
+        $newAppPath = $this->newAppPath($preparedArguments);
+        if(file_exists($newAppPath) && is_dir($newAppPath)) {
+            self::removeDirectory($newAppPath);
+            var_dump('FOO', file_exists($newAppPath));
+        }
+    }
+
+    private static function removeDirectory(string $dir): void
+    {
+        if (is_dir($dir)) {
+            $contents = scandir($dir);
+            $contents = (is_array($contents) ? $contents : []);
+            foreach ($contents as $item) {
+                if ($item != "." && $item != "..") {
+                    $itemPath = $dir . DIRECTORY_SEPARATOR . $item;
+                    (is_dir($itemPath) === true && is_link($itemPath) === false)
+                        ? self::removeDirectory($itemPath)
+                        : unlink($itemPath);
+                }
+            }
+            rmdir($dir);
+        }
     }
 
     /**
