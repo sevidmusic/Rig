@@ -4,9 +4,13 @@
 
   Make an App Package into an App.
 
-  Note: With the exception of files ending in extension .sh and the DynamicOutput
-        directory, any files or directories defined by the App Package will be
-        copied to a corresponding path in the new App created by the App Package.
+  WARNING: If an App whose name matches the name of the App to be made already exists,
+           it will be replaced!
+
+  Note: With the exception of files ending in extension .sh, any files or directories
+        that exist in the App Package will be copied to a corresponding path in the
+        new App.
+
         For example, if the App Package defines a styles.css in AppPackage/css/styles.css
         it will be copied to NewApp/css/styles.css.
 
