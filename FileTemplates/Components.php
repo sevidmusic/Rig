@@ -4,9 +4,9 @@
  * Components.php
  */
 
-use DarlingDataManagementSystem\classes\component\Factory\App\AppComponentsFactory;
+use DarlingDataManagementSystem\classes\utility\AppBuilder;
 
-ini_set('display_errors', true);
+ini_set('display_errors', 'true');
 
 require(
     strval(
@@ -20,28 +20,4 @@ require(
     )
 );
 
-function loadComponentConfigFiles(string $configurationDirectoryName, AppComponentsFactory $appComponentsFactory): void {
-    $configurationDirectoryPath = __DIR__ . DIRECTORY_SEPARATOR . $configurationDirectoryName . DIRECTORY_SEPARATOR;
-    foreach(array_diff(scandir($configurationDirectoryPath), array('.', '..')) as $file) {
-        require $configurationDirectoryPath . $file;
-    }
-}
-
-$specifiedDomain = ($argv[1] ?? '');
-
-if(filter_var($specifiedDomain, FILTER_VALIDATE_URL)) {
-    $useDomain = $argv[1];
-}
-
-$appComponentsFactory = new AppComponentsFactory(
-    ...AppComponentsFactory::buildConstructorArgs(
-    AppComponentsFactory::buildDomain(($useDomain ?? '_DOMAIN_'))
-    )
-);
-
-loadComponentConfigFiles('OutputComponents', $appComponentsFactory);
-loadComponentConfigFiles('Requests', $appComponentsFactory);
-loadComponentConfigFiles('Responses', $appComponentsFactory);
-
-$appComponentsFactory->buildLog(AppComponentsFactory::SHOW_LOG | AppComponentsFactory::SAVE_LOG);
-
+AppBuilder::buildApp(AppBuilder::getAppsAppComponentsFactory(strval(basename(__DIR__)), (escapeshellarg($argv[1] ?? ''))));
