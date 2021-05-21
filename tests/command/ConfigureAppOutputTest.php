@@ -211,5 +211,31 @@ final class ConfigureAppOutputTest extends TestCase
         $this->assertTrue(str_contains(strval(file_get_contents($expectedOutputComponentConfigurationFileFilePath)), 'appComponentsFactory->buildOutputComponent'), 'OutputComponent configuration file was created at ' . $expectedOutputComponentConfigurationFileFilePath . ' but it does not define a call to appComponentsFactory->buildOutputComponent');
     }
 
+    public function testRunSetsDynamicOutputFileContentsToMatchContentsOfSpecifiedOutputSourceFileIfOutputSourceFileFlagIsSpecifiedAndStaticFlagIsNotSpecified(): void
+    {
+        $appName = $this->getRandomAppName();
+        $outputName = $appName . 'TestRunConfigsDynamicOutputComponentIfStaticNotSpecified';
+        $sourceFilePath = strval(realpath(__FILE__));
+        $expectedOutput = strval(file_get_contents($sourceFilePath));
+        $prepareArguments = $this->getConfigureAppOutput()->prepareArguments(
+            [
+                '--configure-app-output',
+                '--for-app',
+                $appName,
+                '--name',
+                $outputName,
+                '--output-source-file',
+                $sourceFilePath
+            ]
+        );
+        $this->getConfigureAppOutput()->run($this->getUserInterface(), $prepareArguments);
+        $expectedAppDirectoryPath = $prepareArguments['flags']['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $appName;
+        $expectedDynamicOutputFilePath = strval(realpath($expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'DynamicOutput' . DIRECTORY_SEPARATOR . $outputName . '.php'));
+        $dynamicOutputFileContents = strval(file_get_contents($expectedDynamicOutputFilePath));
+        $this->assertEquals($expectedOutput, $dynamicOutputFileContents);
+    }
+
+# public function testRunSetsConfiguredOutputToMatchContentsOfSpecifiedOutputSourceFileIfOutputSourceFileFlagIsSpecifiedAndStaticFlagIsSpecified(): void
+
 }
 

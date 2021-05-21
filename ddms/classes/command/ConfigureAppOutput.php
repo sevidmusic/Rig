@@ -51,6 +51,7 @@ class ConfigureAppOutput extends AbstractCommand implements Command
      */
     private function configureAppropriateOutputComponent(UserInterface $userInterface, array $flags): void
     {
+        $initialOutputFile = ($flags['output-source-file'][0] ?? null);
         if(!isset($flags['static'])) {
             self::newDynamicOutputComponent()->run(
                 $userInterface,
@@ -60,8 +61,11 @@ class ConfigureAppOutput extends AbstractCommand implements Command
                         $flags['for-app'],
                         '--name',
                         $flags['name'],
+                        (!is_null($initialOutputFile) ? '--initial-output-file' : ''),
+                        ($initialOutputFile ?? ''),
                     ]
                 )
+                # Note: if $initialOutputFile is null, it means --output was specified, and a call to file_put_contents($docPath, implode(' ', $flags['output'])
             );
             return;
         }
