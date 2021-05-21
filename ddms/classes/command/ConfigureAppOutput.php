@@ -6,6 +6,7 @@ use ddms\interfaces\command\Command;
 use ddms\abstractions\command\AbstractCommand;
 use ddms\interfaces\ui\UserInterface;
 use ddms\classes\command\NewApp;
+use ddms\classes\command\NewDynamicOutputComponent;
 use \RuntimeException;
 
 class ConfigureAppOutput extends AbstractCommand implements Command
@@ -21,13 +22,14 @@ class ConfigureAppOutput extends AbstractCommand implements Command
         ['flags' => $flags] = $preparedArguments;
         $this->validateFlags($flags);
         $this->createAppIfItDoesNotExist($userInterface, $flags);
+        $this->configureAppropriateOutputComponent($userInterface, $flags);
         return false;
     }
 
     /**
      * @param array <string, array<int, string>> $flags
      */
-    public function createAppIfItDoesNotExist(UserInterface $userInterface, $flags): void
+    private function createAppIfItDoesNotExist(UserInterface $userInterface, array $flags): void
     {
         $expectedAppDirectoryPath = $flags['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $flags['for-app'][0];
         if(!file_exists($expectedAppDirectoryPath)) {
@@ -43,9 +45,33 @@ class ConfigureAppOutput extends AbstractCommand implements Command
         }
     }
 
+    /**
+     * @param array <string, array<int, string>> $flags
+     */
+    private function configureAppropriateOutputComponent(UserInterface $userInterface, array $flags): void
+    {
+        if(!isset($flags['static'])) {
+            self::newDynamicOutputComponent()->run(
+                $userInterface,
+                self::newDynamicOutputComponent()->prepareArguments(
+                    [
+                        '--for-app',
+                        $flags['for-app'],
+                        '--name',
+                        $flags['name'],
+                    ]
+                )
+            );
+        }
+    }
     private static function newApp(): NewApp
     {
         return new NewApp();
+    }
+
+    private static function newDynamicOutputComponent(): NewDynamicOutputComponent
+    {
+        return new NewDynamicOutputComponent();
     }
 
     /**
