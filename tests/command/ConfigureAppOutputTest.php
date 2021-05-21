@@ -125,10 +125,6 @@ final class ConfigureAppOutputTest extends TestCase
         $this->assertTrue(file_exists($expectedDynamicOutputComponentConfigurationFileFilePath), "ddms --configure-app-output MUST configure a DynamicOutputComponent for the output if the --static flag is not specified. A DynamicOutputComponent configuration file should have been created at $expectedDynamicOutputComponentConfigurationFileFilePath");
     }
 
-}
-
-
-/**
     public function testRunThrowsRuntimeExceptionIfNameIsNotUnique(): void
     {
         $appName = $this->getRandomAppName();
@@ -150,4 +146,5 @@ final class ConfigureAppOutputTest extends TestCase
         $this->getConfigureAppOutput()->run($this->getUserInterface(), $prepareArguments);
     }
 
-*/
+}
+
