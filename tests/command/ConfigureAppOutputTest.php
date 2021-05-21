@@ -123,7 +123,7 @@ final class ConfigureAppOutputTest extends TestCase
         $expectedDynamicOutputComponentConfigurationFileFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'OutputComponents' . DIRECTORY_SEPARATOR . $outputName . '.php';
         $this->getConfigureAppOutput()->run($this->getUserInterface(), $prepareArguments);
         $this->assertTrue(file_exists($expectedDynamicOutputComponentConfigurationFileFilePath), "ddms --configure-app-output MUST configure a DynamicOutputComponent for the output if the --static flag is not specified. A DynamicOutputComponent configuration file should have been created at $expectedDynamicOutputComponentConfigurationFileFilePath");
-        $this->assertTrue(str_contains(strval(file_get_contents($expectedDynamicOutputComponentConfigurationFileFilePath)), 'appComponentsFactory->buildDynamicOutputComponent'));
+        $this->assertTrue(str_contains(strval(file_get_contents($expectedDynamicOutputComponentConfigurationFileFilePath)), 'appComponentsFactory->buildDynamicOutputComponent'), 'DynamicOutputComponent configuration file was created at ' . $expectedDynamicOutputComponentConfigurationFileFilePath . ' but it does not define a call to appComponentsFactory->buildDynamicOutputComponent');
     }
 
     public function testRunThrowsRuntimeExceptionIfNameIsNotUnique(): void
@@ -186,5 +186,30 @@ final class ConfigureAppOutputTest extends TestCase
         $this->expectException(RuntimeException::class);
         $this->getConfigureAppOutput()->run($this->getUserInterface(), $prepareArguments);
     }
+
+    public function testRunConfiguresAnOutputComponentForTheOutputIfStaticFlagsIsSpecified(): void
+    {
+        $appName = $this->getRandomAppName();
+        $outputName = $appName . 'TestRunConfigsOutputComponentIfStaticIspecified';
+        $output = $outputName . ' output';
+        $prepareArguments = $this->getConfigureAppOutput()->prepareArguments(
+            [
+                '--configure-app-output',
+                '--for-app',
+                $appName,
+                '--name',
+                $outputName,
+                '--output',
+                $output,
+                '--static'
+            ]
+        );
+        $expectedAppDirectoryPath = $prepareArguments['flags']['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $appName;
+        $expectedOutputComponentConfigurationFileFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'OutputComponents' . DIRECTORY_SEPARATOR . $outputName . '.php';
+        $this->getConfigureAppOutput()->run($this->getUserInterface(), $prepareArguments);
+        $this->assertTrue(file_exists($expectedOutputComponentConfigurationFileFilePath), "ddms --configure-app-output MUST configure a OutputComponent for the output if the --static flag is not specified. A OutputComponent configuration file should have been created at $expectedOutputComponentConfigurationFileFilePath");
+        $this->assertTrue(str_contains(strval(file_get_contents($expectedOutputComponentConfigurationFileFilePath)), 'appComponentsFactory->buildOutputComponent'), 'OutputComponent configuration file was created at ' . $expectedOutputComponentConfigurationFileFilePath . ' but it does not define a call to appComponentsFactory->buildOutputComponent');
+    }
+
 }
 

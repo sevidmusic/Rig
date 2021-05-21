@@ -63,7 +63,22 @@ class ConfigureAppOutput extends AbstractCommand implements Command
                     ]
                 )
             );
+            return;
         }
+        self::newOutputComponent()->run(
+            $userInterface,
+            self::newOutputComponent()->prepareArguments(
+                [
+                    '--for-app',
+                    $flags['for-app'],
+                    '--name',
+                    $flags['name'],
+                    '--output',
+                    '...'
+                ]
+            )
+        );
+
     }
     private static function newApp(): NewApp
     {
