@@ -214,7 +214,7 @@ final class ConfigureAppOutputTest extends TestCase
     public function testRunSetsDynamicOutputFileContentsToMatchContentsOfSpecifiedOutputSourceFileIfOutputSourceFileFlagIsSpecifiedAndStaticFlagIsNotSpecified(): void
     {
         $appName = $this->getRandomAppName();
-        $outputName = $appName . 'TestRunConfigsDynamicOutputComponentIfStaticNotSpecified';
+        $outputName = $appName . 'TestRunSetsDynamicOutputFileContentToSourceFileContent';
         $sourceFilePath = strval(realpath(__FILE__));
         $expectedOutput = strval(file_get_contents($sourceFilePath));
         $prepareArguments = $this->getConfigureAppOutput()->prepareArguments(
@@ -226,6 +226,29 @@ final class ConfigureAppOutputTest extends TestCase
                 $outputName,
                 '--output-source-file',
                 $sourceFilePath
+            ]
+        );
+        $this->getConfigureAppOutput()->run($this->getUserInterface(), $prepareArguments);
+        $expectedAppDirectoryPath = $prepareArguments['flags']['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $appName;
+        $expectedDynamicOutputFilePath = strval(realpath($expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'DynamicOutput' . DIRECTORY_SEPARATOR . $outputName . '.php'));
+        $dynamicOutputFileContents = strval(file_get_contents($expectedDynamicOutputFilePath));
+        $this->assertEquals($expectedOutput, $dynamicOutputFileContents);
+    }
+
+    public function testRunSetsDynamicOutputFileContentsToMatchSpecifiedOutputIfOutputSourceFileFlagIsNotSpecifiedAndStaticFlagIsNotSpecified(): void
+    {
+        $appName = $this->getRandomAppName();
+        $outputName = $appName . 'TestRunSetsDynamicOutputFileConentToSpecifiedOutput';
+        $expectedOutput = $outputName . ' output';
+        $prepareArguments = $this->getConfigureAppOutput()->prepareArguments(
+            [
+                '--configure-app-output',
+                '--for-app',
+                $appName,
+                '--name',
+                $outputName,
+                '--output',
+                $expectedOutput
             ]
         );
         $this->getConfigureAppOutput()->run($this->getUserInterface(), $prepareArguments);
