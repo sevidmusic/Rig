@@ -45,4 +45,12 @@ final class ConfigureAppOutputTest extends TestCase
         $this->getConfigureAppOutput()->run($this->getUserInterface(), $this->getConfigureAppOutput()->prepareArguments(['--configure-app-output', '--for-app', $appName]));
     }
 
+    public function testRunThrowsRuntimeExceptionIfNitherOutputOrOutputSourceFileAreSpecified(): void
+    {
+        $appName = $this->getRandomAppName();
+        $this->expectException(RuntimeException::class);
+        $this->getConfigureAppOutput()->run($this->getUserInterface(), $this->getConfigureAppOutput()->prepareArguments(['--configure-app-output', '--for-app', $appName, '--name', $appName . 'ConfiguredOutput']));
+    }
+
+
 }
