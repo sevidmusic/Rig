@@ -35,27 +35,53 @@ final class ConfigureAppOutputTest extends TestCase
     public function testRunThrowsRuntimeExceptionIfForAppIsNotSpecified(): void
     {
         $this->expectException(RuntimeException::class);
-        $this->getConfigureAppOutput()->run($this->getUserInterface(), $this->getConfigureAppOutput()->prepareArguments(['--configure-app-output']));
+        $this->getConfigureAppOutput()->run(
+            $this->getUserInterface(),
+            $this->getConfigureAppOutput()->prepareArguments(['--configure-app-output'])
+        );
     }
 
     public function testRunThrowsRuntimeExceptionIfNameIsNotSpecified(): void
     {
         $appName = $this->getRandomAppName();
         $this->expectException(RuntimeException::class);
-        $this->getConfigureAppOutput()->run($this->getUserInterface(), $this->getConfigureAppOutput()->prepareArguments(['--configure-app-output', '--for-app', $appName]));
+        $this->getConfigureAppOutput()->run(
+            $this->getUserInterface(),
+            $this->getConfigureAppOutput()->prepareArguments(
+                ['--configure-app-output', '--for-app', $appName]
+            )
+        );
     }
 
     public function testRunThrowsRuntimeExceptionIfNitherOutputOrOutputSourceFileAreSpecified(): void
     {
         $appName = $this->getRandomAppName();
+        $outputName = $appName . 'ConfiguredOutput';
         $this->expectException(RuntimeException::class);
-        $this->getConfigureAppOutput()->run($this->getUserInterface(), $this->getConfigureAppOutput()->prepareArguments(['--configure-app-output', '--for-app', $appName, '--name', $appName . 'ConfiguredOutput']));
+        $this->getConfigureAppOutput()->run(
+            $this->getUserInterface(),
+            $this->getConfigureAppOutput()->prepareArguments(
+                    ['--configure-app-output', '--for-app', $appName, '--name', $outputName]
+            )
+        );
     }
 
     public function testRunCreatesAppSpecifiedByForAppIfAppDoesNotAlreadyExist(): void
     {
         $appName = $this->getRandomAppName();
-        $prepareArguments = $this->getConfigureAppOutput()->prepareArguments(['--configure-app-output', '--for-app', $appName, '--name', $appName . 'ConfiguredOutput', '--output', $appName . ' output']);
+        $outputName = $appName . 'ConfiguredOutput';
+        $output = $outputName . ' output';
+        $prepareArguments = $this->getConfigureAppOutput()->prepareArguments(
+            [
+                '--configure-app-output',
+                '--for-app',
+                $appName,
+                '--name',
+                $outputName,
+                '--output',
+                $output
+            ]
+        );
         $expectedAppDirectoryPath = $prepareArguments['flags']['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $appName;
         $expectedCssDirectoryPath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'css';
         $expectedJsDirectoryPath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'js';
