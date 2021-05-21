@@ -37,4 +37,12 @@ final class ConfigureAppOutputTest extends TestCase
         $this->expectException(RuntimeException::class);
         $this->getConfigureAppOutput()->run($this->getUserInterface(), $this->getConfigureAppOutput()->prepareArguments(['--configure-app-output']));
     }
+
+    public function testRunThrowsRuntimeExceptionIfNameIsNotSpecified(): void
+    {
+        $appName = $this->getRandomAppName();
+        $this->expectException(RuntimeException::class);
+        $this->getConfigureAppOutput()->run($this->getUserInterface(), $this->getConfigureAppOutput()->prepareArguments(['--configure-app-output', '--for-app', $appName]));
+    }
+
 }

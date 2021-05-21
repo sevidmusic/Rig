@@ -30,5 +30,8 @@ class ConfigureAppOutput extends AbstractCommand implements Command
         if(!isset($flags['for-app'][0])) {
             throw new RuntimeException('  You must specify a the name of the App the output is for via the --for-app flag. For help use ddms --help --configure-app-output');
         }
+        if(!isset($flags['name'][0])) {
+            throw new RuntimeException('  You must specify a the name of the App the output is for via the --for-app flag. For help use ddms --help --configure-app-output');
+        }
     }
 }
