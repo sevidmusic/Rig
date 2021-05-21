@@ -5,6 +5,7 @@ namespace ddms\classes\command;
 use ddms\interfaces\command\Command;
 use ddms\abstractions\command\AbstractCommand;
 use ddms\interfaces\ui\UserInterface;
+use ddms\classes\command\NewApp;
 use \RuntimeException;
 
 class ConfigureAppOutput extends AbstractCommand implements Command
@@ -19,7 +20,32 @@ class ConfigureAppOutput extends AbstractCommand implements Command
     {
         ['flags' => $flags] = $preparedArguments;
         $this->validateFlags($flags);
+        $this->createAppIfItDoesNotExist($userInterface, $flags);
         return false;
+    }
+
+    /**
+     * @param array <string, array<int, string>> $flags
+     */
+    public function createAppIfItDoesNotExist(UserInterface $userInterface, $flags): void
+    {
+        $expectedAppDirectoryPath = $flags['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $flags['for-app'][0];
+        if(!file_exists($expectedAppDirectoryPath)) {
+            self::newApp()->run(
+                $userInterface,
+                self::newApp()->prepareArguments(
+                    [
+                        '--name',
+                        $flags['for-app'][0]
+                    ]
+                )
+            );
+        }
+    }
+
+    private static function newApp(): NewApp
+    {
+        return new NewApp();
     }
 
     /**
