@@ -146,5 +146,44 @@ final class ConfigureAppOutputTest extends TestCase
         $this->getConfigureAppOutput()->run($this->getUserInterface(), $prepareArguments);
     }
 
+    public function testRunThrowsRuntimeExceptionIfSpecifiedOutputSourceFileDoesNotExist(): void
+    {
+        $appName = $this->getRandomAppName();
+        $outputName = $appName . 'TestOutputComponent';
+        $badFilePath = __DIR__ . DIRECTORY_SEPARATOR . strval(rand(PHP_INT_MIN, PHP_INT_MAX));
+        $prepareArguments = $this->getConfigureAppOutput()->prepareArguments(
+            [
+                '--configure-app-output',
+                '--for-app',
+                $appName,
+                '--name',
+                $outputName,
+                '--output-source-file',
+                $badFilePath
+            ]
+        );
+        $this->expectException(RuntimeException::class);
+        $this->getConfigureAppOutput()->run($this->getUserInterface(), $prepareArguments);
+    }
+
+    public function testRunThrowsRuntimeExceptionIfSpecifiedOutputSourceFileIsNotAFile(): void
+    {
+        $appName = $this->getRandomAppName();
+        $outputName = $appName . 'TestOutputComponent';
+        $badFilePath = __DIR__;
+        $prepareArguments = $this->getConfigureAppOutput()->prepareArguments(
+            [
+                '--configure-app-output',
+                '--for-app',
+                $appName,
+                '--name',
+                $outputName,
+                '--output-source-file',
+                $badFilePath
+            ]
+        );
+        $this->expectException(RuntimeException::class);
+        $this->getConfigureAppOutput()->run($this->getUserInterface(), $prepareArguments);
+    }
 }
 

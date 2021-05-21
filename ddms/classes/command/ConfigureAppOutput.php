@@ -7,6 +7,7 @@ use ddms\abstractions\command\AbstractCommand;
 use ddms\interfaces\ui\UserInterface;
 use ddms\classes\command\NewApp;
 use ddms\classes\command\NewDynamicOutputComponent;
+use ddms\classes\command\NewOutputComponent;
 use \RuntimeException;
 
 class ConfigureAppOutput extends AbstractCommand implements Command
@@ -74,6 +75,11 @@ class ConfigureAppOutput extends AbstractCommand implements Command
         return new NewDynamicOutputComponent();
     }
 
+    private static function newOutputComponent(): NewOutputComponent
+    {
+        return new NewOutputComponent();
+    }
+
     /**
      * @param array <string, array<int, string>> $flags
      */
@@ -88,6 +94,11 @@ class ConfigureAppOutput extends AbstractCommand implements Command
         if(!isset($flags['output'][0]) && !isset($flags['output-source-file'][0])) {
             throw new RuntimeException('  You must specify either the --output, or --output-source-file flag. For help use ddms --help --configure-app-output');
         }
-
+        if(isset($flags['output-source-file'][0]) && !file_exists($flags['output-source-file'][0])) {
+            throw new RuntimeException('  The specified --output-source-file does not exist at ' . $flags['output-source-file'][0]);
+        }
+        if(isset($flags['output-source-file'][0]) && file_exists($flags['output-source-file'][0]) && !is_file($flags['output-source-file'][0])) {
+            throw new RuntimeException('  The specified --output-source-file at ' . $flags['output-source-file'][0] . ' is not a file. Please specify a path to an actual file.');
+        }
     }
 }
