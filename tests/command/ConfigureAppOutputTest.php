@@ -437,7 +437,7 @@ final class ConfigureAppOutputTest extends TestCase
         }
     }
 
-    public function testRunSetsRequestsContainerTo_APPNAMERequests(): void
+    public function testRunSetsRequestContainersTo_APPNAMERequests(): void
     {
         $appName = $this->getRandomAppName();
         $requestName = $appName . 'TestRunSetRequestContainerToAPPNAMEREquest';
