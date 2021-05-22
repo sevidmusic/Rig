@@ -63,6 +63,8 @@ class ConfigureAppOutput extends AbstractCommand implements Command
                         $flags['name'],
                         (!is_null($initialOutputFile) ? '--initial-output-file' : ''),
                         ($initialOutputFile ?? ''),
+                        '--container',
+                        $flags['for-app'][0] . 'DynamicOutput',
                     ]
                 )
             );
