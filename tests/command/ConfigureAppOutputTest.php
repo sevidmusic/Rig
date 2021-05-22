@@ -48,7 +48,7 @@ final class ConfigureAppOutputTest extends TestCase
         $this->getConfigureAppOutput()->run(
             $this->getUserInterface(),
             $this->getConfigureAppOutput()->prepareArguments(
-                ['--configure-app-output', '--for-app', $appName]
+                ['--for-app', $appName]
             )
         );
     }
@@ -61,7 +61,7 @@ final class ConfigureAppOutputTest extends TestCase
         $this->getConfigureAppOutput()->run(
             $this->getUserInterface(),
             $this->getConfigureAppOutput()->prepareArguments(
-                    ['--configure-app-output', '--for-app', $appName, '--name', $outputName]
+                    ['--for-app', $appName, '--name', $outputName]
             )
         );
     }
@@ -73,7 +73,6 @@ final class ConfigureAppOutputTest extends TestCase
         $output = $outputName . ' output';
         $prepareArguments = $this->getConfigureAppOutput()->prepareArguments(
             [
-                '--configure-app-output',
                 '--for-app',
                 $appName,
                 '--name',
@@ -110,7 +109,6 @@ final class ConfigureAppOutputTest extends TestCase
         $output = $outputName . ' output';
         $prepareArguments = $this->getConfigureAppOutput()->prepareArguments(
             [
-                '--configure-app-output',
                 '--for-app',
                 $appName,
                 '--name',
@@ -133,7 +131,6 @@ final class ConfigureAppOutputTest extends TestCase
         $output = $outputName . ' output';
         $prepareArguments = $this->getConfigureAppOutput()->prepareArguments(
             [
-                '--configure-app-output',
                 '--for-app',
                 $appName,
                 '--name',
@@ -154,7 +151,6 @@ final class ConfigureAppOutputTest extends TestCase
         $badFilePath = __DIR__ . DIRECTORY_SEPARATOR . strval(rand(PHP_INT_MIN, PHP_INT_MAX));
         $prepareArguments = $this->getConfigureAppOutput()->prepareArguments(
             [
-                '--configure-app-output',
                 '--for-app',
                 $appName,
                 '--name',
@@ -174,7 +170,6 @@ final class ConfigureAppOutputTest extends TestCase
         $badFilePath = __DIR__;
         $prepareArguments = $this->getConfigureAppOutput()->prepareArguments(
             [
-                '--configure-app-output',
                 '--for-app',
                 $appName,
                 '--name',
@@ -194,7 +189,6 @@ final class ConfigureAppOutputTest extends TestCase
         $output = $outputName . ' output';
         $prepareArguments = $this->getConfigureAppOutput()->prepareArguments(
             [
-                '--configure-app-output',
                 '--for-app',
                 $appName,
                 '--name',
@@ -219,7 +213,6 @@ final class ConfigureAppOutputTest extends TestCase
         $expectedOutput = strval(file_get_contents($sourceFilePath));
         $prepareArguments = $this->getConfigureAppOutput()->prepareArguments(
             [
-                '--configure-app-output',
                 '--for-app',
                 $appName,
                 '--name',
@@ -242,7 +235,6 @@ final class ConfigureAppOutputTest extends TestCase
         $expectedOutput = $outputName . ' output';
         $prepareArguments = $this->getConfigureAppOutput()->prepareArguments(
             [
-                '--configure-app-output',
                 '--for-app',
                 $appName,
                 '--name',
@@ -274,7 +266,6 @@ final class ConfigureAppOutputTest extends TestCase
         $expectedOutput = $this->mockOutputFilteringPerfomedByNewOutputComponentCommand(strval(file_get_contents($sourceFilePath)));
         $prepareArguments = $this->getConfigureAppOutput()->prepareArguments(
             [
-                '--configure-app-output',
                 '--for-app',
                 $appName,
                 '--name',
@@ -299,7 +290,6 @@ final class ConfigureAppOutputTest extends TestCase
         $expectedOutput = $outputName . ' output';
         $prepareArguments = $this->getConfigureAppOutput()->prepareArguments(
             [
-                '--configure-app-output',
                 '--for-app',
                 $appName,
                 '--name',
@@ -323,7 +313,6 @@ final class ConfigureAppOutputTest extends TestCase
         $output = $outputName . ' output';
         $prepareArguments = $this->getConfigureAppOutput()->prepareArguments(
             [
-                '--configure-app-output',
                 '--for-app',
                 $appName,
                 '--name',
@@ -347,7 +336,6 @@ final class ConfigureAppOutputTest extends TestCase
         $output = $outputName . ' output';
         $prepareArguments = $this->getConfigureAppOutput()->prepareArguments(
             [
-                '--configure-app-output',
                 '--for-app',
                 $appName,
                 '--name',
@@ -373,7 +361,6 @@ final class ConfigureAppOutputTest extends TestCase
         $expectedPosition = '4.25';
         $prepareArguments = $this->getConfigureAppOutput()->prepareArguments(
             [
-                '--configure-app-output',
                 '--for-app',
                 $appName,
                 '--name',
@@ -400,7 +387,6 @@ final class ConfigureAppOutputTest extends TestCase
         $expectedPosition = '4.25';
         $prepareArguments = $this->getConfigureAppOutput()->prepareArguments(
             [
-                '--configure-app-output',
                 '--for-app',
                 $appName,
                 '--name',
@@ -430,7 +416,6 @@ final class ConfigureAppOutputTest extends TestCase
         ];
         $prepareArguments = $this->getConfigureAppOutput()->prepareArguments(
             [
-                '--configure-app-output',
                 '--for-app',
                 $appName,
                 '--name',
@@ -450,6 +435,31 @@ final class ConfigureAppOutputTest extends TestCase
             $this->assertTrue(file_exists($expectedRequestConfigurationFilePath), "ddms --configure-app-output MUST configure a Request for the output if the --static flag is not specified. A Request configuration file should have been created at $expectedRequestConfigurationFilePath");
             $this->assertTrue(str_contains(strval(file_get_contents($expectedRequestConfigurationFilePath)), 'appComponentsFactory->buildRequest'), 'Request configuration file was created at ' . $expectedRequestConfigurationFilePath . ' but it does not define a call to appComponentsFactory->buildRequest');
         }
+    }
+
+    public function testRunSetsRequestsContainerTo_APPNAMERequests(): void
+    {
+        $appName = $this->getRandomAppName();
+        $requestName = $appName . 'TestRunSetRequestContainerToAPPNAMEREquest';
+        $output = $requestName . ' request';
+        $prepareArguments = $this->getConfigureAppOutput()->prepareArguments(
+            [
+                '--for-app',
+                $appName,
+                '--name',
+                $requestName,
+                '--output',
+                $output,
+                '--relative-urls',
+                'index,php'
+            ]
+        );
+        $expectedAppDirectoryPath = $prepareArguments['flags']['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $appName;
+        $dynamicOutputComponentConfigurationFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'Requests' . DIRECTORY_SEPARATOR . $requestName . '0.php';
+        $this->getConfigureAppOutput()->run($this->getUserInterface(), $prepareArguments);
+        $dynamicOutputComponentConfigurationFileContents = strval(file_get_contents($dynamicOutputComponentConfigurationFilePath));
+        $expectedContainer = "${appName}Requests";
+        $this->assertTrue(str_contains($dynamicOutputComponentConfigurationFileContents, $expectedContainer), 'The expected container was found in the DynamicOutputComponent\'s configuration file, the expected container was: ' . $expectedContainer);
     }
 
 }
