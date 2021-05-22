@@ -418,5 +418,39 @@ final class ConfigureAppOutputTest extends TestCase
         $this->assertTrue(str_contains($dynamicOutputComponentConfigurationFileContents, $expectedPosition), 'The expected position was found in the DynamicOutputComponent\'s configuration file, the expected position was: ' . $expectedPosition);
     }
 
+    public function testRunConfiguresARequestForEachOfTheSpcifiedRelativeUrls(): void
+    {
+        $appName = $this->getRandomAppName();
+        $outputName = $appName . 'TestRunConfigsRequestForEachSpecifiedRelativeUrl';
+        $output = $outputName . ' output';
+        $relativeUrls = [
+                'index.php?request=' . $outputName,
+                'index.php',
+                'index.php?page=' . $outputName
+        ];
+        $prepareArguments = $this->getConfigureAppOutput()->prepareArguments(
+            [
+                '--configure-app-output',
+                '--for-app',
+                $appName,
+                '--name',
+                $outputName,
+                '--output',
+                $output,
+                '--relative-urls',
+                $relativeUrls[0],
+                $relativeUrls[1],
+                $relativeUrls[2]
+            ]
+        );
+        $expectedAppDirectoryPath = $prepareArguments['flags']['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $appName;
+        $this->getConfigureAppOutput()->run($this->getUserInterface(), $prepareArguments);
+        foreach($relativeUrls as $key => $relativeUrl) {
+            $expectedRequestConfigurationFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'Requests' . DIRECTORY_SEPARATOR . $outputName . strval($key). '.php';
+            $this->assertTrue(file_exists($expectedRequestConfigurationFilePath), "ddms --configure-app-output MUST configure a Request for the output if the --static flag is not specified. A Request configuration file should have been created at $expectedRequestConfigurationFilePath");
+#            $this->assertTrue(str_contains(strval(file_get_contents($expectedRequestConfigurationFilePath)), 'appComponentsFactory->buildRequest'), 'Request configuration file was created at ' . $expectedRequestConfigurationFilePath . ' but it does not define a call to appComponentsFactory->buildRequest');
+        }
+    }
+
 }
 

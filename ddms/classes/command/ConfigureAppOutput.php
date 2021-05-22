@@ -6,6 +6,7 @@ use ddms\interfaces\command\Command;
 use ddms\abstractions\command\AbstractCommand;
 use ddms\interfaces\ui\UserInterface;
 use ddms\classes\command\NewApp;
+use ddms\classes\command\NewRequest;
 use ddms\classes\command\NewDynamicOutputComponent;
 use ddms\classes\command\NewOutputComponent;
 use \RuntimeException;
@@ -24,6 +25,7 @@ class ConfigureAppOutput extends AbstractCommand implements Command
         $this->validateFlags($flags);
         $this->createAppIfItDoesNotExist($userInterface, $flags);
         $this->configureAppropriateOutputComponent($userInterface, $flags);
+        $this->configureAppropriateRequests($userInterface, $flags);
         return false;
     }
 
@@ -97,6 +99,35 @@ class ConfigureAppOutput extends AbstractCommand implements Command
                 ]
             )
         );
+    }
+
+    /**
+     * @param array <string, array<int, string>> $flags
+     */
+    private function configureAppropriateRequests(UserInterface $userInterface, array $flags) : void
+    {
+        if(!empty($flags['relative-urls'])) {
+            foreach($flags['relative-urls'] as $key => $relativeUrl) {
+                self::newRequest()->run(
+                    $userInterface,
+                    self::newRequest()->prepareArguments(
+                        [
+                            '--for-app',
+                            $flags['for-app'][0],
+                            '--name',
+                            $flags['name'][0] . strval($key),
+                            '--relative-url',
+                            $relativeUrl
+                        ]
+                    )
+                );
+            }
+        }
+    }
+
+    private static function newRequest(): NewRequest
+    {
+        return new NewRequest();
     }
 
     private static function newApp(): NewApp
