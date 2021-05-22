@@ -434,6 +434,7 @@ final class ConfigureAppOutputTest extends TestCase
             $expectedRequestConfigurationFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'Requests' . DIRECTORY_SEPARATOR . $outputName . strval($key). '.php';
             $this->assertTrue(file_exists($expectedRequestConfigurationFilePath), "ddms --configure-app-output MUST configure a Request for the output if the --static flag is not specified. A Request configuration file should have been created at $expectedRequestConfigurationFilePath");
             $this->assertTrue(str_contains(strval(file_get_contents($expectedRequestConfigurationFilePath)), 'appComponentsFactory->buildRequest'), 'Request configuration file was created at ' . $expectedRequestConfigurationFilePath . ' but it does not define a call to appComponentsFactory->buildRequest');
+            $this->assertTrue(str_contains(strval(file_get_contents($expectedRequestConfigurationFilePath)), $relativeUrl), 'Request configuration file was created at ' . $expectedRequestConfigurationFilePath . ' but it does not define a call to appComponentsFactory->buildRequest');
         }
     }
 
