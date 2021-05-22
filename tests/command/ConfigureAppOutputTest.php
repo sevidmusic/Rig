@@ -434,34 +434,44 @@ final class ConfigureAppOutputTest extends TestCase
             $expectedRequestConfigurationFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'Requests' . DIRECTORY_SEPARATOR . $outputName . strval($key). '.php';
             $this->assertTrue(file_exists($expectedRequestConfigurationFilePath), "ddms --configure-app-output MUST configure a Request for the output if the --static flag is not specified. A Request configuration file should have been created at $expectedRequestConfigurationFilePath");
             $this->assertTrue(str_contains(strval(file_get_contents($expectedRequestConfigurationFilePath)), 'appComponentsFactory->buildRequest'), 'Request configuration file was created at ' . $expectedRequestConfigurationFilePath . ' but it does not define a call to appComponentsFactory->buildRequest');
-            $this->assertTrue(str_contains(strval(file_get_contents($expectedRequestConfigurationFilePath)), $relativeUrl), 'Request configuration file was created at ' . $expectedRequestConfigurationFilePath . ' but it does not define a call to appComponentsFactory->buildRequest');
+            $this->assertTrue(str_contains(strval(file_get_contents($expectedRequestConfigurationFilePath)), $relativeUrl), 'Request configuration file does not contain the specified relative url, expected url was: ' . $relativeUrl . ' Configuration file path: '  . $expectedRequestConfigurationFilePath);
         }
     }
 
     public function testRunSetsRequestContainersTo_APPNAMERequests(): void
     {
         $appName = $this->getRandomAppName();
-        $requestName = $appName . 'TestRunSetRequestContainerToAPPNAMEREquest';
-        $output = $requestName . ' request';
+        $outputName = $appName . 'TestRunSetsRequestContainersToAPPNAMERequests';
+        $output = $outputName . ' output';
+        $relativeUrls = [
+                'index.php?request=' . $outputName,
+                'index.php',
+                'index.php?page=' . $outputName
+        ];
         $prepareArguments = $this->getConfigureAppOutput()->prepareArguments(
             [
                 '--for-app',
                 $appName,
                 '--name',
-                $requestName,
+                $outputName,
                 '--output',
                 $output,
                 '--relative-urls',
-                'index,php'
+                $relativeUrls[0],
+                $relativeUrls[1],
+                $relativeUrls[2]
             ]
         );
         $expectedAppDirectoryPath = $prepareArguments['flags']['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $appName;
-        $dynamicOutputComponentConfigurationFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'Requests' . DIRECTORY_SEPARATOR . $requestName . '0.php';
         $this->getConfigureAppOutput()->run($this->getUserInterface(), $prepareArguments);
-        $dynamicOutputComponentConfigurationFileContents = strval(file_get_contents($dynamicOutputComponentConfigurationFilePath));
         $expectedContainer = "${appName}Requests";
-        $this->assertTrue(str_contains($dynamicOutputComponentConfigurationFileContents, $expectedContainer), 'The expected container was found in the DynamicOutputComponent\'s configuration file, the expected container was: ' . $expectedContainer);
+        foreach($relativeUrls as $key => $relativeUrl) {
+            $expectedRequestConfigurationFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'Requests' . DIRECTORY_SEPARATOR . $outputName . strval($key). '.php';
+            $requestConfigurationFileContent = strval(file_get_contents($expectedRequestConfigurationFilePath));
+            $this->assertTrue(str_contains($requestConfigurationFileContent, $expectedContainer), 'The expected container was not found in the Request\'s configuration file, the expected container was: ' . $expectedContainer . ' and the Request\'s configuration file was: ' . $requestConfigurationFileContent);
+        }
     }
 
 }
 
+# Need testRunConfiguresDefaultRequestForOutputIfNoRelativeUrlsAreSpcecified()
