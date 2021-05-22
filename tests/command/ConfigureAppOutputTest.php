@@ -258,7 +258,37 @@ final class ConfigureAppOutputTest extends TestCase
         $this->assertEquals($expectedOutput, $dynamicOutputFileContents);
     }
 
-# public function testRunSetsConfiguredOutputToMatchContentsOfSpecifiedOutputSourceFileIfOutputSourceFileFlagIsSpecifiedAndStaticFlagIsSpecified(): void
+    /**
+     * This method mocks the filtering performed by the NewOutputComponent command.
+     */
+    private function mockOutputFilteringPerfomedByNewOutputComponentCommand(string $output): string
+    {
+        return str_replace(["\\","'"], ["\\\\", "\'"], $output);
+    }
 
+    public function testRunConfiguresOutputToMatchContentsOfSpecifiedOutputSourceFileIfOutputSourceFileFlagIsSpecifiedAndStaticFlagIsAlsoSpecified(): void
+    {
+        $appName = $this->getRandomAppName();
+        $outputName = $appName . 'TestRunSetsOutputFileContentToSourceFileContentIfStaticSpecified';
+        $sourceFilePath = strval(realpath(__FILE__));
+        $expectedOutput = $this->mockOutputFilteringPerfomedByNewOutputComponentCommand(strval(file_get_contents($sourceFilePath)));
+        $prepareArguments = $this->getConfigureAppOutput()->prepareArguments(
+            [
+                '--configure-app-output',
+                '--for-app',
+                $appName,
+                '--name',
+                $outputName,
+                '--output-source-file',
+                $sourceFilePath,
+                '--static'
+            ]
+        );
+        $this->getConfigureAppOutput()->run($this->getUserInterface(), $prepareArguments);
+        $expectedAppDirectoryPath = $prepareArguments['flags']['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $appName;
+        $expectedOutputComponentConfigurationFilePath = strval(realpath($expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'OutputComponents' . DIRECTORY_SEPARATOR . $outputName . '.php'));
+        $outputComponentConfigurationFileContents = strval(file_get_contents($expectedOutputComponentConfigurationFilePath));
+        $this->assertTrue(str_contains($outputComponentConfigurationFileContents, $expectedOutput), 'The configured output does not match the contents of the specified --output-source-file even though both the --output-source-file and --static flags were specified. The expected output was:' . $expectedOutput);
+    }
 }
 

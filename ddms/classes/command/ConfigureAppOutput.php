@@ -65,13 +65,16 @@ class ConfigureAppOutput extends AbstractCommand implements Command
                         ($initialOutputFile ?? ''),
                     ]
                 )
-                # Note: if $initialOutputFile is null, it means --output was specified, and a call to file_put_contents($docPath, implode(' ', $flags['output'])
             );
             if(is_null($initialOutputFile)) {
                 $dynamicOutputFilePath = strval(realpath($flags['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $flags['for-app'][0] . DIRECTORY_SEPARATOR . 'DynamicOutput' . DIRECTORY_SEPARATOR . $flags['name'][0] . '.php'));
                 file_put_contents($dynamicOutputFilePath, implode(' ', $flags['output']));
             }
             return;
+        }
+        if(!is_null($initialOutputFile)) {
+            $sourceFilePath = strval(realpath($initialOutputFile));
+            $sourceFileContents = strval(file_get_contents($sourceFilePath));
         }
         self::newOutputComponent()->run(
             $userInterface,
@@ -82,12 +85,12 @@ class ConfigureAppOutput extends AbstractCommand implements Command
                     '--name',
                     $flags['name'],
                     '--output',
-                    '...' # ($initialOutputFileContents ?? $specifiedOutput)
+                    ($sourceFileContents ?? '...')
                 ]
             )
         );
-
     }
+
     private static function newApp(): NewApp
     {
         return new NewApp();
