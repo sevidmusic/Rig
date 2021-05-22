@@ -85,7 +85,7 @@ class ConfigureAppOutput extends AbstractCommand implements Command
                     '--name',
                     $flags['name'],
                     '--output',
-                    ($sourceFileContents ?? '...')
+                    ($sourceFileContents ?? implode(' ', $flags['output']))
                 ]
             )
         );

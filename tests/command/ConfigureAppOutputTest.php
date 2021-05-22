@@ -290,5 +290,30 @@ final class ConfigureAppOutputTest extends TestCase
         $outputComponentConfigurationFileContents = strval(file_get_contents($expectedOutputComponentConfigurationFilePath));
         $this->assertTrue(str_contains($outputComponentConfigurationFileContents, $expectedOutput), 'The configured output does not match the contents of the specified --output-source-file even though both the --output-source-file and --static flags were specified. The expected output was:' . $expectedOutput);
     }
+
+
+    public function testRunConfiguresOutputToMatchSpecifiedOutputIfOutputSourceFileFlagIsNotSpecifiedAndStaticFlagIsSpecified(): void
+    {
+        $appName = $this->getRandomAppName();
+        $outputName = $appName . 'TestRunSetsDynamicOutputFileConentToSpecifiedOutput';
+        $expectedOutput = $outputName . ' output';
+        $prepareArguments = $this->getConfigureAppOutput()->prepareArguments(
+            [
+                '--configure-app-output',
+                '--for-app',
+                $appName,
+                '--name',
+                $outputName,
+                '--output',
+                $expectedOutput,
+                '--static'
+            ]
+        );
+        $this->getConfigureAppOutput()->run($this->getUserInterface(), $prepareArguments);
+        $expectedAppDirectoryPath = $prepareArguments['flags']['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $appName;
+        $expectedOutputConfigurationFilePath = strval(realpath($expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'OutputComponents' . DIRECTORY_SEPARATOR . $outputName . '.php'));
+        $outputConfigurationFileContents = strval(file_get_contents($expectedOutputConfigurationFilePath));
+        $this->assertTrue(str_contains($outputConfigurationFileContents, $expectedOutput), 'The configured output does not match the specified --output even though --output was specified without the --output-source-file flag. The expected output was:' . $expectedOutput);
+    }
 }
 
