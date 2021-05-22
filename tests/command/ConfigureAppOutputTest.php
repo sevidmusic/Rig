@@ -339,5 +339,31 @@ final class ConfigureAppOutputTest extends TestCase
         $expectedContainer = "${appName}DynamicOutput";
         $this->assertTrue(str_contains($dynamicOutputComponentConfigurationFileContents, $expectedContainer), 'The expected container was found in the DynamicOutputComponent\'s configuration file, the expected container was: ' . $expectedContainer);
     }
+
+    public function testRunSetOutputComponentContainerTo_APPNAMEOutput(): void
+    {
+        $appName = $this->getRandomAppName();
+        $outputName = $appName . 'TestRunConfigsDynamicOutputComponentIfStaticNotSpecified';
+        $output = $outputName . ' output';
+        $prepareArguments = $this->getConfigureAppOutput()->prepareArguments(
+            [
+                '--configure-app-output',
+                '--for-app',
+                $appName,
+                '--name',
+                $outputName,
+                '--output',
+                $output,
+                '--static'
+            ]
+        );
+        $expectedAppDirectoryPath = $prepareArguments['flags']['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $appName;
+        $dynamicOutputComponentConfigurationFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'OutputComponents' . DIRECTORY_SEPARATOR . $outputName . '.php';
+        $this->getConfigureAppOutput()->run($this->getUserInterface(), $prepareArguments);
+        $dynamicOutputComponentConfigurationFileContents = strval(file_get_contents($dynamicOutputComponentConfigurationFilePath));
+        $expectedContainer = "${appName}DynamicOutput";
+        $this->assertTrue(str_contains($dynamicOutputComponentConfigurationFileContents, $expectedContainer), 'The expected container was found in the DynamicOutputComponent\'s configuration file, the expected container was: ' . $expectedContainer);
+    }
+
 }
 
