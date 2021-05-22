@@ -358,11 +358,64 @@ final class ConfigureAppOutputTest extends TestCase
             ]
         );
         $expectedAppDirectoryPath = $prepareArguments['flags']['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $appName;
+        $outputComponentConfigurationFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'OutputComponents' . DIRECTORY_SEPARATOR . $outputName . '.php';
+        $this->getConfigureAppOutput()->run($this->getUserInterface(), $prepareArguments);
+        $outputComponentConfigurationFileContents = strval(file_get_contents($outputComponentConfigurationFilePath));
+        $expectedContainer = "${appName}Output";
+        $this->assertTrue(str_contains($outputComponentConfigurationFileContents, $expectedContainer), 'The expected container was found in the DynamicOutputComponent\'s configuration file, the expected container was: ' . $expectedContainer);
+    }
+
+    public function testRunSetsOutputComponentPositionToSpecifiedOPosition(): void
+    {
+        $appName = $this->getRandomAppName();
+        $outputName = $appName . 'TestRunConfigsDynamicOutputComponentIfStaticNotSpecified';
+        $output = $outputName . ' output';
+        $expectedPosition = '4.25';
+        $prepareArguments = $this->getConfigureAppOutput()->prepareArguments(
+            [
+                '--configure-app-output',
+                '--for-app',
+                $appName,
+                '--name',
+                $outputName,
+                '--output',
+                $output,
+                '--static',
+                '--o-position',
+                $expectedPosition
+            ]
+        );
+        $expectedAppDirectoryPath = $prepareArguments['flags']['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $appName;
         $dynamicOutputComponentConfigurationFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'OutputComponents' . DIRECTORY_SEPARATOR . $outputName . '.php';
         $this->getConfigureAppOutput()->run($this->getUserInterface(), $prepareArguments);
         $dynamicOutputComponentConfigurationFileContents = strval(file_get_contents($dynamicOutputComponentConfigurationFilePath));
-        $expectedContainer = "${appName}DynamicOutput";
-        $this->assertTrue(str_contains($dynamicOutputComponentConfigurationFileContents, $expectedContainer), 'The expected container was found in the DynamicOutputComponent\'s configuration file, the expected container was: ' . $expectedContainer);
+        $this->assertTrue(str_contains($dynamicOutputComponentConfigurationFileContents, $expectedPosition), 'The expected position was found in the DynamicOutputComponent\'s configuration file, the expected position was: ' . $expectedPosition);
+    }
+
+    public function testRunSetsDynamicOutputComponentPositionToSpecifiedOPosition(): void
+    {
+        $appName = $this->getRandomAppName();
+        $outputName = $appName . 'TestRunConfigsDynamicOutputComponentIfStaticNotSpecified';
+        $output = $outputName . ' output';
+        $expectedPosition = '4.25';
+        $prepareArguments = $this->getConfigureAppOutput()->prepareArguments(
+            [
+                '--configure-app-output',
+                '--for-app',
+                $appName,
+                '--name',
+                $outputName,
+                '--output',
+                $output,
+                '--o-position',
+                $expectedPosition
+            ]
+        );
+        $expectedAppDirectoryPath = $prepareArguments['flags']['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $appName;
+        $dynamicOutputComponentConfigurationFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'OutputComponents' . DIRECTORY_SEPARATOR . $outputName . '.php';
+        $this->getConfigureAppOutput()->run($this->getUserInterface(), $prepareArguments);
+        $dynamicOutputComponentConfigurationFileContents = strval(file_get_contents($dynamicOutputComponentConfigurationFilePath));
+        $this->assertTrue(str_contains($dynamicOutputComponentConfigurationFileContents, $expectedPosition), 'The expected position was found in the DynamicOutputComponent\'s configuration file, the expected position was: ' . $expectedPosition);
     }
 
 }

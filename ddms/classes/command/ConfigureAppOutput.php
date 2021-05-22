@@ -65,6 +65,8 @@ class ConfigureAppOutput extends AbstractCommand implements Command
                         ($initialOutputFile ?? ''),
                         '--container',
                         $flags['for-app'][0] . 'DynamicOutput',
+                        '--position',
+                        ($flags['o-position'][0] ?? '0')
                     ]
                 )
             );
@@ -89,7 +91,9 @@ class ConfigureAppOutput extends AbstractCommand implements Command
                     '--output',
                     ($sourceFileContents ?? implode(' ', $flags['output'])),
                     '--container',
-                    $flags['for-app'][0] . 'DynamicOutput',
+                    $flags['for-app'][0] . 'Output',
+                    '--position',
+                    ($flags['o-position'][0] ?? '0')
                 ]
             )
         );
