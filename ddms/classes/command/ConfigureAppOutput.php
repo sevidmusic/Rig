@@ -125,6 +125,21 @@ class ConfigureAppOutput extends AbstractCommand implements Command
                 );
             }
         }
+        self::newRequest()->run(
+            $userInterface,
+            self::newRequest()->prepareArguments(
+                [
+                    '--for-app',
+                    $flags['for-app'][0],
+                    '--name',
+                    $flags['name'][0],
+                    '--relative-url',
+                    'index.php?request=' . $flags['name'][0],
+                    '--container',
+                    $flags['for-app'][0] . 'Requests'
+                ]
+            )
+        );
     }
 
     private static function newRequest(): NewRequest

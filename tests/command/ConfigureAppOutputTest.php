@@ -472,6 +472,56 @@ final class ConfigureAppOutputTest extends TestCase
         }
     }
 
+    public function testRunConfiguresDefaultRequestForOutputIfNoRelativeUrlsAreSpcecified(): void
+    {
+        $appName = $this->getRandomAppName();
+        $outputName = $appName . 'TestRunConfigsDefaultRequestIfNoRelativeUrlsAreSpecified';
+        $output = $outputName . ' output';
+        $relativeUrl = 'index.php?request=' . $outputName;
+        $prepareArguments = $this->getConfigureAppOutput()->prepareArguments(
+            [
+                '--for-app',
+                $appName,
+                '--name',
+                $outputName,
+                '--output',
+                $output
+            ]
+        );
+        $expectedAppDirectoryPath = $prepareArguments['flags']['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $appName;
+        $this->getConfigureAppOutput()->run($this->getUserInterface(), $prepareArguments);
+        $expectedRequestConfigurationFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'Requests' . DIRECTORY_SEPARATOR . $outputName . '.php';
+        $this->assertTrue(file_exists($expectedRequestConfigurationFilePath), "ddms --configure-app-output MUST configure a Request for the output even if no relative urls are specified. A Request configuration file should have been created at $expectedRequestConfigurationFilePath");
+        $this->assertTrue(str_contains(strval(file_get_contents($expectedRequestConfigurationFilePath)), 'appComponentsFactory->buildRequest'), 'Request configuration file was created at ' . $expectedRequestConfigurationFilePath . ' but it does not define a call to appComponentsFactory->buildRequest');
+        $this->assertTrue(str_contains(strval(file_get_contents($expectedRequestConfigurationFilePath)), $relativeUrl), 'Request configuration file does not contain the specified relative url, expected url was: ' . $relativeUrl . ' Configuration file path: '  . $expectedRequestConfigurationFilePath);
+    }
+
+    public function testRunConfiguresDefaultRequestForOutputEvenIfRelativeUrlsAreSpecified(): void
+    {
+        $appName = $this->getRandomAppName();
+        $outputName = $appName . 'TestRunConfigsDefaultRequestIfNoRelativeUrlsAreSpecified';
+        $output = $outputName . ' output';
+        $relativeUrl = 'index.php?request=' . $outputName;
+        $prepareArguments = $this->getConfigureAppOutput()->prepareArguments(
+            [
+                '--for-app',
+                $appName,
+                '--name',
+                $outputName,
+                '--output',
+                $output,
+                '--relative-urls',
+                'index.php?foo=bar',
+                'index.php?baz=bazzer'
+            ]
+        );
+        $expectedAppDirectoryPath = $prepareArguments['flags']['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $appName;
+        $this->getConfigureAppOutput()->run($this->getUserInterface(), $prepareArguments);
+        $expectedRequestConfigurationFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'Requests' . DIRECTORY_SEPARATOR . $outputName . '.php';
+        $this->assertTrue(file_exists($expectedRequestConfigurationFilePath), "ddms --configure-app-output MUST configure a Request for the output even if no relative urls are specified. A Request configuration file should have been created at $expectedRequestConfigurationFilePath");
+        $this->assertTrue(str_contains(strval(file_get_contents($expectedRequestConfigurationFilePath)), 'appComponentsFactory->buildRequest'), 'Request configuration file was created at ' . $expectedRequestConfigurationFilePath . ' but it does not define a call to appComponentsFactory->buildRequest');
+        $this->assertTrue(str_contains(strval(file_get_contents($expectedRequestConfigurationFilePath)), $relativeUrl), 'Request configuration file does not contain the specified relative url, expected url was: ' . $relativeUrl . ' Configuration file path: '  . $expectedRequestConfigurationFilePath);
+    }
+
 }
 
-# Need testRunConfiguresDefaultRequestForOutputIfNoRelativeUrlsAreSpcecified()
