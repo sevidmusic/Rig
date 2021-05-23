@@ -376,28 +376,37 @@ final class ConfigureAppOutputTest extends TestCase
 
     public function testRunSetsOutputComponentPositionToSpecifiedOPosition(): void
     {
-        $appName = $this->getRandomAppName();
-        $outputName = $appName . 'TestRunConfigsDynamicOutputComponentIfStaticNotSpecified';
-        $output = $outputName . ' output';
-        $expectedPosition = '4.25';
         $prepareArguments = $this->configureAppOutput()->prepareArguments(
-            [
-                '--for-app',
-                $appName,
-                '--name',
-                $outputName,
-                '--output',
-                $output,
-                '--static',
-                '--o-position',
-                $expectedPosition
-            ]
+            $this->getTestArgsForSpecifiedFlags(
+                [
+                    '--for-app',
+                    '--name',
+                    '--output',
+                    '--static',
+                    '--o-position',
+                ],
+                __METHOD__
+            )
         );
-        $expectedAppDirectoryPath = $prepareArguments['flags']['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $appName;
-        $dynamicOutputComponentConfigurationFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'OutputComponents' . DIRECTORY_SEPARATOR . $outputName . '.php';
+        $expectedAppDirectoryPath = $prepareArguments['flags']['ddms-apps-directory-path'][0] .
+                DIRECTORY_SEPARATOR . $this->currentTestAppName;
+        $dynamicOutputComponentConfigurationFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR .
+                'OutputComponents' . DIRECTORY_SEPARATOR . $this->currentOutputName . '.php';
         $this->configureAppOutput()->run($this->userInterface(), $prepareArguments);
-        $dynamicOutputComponentConfigurationFileContents = strval(file_get_contents($dynamicOutputComponentConfigurationFilePath));
-        $this->assertTrue(str_contains($dynamicOutputComponentConfigurationFileContents, $expectedPosition), 'The expected position was found in the DynamicOutputComponent\'s configuration file, the expected position was: ' . $expectedPosition);
+        $dynamicOutputComponentConfigurationFileContents = strval(
+            file_get_contents($dynamicOutputComponentConfigurationFilePath)
+        );
+        $this->assertTrue(
+            str_contains($dynamicOutputComponentConfigurationFileContents, $this->currentOPosition),
+            'The expected position was found in the DynamicOutputComponent\'s configuration ' .
+            PHP_EOL .
+            'file, the expected position was: ' . $this->currentOPosition .
+            PHP_EOL .
+            'The configuration file\'s content was:' .
+            PHP_EOL .
+            $dynamicOutputComponentConfigurationFileContents .
+            PHP_EOL
+        );
     }
 
     public function testRunSetsDynamicOutputComponentPositionToSpecifiedOPosition(): void
@@ -566,8 +575,8 @@ final class ConfigureAppOutputTest extends TestCase
             (in_array('--output-source-file', $flagNames) ? '--output-source-file' : ''),
             (in_array('--output-source-file', $flagNames) ? $this->currentOutputSourceFile : ''),
 
-            (in_array('--o-posisiton', $flagNames) ? '--o-posisiton' : ''),
-            (in_array('--o-posisiton', $flagNames) ? $this->currentOPosition : ''),
+            (in_array('--o-position', $flagNames) ? '--o-position' : ''),
+            (in_array('--o-position', $flagNames) ? $this->currentOPosition : ''),
         ];
     }
 
