@@ -19,6 +19,7 @@ final class ConfigureAppOutputTest extends TestCase
     private string $currentOutputName = '';
     private string $currentOutput = '';
     private string $currentOutputSourceFile = '';
+    private string $currentOPosition = '';
 
     private function configureAppOutput(): ConfigureAppOutput
     {
@@ -553,6 +554,7 @@ final class ConfigureAppOutputTest extends TestCase
         $this->currentOutputName = $this->convertToAlphanumeric($this->currentTestAppName . $testName);
         $this->currentOutput = $this->currentTestAppName . $testName . ' output.';
         $this->currentOutputSourceFile = ($badSourceFilePath === true ? $this->currentTestAppName . strval(rand(PHP_INT_MIN, PHP_INT_MAX)) : strval(realpath(__FILE__)));
+        $this->currentOPosition = strval(rand(-100, 100));
         return [
             (in_array('--static', $flagNames) ? '--static' : ''),
             (in_array('--for-app', $flagNames) ? '--for-app' : ''),
@@ -563,6 +565,9 @@ final class ConfigureAppOutputTest extends TestCase
             (in_array('--output', $flagNames) ? $this->currentOutput : ''),
             (in_array('--output-source-file', $flagNames) ? '--output-source-file' : ''),
             (in_array('--output-source-file', $flagNames) ? $this->currentOutputSourceFile : ''),
+
+            (in_array('--o-posisiton', $flagNames) ? '--o-posisiton' : ''),
+            (in_array('--o-posisiton', $flagNames) ? $this->currentOPosition : ''),
         ];
     }
 
