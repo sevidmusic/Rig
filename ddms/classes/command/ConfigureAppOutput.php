@@ -74,7 +74,7 @@ class ConfigureAppOutput extends AbstractCommand implements Command
             );
             if(is_null($initialOutputFile)) {
                 $dynamicOutputFilePath = strval(realpath($flags['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $flags['for-app'][0] . DIRECTORY_SEPARATOR . 'DynamicOutput' . DIRECTORY_SEPARATOR . $flags['name'][0] . '.php'));
-                file_put_contents($dynamicOutputFilePath, implode(' ', $flags['output']));
+                file_put_contents($dynamicOutputFilePath, trim(implode(' ', $flags['output'])));
             }
             return;
         }
@@ -91,7 +91,7 @@ class ConfigureAppOutput extends AbstractCommand implements Command
                     '--name',
                     $flags['name'],
                     '--output',
-                    ($sourceFileContents ?? implode(' ', $flags['output'])),
+                    ($sourceFileContents ?? trim(implode(' ', $flags['output']))),
                     '--container',
                     $flags['for-app'][0] . 'Output',
                     '--position',
