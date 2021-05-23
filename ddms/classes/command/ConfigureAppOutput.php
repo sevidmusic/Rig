@@ -182,5 +182,34 @@ class ConfigureAppOutput extends AbstractCommand implements Command
         if(isset($flags['output-source-file'][0]) && file_exists($flags['output-source-file'][0]) && !is_file($flags['output-source-file'][0])) {
             throw new RuntimeException('  The specified --output-source-file at ' . $flags['output-source-file'][0] . ' is not a file. Please specify a path to an actual file.');
         }
+        $this->verifyOutputNameDoesNotConflictWithExistingConfiguredComponents($flags);
+    }
+
+    /**
+     * @param array <string, array<int, string>> $flags
+     */
+    private function verifyOutputNameDoesNotConflictWithExistingConfiguredComponents(array $flags): void
+    {
+        $appDirectoryPath = $flags['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $flags['for-app'][0];
+        $outputComponentsDirectoryPath = $appDirectoryPath . DIRECTORY_SEPARATOR . 'OutputComponents';
+        $requestsDirectoryPath = $appDirectoryPath . DIRECTORY_SEPARATOR . 'Requests';
+        $responseDirectoryPath = $appDirectoryPath . DIRECTORY_SEPARATOR . 'Responses';
+        if(file_exists($outputComponentsDirectoryPath . DIRECTORY_SEPARATOR . $flags['name'][0] . '.php')) {
+            throw new RuntimeException('  An OutputComponent or DynamicOutputComponent is already configured named ' . $flags['name'][0] . '. Pease specify a unique name for the output.');
+        }
+        if(file_exists($requestsDirectoryPath . DIRECTORY_SEPARATOR . $flags['name'][0] . '.php')) {
+            throw new RuntimeException('  An Request is already configured named ' . $flags['name'][0] . '. Pease specify a unique name for the output.');
+        }
+        if(!empty($flags['relative-urls'])) {
+            foreach($flags['relative-urls'] as $key => $value) {
+                if(file_exists($requestsDirectoryPath . DIRECTORY_SEPARATOR . $flags['name'][0] . strval($key) . '.php')) {
+                    throw new RuntimeException('  An Request is already configured named ' . $flags['name'][0] . '. Pease specify a unique name for the output.');
+                }
+            }
+        }
+        if(file_exists($responseDirectoryPath . DIRECTORY_SEPARATOR . $flags['name'][0] . '.php')) {
+            throw new RuntimeException('  An Reqponse or GlobalResponse is already configured named ' . $flags['name'][0] . '. Pease specify a unique name for the output.');
+        }
+
     }
 }
