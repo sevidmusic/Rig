@@ -359,12 +359,18 @@ final class ConfigureAppOutputTest extends TestCase
         $prepareArguments = $this->configureAppOutput()->prepareArguments(
             $this->getTestArgsForSpecifiedFlags(['--for-app','--name','--output','--static'], __METHOD__)
         );
-        $expectedAppDirectoryPath = $prepareArguments['flags']['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $this->currentTestAppName;
-        $outputComponentConfigurationFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'OutputComponents' . DIRECTORY_SEPARATOR . $this->currentOutputName . '.php';
+        $expectedAppDirectoryPath = $prepareArguments['flags']['ddms-apps-directory-path'][0] .
+                DIRECTORY_SEPARATOR . $this->currentTestAppName;
+        $outputComponentConfigurationFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR .
+                'OutputComponents' . DIRECTORY_SEPARATOR . $this->currentOutputName . '.php';
         $this->configureAppOutput()->run($this->userInterface(), $prepareArguments);
         $outputComponentConfigurationFileContents = strval(file_get_contents($outputComponentConfigurationFilePath));
         $expectedContainer = $this->currentTestAppName . 'Output';
-        $this->assertTrue(str_contains($outputComponentConfigurationFileContents, $expectedContainer), 'The expected container was found in the DynamicOutputComponent\'s configuration file, the expected container was: ' . $expectedContainer);
+        $this->assertTrue(
+            str_contains($outputComponentConfigurationFileContents, $expectedContainer),
+            'The expected container was found in the DynamicOutputComponent\'s configuration ' .
+            'file, the expected container was: ' . $expectedContainer
+        );
     }
 
     public function testRunSetsOutputComponentPositionToSpecifiedOPosition(): void
