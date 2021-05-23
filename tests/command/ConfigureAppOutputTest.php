@@ -411,27 +411,22 @@ final class ConfigureAppOutputTest extends TestCase
 
     public function testRunSetsDynamicOutputComponentPositionToSpecifiedOPosition(): void
     {
-        $appName = $this->getRandomAppName();
-        $outputName = $appName . 'TestRunConfigsDynamicOutputComponentIfStaticNotSpecified';
-        $output = $outputName . ' output';
-        $expectedPosition = '4.25';
         $prepareArguments = $this->configureAppOutput()->prepareArguments(
-            [
-                '--for-app',
-                $appName,
-                '--name',
-                $outputName,
-                '--output',
-                $output,
-                '--o-position',
-                $expectedPosition
-            ]
+            $this->getTestArgsForSpecifiedFlags(
+                [
+                    '--for-app',
+                    '--name',
+                    '--output',
+                    '--o-position',
+                ],
+                __METHOD__
+            )
         );
-        $expectedAppDirectoryPath = $prepareArguments['flags']['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $appName;
-        $dynamicOutputComponentConfigurationFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'OutputComponents' . DIRECTORY_SEPARATOR . $outputName . '.php';
+        $expectedAppDirectoryPath = $prepareArguments['flags']['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $this->currentTestAppName;
+        $dynamicOutputComponentConfigurationFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'OutputComponents' . DIRECTORY_SEPARATOR . $this->currentOutputName . '.php';
         $this->configureAppOutput()->run($this->userInterface(), $prepareArguments);
         $dynamicOutputComponentConfigurationFileContents = strval(file_get_contents($dynamicOutputComponentConfigurationFilePath));
-        $this->assertTrue(str_contains($dynamicOutputComponentConfigurationFileContents, $expectedPosition), 'The expected position was found in the DynamicOutputComponent\'s configuration file, the expected position was: ' . $expectedPosition);
+        $this->assertTrue(str_contains($dynamicOutputComponentConfigurationFileContents, $this->currentOPosition), 'The expected position was found in the DynamicOutputComponent\'s configuration file, the expected position was: ' . $this->currentOPosition);
     }
 
     public function testRunConfiguresARequestForEachOfTheSpcifiedRelativeUrls(): void
