@@ -279,7 +279,7 @@ class ConfigureAppOutput extends AbstractCommand implements Command
                 [
                     '--response',
                     $flags['name'][0],
-                    '--dynamic-output-components',
+                    (isset($flags['static']) ? '--output-components' : '--dynamic-output-components'),
                     $flags['name'][0],
                     '--for-app',
                     $flags['for-app'][0],

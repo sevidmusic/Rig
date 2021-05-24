@@ -759,5 +759,39 @@ final class ConfigureAppOutputTest extends TestCase
             PHP_EOL
         );
     }
+
+    public function testRunAssignsOutputComponentToAppropriateResponseIfGlobalFlagIsNotSpecifiedAndStaticFlagIsSpecified(): void
+    {
+         $preparedArguments = $this->configureAppOutput()->prepareArguments(
+            $this->getTestArgsForSpecifiedFlags(
+                [
+                    '--for-app',
+                    '--name',
+                    '--output',
+                    '--static',
+                    '--r-position',
+                ],
+                __METHOD__
+            )
+        );
+        $responseConfigurationFilePath = $this->determineConfigurationFilePath('Responses', $preparedArguments);
+        $this->configureAppOutput()->run($this->userInterface(), $preparedArguments);
+        $responseConfigurationFileContents = strval(
+            file_get_contents($responseConfigurationFilePath)
+        );
+        $configContents = str_replace([' ', '\n', '\r', PHP_EOL], '', $responseConfigurationFileContents);
+        $expectedAssignment = $this->currentOutputName . '\',OutputComponent::class';
+        $this->assertTrue(
+            str_contains($configContents, $expectedAssignment),
+            'The OutputComponent configured for the output was not assigned in the appropriate Response\'s configuration ' .
+            PHP_EOL .
+            'file, the expected OutputComponent to be assigned was: ' . $this->currentOutputName .
+            PHP_EOL .
+            'The configuration file\'s content was:' .
+            PHP_EOL .
+            $responseConfigurationFileContents .
+            PHP_EOL
+        );
+    }
 }
 
