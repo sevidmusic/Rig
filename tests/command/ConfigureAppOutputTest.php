@@ -745,8 +745,10 @@ final class ConfigureAppOutputTest extends TestCase
         $responseConfigurationFileContents = strval(
             file_get_contents($responseConfigurationFilePath)
         );
+        $configContents = str_replace([' ', '\n', '\r', PHP_EOL], '', $responseConfigurationFileContents);
+        $expectedAssignment = $this->currentOutputName . '\',DynamicOutputComponent::class';
         $this->assertTrue(
-            str_contains($responseConfigurationFileContents, 'DynamicOutputComponent::class'), # really: $this->currentOutputName . ', DynamicOutput::class'
+            str_contains($configContents, $expectedAssignment),
             'The DynamicOutputComponent configured for the output was not assigned in the appropriate Response\'s configuration ' .
             PHP_EOL .
             'file, the expected DynamicOutputComponent to be assigned was: ' . $this->currentOutputName .
