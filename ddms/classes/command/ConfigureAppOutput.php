@@ -283,6 +283,8 @@ class ConfigureAppOutput extends AbstractCommand implements Command
                     $flags['name'][0],
                     '--for-app',
                     $flags['for-app'][0],
+                    '--requests',
+                    $flags['name'][0],
                 ]
             )
         );

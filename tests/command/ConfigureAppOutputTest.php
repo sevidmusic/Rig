@@ -852,5 +852,36 @@ final class ConfigureAppOutputTest extends TestCase
             $failureMessage
         );
     }
+
+    public function testRunAssignsDefaultRequestToAppropriateResponseIfGlobalFlagIsNotSpecified(): void
+    {
+         $preparedArguments = $this->configureAppOutput()->prepareArguments(
+            $this->getTestArgsForSpecifiedFlags(
+                [
+                    '--for-app',
+                    '--name',
+                    '--output',
+                ],
+                __METHOD__
+            )
+        );
+        $responseConfigurationFilePath = $this->determineConfigurationFilePath('Responses', $preparedArguments);
+        $this->configureAppOutput()->run($this->userInterface(), $preparedArguments);
+        $responseConfigurationFileContents = strval(
+            file_get_contents($responseConfigurationFilePath)
+        );
+        $configContents = str_replace([' ', '\n', '\r', PHP_EOL], '', $responseConfigurationFileContents);
+        $failureMessage = 'The default Request configured for the output was not assigned to the appropriate Response.';
+        $this->assertTrue(
+            str_contains($configContents, 'appComponentsFactory->buildResponse'),
+            $failureMessage
+        );
+        $expectedAssignment = 'readByNameAndType(\'' . $this->currentOutputName . '\',Request::class';
+        $this->assertTrue(
+            str_contains($configContents, $expectedAssignment),
+            $failureMessage
+        );
+    }
+
 }
 
