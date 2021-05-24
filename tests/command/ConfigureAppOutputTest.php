@@ -90,54 +90,56 @@ final class ConfigureAppOutputTest extends TestCase
         $this->configureAppOutput()->run($this->userInterface(), $preparedArguments);
         $this->assertTrue(
             is_dir($expectedAppDirectoryPath),
-            "ddms --configure-app-output MUST create the App specified by the --for-app " .
+            "ddms --configure-app-output must create the App specified by the --for-app " .
             "flag if the App does not already exist. An App should have been created at $expectedAppDirectoryPath"
         );
         $this->assertTrue(
             is_dir($expectedCssDirectoryPath),
-            "ddms --configure-app-output MUST create the App's css directory if the App does " .
-            "not already exist. An css directory for the App should have been created at $expectedCssDirectoryPath"
+            "ddms --configure-app-output must create a css directory for the App specified by the --for-app " .
+            "flag if the App does not already exist. An css directory should have " .
+            "been created at $expectedCssDirectoryPath"
         );
         $this->assertTrue(
             is_dir($expectedJsDirectoryPath),
-            "ddms --configure-app-output MUST create the App's js directory if the App does " .
-            "not already exist. An js directory for the App should have been created at $expectedJsDirectoryPath"
+            "ddms --configure-app-output must create a js directory for the App specified by the --for-app " .
+            "flag if the App does not already exist. An js directory should have " .
+            "been created at $expectedJsDirectoryPath"
         );
         $this->assertTrue(
             is_dir($expectedDynamicOutputDirectoryPath),
-            "ddms --configure-app-output MUST create the App's DynamicOutput directory if the " .
-            "App does not already exist. An DynamicOutput directory for the App should have been " .
+            "ddms --configure-app-output must create a DynamicOutput directory for the App specified by the --for-app " .
+            "flag if the App does not already exist. An DynamicOutput directory should have been " .
             "created at $expectedDynamicOutputDirectoryPath"
         );
         $this->assertTrue(
             is_dir($expectedOutputComponentsDirectoryPath),
-            "ddms --configure-app-output MUST create the App's OutputComponents directory if the " .
-            "App does not already exist. An OutputComponents directory for the App should have " .
+            "ddms --configure-app-output must create a OutputComponents directory for the App specified by the --for-app " .
+            "flag if the App does not already exist. An OutputComponents directory should have " .
             "been created at $expectedOutputComponentsDirectoryPath"
         );
         $this->assertTrue(
             is_dir($expectedResponsesDirectoryPath),
-            "ddms --configure-app-output MUST create the App's Responses directory if the " .
-            "App does not already exist. An Responses directory for the App should have been " .
-            "created at $expectedResponsesDirectoryPath"
+            "ddms --configure-app-output must create a Responses directory for the App specified by the --for-app " .
+            "flag if the App does not already exist. An Responses directory should " .
+            "have been created at $expectedResponsesDirectoryPath"
         );
         $this->assertTrue(
             is_dir($expectedRequestsDirectoryPath),
-            "ddms --configure-app-output MUST create the App's Requests directory if the " .
-            "App does not already exist. An Requests directory for the App should have been " .
-            "created at $expectedRequestsDirectoryPath"
+            "ddms --configure-app-output must create a Requests directory for the App specified by the --for-app " .
+            "flag if the App does not already exist. An Requests directory should " .
+            "have been created at $expectedRequestsDirectoryPath"
         );
         $this->assertTrue(
             is_dir($expectedResourcesDirectoryPath),
-            "ddms --configure-app-output MUST create the App's resources directory if the " .
-            "App does not already exist. An resources directory for the App should have been " .
-            "created at $expectedResourcesDirectoryPath"
+            "ddms --configure-app-output must create a resources directory for the App specified by the --for-app " .
+            "flag if the App does not already exist. An resources directory should " .
+            "have been created at $expectedResourcesDirectoryPath"
         );
         $this->assertTrue(
             file_exists($expectedComponentsPhpFilePath),
-            "ddms --configure-app-output MUST create the App's Components.php directory if the " .
-            "App does not already exist. An Components.php directory for the App should have " .
-            "been created at $expectedComponentsPhpFilePath"
+            "ddms --configure-app-output must create a ComponentsPhp directory for the App specified by the --for-app " .
+            "flag if the App does not already exist. An ComponentsPhp directory should " .
+            "have been created at $expectedComponentsPhpFilePath"
         );
     }
 
@@ -153,7 +155,7 @@ final class ConfigureAppOutputTest extends TestCase
         $this->configureAppOutput()->run($this->userInterface(), $preparedArguments);
         $this->assertTrue(
             file_exists($expectedDynamicOutputComponentConfigurationFilePath),
-            "ddms --configure-app-output MUST configure a DynamicOutputComponent for the " .
+            "ddms --configure-app-output must configure a DynamicOutputComponent for the " .
             "output if the --static flag is not specified. A DynamicOutputComponent configuration file " .
             "should have been created at $expectedDynamicOutputComponentConfigurationFilePath"
          );
@@ -220,8 +222,8 @@ final class ConfigureAppOutputTest extends TestCase
         $this->configureAppOutput()->run($this->userInterface(), $preparedArguments);
         $this->assertTrue(
             file_exists($expectedOutputComponentConfigurationFilePath),
-            "ddms --configure-app-output MUST configure a OutputComponent for the output if " .
-            "the --static flag is not specified. A OutputComponent configuration file should " .
+            "ddms --configure-app-output must configure a OutputComponent for the output if " .
+            "the --static flag is specified. A OutputComponent configuration file should " .
             "have been created at $expectedOutputComponentConfigurationFilePath"
         );
         $this->assertTrue(
@@ -350,7 +352,7 @@ final class ConfigureAppOutputTest extends TestCase
         $expectedContainer = $this->currentTestAppName . 'DynamicOutput';
         $this->assertTrue(
             str_contains($dynamicOutputComponentConfigurationFileContents, $expectedContainer),
-            'The expected container was found in the DynamicOutputComponent\'s configuration ' .
+            'The expected container was not found in the DynamicOutputComponent\'s configuration ' .
             'file, the expected container was: ' . $expectedContainer
         );
     }
@@ -366,7 +368,7 @@ final class ConfigureAppOutputTest extends TestCase
         $expectedContainer = $this->currentTestAppName . 'Output';
         $this->assertTrue(
             str_contains($outputComponentConfigurationFileContents, $expectedContainer),
-            'The expected container was found in the DynamicOutputComponent\'s configuration ' .
+            'The expected container was not found in the DynamicOutputComponent\'s configuration ' .
             'file, the expected container was: ' . $expectedContainer
         );
     }
@@ -392,7 +394,7 @@ final class ConfigureAppOutputTest extends TestCase
         );
         $this->assertTrue(
             str_contains($dynamicOutputComponentConfigurationFileContents, $this->currentOPosition),
-            'The expected position was found in the DynamicOutputComponent\'s configuration ' .
+            'The expected position was not found in the DynamicOutputComponent\'s configuration ' .
             PHP_EOL .
             'file, the expected position was: ' . $this->currentOPosition .
             PHP_EOL .
@@ -426,7 +428,7 @@ final class ConfigureAppOutputTest extends TestCase
         );
         $this->assertTrue(
             str_contains($dynamicOutputComponentConfigurationFileContents, $this->currentOPosition),
-            'The expected position was found in the DynamicOutputComponent\'s configuration ' .
+            'The expected position was not found in the DynamicOutputComponent\'s configuration ' .
             'file, the expected position was: ' . $this->currentOPosition
         );
     }
@@ -445,7 +447,7 @@ final class ConfigureAppOutputTest extends TestCase
             );
             $this->assertTrue(
                 file_exists($expectedRequestConfigurationFilePath),
-                'ddms --configure-app-output MUST configure a Request for the output ' .
+                'ddms --configure-app-output must configure a Request for the output ' .
                 'if the --static flag is not specified. A Request configuration file ' .
                 'should have been created at' .  $expectedRequestConfigurationFilePath
             );
@@ -496,7 +498,7 @@ final class ConfigureAppOutputTest extends TestCase
         $expectedRequestConfigurationFilePath = $this->determineConfigurationFilePath('Requests', $preparedArguments);
         $this->assertTrue(
             file_exists($expectedRequestConfigurationFilePath),
-            'ddms --configure-app-output MUST configure a Request for the output ' .
+            'ddms --configure-app-output must configure a Request for the output ' .
             'even if no relative urls are specified. A Request configuration file should have ' .
             'been created at '. $expectedRequestConfigurationFilePath
         );
@@ -529,7 +531,7 @@ final class ConfigureAppOutputTest extends TestCase
         $expectedRequestConfigurationFilePath = $this->determineConfigurationFilePath('Requests', $preparedArguments);
         $this->assertTrue(
             file_exists($expectedRequestConfigurationFilePath),
-            'ddms --configure-app-output MUST configure a Request for the output ' .
+            'ddms --configure-app-output must configure a Request for the output ' .
             'even if no relative urls are specified. A Request configuration file ' .
             'should have been created at' . $expectedRequestConfigurationFilePath
         );
@@ -624,7 +626,7 @@ final class ConfigureAppOutputTest extends TestCase
         $this->configureAppOutput()->run($this->userInterface(), $preparedArguments);
         $this->assertTrue(
             file_exists($this->determineConfigurationFilePath('Responses', $preparedArguments)),
-            'ddms --configure-app-output MUST configure a Response for the ' .
+            'ddms --configure-app-output must configure a Response for the ' .
             'output if the --static flag is not specified. A Response configuration file ' .
             'should have been created at' . $this->determineConfigurationFilePath('Responses', $preparedArguments)
          );
@@ -647,7 +649,7 @@ final class ConfigureAppOutputTest extends TestCase
         $this->configureAppOutput()->run($this->userInterface(), $preparedArguments);
         $this->assertTrue(
             file_exists($this->determineConfigurationFilePath('Responses', $preparedArguments)),
-            'ddms --configure-app-output MUST configure a GlobalResponse for the ' .
+            'ddms --configure-app-output must configure a GlobalResponse for the ' .
             'output if the --static flag is not specified. A GlobalResponse configuration file ' .
             'should have been created at' . $this->determineConfigurationFilePath('Responses', $preparedArguments)
          );
