@@ -524,11 +524,8 @@ final class ConfigureAppOutputTest extends TestCase
             $this->getTestArgsForSpecifiedFlags(['--for-app', '--name', '--output', '--relative-urls'], __METHOD__)
         );
         $relativeUrl = 'index.php?request=' . $this->currentOutputName;
-        $expectedAppDirectoryPath = $preparedArguments['flags']['ddms-apps-directory-path'][0] .
-                DIRECTORY_SEPARATOR . $this->currentTestAppName;
         $this->configureAppOutput()->run($this->userInterface(), $preparedArguments);
-        $expectedRequestConfigurationFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR .
-                'Requests' . DIRECTORY_SEPARATOR . $this->currentOutputName . '.php';
+        $expectedRequestConfigurationFilePath = $this->determineConfigurationFilePath('Requests', $preparedArguments);
         $this->assertTrue(
             file_exists($expectedRequestConfigurationFilePath),
             'ddms --configure-app-output MUST configure a Request for the output ' .
