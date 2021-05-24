@@ -729,7 +729,7 @@ final class ConfigureAppOutputTest extends TestCase
         );
     }
 
-    public function testRunAssignsDynamicOutputComponentToAppropriateResponseIfGlobalFlagIsNotSpecified(): void
+    public function testRunAssignsDynamicOutputComponentToAppropriateResponseIfNeitherGlobalFlagOrStaticFlagIsSpecified(): void
     {
          $preparedArguments = $this->configureAppOutput()->prepareArguments(
             $this->getTestArgsForSpecifiedFlags(
