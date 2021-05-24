@@ -611,11 +611,6 @@ final class ConfigureAppOutputTest extends TestCase
             DIRECTORY_SEPARATOR . $configurationDirectoryName . DIRECTORY_SEPARATOR . $this->currentOutputName . '.php';
     }
 
-}
-
-
-/**
-
     public function testRunConfiguresAResponseForTheOutputIfGlobalFlagIsNotSpecified(): void
     {
         $preparedArguments = $this->configureAppOutput()->prepareArguments(
@@ -624,8 +619,8 @@ final class ConfigureAppOutputTest extends TestCase
         $this->configureAppOutput()->run($this->userInterface(), $preparedArguments);
         $this->assertTrue(
             file_exists($this->determineConfigurationFilePath('Responses', $preparedArguments)),
-            'ddms --configure-app-output MUST configure a DynamicOutputComponent for the ' .
-            'output if the --static flag is not specified. A DynamicOutputComponent configuration file ' .
+            'ddms --configure-app-output MUST configure a Response for the ' .
+            'output if the --static flag is not specified. A Response configuration file ' .
             'should have been created at' . $this->determineConfigurationFilePath('Responses', $preparedArguments)
          );
         $this->assertTrue(
@@ -633,10 +628,10 @@ final class ConfigureAppOutputTest extends TestCase
                 strval(file_get_contents($this->determineConfigurationFilePath('Responses', $preparedArguments))),
                 'appComponentsFactory->buildResponse'
             ),
-            'DynamicOutputComponent configuration file was created at ' .
+            'Response configuration file was created at ' .
             $this->determineConfigurationFilePath('Responses', $preparedArguments) .
-            ' but it does not define a call to appComponentsFactory->buildDynamicOutputComponent'
+            ' but it does not define a call to appComponentsFactory->buildResponse'
         );
     }
-*/
+}
 

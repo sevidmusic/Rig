@@ -7,6 +7,7 @@ use ddms\abstractions\command\AbstractCommand;
 use ddms\interfaces\ui\UserInterface;
 use ddms\classes\command\NewApp;
 use ddms\classes\command\NewRequest;
+use ddms\classes\command\NewResponse;
 use ddms\classes\command\NewDynamicOutputComponent;
 use ddms\classes\command\NewOutputComponent;
 use \RuntimeException;
@@ -26,6 +27,7 @@ class ConfigureAppOutput extends AbstractCommand implements Command
         $this->createAppIfItDoesNotExist($userInterface, $flags);
         $this->configureAppropriateOutputComponent($userInterface, $flags);
         $this->configureAppropriateRequests($userInterface, $flags);
+        $this->configureAppropriateResponses($userInterface, $flags);
         return false;
     }
 
@@ -140,6 +142,29 @@ class ConfigureAppOutput extends AbstractCommand implements Command
                 ]
             )
         );
+    }
+
+    /**
+     * @param array <string, array<int, string>> $flags
+     */
+    private function configureAppropriateResponses(UserInterface $userInterface, array $flags) : void
+    {
+        self::newResponse()->run(
+            $userInterface,
+            self::newResponse()->prepareArguments(
+                [
+                    '--for-app',
+                    $flags['for-app'][0],
+                    '--name',
+                    $flags['name'][0],
+                ]
+            )
+        );
+    }
+
+    private static function newResponse(): NewResponse
+    {
+        return new NewResponse();
     }
 
     private static function newRequest(): NewRequest
