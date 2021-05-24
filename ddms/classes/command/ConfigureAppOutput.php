@@ -273,20 +273,24 @@ class ConfigureAppOutput extends AbstractCommand implements Command
      * @param array <string, array<int, string>> $flags
      */
     private function assignAppropriateComponentsToAppropriateResponses(UserInterface $userInterface, array $flags): void {
-        self::newAssignToResponse()->run(
-            $userInterface,
-            self::newAssignToResponse()->prepareArguments(
-                [
+        $arguments = [
                     '--response',
                     $flags['name'][0],
                     (isset($flags['static']) ? '--output-components' : '--dynamic-output-components'),
                     $flags['name'][0],
                     '--for-app',
                     $flags['for-app'][0],
-                    '--requests',
+                    '--requests', # @devNote: Requests MUST be defined last so Requests for urls can be added as final arguments!
                     $flags['name'][0],
-                ]
-            )
+        ];
+        if(isset($flags['relative-urls']) && is_array($flags['relative-urls'])) {
+            foreach($flags['relative-urls'] as $key => $relativeUrl) {
+                array_push($arguments, $flags['name'][0] . strval($key));
+            }
+        }
+        self::newAssignToResponse()->run(
+            $userInterface,
+            self::newAssignToResponse()->prepareArguments($arguments)
         );
     }
 }
