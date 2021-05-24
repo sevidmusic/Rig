@@ -570,6 +570,7 @@ final class ConfigureAppOutputTest extends TestCase
         ];
         return [
             (in_array('--static', $flagNames) ? '--static' : ''),
+            (in_array('--global', $flagNames) ? '--global' : ''),
             (in_array('--for-app', $flagNames) ? '--for-app' : ''),
             (in_array('--for-app', $flagNames) ? $this->currentTestAppName : ''),
             (in_array('--name', $flagNames) ? '--name' : ''),
@@ -631,6 +632,29 @@ final class ConfigureAppOutputTest extends TestCase
             'Response configuration file was created at ' .
             $this->determineConfigurationFilePath('Responses', $preparedArguments) .
             ' but it does not define a call to appComponentsFactory->buildResponse'
+        );
+    }
+
+    public function testRunConfiguresAGlobalResponseForTheOutputIfGlobalFlagIsSpecified(): void
+    {
+        $preparedArguments = $this->configureAppOutput()->prepareArguments(
+            $this->getTestArgsForSpecifiedFlags(['--for-app', '--name', '--output', '--global'], __METHOD__)
+        );
+        $this->configureAppOutput()->run($this->userInterface(), $preparedArguments);
+        $this->assertTrue(
+            file_exists($this->determineConfigurationFilePath('Responses', $preparedArguments)),
+            'ddms --configure-app-output MUST configure a GlobalResponse for the ' .
+            'output if the --static flag is not specified. A GlobalResponse configuration file ' .
+            'should have been created at' . $this->determineConfigurationFilePath('Responses', $preparedArguments)
+         );
+        $this->assertTrue(
+            str_contains(
+                strval(file_get_contents($this->determineConfigurationFilePath('Responses', $preparedArguments))),
+                'appComponentsFactory->buildGlobalResponse'
+            ),
+            'GlobalResponse configuration file was created at ' .
+            $this->determineConfigurationFilePath('Responses', $preparedArguments) .
+            ' but it does not define a call to appComponentsFactory->buildGlobalResponse'
         );
     }
 }

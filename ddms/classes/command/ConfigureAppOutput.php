@@ -7,6 +7,7 @@ use ddms\abstractions\command\AbstractCommand;
 use ddms\interfaces\ui\UserInterface;
 use ddms\classes\command\NewApp;
 use ddms\classes\command\NewRequest;
+use ddms\classes\command\NewGlobalResponse;
 use ddms\classes\command\NewResponse;
 use ddms\classes\command\NewDynamicOutputComponent;
 use ddms\classes\command\NewOutputComponent;
@@ -149,6 +150,20 @@ class ConfigureAppOutput extends AbstractCommand implements Command
      */
     private function configureAppropriateResponses(UserInterface $userInterface, array $flags) : void
     {
+        if(isset($flags['global'])) {
+            self::newGlobalResponse()->run(
+                $userInterface,
+                self::newGlobalResponse()->prepareArguments(
+                    [
+                        '--for-app',
+                        $flags['for-app'][0],
+                        '--name',
+                        $flags['name'][0],
+                    ]
+                )
+            );
+            return;
+        }
         self::newResponse()->run(
             $userInterface,
             self::newResponse()->prepareArguments(
@@ -160,6 +175,11 @@ class ConfigureAppOutput extends AbstractCommand implements Command
                 ]
             )
         );
+    }
+
+    private static function newGlobalResponse(): NewGlobalResponse
+    {
+        return new NewGlobalResponse();
     }
 
     private static function newResponse(): NewResponse
