@@ -446,13 +446,30 @@ final class ConfigureAppOutputTest extends TestCase
         $prepareArguments = $this->configureAppOutput()->prepareArguments(
             $this->getTestArgsForSpecifiedFlags(['--for-app', '--name', '--output', '--relative-urls' ], __METHOD__)
         );
-        $expectedAppDirectoryPath = $prepareArguments['flags']['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $this->currentTestAppName;
+        $expectedAppDirectoryPath = $prepareArguments['flags']['ddms-apps-directory-path'][0] .
+                DIRECTORY_SEPARATOR . $this->currentTestAppName;
         $this->configureAppOutput()->run($this->userInterface(), $prepareArguments);
         foreach($this->currentRelativeUrls as $key => $relativeUrl) {
-            $expectedRequestConfigurationFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'Requests' . DIRECTORY_SEPARATOR . $this->currentOutputName . strval($key). '.php';
-            $this->assertTrue(file_exists($expectedRequestConfigurationFilePath), "ddms --configure-app-output MUST configure a Request for the output if the --static flag is not specified. A Request configuration file should have been created at $expectedRequestConfigurationFilePath");
-            $this->assertTrue(str_contains(strval(file_get_contents($expectedRequestConfigurationFilePath)), 'appComponentsFactory->buildRequest'), 'Request configuration file was created at ' . $expectedRequestConfigurationFilePath . ' but it does not define a call to appComponentsFactory->buildRequest');
-            $this->assertTrue(str_contains(strval(file_get_contents($expectedRequestConfigurationFilePath)), $relativeUrl), 'Request configuration file does not contain the specified relative url, expected url was: ' . $relativeUrl . ' Configuration file path: '  . $expectedRequestConfigurationFilePath);
+            $expectedRequestConfigurationFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR .
+                'Requests' . DIRECTORY_SEPARATOR . $this->currentOutputName . strval($key). '.php';
+            $this->assertTrue(
+                file_exists($expectedRequestConfigurationFilePath),
+                'ddms --configure-app-output MUST configure a Request for the output ' .
+                'if the --static flag is not specified. A Request configuration file ' .
+                'should have been created at' .  $expectedRequestConfigurationFilePath
+            );
+            $this->assertTrue(
+                str_contains(strval(file_get_contents($expectedRequestConfigurationFilePath)),
+                'appComponentsFactory->buildRequest'), 'Request configuration file ' .
+                'was created at ' . $expectedRequestConfigurationFilePath . ' but ' .
+                'it does not define a call to appComponentsFactory->buildRequest'
+            );
+            $this->assertTrue(
+                str_contains(strval(file_get_contents($expectedRequestConfigurationFilePath)), $relativeUrl),
+                'Request configuration file does not contain the specified relative ' .
+                'url, expected url was: ' . $relativeUrl . ' Configuration file path' .
+                ': '  . $expectedRequestConfigurationFilePath
+            );
         }
     }
 
@@ -461,38 +478,57 @@ final class ConfigureAppOutputTest extends TestCase
         $prepareArguments = $this->configureAppOutput()->prepareArguments(
             $this->getTestArgsForSpecifiedFlags(['--for-app', '--name', '--output', '--relative-urls'], __METHOD__)
         );
-        $expectedAppDirectoryPath = $prepareArguments['flags']['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $this->currentTestAppName;
+        $expectedAppDirectoryPath = $prepareArguments['flags']['ddms-apps-directory-path'][0] .
+                DIRECTORY_SEPARATOR . $this->currentTestAppName;
         $this->configureAppOutput()->run($this->userInterface(), $prepareArguments);
         $expectedContainer = $this->currentTestAppName . 'Requests';
         foreach($this->currentRelativeUrls as $key => $relativeUrl) {
-            $expectedRequestConfigurationFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'Requests' . DIRECTORY_SEPARATOR . $this->currentOutputName . strval($key). '.php';
+            $expectedRequestConfigurationFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR .
+                'Requests' . DIRECTORY_SEPARATOR . $this->currentOutputName . strval($key). '.php';
             $requestConfigurationFileContent = strval(file_get_contents($expectedRequestConfigurationFilePath));
-            $this->assertTrue(str_contains($requestConfigurationFileContent, $expectedContainer), 'The expected container was not found in the Request\'s configuration file, the expected container was: ' . $expectedContainer . ' and the Request\'s configuration file was: ' . $requestConfigurationFileContent);
+            $this->assertTrue(
+                str_contains($requestConfigurationFileContent, $expectedContainer),
+                'The expected container was not found in the Request\'s configuration ' .
+                'file, the expected container was: ' . $expectedContainer . ' and the Request\'s ' .
+                'configuration file was: ' . $requestConfigurationFileContent
+            );
         }
     }
 
     public function testRunConfiguresDefaultRequestForOutputIfNoRelativeUrlsAreSpcecified(): void
     {
-        $appName = $this->getRandomAppName();
-        $outputName = $appName . 'TestRunConfigsDefaultRequestIfNoRelativeUrlsAreSpecified';
-        $output = $outputName . ' output';
-        $relativeUrl = 'index.php?request=' . $outputName;
         $prepareArguments = $this->configureAppOutput()->prepareArguments(
-            [
-                '--for-app',
-                $appName,
-                '--name',
-                $outputName,
-                '--output',
-                $output
-            ]
+            $this->getTestArgsForSpecifiedFlags(['--for-app', '--name', '--output', ], __METHOD__)
         );
-        $expectedAppDirectoryPath = $prepareArguments['flags']['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $appName;
+        $expectedDefaultRelativeUrl = 'index.php?request=' . $this->currentOutputName;
+        $expectedAppDirectoryPath = $prepareArguments['flags']['ddms-apps-directory-path'][0] .
+                DIRECTORY_SEPARATOR . $this->currentTestAppName;
         $this->configureAppOutput()->run($this->userInterface(), $prepareArguments);
-        $expectedRequestConfigurationFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'Requests' . DIRECTORY_SEPARATOR . $outputName . '.php';
-        $this->assertTrue(file_exists($expectedRequestConfigurationFilePath), "ddms --configure-app-output MUST configure a Request for the output even if no relative urls are specified. A Request configuration file should have been created at $expectedRequestConfigurationFilePath");
-        $this->assertTrue(str_contains(strval(file_get_contents($expectedRequestConfigurationFilePath)), 'appComponentsFactory->buildRequest'), 'Request configuration file was created at ' . $expectedRequestConfigurationFilePath . ' but it does not define a call to appComponentsFactory->buildRequest');
-        $this->assertTrue(str_contains(strval(file_get_contents($expectedRequestConfigurationFilePath)), $relativeUrl), 'Request configuration file does not contain the specified relative url, expected url was: ' . $relativeUrl . ' Configuration file path: '  . $expectedRequestConfigurationFilePath);
+        $expectedRequestConfigurationFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR .
+                'Requests' . DIRECTORY_SEPARATOR . $this->currentOutputName . '.php';
+        $this->assertTrue(
+            file_exists($expectedRequestConfigurationFilePath),
+            'ddms --configure-app-output MUST configure a Request for the output ' .
+            'even if no relative urls are specified. A Request configuration file should have ' .
+            'been created at '. $expectedRequestConfigurationFilePath
+        );
+        $this->assertTrue(
+            str_contains(
+                strval(file_get_contents($expectedRequestConfigurationFilePath)),
+                'appComponentsFactory->buildRequest'
+            ),
+            'Request configuration file was created at ' . $expectedRequestConfigurationFilePath .
+            ' but it does not define a call to appComponentsFactory->buildRequest'
+        );
+        $this->assertTrue(
+            str_contains(
+                strval(file_get_contents($expectedRequestConfigurationFilePath)),
+                $expectedDefaultRelativeUrl
+            ),
+            'Request configuration file does not contain the specified relative url' .
+            ', expected url was: ' . $expectedDefaultRelativeUrl . ' Configuration ' .
+            'file path: '  . $expectedRequestConfigurationFilePath
+        );
     }
 
     public function testRunConfiguresDefaultRequestForOutputEvenIfRelativeUrlsAreSpecified(): void
@@ -514,12 +550,31 @@ final class ConfigureAppOutputTest extends TestCase
                 'index.php?baz=bazzer'
             ]
         );
-        $expectedAppDirectoryPath = $prepareArguments['flags']['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $appName;
+        $expectedAppDirectoryPath = $prepareArguments['flags']['ddms-apps-directory-path'][0] .
+                DIRECTORY_SEPARATOR . $appName;
         $this->configureAppOutput()->run($this->userInterface(), $prepareArguments);
-        $expectedRequestConfigurationFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'Requests' . DIRECTORY_SEPARATOR . $outputName . '.php';
-        $this->assertTrue(file_exists($expectedRequestConfigurationFilePath), "ddms --configure-app-output MUST configure a Request for the output even if no relative urls are specified. A Request configuration file should have been created at $expectedRequestConfigurationFilePath");
-        $this->assertTrue(str_contains(strval(file_get_contents($expectedRequestConfigurationFilePath)), 'appComponentsFactory->buildRequest'), 'Request configuration file was created at ' . $expectedRequestConfigurationFilePath . ' but it does not define a call to appComponentsFactory->buildRequest');
-        $this->assertTrue(str_contains(strval(file_get_contents($expectedRequestConfigurationFilePath)), $relativeUrl), 'Request configuration file does not contain the specified relative url, expected url was: ' . $relativeUrl . ' Configuration file path: '  . $expectedRequestConfigurationFilePath);
+        $expectedRequestConfigurationFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR .
+                'Requests' . DIRECTORY_SEPARATOR . $outputName . '.php';
+        $this->assertTrue(
+            file_exists($expectedRequestConfigurationFilePath),
+            'ddms --configure-app-output MUST configure a Request for the output ' .
+            'even if no relative urls are specified. A Request configuration file ' .
+            'should have been created at' . $expectedRequestConfigurationFilePath
+        );
+        $this->assertTrue(
+            str_contains(
+                strval(file_get_contents($expectedRequestConfigurationFilePath)),
+                'appComponentsFactory->buildRequest'
+            ),
+            'Request configuration file was created at ' . $expectedRequestConfigurationFilePath .
+            ' but it does not define a call to appComponentsFactory->buildRequest'
+        );
+        $this->assertTrue(
+            str_contains(strval(file_get_contents($expectedRequestConfigurationFilePath)), $relativeUrl),
+            'Request configuration file does not contain the specified relative url' .
+            ', expected url was: ' . $relativeUrl . ' Configuration file path: '  .
+            $expectedRequestConfigurationFilePath
+        );
     }
 
     /**
