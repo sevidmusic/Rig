@@ -20,6 +20,10 @@ final class ConfigureAppOutputTest extends TestCase
     private string $currentOutput = '';
     private string $currentOutputSourceFile = '';
     private string $currentOPosition = '';
+    /**
+     * @var array<int, string> $currentRelativeUrls
+     */
+    private array $currentRelativeUrls = [];
 
     private function configureAppOutput(): ConfigureAppOutput
     {
@@ -422,41 +426,30 @@ final class ConfigureAppOutputTest extends TestCase
                 __METHOD__
             )
         );
-        $expectedAppDirectoryPath = $prepareArguments['flags']['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $this->currentTestAppName;
-        $dynamicOutputComponentConfigurationFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'OutputComponents' . DIRECTORY_SEPARATOR . $this->currentOutputName . '.php';
+        $expectedAppDirectoryPath = $prepareArguments['flags']['ddms-apps-directory-path'][0] .
+                DIRECTORY_SEPARATOR . $this->currentTestAppName;
+        $dynamicOutputComponentConfigurationFilePath = $expectedAppDirectoryPath .
+                DIRECTORY_SEPARATOR . 'OutputComponents' . DIRECTORY_SEPARATOR . $this->currentOutputName . '.php';
         $this->configureAppOutput()->run($this->userInterface(), $prepareArguments);
-        $dynamicOutputComponentConfigurationFileContents = strval(file_get_contents($dynamicOutputComponentConfigurationFilePath));
-        $this->assertTrue(str_contains($dynamicOutputComponentConfigurationFileContents, $this->currentOPosition), 'The expected position was found in the DynamicOutputComponent\'s configuration file, the expected position was: ' . $this->currentOPosition);
+        $dynamicOutputComponentConfigurationFileContents = strval(
+            file_get_contents($dynamicOutputComponentConfigurationFilePath)
+        );
+        $this->assertTrue(
+            str_contains($dynamicOutputComponentConfigurationFileContents, $this->currentOPosition),
+            'The expected position was found in the DynamicOutputComponent\'s configuration ' .
+            'file, the expected position was: ' . $this->currentOPosition
+        );
     }
 
     public function testRunConfiguresARequestForEachOfTheSpcifiedRelativeUrls(): void
     {
-        $appName = $this->getRandomAppName();
-        $outputName = $appName . 'TestRunConfigsRequestForEachSpecifiedRelativeUrl';
-        $output = $outputName . ' output';
-        $relativeUrls = [
-                'index.php?request=' . $outputName,
-                'index.php',
-                'index.php?page=' . $outputName
-        ];
         $prepareArguments = $this->configureAppOutput()->prepareArguments(
-            [
-                '--for-app',
-                $appName,
-                '--name',
-                $outputName,
-                '--output',
-                $output,
-                '--relative-urls',
-                $relativeUrls[0],
-                $relativeUrls[1],
-                $relativeUrls[2]
-            ]
+            $this->getTestArgsForSpecifiedFlags(['--for-app', '--name', '--output', '--relative-urls' ], __METHOD__)
         );
-        $expectedAppDirectoryPath = $prepareArguments['flags']['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $appName;
+        $expectedAppDirectoryPath = $prepareArguments['flags']['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $this->currentTestAppName;
         $this->configureAppOutput()->run($this->userInterface(), $prepareArguments);
-        foreach($relativeUrls as $key => $relativeUrl) {
-            $expectedRequestConfigurationFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'Requests' . DIRECTORY_SEPARATOR . $outputName . strval($key). '.php';
+        foreach($this->currentRelativeUrls as $key => $relativeUrl) {
+            $expectedRequestConfigurationFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'Requests' . DIRECTORY_SEPARATOR . $this->currentOutputName . strval($key). '.php';
             $this->assertTrue(file_exists($expectedRequestConfigurationFilePath), "ddms --configure-app-output MUST configure a Request for the output if the --static flag is not specified. A Request configuration file should have been created at $expectedRequestConfigurationFilePath");
             $this->assertTrue(str_contains(strval(file_get_contents($expectedRequestConfigurationFilePath)), 'appComponentsFactory->buildRequest'), 'Request configuration file was created at ' . $expectedRequestConfigurationFilePath . ' but it does not define a call to appComponentsFactory->buildRequest');
             $this->assertTrue(str_contains(strval(file_get_contents($expectedRequestConfigurationFilePath)), $relativeUrl), 'Request configuration file does not contain the specified relative url, expected url was: ' . $relativeUrl . ' Configuration file path: '  . $expectedRequestConfigurationFilePath);
@@ -559,6 +552,11 @@ final class ConfigureAppOutputTest extends TestCase
         $this->currentOutput = $this->currentTestAppName . $testName . ' output.';
         $this->currentOutputSourceFile = ($badSourceFilePath === true ? $this->currentTestAppName . strval(rand(PHP_INT_MIN, PHP_INT_MAX)) : strval(realpath(__FILE__)));
         $this->currentOPosition = strval(rand(-100, 100));
+        $this->currentRelativeUrls = [
+            'index.php',
+            'index.php?request=' . $this->currentOutputName,
+            'index.php?foo=bar' . strval(rand(0, PHP_INT_MAX))
+        ];
         return [
             (in_array('--static', $flagNames) ? '--static' : ''),
             (in_array('--for-app', $flagNames) ? '--for-app' : ''),
@@ -569,9 +567,12 @@ final class ConfigureAppOutputTest extends TestCase
             (in_array('--output', $flagNames) ? $this->currentOutput : ''),
             (in_array('--output-source-file', $flagNames) ? '--output-source-file' : ''),
             (in_array('--output-source-file', $flagNames) ? $this->currentOutputSourceFile : ''),
-
             (in_array('--o-position', $flagNames) ? '--o-position' : ''),
             (in_array('--o-position', $flagNames) ? $this->currentOPosition : ''),
+            (in_array('--relative-urls', $flagNames) ? '--relative-urls' : ''),
+            (in_array('--relative-urls', $flagNames) ? ($this->currentRelativeUrls[0] ?? '') : ''),
+            (in_array('--relative-urls', $flagNames) ? ($this->currentRelativeUrls[1] ?? '') : ''),
+            (in_array('--relative-urls', $flagNames) ? ($this->currentRelativeUrls[2] ?? '') : ''),
         ];
     }
 
