@@ -533,28 +533,15 @@ final class ConfigureAppOutputTest extends TestCase
 
     public function testRunConfiguresDefaultRequestForOutputEvenIfRelativeUrlsAreSpecified(): void
     {
-        $appName = $this->getRandomAppName();
-        $outputName = $appName . 'TestRunConfigsDefaultRequestIfNoRelativeUrlsAreSpecified';
-        $output = $outputName . ' output';
-        $relativeUrl = 'index.php?request=' . $outputName;
         $prepareArguments = $this->configureAppOutput()->prepareArguments(
-            [
-                '--for-app',
-                $appName,
-                '--name',
-                $outputName,
-                '--output',
-                $output,
-                '--relative-urls',
-                'index.php?foo=bar',
-                'index.php?baz=bazzer'
-            ]
+            $this->getTestArgsForSpecifiedFlags(['--for-app', '--name', '--output', '--relative-urls'], __METHOD__)
         );
+        $relativeUrl = 'index.php?request=' . $this->currentOutputName;
         $expectedAppDirectoryPath = $prepareArguments['flags']['ddms-apps-directory-path'][0] .
-                DIRECTORY_SEPARATOR . $appName;
+                DIRECTORY_SEPARATOR . $this->currentTestAppName;
         $this->configureAppOutput()->run($this->userInterface(), $prepareArguments);
         $expectedRequestConfigurationFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR .
-                'Requests' . DIRECTORY_SEPARATOR . $outputName . '.php';
+                'Requests' . DIRECTORY_SEPARATOR . $this->currentOutputName . '.php';
         $this->assertTrue(
             file_exists($expectedRequestConfigurationFilePath),
             'ddms --configure-app-output MUST configure a Request for the output ' .
@@ -586,7 +573,11 @@ final class ConfigureAppOutputTest extends TestCase
         $this->currentTestAppName = $this->getRandomAppName();
         $this->currentOutputName = $this->convertToAlphanumeric($this->currentTestAppName . $testName);
         $this->currentOutput = $this->currentTestAppName . $testName . ' output.';
-        $this->currentOutputSourceFile = ($badSourceFilePath === true ? $this->currentTestAppName . strval(rand(PHP_INT_MIN, PHP_INT_MAX)) : strval(realpath(__FILE__)));
+        $this->currentOutputSourceFile = (
+            $badSourceFilePath === true
+            ? $this->currentTestAppName . strval(rand(PHP_INT_MIN, PHP_INT_MAX))
+            : strval(realpath(__FILE__))
+        );
         $this->currentOPosition = strval(rand(-100, 100));
         $this->currentRelativeUrls = [
             'index.php',
