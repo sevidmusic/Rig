@@ -695,5 +695,36 @@ final class ConfigureAppOutputTest extends TestCase
         );
     }
 
+    public function testRunSetsGlobalResponsePositionToRPosition(): void
+    {
+        $preparedArguments = $this->configureAppOutput()->prepareArguments(
+            $this->getTestArgsForSpecifiedFlags(
+                [
+                    '--for-app',
+                    '--name',
+                    '--output',
+                    '--r-position',
+                    '--global'
+                ],
+                __METHOD__
+            )
+        );
+        $responseConfigurationFilePath = $this->determineConfigurationFilePath('Responses', $preparedArguments);
+        $this->configureAppOutput()->run($this->userInterface(), $preparedArguments);
+        $responseConfigurationFileContents = strval(
+            file_get_contents($responseConfigurationFilePath)
+        );
+        $this->assertTrue(
+            str_contains($responseConfigurationFileContents, $this->currentRPosition),
+            'The expected position was found in the GlobalResponse\'s configuration ' .
+            PHP_EOL .
+            'file, the expected position was: ' . $this->currentRPosition .
+            PHP_EOL .
+            'The configuration file\'s content was:' .
+            PHP_EOL .
+            $responseConfigurationFileContents .
+            PHP_EOL
+        );
+    }
 }
 
