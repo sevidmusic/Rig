@@ -384,10 +384,7 @@ final class ConfigureAppOutputTest extends TestCase
                 __METHOD__
             )
         );
-        $expectedAppDirectoryPath = $preparedArguments['flags']['ddms-apps-directory-path'][0] .
-                DIRECTORY_SEPARATOR . $this->currentTestAppName;
-        $dynamicOutputComponentConfigurationFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR .
-                'OutputComponents' . DIRECTORY_SEPARATOR . $this->currentOutputName . '.php';
+        $dynamicOutputComponentConfigurationFilePath = $this->determineConfigurationFilePath('OutputComponents', $preparedArguments);
         $this->configureAppOutput()->run($this->userInterface(), $preparedArguments);
         $dynamicOutputComponentConfigurationFileContents = strval(
             file_get_contents($dynamicOutputComponentConfigurationFilePath)
@@ -418,10 +415,10 @@ final class ConfigureAppOutputTest extends TestCase
                 __METHOD__
             )
         );
-        $expectedAppDirectoryPath = $preparedArguments['flags']['ddms-apps-directory-path'][0] .
-                DIRECTORY_SEPARATOR . $this->currentTestAppName;
-        $dynamicOutputComponentConfigurationFilePath = $expectedAppDirectoryPath .
-                DIRECTORY_SEPARATOR . 'OutputComponents' . DIRECTORY_SEPARATOR . $this->currentOutputName . '.php';
+        $dynamicOutputComponentConfigurationFilePath = $this->determineConfigurationFilePath(
+            'OutputComponents',
+            $preparedArguments
+        );
         $this->configureAppOutput()->run($this->userInterface(), $preparedArguments);
         $dynamicOutputComponentConfigurationFileContents = strval(
             file_get_contents($dynamicOutputComponentConfigurationFilePath)
@@ -438,12 +435,13 @@ final class ConfigureAppOutputTest extends TestCase
         $preparedArguments = $this->configureAppOutput()->prepareArguments(
             $this->getTestArgsForSpecifiedFlags(['--for-app', '--name', '--output', '--relative-urls' ], __METHOD__)
         );
-        $expectedAppDirectoryPath = $preparedArguments['flags']['ddms-apps-directory-path'][0] .
-                DIRECTORY_SEPARATOR . $this->currentTestAppName;
         $this->configureAppOutput()->run($this->userInterface(), $preparedArguments);
         foreach($this->currentRelativeUrls as $key => $relativeUrl) {
-            $expectedRequestConfigurationFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR .
-                'Requests' . DIRECTORY_SEPARATOR . $this->currentOutputName . strval($key). '.php';
+            $expectedRequestConfigurationFilePath = str_replace(
+                ['.php'],
+                [strval($key) . '.php'],
+                $this->determineConfigurationFilePath('Requests', $preparedArguments)
+            );
             $this->assertTrue(
                 file_exists($expectedRequestConfigurationFilePath),
                 'ddms --configure-app-output MUST configure a Request for the output ' .
