@@ -684,7 +684,7 @@ final class ConfigureAppOutputTest extends TestCase
         );
         $this->assertTrue(
             str_contains($responseConfigurationFileContents, $this->currentRPosition),
-            'The expected position was found in the Response\'s configuration ' .
+            'The expected position was not found in the Response\'s configuration ' .
             PHP_EOL .
             'file, the expected position was: ' . $this->currentRPosition .
             PHP_EOL .
@@ -716,7 +716,7 @@ final class ConfigureAppOutputTest extends TestCase
         );
         $this->assertTrue(
             str_contains($responseConfigurationFileContents, $this->currentRPosition),
-            'The expected position was found in the GlobalResponse\'s configuration ' .
+            'The expected position was not found in the GlobalResponse\'s configuration ' .
             PHP_EOL .
             'file, the expected position was: ' . $this->currentRPosition .
             PHP_EOL .
@@ -735,7 +735,6 @@ final class ConfigureAppOutputTest extends TestCase
                     '--for-app',
                     '--name',
                     '--output',
-                    '--r-position',
                 ],
                 __METHOD__
             )
@@ -746,17 +745,15 @@ final class ConfigureAppOutputTest extends TestCase
             file_get_contents($responseConfigurationFilePath)
         );
         $configContents = str_replace([' ', '\n', '\r', PHP_EOL], '', $responseConfigurationFileContents);
-        $expectedAssignment = $this->currentOutputName . '\',DynamicOutputComponent::class';
+        $failureMessage = 'The DynamicOutputComponent configured for the output was not assigned to the appropriate Response.';
+        $this->assertTrue(
+            str_contains($configContents, 'appComponentsFactory->buildResponse'),
+            $failureMessage
+        );
+        $expectedAssignment = 'readByNameAndType(\'' . $this->currentOutputName . '\',DynamicOutputComponent::class';
         $this->assertTrue(
             str_contains($configContents, $expectedAssignment),
-            'The DynamicOutputComponent configured for the output was not assigned in the appropriate Response\'s configuration ' .
-            PHP_EOL .
-            'file, the expected DynamicOutputComponent to be assigned was: ' . $this->currentOutputName .
-            PHP_EOL .
-            'The configuration file\'s content was:' .
-            PHP_EOL .
-            $responseConfigurationFileContents .
-            PHP_EOL
+            $failureMessage
         );
     }
 
@@ -769,7 +766,6 @@ final class ConfigureAppOutputTest extends TestCase
                     '--name',
                     '--output',
                     '--static',
-                    '--r-position',
                 ],
                 __METHOD__
             )
@@ -780,17 +776,78 @@ final class ConfigureAppOutputTest extends TestCase
             file_get_contents($responseConfigurationFilePath)
         );
         $configContents = str_replace([' ', '\n', '\r', PHP_EOL], '', $responseConfigurationFileContents);
-        $expectedAssignment = $this->currentOutputName . '\',OutputComponent::class';
+        $failureMessage = 'The OutputComponent configured for the output was not assigned to the appropriate Response.';
+        $this->assertTrue(
+            str_contains($configContents, 'appComponentsFactory->buildResponse'),
+            $failureMessage
+        );
+        $expectedAssignment = 'readByNameAndType(\'' . $this->currentOutputName . '\',OutputComponent::class';
         $this->assertTrue(
             str_contains($configContents, $expectedAssignment),
-            'The OutputComponent configured for the output was not assigned in the appropriate Response\'s configuration ' .
-            PHP_EOL .
-            'file, the expected OutputComponent to be assigned was: ' . $this->currentOutputName .
-            PHP_EOL .
-            'The configuration file\'s content was:' .
-            PHP_EOL .
-            $responseConfigurationFileContents .
-            PHP_EOL
+            $failureMessage
+        );
+    }
+
+    public function testRunAssignsDynamicOutputComponentToAppropriateGlobalResponseIfGlobalFlagIsSpecified(): void
+    {
+         $preparedArguments = $this->configureAppOutput()->prepareArguments(
+            $this->getTestArgsForSpecifiedFlags(
+                [
+                    '--for-app',
+                    '--name',
+                    '--output',
+                    '--global'
+                ],
+                __METHOD__
+            )
+        );
+        $responseConfigurationFilePath = $this->determineConfigurationFilePath('Responses', $preparedArguments);
+        $this->configureAppOutput()->run($this->userInterface(), $preparedArguments);
+        $responseConfigurationFileContents = strval(
+            file_get_contents($responseConfigurationFilePath)
+        );
+        $configContents = str_replace([' ', '\n', '\r', PHP_EOL], '', $responseConfigurationFileContents);
+        $failureMessage = 'The DynamicOutputComponent configured for the output was not assigned to the appropriate GlobalResponse.';
+        $this->assertTrue(
+            str_contains($configContents, 'appComponentsFactory->buildGlobalResponse'),
+            $failureMessage
+        );
+        $expectedAssignment = 'readByNameAndType(\'' . $this->currentOutputName . '\',DynamicOutputComponent::class';
+        $this->assertTrue(
+            str_contains($configContents, $expectedAssignment),
+            $failureMessage
+        );
+    }
+
+    public function testRunAssignsOutputComponentToAppropriateGlobalResponseIfBothGlobalAndStaticFlagsAreSpecified(): void
+    {
+         $preparedArguments = $this->configureAppOutput()->prepareArguments(
+            $this->getTestArgsForSpecifiedFlags(
+                [
+                    '--for-app',
+                    '--name',
+                    '--output',
+                    '--static',
+                    '--global'
+                ],
+                __METHOD__
+            )
+        );
+        $responseConfigurationFilePath = $this->determineConfigurationFilePath('Responses', $preparedArguments);
+        $this->configureAppOutput()->run($this->userInterface(), $preparedArguments);
+        $responseConfigurationFileContents = strval(
+            file_get_contents($responseConfigurationFilePath)
+        );
+        $configContents = str_replace([' ', '\n', '\r', PHP_EOL], '', $responseConfigurationFileContents);
+        $failureMessage = 'The OutputComponent configured for the output was not assigned to the appropriate GlobalResponse.';
+        $this->assertTrue(
+            str_contains($configContents, 'appComponentsFactory->buildGlobalResponse'),
+            $failureMessage
+         );
+        $expectedAssignment = 'readByNameAndType(\'' . $this->currentOutputName . '\',OutputComponent::class';
+        $this->assertTrue(
+            str_contains($configContents, $expectedAssignment),
+            $failureMessage
         );
     }
 }
