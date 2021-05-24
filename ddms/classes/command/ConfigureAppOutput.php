@@ -8,6 +8,7 @@ use ddms\interfaces\ui\UserInterface;
 use ddms\classes\command\NewApp;
 use ddms\classes\command\NewRequest;
 use ddms\classes\command\NewGlobalResponse;
+use ddms\classes\command\AssignToResponse;
 use ddms\classes\command\NewResponse;
 use ddms\classes\command\NewDynamicOutputComponent;
 use ddms\classes\command\NewOutputComponent;
@@ -29,6 +30,7 @@ class ConfigureAppOutput extends AbstractCommand implements Command
         $this->configureAppropriateOutputComponent($userInterface, $flags);
         $this->configureAppropriateRequests($userInterface, $flags);
         $this->configureAppropriateResponses($userInterface, $flags);
+        $this->assignAppropriateComponentsToAppropriateResponses($userInterface, $flags);
         return false;
     }
 
@@ -181,6 +183,11 @@ class ConfigureAppOutput extends AbstractCommand implements Command
         );
     }
 
+    private static function newAssignToResponse(): AssignToResponse
+    {
+        return new AssignToResponse();
+    }
+
     private static function newGlobalResponse(): NewGlobalResponse
     {
         return new NewGlobalResponse();
@@ -260,5 +267,24 @@ class ConfigureAppOutput extends AbstractCommand implements Command
             throw new RuntimeException('  An Reqponse or GlobalResponse is already configured named ' . $flags['name'][0] . '. Pease specify a unique name for the output.');
         }
 
+    }
+
+    /**
+     * @param array <string, array<int, string>> $flags
+     */
+    private function assignAppropriateComponentsToAppropriateResponses(UserInterface $userInterface, array $flags): void {
+        self::newAssignToResponse()->run(
+            $userInterface,
+            self::newAssignToResponse()->prepareArguments(
+                [
+                    '--response',
+                    $flags['name'][0],
+                    '--dynamic-output-components',
+                    $flags['name'][0],
+                    '--for-app',
+                    $flags['for-app'][0],
+                ]
+            )
+        );
     }
 }
