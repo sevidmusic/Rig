@@ -159,6 +159,8 @@ class ConfigureAppOutput extends AbstractCommand implements Command
                         $flags['for-app'][0],
                         '--name',
                         $flags['name'][0],
+                        '--position',
+                        ($flags['r-position'][0] ?? '0')
                     ]
                 )
             );
@@ -172,6 +174,8 @@ class ConfigureAppOutput extends AbstractCommand implements Command
                     $flags['for-app'][0],
                     '--name',
                     $flags['name'][0],
+                    '--position',
+                    ($flags['r-position'][0] ?? '0')
                 ]
             )
         );

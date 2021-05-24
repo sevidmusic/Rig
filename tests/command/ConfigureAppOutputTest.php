@@ -20,6 +20,7 @@ final class ConfigureAppOutputTest extends TestCase
     private string $currentOutput = '';
     private string $currentOutputSourceFile = '';
     private string $currentOPosition = '';
+    private string $currentRPosition = '';
     /**
      * @var array<int, string> $currentRelativeUrls
      */
@@ -563,6 +564,7 @@ final class ConfigureAppOutputTest extends TestCase
             : strval(realpath(__FILE__))
         );
         $this->currentOPosition = strval(rand(-100, 100));
+        $this->currentRPosition = strval(rand(-100, 100));
         $this->currentRelativeUrls = [
             'index.php',
             'index.php?request=' . $this->currentOutputName,
@@ -581,6 +583,8 @@ final class ConfigureAppOutputTest extends TestCase
             (in_array('--output-source-file', $flagNames) ? $this->currentOutputSourceFile : ''),
             (in_array('--o-position', $flagNames) ? '--o-position' : ''),
             (in_array('--o-position', $flagNames) ? $this->currentOPosition : ''),
+            (in_array('--r-position', $flagNames) ? '--r-position' : ''),
+            (in_array('--r-position', $flagNames) ? $this->currentRPosition : ''),
             (in_array('--relative-urls', $flagNames) ? '--relative-urls' : ''),
             (in_array('--relative-urls', $flagNames) ? ($this->currentRelativeUrls[0] ?? '') : ''),
             (in_array('--relative-urls', $flagNames) ? ($this->currentRelativeUrls[1] ?? '') : ''),
@@ -657,5 +661,39 @@ final class ConfigureAppOutputTest extends TestCase
             ' but it does not define a call to appComponentsFactory->buildGlobalResponse'
         );
     }
+###
+
+    public function testRunSetsResponsePositionToRPosition(): void
+    {
+        $preparedArguments = $this->configureAppOutput()->prepareArguments(
+            $this->getTestArgsForSpecifiedFlags(
+                [
+                    '--for-app',
+                    '--name',
+                    '--output',
+                    '--static',
+                    '--r-position',
+                ],
+                __METHOD__
+            )
+        );
+        $responseConfigurationFilePath = $this->determineConfigurationFilePath('Responses', $preparedArguments);
+        $this->configureAppOutput()->run($this->userInterface(), $preparedArguments);
+        $responseConfigurationFileContents = strval(
+            file_get_contents($responseConfigurationFilePath)
+        );
+        $this->assertTrue(
+            str_contains($responseConfigurationFileContents, $this->currentRPosition),
+            'The expected position was found in the Response\'s configuration ' .
+            PHP_EOL .
+            'file, the expected position was: ' . $this->currentRPosition .
+            PHP_EOL .
+            'The configuration file\'s content was:' .
+            PHP_EOL .
+            $responseConfigurationFileContents .
+            PHP_EOL
+        );
+    }
+
 }
 
