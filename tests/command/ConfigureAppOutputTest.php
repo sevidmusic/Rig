@@ -458,33 +458,14 @@ final class ConfigureAppOutputTest extends TestCase
 
     public function testRunSetsRequestContainersTo_APPNAMERequests(): void
     {
-        $appName = $this->getRandomAppName();
-        $outputName = $appName . 'TestRunSetsRequestContainersToAPPNAMERequests';
-        $output = $outputName . ' output';
-        $relativeUrls = [
-                'index.php?request=' . $outputName,
-                'index.php',
-                'index.php?page=' . $outputName
-        ];
         $prepareArguments = $this->configureAppOutput()->prepareArguments(
-            [
-                '--for-app',
-                $appName,
-                '--name',
-                $outputName,
-                '--output',
-                $output,
-                '--relative-urls',
-                $relativeUrls[0],
-                $relativeUrls[1],
-                $relativeUrls[2]
-            ]
+            $this->getTestArgsForSpecifiedFlags(['--for-app', '--name', '--output', '--relative-urls'], __METHOD__)
         );
-        $expectedAppDirectoryPath = $prepareArguments['flags']['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $appName;
+        $expectedAppDirectoryPath = $prepareArguments['flags']['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $this->currentTestAppName;
         $this->configureAppOutput()->run($this->userInterface(), $prepareArguments);
-        $expectedContainer = "${appName}Requests";
-        foreach($relativeUrls as $key => $relativeUrl) {
-            $expectedRequestConfigurationFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'Requests' . DIRECTORY_SEPARATOR . $outputName . strval($key). '.php';
+        $expectedContainer = $this->currentTestAppName . 'Requests';
+        foreach($this->currentRelativeUrls as $key => $relativeUrl) {
+            $expectedRequestConfigurationFilePath = $expectedAppDirectoryPath . DIRECTORY_SEPARATOR . 'Requests' . DIRECTORY_SEPARATOR . $this->currentOutputName . strval($key). '.php';
             $requestConfigurationFileContent = strval(file_get_contents($expectedRequestConfigurationFilePath));
             $this->assertTrue(str_contains($requestConfigurationFileContent, $expectedContainer), 'The expected container was not found in the Request\'s configuration file, the expected container was: ' . $expectedContainer . ' and the Request\'s configuration file was: ' . $requestConfigurationFileContent);
         }
