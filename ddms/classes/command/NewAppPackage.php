@@ -50,6 +50,9 @@ class NewAppPackage extends AbstractCommand implements Command
         if(file_put_contents($this->determineNewAppPackagesMakeShPath($flags), $this->generateMakeShFileContent($flags)) === false) {
             throw new RuntimeException('  Failed to create NewAppPackage\'s make.sh at ' . $this->determineNewAppPackagesMakeShPath($flags));
         }
+        if(!chmod($this->determineNewAppPackagesMakeShPath($flags), 0755)) {
+            $this->showMessage('  Failed to set NewAppPackage\'s make.sh permissions to 0755, this will have to be done manually! Path to make.sh: ' . $this->determineNewAppPackagesMakeShPath($flags));
+        }
         $this->showMessage('  Created new App Package\'s make.sh at ' . $this->determineNewAppPackagesMakeShPath($flags));
     }
 

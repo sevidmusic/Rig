@@ -194,6 +194,22 @@ final class NewAppPackageTest extends TestCase
         );
     }
 
+    public function testRunSetsNewAppPackagesMakeShFilePermissionsTo0755(): void {
+        $appPackageName = $this->getRandomName();
+        $newAppPackage =  new NewAppPackage();
+        $preparedArguments = $newAppPackage->prepareArguments(
+            [
+                '--name',
+                $appPackageName
+            ]
+        );
+        $newAppPackage->run($this->getUI(), $preparedArguments);
+        $this->assertTrue(
+            is_executable($this->expectedNewAppPackagePathIfPathIsNotSpecified($appPackageName) . DIRECTORY_SEPARATOR . 'make.sh'),
+            'New App Package\'s make.sh permissions were not set to 0755. make.sh path: ' . $this->expectedNewAppPackagePathIfPathIsNotSpecified($appPackageName)
+        );
+    }
+
     public function testRunCreatesNewAppPackagesMakeShWhoseContentMatchesExpectedContentIfPathIsNotSpecified(): void {
         $appPackageName = $this->getRandomName();
         $newAppPackage =  new NewAppPackage();
