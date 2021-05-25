@@ -916,5 +916,37 @@ final class ConfigureAppOutputTest extends TestCase
             );
         }
     }
+
+    public function testRunDoesNotAssignAnyRequestsToGlobalResponses(): void
+    {
+         $preparedArguments = $this->configureAppOutput()->prepareArguments(
+            $this->getTestArgsForSpecifiedFlags(
+                [
+                    '--for-app',
+                    '--name',
+                    '--output',
+                    '--relative-urls',
+                    '--global'
+                ],
+                __METHOD__
+            )
+        );
+        $responseConfigurationFilePath = $this->determineConfigurationFilePath('Responses', $preparedArguments);
+        $this->configureAppOutput()->run($this->userInterface(), $preparedArguments);
+        $responseConfigurationFileContents = strval(
+            file_get_contents($responseConfigurationFilePath)
+        );
+        $configContents = str_replace([' ', '\n', '\r', PHP_EOL], '', $responseConfigurationFileContents);
+        $failureMessage = 'GlobalResponses must not be assigned any Requests, there is no reason to do so since they respond to all Requests, and doing so will just add clutter to GlobalResponse.';
+        $this->assertTrue(
+            str_contains($configContents, 'appComponentsFactory->buildGlobalResponse'),
+            $failureMessage
+        );
+        $this->assertTrue(
+            !str_contains($configContents, 'Request::class'),
+            $failureMessage
+        );
+    }
+
 }
 

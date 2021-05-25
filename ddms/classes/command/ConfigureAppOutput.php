@@ -280,10 +280,10 @@ class ConfigureAppOutput extends AbstractCommand implements Command
                     $flags['name'][0],
                     '--for-app',
                     $flags['for-app'][0],
-                    '--requests', # @devNote: Requests MUST be defined last so Requests for urls can be added as final arguments!
-                    $flags['name'][0],
+                    (!isset($flags['global']) ? '--requests' : ''), # @devNote: Requests MUST be defined last so Requests for urls can be added as final arguments!
+                    (!isset($flags['global']) ? $flags['name'][0] : ''),
         ];
-        if(isset($flags['relative-urls']) && is_array($flags['relative-urls'])) {
+        if(!isset($flags['global']) && isset($flags['relative-urls']) && is_array($flags['relative-urls'])) {
             foreach($flags['relative-urls'] as $key => $relativeUrl) {
                 array_push($arguments, $flags['name'][0] . strval($key));
             }
