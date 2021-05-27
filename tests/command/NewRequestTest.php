@@ -117,7 +117,7 @@ final class NewRequestTest extends TestCase
         $this->assertEquals($this->determineExpectedRequestPhpContent($preparedArguments), file_get_contents($this->expectedRequestPath($preparedArguments)));
     }
 
-    public function testRunSetsRelativeUrlTo_index_php_IfRelativeUrlIsNotSpecified(): void
+    public function testRunSetsRelativeUrlToExpectedDefaultRelativeUrlIfRelativeUrlIsNotSpecified(): void
     {
         $appName = $this->createTestAppReturnName();
         $requestName = $appName . 'Request';
@@ -127,7 +127,7 @@ final class NewRequestTest extends TestCase
         $this->assertEquals($this->determineExpectedRequestPhpContent($preparedArguments), $this->getNewRequestContent($preparedArguments));
     }
 
-    public function testRunSetsRelativeUrlTo_index_php_IfRelativeUrlIsSpecifiedWithNoValue(): void
+    public function testRunSetsRelativeUrlToExpectedDefaultRelativeUrlIfRelativeUrlIsSpecifiedWithNoValue(): void
     {
         $appName = $this->createTestAppReturnName();
         $requestName = $appName . 'Request';
@@ -205,7 +205,7 @@ final class NewRequestTest extends TestCase
             [
                 $preparedArguments['flags']['name'][0],
                 ($preparedArguments['flags']['container'][0] ?? 'Requests'),
-                ($preparedArguments['flags']['relative-url'][0] ?? 'index.php')
+                ($preparedArguments['flags']['relative-url'][0] ?? '')
             ],
             strval(file_get_contents($this->expectedTemplateFilePath()))
         );
