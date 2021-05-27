@@ -570,7 +570,8 @@ final class ConfigureAppOutputTest extends TestCase
         $this->currentRelativeUrls = [
             'index.php',
             'index.php?request=' . $this->currentOutputName,
-            'index.php?foo=bar' . strval(rand(0, PHP_INT_MAX))
+            'index.php?foo=bar' . strval(rand(0, PHP_INT_MAX)),
+            '/'
         ];
         return [
             (in_array('--static', $flagNames) ? '--static' : ''),
@@ -591,6 +592,7 @@ final class ConfigureAppOutputTest extends TestCase
             (in_array('--relative-urls', $flagNames) ? ($this->currentRelativeUrls[0] ?? '') : ''),
             (in_array('--relative-urls', $flagNames) ? ($this->currentRelativeUrls[1] ?? '') : ''),
             (in_array('--relative-urls', $flagNames) ? ($this->currentRelativeUrls[2] ?? '') : ''),
+            (in_array('--relative-urls', $flagNames) ? ($this->currentRelativeUrls[3] ?? '') : ''),
         ];
     }
 
@@ -948,5 +950,40 @@ final class ConfigureAppOutputTest extends TestCase
         );
     }
 
+    public function testRunConfiguresARequestForRootForRelativeUrlsWhoseValueIsABackslash(): void
+    {
+        $preparedArguments = $this->configureAppOutput()->prepareArguments(
+            $this->getTestArgsForSpecifiedFlags(['--for-app', '--name', '--output', '--relative-urls' ], __METHOD__)
+        );
+        $this->configureAppOutput()->run($this->userInterface(), $preparedArguments);
+        foreach($this->currentRelativeUrls as $key => $relativeUrl) {
+            $expectedRequestConfigurationFilePath = str_replace(
+                ['.php'],
+                [strval($key) . '.php'],
+                $this->determineConfigurationFilePath('Requests', $preparedArguments)
+            );
+            $this->assertTrue(
+                file_exists($expectedRequestConfigurationFilePath),
+                'ddms --configure-app-output must configure a Request for the output ' .
+                'if the --static flag is not specified. A Request configuration file ' .
+                'should have been created at' .  $expectedRequestConfigurationFilePath
+            );
+            $this->assertTrue(
+                str_contains(strval(file_get_contents($expectedRequestConfigurationFilePath)),
+                'appComponentsFactory->buildRequest'), 'Request configuration file ' .
+                'was created at ' . $expectedRequestConfigurationFilePath . ' but ' .
+                'it does not define a call to appComponentsFactory->buildRequest'
+            );
+            if($relativeUrl === '/') {
+                $rootConfiguration =  "appComponentsFactory->getApp()->getAppDomain()->getUrl() . '/',";
+                $this->assertTrue(
+                    str_contains(strval(file_get_contents($expectedRequestConfigurationFilePath)), $rootConfiguration),
+                    'Request configuration file does not define a root request even though' .
+                    '/ was specified as a --relative-url, configuration file shoud have contained the string: ' .
+                    $rootConfiguration
+                );
+            }
+        }
+    }
 }
 

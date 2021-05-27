@@ -121,8 +121,8 @@ class ConfigureAppOutput extends AbstractCommand implements Command
                             $flags['for-app'][0],
                             '--name',
                             $flags['name'][0] . strval($key),
-                            '--relative-url',
-                            $relativeUrl,
+                            ($relativeUrl === '/' ? '' : '--relative-url'),
+                            ($relativeUrl === '/' ? '' : $relativeUrl),
                             '--container',
                             $flags['for-app'][0] . 'Requests'
                         ]

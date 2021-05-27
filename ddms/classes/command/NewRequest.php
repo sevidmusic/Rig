@@ -29,7 +29,7 @@ class NewRequest extends AbstractCommand implements Command
     private function generateRequestConfigContent(array $flags): string
     {
         $template = strval(file_get_contents($this->pathToRequestTemplate()));
-        return str_replace(['_NAME_', '_CONTAINER_', '_RELATIVE_URL_'], [$flags['name'][0], ($flags['container'][0] ?? 'Requests'), ($flags['relative-url'][0] ?? 'index.php')], $template);
+        return str_replace(['_NAME_', '_CONTAINER_', '_RELATIVE_URL_'], [$flags['name'][0], ($flags['container'][0] ?? 'Requests'), ($flags['relative-url'][0] ?? '')], $template);
     }
 
     private function pathToRequestTemplate(): string
