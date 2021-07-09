@@ -30,4 +30,4 @@ jobs:
       run: composer install --prefer-dist --no-progress
  
     - name: Run phpstan tests
-      run: ./vendor/bin/phpstan analyze --level 8 ./ddms ./tessts
+      run: ./vendor/bin/phpstan analyze --level 8 ./ddms ./tests
