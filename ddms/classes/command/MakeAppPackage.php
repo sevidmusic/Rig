@@ -52,7 +52,6 @@ class MakeAppPackage extends AbstractCommand implements Command
         $newAppPath = $this->newAppPath($preparedArguments);
         if(file_exists($newAppPath) && is_dir($newAppPath)) {
             self::removeDirectory($newAppPath);
-            var_dump('FOO', file_exists($newAppPath));
         }
     }
 
@@ -110,7 +109,7 @@ class MakeAppPackage extends AbstractCommand implements Command
             # handle directories
             if(is_dir($source)) {
                 if(!file_exists($destination)) {
-                    mkdir($destination, 0755);
+                    mkdir($destination, permissions: 0755);
                 }
                 continue;
             }

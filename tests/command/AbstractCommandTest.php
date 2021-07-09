@@ -48,19 +48,22 @@ final class AbstractCommandTest extends TestCase
         );
     }
 
+    private function determineExpectedDarlingDMSAppsDirectory(): string
+    {
+        // This path is used if ddms is istalled  inside the DarlingDataManagementSystem's vendor directory, or mock vendor directory.
+        $expectedDarlingDMSAppsDirectory = strval(realpath(str_replace('vendor' . DIRECTORY_SEPARATOR . 'darling' . DIRECTORY_SEPARATOR . 'ddms' . DIRECTORY_SEPARATOR . 'tests' . DIRECTORY_SEPARATOR .  'command', 'Apps', __DIR__)));
+        if(substr($expectedDarlingDMSAppsDirectory, -4, 4) === 'Apps' && file_exists($expectedDarlingDMSAppsDirectory) && is_dir($expectedDarlingDMSAppsDirectory)) {
+            return $expectedDarlingDMSAppsDirectory;
+        }
+        // This path is used if ddms is not installed inside the DarlingDataManagementSystem's vendor directory, or mock vendor directory.
+        return strval(realpath(str_replace('tests' . DIRECTORY_SEPARATOR . 'command', 'tmp', __DIR__)));
+    }
+
     public function testPrepareArgumentsReturnsArrayWhose_ddms_apps_directory_path_FlagsFirstArgumentIsAssignedPathToExpectedDarlingDataManagementSystemAppsDirectoryOr_ddms_tmp_DirectoryIf_ddms_apps_directory_path_FlagIsNotSpecified(): void
     {
-        $expectedDarlingDMSAppsDirectory = strval(realpath(str_replace('vendor' . DIRECTORY_SEPARATOR . 'darling' . DIRECTORY_SEPARATOR . 'ddms' . DIRECTORY_SEPARATOR . 'tests' . DIRECTORY_SEPARATOR .  'command', 'Apps', __DIR__)));
-        $ddmsTmpDirectoryPath = strval(realpath(str_replace('tests' . DIRECTORY_SEPARATOR . 'command', 'tmp', __DIR__)));
-        if(file_exists($expectedDarlingDMSAppsDirectory) && is_dir($expectedDarlingDMSAppsDirectory)) {
-            $this->assertEquals(
-                $expectedDarlingDMSAppsDirectory,
-                $this->getMockCommand()->prepareArguments([])['flags']['ddms-apps-directory-path'][0]
-            );
-            return;
-        }
+        $expectedDarlingDMSAppsDirectory = $this->determineExpectedDarlingDMSAppsDirectory();
         $this->assertEquals(
-            $ddmsTmpDirectoryPath,
+            $expectedDarlingDMSAppsDirectory,
             $this->getMockCommand()->prepareArguments([])['flags']['ddms-apps-directory-path'][0]
         );
     }
