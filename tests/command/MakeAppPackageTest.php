@@ -235,10 +235,7 @@ final class MakeAppPackageTest extends TestCase
      */
     private function expectedNewAppPath(array $preparedArguments): string {
         $name = strval(basename($preparedArguments['flags']['path'][0]));
-        return strval(
-            realpath($preparedArguments['flags']['ddms-apps-directory-path'][0])
-        ) .
-        DIRECTORY_SEPARATOR . $name;
+        return strval(realpath($preparedArguments['flags']['ddms-apps-directory-path'][0])) . DIRECTORY_SEPARATOR . $name;
     }
 
     private function pathToValidAppPackage(): string

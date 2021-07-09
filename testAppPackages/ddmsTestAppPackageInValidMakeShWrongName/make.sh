@@ -5,5 +5,5 @@
 
 set -o posix
 
-/home/darling/Downloads/vendor/darling/ddms/bin/ddms --new-app --name WrongName --domain "http://localhost:8080/" --debug flags options
+ddms --new-app --name WrongName --domain "http://localhost:8080/" --debug flags options
 

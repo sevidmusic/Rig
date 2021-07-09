@@ -35,9 +35,16 @@ abstract class AbstractCommand implements Command
      */
     private function determineDefaultAppsDirectoryPath(array $flags): string
     {
-        $expectedDarlingDMSAppsDirectory = strval(realpath(str_replace('vendor' . DIRECTORY_SEPARATOR . 'darling' . DIRECTORY_SEPARATOR . 'ddms' . DIRECTORY_SEPARATOR . 'ddms' . DIRECTORY_SEPARATOR . 'abstractions' . DIRECTORY_SEPARATOR .  'command', 'Apps', __DIR__)));
+        $expectedDarlingDMSAppsDirectory = strval(
+            realpath(
+                str_replace(
+                    'vendor' . DIRECTORY_SEPARATOR . 'darling' . DIRECTORY_SEPARATOR . 'ddms' . DIRECTORY_SEPARATOR . 'ddms' . DIRECTORY_SEPARATOR . 'abstractions' . DIRECTORY_SEPARATOR .  'command',
+                    'Apps',
+                    __DIR__)
+            )
+        );
         $ddmsTmpDirectoryPath = strval(realpath(str_replace('ddms' . DIRECTORY_SEPARATOR . 'abstractions' . DIRECTORY_SEPARATOR . 'command', 'tmp', __DIR__)));
-        if(!in_array('ddms-apps-directory-path', array_keys($flags)) && file_exists($expectedDarlingDMSAppsDirectory) && is_dir($expectedDarlingDMSAppsDirectory)) {
+        if(!in_array('ddms-apps-directory-path', array_keys($flags)) && substr($expectedDarlingDMSAppsDirectory, -4, 4) === 'Apps' && file_exists($expectedDarlingDMSAppsDirectory) && is_dir($expectedDarlingDMSAppsDirectory)) {
             return $expectedDarlingDMSAppsDirectory;
         }
         return $ddmsTmpDirectoryPath;
