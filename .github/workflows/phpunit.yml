@@ -2,9 +2,9 @@ name: phpunit
 
 on:
   push:
-    branches: [ ddms1.0.3 ]
+    branches: [ ddms1.0.5 ]
   pull_request:
-    branches: [ ddms1.0.3 ]
+    branches: [ ddms1.0.5 ]
 
 jobs:
   build:
