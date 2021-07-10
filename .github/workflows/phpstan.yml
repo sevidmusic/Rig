@@ -2,9 +2,9 @@ name: phpstan
 
 on:
   push:
-    branches: [ ddms1.0.5 ]
+    branches: [ ddms ]
   pull_request:
-    branches: [ ddms1.0.5 ]
+    branches: [ ddms ]
 
 jobs:
   build:
