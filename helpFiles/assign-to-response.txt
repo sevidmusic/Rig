@@ -1,50 +1,49 @@
+ddms --assign-to-response --for-app --response [--dynamic-output-components] [--requests]
+                          [--output-components]
 
-  ddms --assign-to-response --for-app --response [--dynamic-output-components] [--requests]
-                            [--output-components]
+Description:
 
-  Description:
+Assign one or more DynamicOutputComponents, Requests, and/or OutputComponents
+to a Response or GlobalResponse.
 
-  Assign one or more DynamicOutputComponents, Requests, and/or OutputComponents
-  to a Response or GlobalResponse.
+Flags:
 
-  Flags:
+--response                   Name of the Response or GlobalResponse.
 
-  --response                   Name of the Response or GlobalResponse.
+--for-app                    Name of the App the Response or GlobalResponse belongs to.
 
-  --for-app                    Name of the App the Response or GlobalResponse belongs to.
+--dynamic-output-components  Names of the DynamicOutputComponents to assign to
+                             the Response or GlobalResponse.
 
-  --dynamic-output-components  Names of the DynamicOutputComponents to assign to
-                               the Response or GlobalResponse.
+-requests                    Names of the Requests to assign to the Response or
+                             GlobalResponse.
 
- --requests                    Names of the Requests to assign to the Response or
-                               GlobalResponse.
+--output-components          Names of the OutputComponents to assign to the
+                             Response or GlobalResponse..
 
-  --output-components          Names of the OutputComponents to assign to the
-                               Response or GlobalResponse..
+[--ddms-apps-directory-path] Path to the Darling Data Management Apps
+                             directory or, an alternative directory.
 
-  [--ddms-apps-directory-path] Path to the Darling Data Management Apps
-                               directory or, an alternative directory.
+                             If not specified, ddms will attempt to locate
+                             the Apps directory, if it cannot find it ddms
+                             will set --ddms-apps-directory-path to the
+                             path to ddms's tmp directory.
 
-                               If not specified, ddms will attempt to locate
-                               the Apps directory, if it cannot find it ddms
-                               will set --ddms-apps-directory-path to the
-                               path to ddms's tmp directory.
+                             ddms will look for the Apps directory at
+                             the following path relative to ddms's root
+                             directory:
 
-                               ddms will look for the Apps directory at
-                               the following path relative to ddms's root
-                               directory:
+                               ../../../Apps
 
-                                 ../../../Apps
+                             Defaults to:
 
-                               Defaults to:
+                               ./tmp
 
-                                 ./tmp
+Examples:
+ddms --assign-to-response --response About --output-components Menu About --requests About
 
-  Examples:
-  ddms --assign-to-response --response About --output-components Menu About --requests About
+ddms --assign-to-response --response Homepage --output-components Menu --dynamic-output-components Welcome --requests Homepage Welcome
 
-  ddms --assign-to-response --response Homepage --output-components Menu --dynamic-output-components Welcome --requests Homepage Welcome
-
-  ddms --assign-to-response --response Contact --output-components Menu --dynamic-output-components ContactForm ContactInfo --requests Contact
+ddms --assign-to-response --response Contact --output-components Menu --dynamic-output-components ContactForm ContactInfo --requests Contact
 
 

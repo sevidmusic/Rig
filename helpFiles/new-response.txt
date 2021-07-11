@@ -1,30 +1,29 @@
+ddms --new-response --for-app --name
+                    [--position] [--ddms-apps-directory-path]
 
-  ddms --new-response --for-app --name
-                      [--position] [--ddms-apps-directory-path]
+Description:
 
-  Description:
+Create a new Response for the specified App.
 
-  Create a new Response for the specified App.
+Flags:
 
-  Flags:
+--for-app                    The name of the App to create the Response
+                             for.
 
-  --for-app                    The name of the App to create the Response
-                               for.
+--name                       A name to assign to the new Response.
 
-  --name                       A name to assign to the new Response.
+[--position]                 A position to assign to the new Response.
+                             This value is used by the Darling Data Management
+                             System to sort Responses and GlobalResponse that
+                             respond to the same Request. Defaults to 0.
 
-  [--position]                 A position to assign to the new Response.
-                               This value is used by the Darling Data Management
-                               System to sort Responses and GlobalResponse that
-                               respond to the same Request. Defaults to 0.
+[--ddms-apps-directory-path] Path to the Darling Data Management Apps
+                             directory or, an alternative directory.
 
-  [--ddms-apps-directory-path] Path to the Darling Data Management Apps
-                               directory or, an alternative directory.
-
-                               If not specified, ddms will attempt to locate
-                               the Apps directory, if it cannot find it ddms
-                               will set --ddms-apps-directory-path to the
-                               path to ddms's tmp directory.
+                             If not specified, ddms will attempt to locate
+                             the Apps directory, if it cannot find it ddms
+                             will set --ddms-apps-directory-path to the
+                              path to ddms's tmp directory.
 
                                ddms will look for the Apps directory at
                                the following path relative to ddms's root

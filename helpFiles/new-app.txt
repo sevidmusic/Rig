@@ -1,42 +1,41 @@
+ddms --new-app --name [--domain] [--ddms-apps-directory-path]
 
-  ddms --new-app --name [--domain] [--ddms-apps-directory-path]
+Description:
 
-  Description:
+Creates a new Darling Data Management System App.
 
-  Creates a new Darling Data Management System App.
+Arguments:
 
-  Arguments:
+--name                       The name to assign to the new App
 
-  --name                       The name to assign to the new App
+[--domain]                   A domain to assign as the new App's default domain.
 
-  [--domain]                   A domain to assign as the new App's default domain.
+                             If not specified, default domain will be:
 
-                               If not specified, default domain will be:
+                               http://localhost:8080/
 
-                                 http://localhost:8080/
+[--ddms-apps-directory-path] Path to the Darling Data Management Apps
+                             directory or, an alternative directory.
 
-  [--ddms-apps-directory-path] Path to the Darling Data Management Apps
-                               directory or, an alternative directory.
+                             If not specified, ddms will attempt to locate
+                             the Apps directory, if it cannot find it ddms
+                             will set --ddms-apps-directory-path to the
+                             path to ddms's tmp directory.
 
-                               If not specified, ddms will attempt to locate
-                               the Apps directory, if it cannot find it ddms
-                               will set --ddms-apps-directory-path to the
-                               path to ddms's tmp directory.
+                             ddms will look for the Apps directory at
+                             the following path relative to ddms's root
+                             directory for an Apps directory:
 
-                               ddms will look for the Apps directory at
-                               the following path relative to ddms's root
-                               directory for an Apps directory:
+                               ../../../Apps
 
-                                 ../../../Apps
+                             Defaults to:
 
-                               Defaults to:
+                               ./tmp
 
-                                 ./tmp
+Examples:
 
-  Examples:
+`ddms --new-app --name "HelloWorld"`
 
-  `ddms --new-app --name "HelloWorld"`
+`ddms --new-app --name "HelloWorld" --domain "http://localhost:8765"`
 
-  `ddms --new-app --name "HelloWorld" --domain "http://localhost:8765"`
-
-  `ddms --new-app --name "HelloWorld"` --ddms-apps-directory-path /path/to/Apps
+`ddms --new-app --name "HelloWorld"` --ddms-apps-directory-path /path/to/Apps

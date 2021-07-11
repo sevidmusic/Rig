@@ -1,87 +1,86 @@
+ddms [--help] [--start-server] [--view-active-servers] [--new-app]
+     [--new-global-response] [--new-dynamic-output-component]
+     [--new-request] [--new-output-component] [--assign-to-response]
+     [--make-app-package] [--ddms-apps-directory-path] [--debug]
 
-  ddms [--help] [--start-server] [--view-active-servers] [--new-app]
-       [--new-global-response] [--new-dynamic-output-component]
-       [--new-request] [--new-output-component] [--assign-to-response]
-       [--make-app-package] [--ddms-apps-directory-path] [--debug]
+Description:
 
-  Description:
+ddms is a command line utility designed to aide in the development process
+with the Darling Data Management System. ddms provides a number of flags
+that can be used to perform common development tasks.
 
-  ddms is a command line utility designed to aide in the development process
-  with the Darling Data Management System. ddms provides a number of flags
-  that can be used to perform common development tasks.
+For more information about ddms go to:
 
-  For more information about ddms go to:
+  https://github.com/sevidmusic/ddms
 
-    https://github.com/sevidmusic/ddms
+For more information about the Darling Data Management System go to:
 
-  For more information about the Darling Data Management System go to:
+  https://github.com/sevidmusic/DarlingDataManagementSystem
 
-    https://github.com/sevidmusic/DarlingDataManagementSystem
+Flags:
 
-  Flags:
+[--help] [FLAG]                     Show this help message, or the appropriate
+                                    help message for the specified FLAG.
 
-  [--help] [FLAG]                     Show this help message, or the appropriate
-                                      help message for the specified FLAG.
+[--start-server]                    Start a development server.
 
-  [--start-server]                    Start a development server.
+[--view-active-servers]             Show active development servers.
 
-  [--view-active-servers]             Show active development servers.
+[--new-app]                         Create a new Darling Data Management System
+                                    App.
 
-  [--new-app]                         Create a new Darling Data Management System
-                                      App.
+[--new-global-response]             Create a new GlobalResponse for a Darling
+                                    Data Management System App.
 
-  [--new-global-response]             Create a new GlobalResponse for a Darling
-                                      Data Management System App.
+[--new-dynamic-output-component]    Create a new DynamicOutputComponent for a
+                                    Darling Data Management System.
 
-  [--new-dynamic-output-component]    Create a new DynamicOutputComponent for a
-                                      Darling Data Management System.
+[--new-request]                     Create a new Request for a Darling Data
+                                    Management System App.
 
-  [--new-request]                     Create a new Request for a Darling Data
-                                      Management System App.
+[--new-output-component]            Create a new OutputComponent for a Darling
+                                    Data Management System App.
 
-  [--new-output-component]            Create a new OutputComponent for a Darling
-                                      Data Management System App.
+[--assign-to-response]              Assign one or more Requests, OutputComponents,
+                                    or DynamicOutputComponents to an existing
+                                    Response or GlobalResponse.
 
-  [--assign-to-response]              Assign one or more Requests, OutputComponents,
-                                      or DynamicOutputComponents to an existing
-                                      Response or GlobalResponse.
+[--make-app-package]                Make an App Package into a Darling Data Management System App.
 
-  [--make-app-package]                Make an App Package into a Darling Data Management System App.
+[--ddms-apps-directory-path]        Path to the Darling Data Management Apps
+                                    directory or, an alternative directory.
 
-  [--ddms-apps-directory-path]        Path to the Darling Data Management Apps
-                                      directory or, an alternative directory.
+                                    If not specified, ddms will attempt to locate
+                                    the Apps directory, if it cannot find it ddms
+                                    will set --ddms-apps-directory-path to the
+                                    path to ddms's tmp directory.
 
-                                      If not specified, ddms will attempt to locate
-                                      the Apps directory, if it cannot find it ddms
-                                      will set --ddms-apps-directory-path to the
-                                      path to ddms's tmp directory.
+                                    ddms will look for the Apps directory at
+                                    the following path relative to ddms's root
+                                    directory for an Apps directory:
 
-                                      ddms will look for the Apps directory at
-                                      the following path relative to ddms's root
-                                      directory for an Apps directory:
+                                      ../../../Apps
 
-                                        ../../../Apps
+                                    Defaults to:
 
-                                      Defaults to:
+                                      ./tmp
 
-                                        ./tmp
+[--debug]                           Show debug information for the current call
+                                    to ddms based on the specified argument.
+                                    The following arguments are possible, at
+                                    least one is expected.
 
-  [--debug]                           Show debug information for the current call
-                                      to ddms based on the specified argument.
-                                      The following arguments are possible, at
-                                      least one is expected.
+                                      flags :   This will cause ddms to output
+                                                the flags passed to ddms and their
+                                                arguments.
 
-                                        flags :   This will cause ddms to output
-                                                  the flags passed to ddms and their
-                                                  arguments.
+                                      options : This will cause ddms to output
+                                                any options passed to ddms.
 
-                                        options : This will cause ddms to output
-                                                  any options passed to ddms.
+Examples:
 
-  Examples:
+ddms --help
 
-  ddms --help
+ddms --help --new-app
 
-  ddms --help --new-app
-
-  ddms --start-server --debug flags
+ddms --start-server --debug flags

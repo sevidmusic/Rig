@@ -1,24 +1,24 @@
-  ddms --make-app-package --path
+ddms --make-app-package --path
 
-  Description:
+Description:
 
-  Make an App Package into an App.
+Make an App Package into an App.
 
-  WARNING: If an App whose name matches the name of the App to be made already exists,
-           it will be replaced!
+WARNING: If an App whose name matches the name of the App to be made already exists,
+         it will be replaced!
 
-  Note: With the exception of files ending in extension .sh, any files or directories
-        that exist in the App Package will be copied to a corresponding path in the
-        new App.
+Note: With the exception of files ending in extension .sh, any files or directories
+      that exist in the App Package will be copied to a corresponding path in the
+      new App.
 
-        For example, if the App Package defines a styles.css in AppPackage/css/styles.css
-        it will be copied to NewApp/css/styles.css.
+      For example, if the App Package defines a styles.css in AppPackage/css/styles.css
+      it will be copied to NewApp/css/styles.css.
 
-  Flags:
+Flags:
 
-  --path The path to the App Package to make.
+--path The path to the App Package to make.
 
-  Examples:
+Examples:
 
-  ddms --make-app-package --path /path/to/AppPackage
+ddms --make-app-package --path /path/to/AppPackage
 
