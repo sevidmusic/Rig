@@ -1,4 +1,4 @@
-ddms --new-app --name [--domain] [--ddms-apps-directory-path]
+ddms --new-app --name [--domain] [--ddms-apps-directory-path] [--debug]
 
 Description:
 
