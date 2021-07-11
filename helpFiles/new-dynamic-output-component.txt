@@ -1,94 +1,93 @@
+ddms --new-dynamic-output-component --for-app --name
+                                    [--container] [--position] [--file-name]
+                                    [--initial-output] [--initial-output-file]
+                                    [--shared] [--ddms-apps-directory-path]
 
-  ddms --new-dynamic-output-component --for-app --name
-                                      [--container] [--position] [--file-name]
-                                      [--initial-output] [--initial-output-file]
-                                      [--shared] [--ddms-apps-directory-path]
+Description:
 
-  Description:
+Create a new DynamicOutputComponent for the specified App.
 
-  Create a new DynamicOutputComponent for the specified App.
+Flags:
 
-  Flags:
+--for--app                   The name of the App to create the new DynamicOutputComponent
+                             for.
 
-  --for--app                   The name of the App to create the new DynamicOutputComponent
-                               for.
+--name                       An alphanumeric name to assign to the new DynamicOutputComponent.
 
-  --name                       An alphanumeric name to assign to the new DynamicOutputComponent.
+[--container]                The container to store the new DynamicOutputComponent
+                             data in, defaults to DynamicOutput.
 
-  [--container]                The container to store the new DynamicOutputComponent
-                               data in, defaults to DynamicOutput.
+[--position]                 A numeric position to assign to the new DynamicOutputComponent,
+                             defaults to 0.
 
-  [--position]                 A numeric position to assign to the new DynamicOutputComponent,
-                               defaults to 0.
+[--file-name]                The name of the file that generates the DynamicOutputComponent's
+                             output. If not specified, the file-name will be assumed to match
+                             --name with the .php extension appended, for example:
 
-  [--file-name]                The name of the file that generates the DynamicOutputComponent's
-                               output. If not specified, the file-name will be assumed to match
-                               --name with the .php extension appended, for example:
+                               ddmms --new-dynamic-output-component --for-app HelloWorld --name Foo
 
-                                 ddmms --new-dynamic-output-component --for-app HelloWorld --name Foo
+                             Would assume the --file-name to be:
 
-                               Would assume the --file-name to be:
+                               Foo.php
 
-                                 Foo.php
+                             ddms will create the file if it does not already exist.
 
-                               ddms will create the file if it does not already exist.
+                             The file is expected to exist either in the relevant
+                             App's DynamicOutput directory, or, if the --shared
+                             flag is specified, in the expected Darling Data
+                             Management System's SharedDynamicOutput directory.
 
-                               The file is expected to exist either in the relevant
-                               App's DynamicOutput directory, or, if the --shared
-                               flag is specified, in the expected Darling Data
-                               Management System's SharedDynamicOutput directory.
+[--initial-output]           The initial output to assign as the content of the
+                             new dynamic output file that will be created for
+                             the new DynamicOutputComponent. This flag will fail
+                             if the creation of the new dynamic output file would
+                             overwrite an existing dynamic output file. It will
+                             also fail if the --initial-output-file flag is also
+                             specified.
 
-  [--initial-output]           The initial output to assign as the content of the
-                               new dynamic output file that will be created for
-                               the new DynamicOutputComponent. This flag will fail
-                               if the creation of the new dynamic output file would
-                               overwrite an existing dynamic output file. It will
-                               also fail if the --initial-output-file flag is also
-                               specified.
-
-  [initial-output-file]        A path to a file whose content will be used as the
-                               new dynamic output file that will be created for
-                               the new DynamicOutputComponent. This flag will fail
-                               if the creation of the new dynamic output file would
-                               overwrite an existing dynamic output file. It will
-                               also fail if the --initial-output flag is also
-                               specified.
+[initial-output-file]        A path to a file whose content will be used as the
+                             new dynamic output file that will be created for
+                             the new DynamicOutputComponent. This flag will fail
+                             if the creation of the new dynamic output file would
+                             overwrite an existing dynamic output file. It will
+                             also fail if the --initial-output flag is also
+                             specified.
 
 
-  [--shared]                   If specified, ddms will assume the file that generates
-                               the output for the DynamicOutputComponent exists,
-                               or should be created at the following path relative
-                               to the --ddms-apps-directory-path:
+[--shared]                   If specified, ddms will assume the file that generates
+                             the output for the DynamicOutputComponent exists,
+                             or should be created at the following path relative
+                             to the --ddms-apps-directory-path:
 
-                               ../SharedDynamicOutput
+                             ../SharedDynamicOutput
 
-                               If the dynamic output file has to be created, and the
-                               --shared flag is specified, and the SharedDynamicOutput
-                               directory does not exist at the expected path, it will
-                               be created.
+                             If the dynamic output file has to be created, and the
+                             --shared flag is specified, and the SharedDynamicOutput
+                             directory does not exist at the expected path, it will
+                             be created.
 
-  [--ddms-apps-directory-path] Path to the Darling Data Management Apps
-                               directory or, an alternative directory.
+[--ddms-apps-directory-path] Path to the Darling Data Management Apps
+                             directory or, an alternative directory.
 
-                               If not specified, ddms will attempt to locate
-                               the Apps directory, if it cannot find it ddms
-                               will set --ddms-apps-directory-path to the
-                               path to ddms's tmp directory.
+                             If not specified, ddms will attempt to locate
+                             the Apps directory, if it cannot find it ddms
+                             will set --ddms-apps-directory-path to the
+                             path to ddms's tmp directory.
 
-                               ddms will look for the Apps directory at
-                               the following path relative to ddms's root
-                               directory:
+                             ddms will look for the Apps directory at
+                             the following path relative to ddms's root
+                             directory:
 
-                                 ../../../Apps
+                               ../../../Apps
 
-                               Defaults to:
+                             Defaults to:
 
-                                 ./tmp
+                               ./tmp
 
-  Examples:
+Examples:
 
-  ddms --new-dynamic-output-component --for-app HelloWorld --name Foo --container HelloWorldOutput
+ddms --new-dynamic-output-component --for-app HelloWorld --name Foo --container HelloWorldOutput
 
-  ddms --new-dynamic-output-component --for-app HelloWorld --name Foo --position 3
+ddms --new-dynamic-output-component --for-app HelloWorld --name Foo --position 3
 
-  ddms --new-dynamic-output-component --for-app HelloWorld --name Foo --file-name Baz.html --shared
+ddms --new-dynamic-output-component --for-app HelloWorld --name Foo --file-name Baz.html --shared
