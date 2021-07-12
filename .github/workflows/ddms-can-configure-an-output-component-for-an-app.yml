@@ -1,0 +1,39 @@
+name: ddms can configure an OutputComponent for an App
+
+on:
+  push:
+    branches: [ ddms ]
+  pull_request:
+    branches: [ ddms ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Validate composer.json and composer.lock
+      run: composer validate --strict
+
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v2
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress
+      
+    - name: Add ddms to $PATH
+      run: echo "$(pwd)/bin" >> $GITHUB_PATH
+
+    - name: Run ddms --new-app --name Foo
+      run: ddms --new-app --name Foo
+    
+    - name: Run ddms --new-output-component --for-app Foo --name Bar --output Baz
+      run: ddms --new-output-component --for-app Foo --name Bar --output Baz
