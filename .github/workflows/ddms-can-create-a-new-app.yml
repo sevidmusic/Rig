@@ -29,8 +29,5 @@ jobs:
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
 
-    - name: Add ddms to $PATH
-      run: PATH="${PATH}:$(pwd)/bin"
-
     - name: Run ddms --new-app --name Foo
-      run: ddms --new-app --name Foo
+      run: ./bin/ddms --new-app --name Foo
