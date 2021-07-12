@@ -24,7 +24,7 @@ Flags:
 
 Examples:
 
-ddms --new-response --for-app HelloWorld --name HelloUniverse
+ddms --new-response --for-app Foo --name Bar
 
-ddms --new-response --for-app HelloWorld --name HelloCosmos --position 3.5
+ddms --new-response --for-app Foo --name Baz --position 3.5
 

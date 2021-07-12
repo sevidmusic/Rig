@@ -1,47 +1,63 @@
-ddms --new-output-component --for-app --name --output
-                            [--container] [--position] [--ddms-apps-directory-path]
+ddms --new-output-component --for-app --name --output [--container] [--position]
 
 Description:
 
-Create a new DynamicOutputComponent for the specified App.
+Configure a new OutputComponent for the specified App.
 
 Flags:
 
---for--app                   The name of the App to create the new DynamicOutputComponent
-                             for.
+--for--app    The name of the App to configure the new OutputComponent for.
 
---name                       An alphanumeric name to assign to the new DynamicOutputComponent.
+              WARNING: The specified App must exist, if it does not, the new
+              OutputComponent will not be configured.
 
---output                     The output to assign to the new OutputComponent.
+--name        An alphanumeric name to assign to the new OutputComponent.
 
-[--container]                The container to store the new DynamicOutputComponent
-                             data in, defaults to DynamicOutput.
+              WARNING: The name must be unique, if an OutputComponent already
+              exists with the same name the new OutputComponent will not be
+              configured.
 
-[--position]                 A numeric position to assign to the new DynamicOutputComponent,
-                             defaults to 0.
+              WARNING: The name must be alphanumeric with no spaces, if spaces
+              or non-alphanumeric characters are present in the specified name,
+              only the alphanumeric characters up to the first space or
+              non-alphanumeric character will be used.
 
-[--ddms-apps-directory-path] Path to the Darling Data Management Apps
-                             directory or, an alternative directory.
+              For example:
 
-                             If not specified, ddms will attempt to locate
-                             the Apps directory, if it cannot find it ddms
-                             will set --ddms-apps-directory-path to the
-                             path to ddms's tmp directory.
+                  ddms --new-output-component \
+                  --name 'Spaces & Bad Chars' \
+                  --for-app foo \
+                  --output bar
 
-                             ddms will look for the Apps directory at
-                             the following path relative to ddms's root
-                             directory:
+              Would result in the assigned name:
 
-                               ../../../Apps
+                  Spaces
 
-                             Defaults to:
+              It is also possible that ddms will refuse to configure the
+              OutputComponent if an alphanumeric name cannot be derived
+              from a name that contains spaces and non-alphanumeric
+              characters. This may happen, for instance, if the specified
+              name starts with a non-alphanumeric character.
 
-                               ./tmp
+--output      The output to assign to the new OutputComponent.
+
+[--container] The container to store the new OutputComponent's data in, defaults
+              to Output. This value is used when an App is built for a domain, it
+              determines where in the Domain's storage the OutputComponent's data
+              will be located after the App is built.
+
+[--position]  The position to assign to the OutputComponent. This position will
+              be used to sort the output relative to other output that is being
+              served by the same Response or GlobalResponse.
 
 Examples:
 
-ddms --new-output-component --for-app HelloWorld --name Foo --container HelloWorldOutput
 
-ddms --new-output-component --for-app HelloWorld --name Foo --position 3
+ddms --new-output-component --for-app Foo --name Baz --output Hi
 
-ddms --new-output-component --for-app HelloWorld --name Foo --file-name Baz.html --shared
+ddms --new-output-component --for-app Foo --name Yaz --output Hello \
+--container FooOutput
+
+ddms --new-output-component --for-app Foo --name Bar --output 'Hello Hello' \
+--position '2.4'
+

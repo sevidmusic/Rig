@@ -37,8 +37,8 @@ Flags:
 
 Examples:
 
-ddms --new-global-response --for-app HelloWorld --name Foo
+ddms --new-global-response --for-app Foo --name Foo
 
-ddms --new-global-response --for-app HelloWorld --name Bar --position 3
+ddms --new-global-response --for-app Foo --name Bar --position 3
 
 

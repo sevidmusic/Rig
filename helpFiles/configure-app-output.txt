@@ -75,15 +75,15 @@ Flags:
 Examples:
 
 ddms --configure-app-output \
---for-app HelloWorld \
---name HelloUniverse \
+--for-app Foo \
+--name Bar \
 --output '<p>Hello Universe</p>' \
---relative-urls './' 'index.php' 'index.php?request=HelloMultiverse' \
+--relative-urls './' 'index.php' 'index.php?request=BarBaz' \
 --static
 
 ddms --configure-app-output \
---for-app HelloWorld \
---name HelloUniverse \
+--for-app Foo \
+--name Bar \
 --output-source-file /path/to/output/source/file \
 --global
 

@@ -21,7 +21,7 @@ Flags:
 
                              For example:
 
-                                 '?request=HelloWorld'
+                                 '?request=Foo'
 
                              Defaults to relative root url:
 
@@ -29,7 +29,7 @@ Flags:
 
 Examples:
 
-ddms --new-request --for-app HelloWorld --name HelloRootRequest
+ddms --new-request --for-app Foo --name Tar
 
-ddms --new-request --for-app HelloWorld --name HelloCosmos --relative-url "?request=HelloCosmos"
+ddms --new-request --for-app Foo --name Baz --relative-url "?request=Baz"
 
