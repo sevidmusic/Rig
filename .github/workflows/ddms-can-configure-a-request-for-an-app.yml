@@ -1,4 +1,4 @@
-name: ddms can configure a request for an App
+name: ddms can configure a Request for an App
 
 on:
   push:
