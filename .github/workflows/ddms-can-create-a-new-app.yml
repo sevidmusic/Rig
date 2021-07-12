@@ -33,4 +33,4 @@ jobs:
       run: PATH="${PATH}:$(pwd)/bin"
 
     - name: Run ddms --new-app --name Foo
-      run: ddns --new-app --name Foo
+      run: ddms --new-app --name Foo
