@@ -35,9 +35,9 @@ Flags:
 Examples:
 
 ddms --assign-to-response \
-     --for-app HelloWorld \
-     --response HelloUniverse \
-     --dynamic-output-components HelloSpace HelloGalaxy \
-     --output-components HelloSolarSystem HelloPlanets \
-     --requests HelloMultiverse HelloCosmos
+     --for-app Foo \
+     --response Bar \
+     --dynamic-output-components ZorFoo BinFoo \
+     --output-components Yaz Naz \
+     --requests BarBaz Baz
 

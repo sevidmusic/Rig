@@ -34,8 +34,8 @@ Arguments:
 
 Examples:
 
-`ddms --new-app --name "HelloWorld"`
+`ddms --new-app --name "Foo"`
 
-`ddms --new-app --name "HelloWorld" --domain "http://localhost:8765"`
+`ddms --new-app --name "Foo" --domain "http://localhost:8765"`
 
-`ddms --new-app --name "HelloWorld"` --ddms-apps-directory-path /path/to/Apps
+`ddms --new-app --name "Foo"` --ddms-apps-directory-path /path/to/Apps

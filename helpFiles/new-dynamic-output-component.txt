@@ -24,7 +24,7 @@ Flags:
                              output. If not specified, the file-name will be assumed to match
                              --name with the .php extension appended, for example:
 
-                               ddmms --new-dynamic-output-component --for-app HelloWorld --name Foo
+                               ddmms --new-dynamic-output-component --for-app Foo --name Foo
 
                              Would assume the --file-name to be:
 
@@ -86,8 +86,8 @@ Flags:
 
 Examples:
 
-ddms --new-dynamic-output-component --for-app HelloWorld --name Foo --container HelloWorldOutput
+ddms --new-dynamic-output-component --for-app Foo --name Foo --container FooOutput
 
-ddms --new-dynamic-output-component --for-app HelloWorld --name Foo --position 3
+ddms --new-dynamic-output-component --for-app Foo --name Foo --position 3
 
-ddms --new-dynamic-output-component --for-app HelloWorld --name Foo --file-name Baz.html --shared
+ddms --new-dynamic-output-component --for-app Foo --name Foo --file-name Baz.html --shared
