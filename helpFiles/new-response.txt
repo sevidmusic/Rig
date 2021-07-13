@@ -40,7 +40,8 @@ Flags:
 
 [--position] The position to assign to the Response. This position is used to
              sort the Response relative to other Responses and GlobalResponses
-             that respond to the same Request. Defaults to 0.
+             that respond to the same Request.
+             Defaults to: 0
 
 Examples:
 
