@@ -1,0 +1,39 @@
+name: ddms can configure a DynamicOutputComponent for an App
+
+on:
+  push:
+    branches: [ ddms ]
+  pull_request:
+    branches: [ ddms ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Validate composer.json and composer.lock
+      run: composer validate --strict
+
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v2
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress
+
+    - name: Add ddms to $PATH
+      run: echo "$(pwd)/bin" >> $GITHUB_PATH
+
+    - name: Run ddms --new-app --name Foo
+      run: ddms --new-app --name Foo
+    
+    - name: Run ddms --new-dynamic-output-component --for-app Foo --name Bin --container 'SpecifiedContainer' --file-name 'SpecifiedFileName.txt' --initial-output 'Initial output' --position '2.7' --shared
+      run: ddms --new-dynamic-output-component --for-app Foo --name Bin --container 'SpecifiedContainer' --file-name 'SpecifiedFileName.txt' --initial-output 'Initial output' --position '2.7' --shared
