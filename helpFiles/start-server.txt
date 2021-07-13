@@ -1,4 +1,5 @@
 ddms --start-server [--ini-file] [--port] [--root-directory]
+     [--open-in-browser]
 
 Description:
 
@@ -9,8 +10,19 @@ WARNING: Do not use php's built in server in production, it is meant for
 
          https://www.php.net/manual/en/features.commandline.webserver.php
 
-Once a sever is started, it can be used to run one or more Darling Data Managment
-System Apps locally.
+Once a sever is started, it can be used to run one or more Darling Data
+Management System Apps locally by building the Apps to run for a domain that
+corresponds to a running development server instance's url.
+
+For example, to run an existing App named Foo locally on http://localhost:8080:
+
+    # Build the App for the domain 'http://localhost:8080'
+    php /path/to/DarlingDataManagementSystem/Apps/Foo/Components.php 'http://localhost:8080'
+
+    # Start a local development server on port 8080
+    ddms --start-server --port 8080
+
+    # The Foo App is now running on 'http://localhost:8080'
 
 To get a list of active development servers use: ddms --view-active-servers
 
@@ -43,6 +55,14 @@ Flags:
 
                           $HOME/ddms
 
+                      Note: It is typically not necessary to specify the
+                      --root-dir flag since ddms will typically determine the
+                      correct root directory for you, however, if you find ddms
+                      is unable to determine the correct root directory to use
+                      for the development server instance, or if an alternative
+                      root directory needs to be used, the --root-dir flag can be
+                      used to manually set the appropriate path.
+
 [--open-in-browser]   Attempt to open the root url of the new development server
                       instance in a web browser via xdg-open.
 
@@ -50,18 +70,16 @@ Flags:
                                under the hood, if xdg-open is not available then
                                this flag will fail.
 
-                               Also, if multiple built in server instances were
-                               started with this flag present, this flag may
-                               begin to fail as the number of server instances
-                               started with this flag increases.
-
-                      If ddms does not open the development server instance's url
-                      in a web browser, you can access the server by opening the
-                      appropriate url in a web browser manually.
+                               Also, this flag may begin to fail as the number of
+                               server instances started increases.
 
                       More information is available about xdg-open at:
 
                           https://portland.freedesktop.org/doc/xdg-open.html
+
+                      Note: A development server instance's url can always be
+                      opened manually via a web browser while the development
+                      server instance is running.
 
 Examples:
 

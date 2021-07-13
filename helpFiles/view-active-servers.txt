@@ -2,7 +2,7 @@ ddms --view-active-servers
 
 Description:
 
-List the active PHP built in server instances.
+List the active php built in server instances started via ddms --start-server.
 
 Example:
 

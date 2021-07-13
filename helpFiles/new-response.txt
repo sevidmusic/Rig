@@ -6,21 +6,41 @@ Configure a new Response for the specified App.
 
 Flags:
 
---for-app                    The name of the App to configure the Response for.
+--for-app    The name of the App to configure the Response for.
 
-                             WARNING: The specified App must exist, if it does
-                             not, the new Response will not be configured.
+             WARNING: The specified App must exist, if it does not, the new
+             Response will not be configured.
 
---name                       A name to assign to the new Response.
+--name       A name to assign to the new Response.
 
-                             WARNING: The name must be unique, if a Response
-                             already exists with the same name the new Response
-                             will not be configured.
+             WARNING: The name must be unique, if a Response already
+             exists with the same name the new Response will not be
+             configured.
 
-[--position]                 The position to assign to the Response. This
-                             position is used to sort the Response relative to
-                             other Responses and GlobalResponses that respond to
-                             the same Request. Defaults to 0.
+             WARNING: The name must be alphanumeric with no spaces, if spaces
+             or non-alphanumeric characters are present in the specified name,
+             only the alphanumeric characters up to the first space or
+             non-alphanumeric character will be used.
+
+             For example:
+
+                 ddms --new-response \
+                 --for-app foo \
+                 --name 'Spaces & Bad Chars'
+
+             Would result in the assigned name:
+
+                 Spaces
+
+             It is also possible that ddms will refuse to configure the Response
+             if an alphanumeric name cannot be derived from a name that
+             contains spaces or non-alphanumeric characters. This may happen,
+             for instance, if the specified name starts with a non-alphanumeric
+             character.
+
+[--position] The position to assign to the Response. This position is used to
+             sort the Response relative to other Responses and GlobalResponses
+             that respond to the same Request. Defaults to 0.
 
 Examples:
 
