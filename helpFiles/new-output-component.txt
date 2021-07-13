@@ -25,8 +25,8 @@ Flags:
               For example:
 
                   ddms --new-output-component \
-                  --name 'Spaces & Bad Chars' \
                   --for-app foo \
+                  --name 'Spaces & Bad Chars' \
                   --output bar
 
               Would result in the assigned name:
@@ -35,23 +35,24 @@ Flags:
 
               It is also possible that ddms will refuse to configure the
               OutputComponent if an alphanumeric name cannot be derived
-              from a name that contains spaces and non-alphanumeric
+              from a name that contains spaces or non-alphanumeric
               characters. This may happen, for instance, if the specified
               name starts with a non-alphanumeric character.
 
 --output      The output to assign to the new OutputComponent.
 
-[--container] The container to store the new OutputComponent's data in, defaults
-              to Output. This value is used when an App is built for a domain, it
-              determines where in the Domain's storage the OutputComponent's data
-              will be located after the App is built.
+[--container] The container to store the new OutputComponent's data in. This
+              value is used when an App is built for a domain, it determines
+              where in the Domain's storage the OutputComponent's data will be
+              located after the App is built.
+              Defaults to: Output
 
 [--position]  The position to assign to the OutputComponent. This position will
-              be used to sort the output relative to other output that is being
-              served by the same Response or GlobalResponse.
+              be used to sort the OutputComponent relative to other
+              OutputComponents that are served by the same Response or
+              GlobalResponse.
 
 Examples:
-
 
 ddms --new-output-component --for-app Foo --name Baz --output Hi
 
