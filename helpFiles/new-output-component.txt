@@ -14,7 +14,7 @@ Flags:
 --name        An alphanumeric name to assign to the new OutputComponent.
 
               WARNING: The name must be unique, if an OutputComponent already
-              exists with the same name the new OutputComponent will not be
+              exists with the same name, the new OutputComponent will not be
               configured.
 
               WARNING: The name must be alphanumeric with no spaces, if spaces
@@ -45,12 +45,13 @@ Flags:
               value is used when an App is built for a domain, it determines
               where in the Domain's storage the OutputComponent's data will be
               located after the App is built.
-              Defaults to: Output
+              Defaults to: OutputComponents
 
 [--position]  The position to assign to the OutputComponent. This position will
               be used to sort the OutputComponent relative to other
-              OutputComponents that are served by the same Response or
-              GlobalResponse.
+              OutputComponents and DynamicOutputComponents that are served by the
+              same Response or GlobalResponse.
+              Defaults to: 0
 
 Examples:
 
