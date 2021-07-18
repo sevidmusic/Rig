@@ -307,7 +307,7 @@ testRunDoesNotCreateDynamicOutputFileInSharedDynamicOutputDirectoryIfSharedFlagI
      */
     private function expectedSharedDynamicOutputDirectoryPath(array $preparedArguments): string
     {
-        return str_replace(['Apps', 'tmp'], 'SharedDynamicOutput', $preparedArguments['flags']['ddms-apps-directory-path'][0]);
+        return str_replace(['Apps', 'tmp'], 'SharedDynamicOutput', $preparedArguments['flags']['path-to-apps-directory'][0]);
     }
 
 

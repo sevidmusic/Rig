@@ -3,10 +3,10 @@ ddms --new-app --name [--domain]
 Description:
 
 Creates a new Darling Data Management System App. The new App will be created at
-the path that corresponds to the value assigned to the --ddms-apps-directory-path
+the path that corresponds to the value assigned to the --path-to-apps-directory
 flag.
 
-For example, if --ddms-apps-directory-path is assigned the path:
+For example, if --path-to-apps-directory is assigned the path:
 
     /path/to/DarlingDataManagementSystem/Apps
 
@@ -18,8 +18,8 @@ Would create the new Foo App at:
 
     /path/to/DarlingDataManagementSystem/Apps/Foo
 
-Note: You do not need to explicitly set the --ddms-apps-directory-path unless you
-intend to use an alternative Apps directory. --ddms-apps-directory-path's
+Note: You do not need to explicitly set the --path-to-apps-directory unless you
+intend to use an alternative Apps directory. --path-to-apps-directory's
 assigned value will be determined by ddms at runtime unless it is set explicitly.
 
 Flags:

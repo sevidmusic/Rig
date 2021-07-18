@@ -23,7 +23,7 @@ class MakeAppPackage extends AbstractCommand implements Command
             '  Successfully made App Package at ' .
             $preparedArguments['flags']['path'][0] .
             ' into an App at ' .
-            $preparedArguments['flags']['ddms-apps-directory-path'][0] .
+            $preparedArguments['flags']['path-to-apps-directory'][0] .
             DIRECTORY_SEPARATOR . $this->determineAppName($preparedArguments)
         );
         return true;
@@ -95,7 +95,7 @@ class MakeAppPackage extends AbstractCommand implements Command
      */
     private function newAppPath(array $preparedArguments) : string
     {
-        return $preparedArguments['flags']['ddms-apps-directory-path'][0] .
+        return $preparedArguments['flags']['path-to-apps-directory'][0] .
                DIRECTORY_SEPARATOR .
                basename($this->appPackagePath($preparedArguments));
     }
@@ -131,7 +131,7 @@ class MakeAppPackage extends AbstractCommand implements Command
         if(!file_exists($preparedArguments['flags']['path'][0] . DIRECTORY_SEPARATOR . 'make.sh')) {
             throw new RuntimeException('  Please specify a path to an actual App Package.' . PHP_EOL);
         }
-#        if(file_exists($preparedArguments['flags']['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $this->determineAppName($preparedArguments))) {
+#        if(file_exists($preparedArguments['flags']['path-to-apps-directory'][0] . DIRECTORY_SEPARATOR . $this->determineAppName($preparedArguments))) {
 #            throw new RuntimeException('  An App named ' . $this->determineAppName($preparedArguments) . ' already exists. This App Package cannot be built unless it is removed.' . PHP_EOL);
 #        }
     }

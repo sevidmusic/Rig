@@ -79,7 +79,7 @@ Flags:
                              Note: The path to the Darling Data Management System
                              SharedDynamicOutput directory will correspond to the
                              following path relative to the path assigned to the
-                             --ddms-apps-directory-path flag:
+                             --path-to-apps-directory flag:
 
                                 ../SharedDynamicOutput
 
@@ -122,7 +122,7 @@ Flags:
 [--shared]                   If specified, ddms will assume the file that generates
                              the output for the DynamicOutputComponent exists,
                              or should be created at the following path relative
-                             to the --ddms-apps-directory-path:
+                             to the --path-to-apps-directory:
 
                              ../SharedDynamicOutput
 

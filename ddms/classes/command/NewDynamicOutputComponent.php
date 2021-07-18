@@ -112,7 +112,7 @@ class NewDynamicOutputComponent extends AbstractCommand implements Command
      */
     private function pathToNewDynamicOutputComponent(array $flags): string
     {
-        return $flags['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $flags['for-app'][0] . DIRECTORY_SEPARATOR . 'OutputComponents' . DIRECTORY_SEPARATOR . $flags['name'][0] . '.php';
+        return $flags['path-to-apps-directory'][0] . DIRECTORY_SEPARATOR . $flags['for-app'][0] . DIRECTORY_SEPARATOR . 'OutputComponents' . DIRECTORY_SEPARATOR . $flags['name'][0] . '.php';
     }
 
     /**
@@ -140,7 +140,7 @@ class NewDynamicOutputComponent extends AbstractCommand implements Command
      */
     private function determineAppsDynamicOutputDirectoryPath(array $flags): string
     {
-        return $flags['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $flags['for-app'][0] . DIRECTORY_SEPARATOR . 'DynamicOutput';
+        return $flags['path-to-apps-directory'][0] . DIRECTORY_SEPARATOR . $flags['for-app'][0] . DIRECTORY_SEPARATOR . 'DynamicOutput';
     }
 
     /**
@@ -148,7 +148,7 @@ class NewDynamicOutputComponent extends AbstractCommand implements Command
      */
     private function determineSharedDynamicOutputDirectoryPath(array $flags): string
     {
-        return str_replace(['Apps', 'tmp'], 'SharedDynamicOutput', $flags['ddms-apps-directory-path'][0]);
+        return str_replace(['Apps', 'tmp'], 'SharedDynamicOutput', $flags['path-to-apps-directory'][0]);
     }
     /**
      * @param array{"flags": array<string, array<int, string>>, "options": array<int, string>} $preparedArguments

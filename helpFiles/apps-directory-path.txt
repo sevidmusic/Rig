@@ -1,4 +1,4 @@
-[--ddms-apps-directory-path]
+[--path-to-apps-directory]
 
 This flag can be used in conjunction with other ddms flags to manually set the
 Darling Data Management Apps directory path used by ddms to an alternative
@@ -11,7 +11,7 @@ directory:
     ../../../Apps
 
 if it cannot find the expected Apps directory ddms will use the path to it's
-tmp directory as the --ddms-apps-directory-path. ddms's tmp directory will
+tmp directory as the --path-to-apps-directory. ddms's tmp directory will
 be located in ddms's root directory, for example:
 
 /path/to/ddms/tmp

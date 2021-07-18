@@ -23,9 +23,9 @@ abstract class AbstractCommand implements Command
     private function validateArguments(array $flagsAndOptions): array
     {
         ['flags' => $flags] = $flagsAndOptions;
-        if(!in_array('ddms-apps-directory-path', array_keys($flags)) || !isset($flags['ddms-apps-directory-path'][0]) || !file_exists($flags['ddms-apps-directory-path'][0]) || !is_dir($flags['ddms-apps-directory-path'][0])) {
+        if(!in_array('path-to-apps-directory', array_keys($flags)) || !isset($flags['path-to-apps-directory'][0]) || !file_exists($flags['path-to-apps-directory'][0]) || !is_dir($flags['path-to-apps-directory'][0])) {
             $ddmsTmpDirPath = $this->determineDefaultAppsDirectoryPath($flags);
-            $flagsAndOptions['flags']['ddms-apps-directory-path'] = [$ddmsTmpDirPath];
+            $flagsAndOptions['flags']['path-to-apps-directory'] = [$ddmsTmpDirPath];
         }
         return $flagsAndOptions;
     }
@@ -44,7 +44,7 @@ abstract class AbstractCommand implements Command
             )
         );
         $ddmsTmpDirectoryPath = strval(realpath(str_replace('ddms' . DIRECTORY_SEPARATOR . 'abstractions' . DIRECTORY_SEPARATOR . 'command', 'tmp', __DIR__)));
-        if(!in_array('ddms-apps-directory-path', array_keys($flags)) && substr($expectedDarlingDMSAppsDirectory, -4, 4) === 'Apps' && file_exists($expectedDarlingDMSAppsDirectory) && is_dir($expectedDarlingDMSAppsDirectory)) {
+        if(!in_array('path-to-apps-directory', array_keys($flags)) && substr($expectedDarlingDMSAppsDirectory, -4, 4) === 'Apps' && file_exists($expectedDarlingDMSAppsDirectory) && is_dir($expectedDarlingDMSAppsDirectory)) {
             return $expectedDarlingDMSAppsDirectory;
         }
         return $ddmsTmpDirectoryPath;
@@ -148,7 +148,7 @@ abstract class AbstractCommand implements Command
      */
     protected function determineAppDirectoryPath(array $flags): string
     {
-        return  $flags['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $flags['for-app'][0];
+        return  $flags['path-to-apps-directory'][0] . DIRECTORY_SEPARATOR . $flags['for-app'][0];
     }
 
 }

@@ -1,4 +1,4 @@
-ddms [--assign-to-response] [--configure-app-output] [--ddms-apps-directory-path]
+ddms [--assign-to-response] [--configure-app-output] [--path-to-apps-directory]
      [--debug] [--help] [--make-app-package] [--new-app-package] [--new-app]
      [--new-dynamic-output-component] [--new-global-response]
      [--new-output-component] [--new-request] [--new-response] [--start-server]
@@ -25,12 +25,12 @@ Flags:
                                     Note: If the specified App does not exist
                                     it will be created.
 
-[--ddms-apps-directory-path]        The path to the Darling Data Management Apps
+[--path-to-apps-directory]        The path to the Darling Data Management Apps
                                     directory, or an alternative directory.
 
                                     If not specified, ddms will attempt to locate
                                     the Apps directory, if it cannot find it ddms
-                                    will set --ddms-apps-directory-path to the
+                                    will set --path-to-apps-directory to the
                                     path to ddms's tmp directory.
 
                                     ddms will look for the Apps directory at
@@ -44,7 +44,7 @@ Flags:
                                       /path/to/ddms/tmp
 
                                     Note: Typically, you do not need to
-                                    specify the --ddms-apps-directory-path flag
+                                    specify the --path-to-apps-directory flag
                                     since ddms will determine the appropriate
                                     path at runtime. The only reason to use this
                                     flag is if you explicitly want to target an
@@ -125,7 +125,7 @@ For example:
 
 ddms --help --assign-to-response
 ddms --help --configure-app-output
-ddms --help --ddms-apps-directory-path
+ddms --help --path-to-apps-directory
 ddms --help --debug
 ddms --help --help
 ddms --help --make-app-package

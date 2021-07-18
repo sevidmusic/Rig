@@ -471,7 +471,7 @@ final class ConfigureAppOutputTest extends TestCase
         $preparedArguments = $this->configureAppOutput()->prepareArguments(
             $this->getTestArgsForSpecifiedFlags(['--for-app', '--name', '--output', '--relative-urls'], __METHOD__)
         );
-        $expectedAppDirectoryPath = $preparedArguments['flags']['ddms-apps-directory-path'][0] .
+        $expectedAppDirectoryPath = $preparedArguments['flags']['path-to-apps-directory'][0] .
                 DIRECTORY_SEPARATOR . $this->currentTestAppName;
         $this->configureAppOutput()->run($this->userInterface(), $preparedArguments);
         $expectedContainer = $this->currentTestAppName . 'Requests';
@@ -607,7 +607,7 @@ final class ConfigureAppOutputTest extends TestCase
      */
     private function determineCurrentAppsDirectoryPath(array $preparedArguments): string
     {
-        return $preparedArguments['flags']['ddms-apps-directory-path'][0] .
+        return $preparedArguments['flags']['path-to-apps-directory'][0] .
             DIRECTORY_SEPARATOR . $this->currentTestAppName;
     }
 

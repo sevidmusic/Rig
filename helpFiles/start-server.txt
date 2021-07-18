@@ -38,8 +38,8 @@ Flags:
 [--root-dir]          The directory to use as the development server instance's
                       root directory.
 
-                      Defaults to the directory above --ddms-apps-directory-path.
-                      For example, if --ddms-apps-directory-path is:
+                      Defaults to the directory above --path-to-apps-directory.
+                      For example, if --path-to-apps-directory is:
 
                           $HOME/DarlingDataManagementSystem/Apps
 
@@ -47,7 +47,7 @@ Flags:
 
                           $HOME/DarlingDataManagementSystem
 
-                      If the --ddms-apps-directory-path is:
+                      If the --path-to-apps-directory is:
 
                           $HOME/ddms/tmp
 

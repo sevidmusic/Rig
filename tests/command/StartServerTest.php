@@ -87,7 +87,7 @@ final class StartServerTest extends TestCase
             new CommandLineUI(),
             $preparedArguments
         );
-        $appsDirectoryPath = str_replace(['Apps', 'tmp'], '', $preparedArguments['flags']['ddms-apps-directory-path'][0]);
+        $appsDirectoryPath = str_replace(['Apps', 'tmp'], '', $preparedArguments['flags']['path-to-apps-directory'][0]);
         $this->assertTrue(in_array($appsDirectoryPath, $this->activeServers('roots')));
     }
 
