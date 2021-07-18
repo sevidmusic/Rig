@@ -1,7 +1,7 @@
 ddms [--assign-to-response] [--configure-app-output] [--ddms-apps-directory-path]
      [--debug] [--help] [--make-app-package] [--new-app-package] [--new-app]
      [--new-dynamic-output-component] [--new-global-response]
-     [--new-output-component] [--new-request] [--start-server]
+     [--new-output-component] [--new-request] [--new-response] [--start-server]
      [--view-active-servers]
 
 
@@ -21,6 +21,7 @@ Flags:
 
 [--configure-app-output]            Configure output for a specified App to
                                     show up in response to specified Requests.
+
                                     Note: If the specified App does not exist
                                     it will be created.
 
@@ -41,6 +42,17 @@ Flags:
                                     Defaults to ddms's tmp directory's path:
 
                                       /path/to/ddms/tmp
+
+                                    Note: Typically, you do not need to
+                                    specify the --ddms-apps-directory-path flag
+                                    since ddms will determine the appropriate
+                                    path at runtime. The only reason to use this
+                                    flag is if you explicitly want to target an
+                                    alternative Apps directory.
+
+                                    WARNING: Unless you really need to, it is
+                                    probably best to let ddms manage this value
+                                    to insure an appropriate path is used.
 
 [--debug]                           Show debug information for the current call
                                     to ddms. This flag is intended to be used in
@@ -70,6 +82,12 @@ Flags:
 [--help] [FLAG]                     Show this help message, or the appropriate
                                     help message for the specified FLAG.
 
+                                    For example:
+
+                                        ddms --help
+
+                                        ddms --help --new-app
+
 [--make-app-package]                Make an App Package into a Darling Data
                                     Management System App.
 
@@ -78,16 +96,19 @@ Flags:
 [--new-app]                         Create a new Darling Data Management System
                                     App.
 
-[--new-dynamic-output-component]    Create a new DynamicOutputComponent for a
+[--new-dynamic-output-component]    Configure a new DynamicOutputComponent for a
                                     Darling Data Management System App.
 
-[--new-global-response]             Create a new GlobalResponse for a Darling
+[--new-global-response]             Configure a new GlobalResponse for a Darling
                                     Data Management System App.
 
-[--new-output-component]            Create a new OutputComponent for a Darling
+[--new-output-component]            Configure a new OutputComponent for a Darling
                                     Data Management System App.
 
-[--new-request]                     Create a new Request for a Darling Data
+[--new-request]                     Configure a new Request for a Darling Data
+                                    Management System App.
+
+[--new-response]                    Configure a new Response for a Darling Data
                                     Management System App.
 
 [--start-server]                    Start a development server.
@@ -114,6 +135,7 @@ ddms --help --new-dynamic-output-component
 ddms --help --new-global-response
 ddms --help --new-output-component
 ddms --help --new-request
+ddms --help --new-response
 ddms --help --start-server
 ddms --help --view-active-servers
 
@@ -121,10 +143,40 @@ Documentation for ddms and the Darling Data Management System can be found at:
 
   https://darlingdata.tech
 
-ddms is on GitHub:
+ddms is available on GitHub:
 
   https://github.com/sevidmusic/ddms
 
-The Darling Data Management System is on GitHub:
+The Darling Data Management System is available on GitHub:
 
   https://github.com/sevidmusic/DarlingDataManagementSystem
+
+A repo of supported App Packages that can be made into Darling Data Management
+System Apps via ddms --make-app-package is available on GitHub:
+
+  https://github.com/sevidmusic/ddmsAppPackages
+
+The Darling Data Managment System, the ddms command line utility, and
+ddmsAppPackages are all licensed under the MIT license.
+
+MIT License
+
+Copyright (c) 2021 Sevi Donnelly Foreman
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
