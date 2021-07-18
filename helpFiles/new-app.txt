@@ -10,17 +10,17 @@ For example, if --ddms-apps-directory-path is assigned the path:
 
     /path/to/DarlingDataManagementSystem/Apps
 
-Then ddms --new-app --name Foo would create the Foo
-App in:
+Then:
+
+    ddms --new-app --name Foo
+
+Would create the new Foo App at:
 
     /path/to/DarlingDataManagementSystem/Apps/Foo
 
-
 Note: You do not need to explicitly set the --ddms-apps-directory-path unless you
-      intend to use an alternative Apps directory. --ddms-apps-directory-path's
-      assigned value will be determined by ddms at runtime unless it is set
-      explicitly.
-
+intend to use an alternative Apps directory. --ddms-apps-directory-path's
+assigned value will be determined by ddms at runtime unless it is set explicitly.
 
 Flags:
 

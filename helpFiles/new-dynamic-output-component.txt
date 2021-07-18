@@ -53,6 +53,7 @@ Flags:
                              where in the Domain's storage the
                              DynamicOutputComponent's data will be located after
                              the App is built.
+
                              Defaults to: DynamicOutputComponents
 
 [--position]                 The position to assign to the DynamicOutputComponent.
@@ -60,26 +61,31 @@ Flags:
                              DynamicOutputComponent relative to other
                              DynamicOutputComponents and OutputComponents that
                              are served by the same Response or GlobalResponse.
+
                              Defaults to: 0
 
-[--file-name]                Either the name of an existing file that will
-                             generate the DynamicOutputComponent's output, or the
-                             name to assign to the file that will be created for
-                             the DynamicOutputComponent.
+[--file-name]                Either the name of file that already exists in the
+                             App's DynamicOutput directory, or the name to assign
+                             to the file that will be created for the
+                             DynamicOutputComponent in the App's DynamicOutput
+                             directory.
 
-                             The file, whether it is created or already exists,
-                             should be located either in the relevant App's
-                             DynamicOutput directory, or, if the --shared flag is
-                             specified, in the expected Darling Data Management
-                             System's SharedDynamicOutput directory.
+                             Note: If the --shared flag is specified, then the
+                             file will be created or expected to exist in
+                             the Darling Data Management System's
+                             SharedDynamicOutput directory instead of in the
+                             App's DynamicOutput directory.
 
-                             If the --file-name flag is not specified, the file
+                             Note: The path to the Darling Data Management System
+                             SharedDynamicOutput directory will correspond to the
+                             following path relative to the path assigned to the
+                             --ddms-apps-directory-path flag:
+
+                                ../SharedDynamicOutput
+
+                             Note: If the --file-name flag is not specified, the file
                              name will be assumed to match the specified --name,
                              with the extension ".php" appended.
-
-                             The path to the Darling Data Management System will
-                             correspond to the directory above the path assigned
-                             to the --ddms-apps-directory-path flag.
 
 [--initial-output]           The initial output to assign as the content of the
                              new file that will be created for the new
@@ -100,7 +106,7 @@ Flags:
                              generate output for the new DynamicOutputComponent.
 
                              WARNING:
-                             ddms will fail if the specifed file does not
+                             ddms will fail if the specified file does not
                              exist.
 
                              WARNING:
@@ -120,7 +126,7 @@ Flags:
 
                              ../SharedDynamicOutput
 
-                             If the file has to be creted, and the --shared flag
+                             If the file has to be created, and the --shared flag
                              is specified, and the SharedDynamicOutput directory
                              does not exist at the expected path, it will be
                              created.
