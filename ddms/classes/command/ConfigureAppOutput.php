@@ -39,7 +39,7 @@ class ConfigureAppOutput extends AbstractCommand implements Command
      */
     private function createAppIfItDoesNotExist(UserInterface $userInterface, array $flags): void
     {
-        $expectedAppDirectoryPath = $flags['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $flags['for-app'][0];
+        $expectedAppDirectoryPath = $flags['path-to-apps-directory'][0] . DIRECTORY_SEPARATOR . $flags['for-app'][0];
         if(!file_exists($expectedAppDirectoryPath)) {
             self::newApp()->run(
                 $userInterface,
@@ -78,7 +78,7 @@ class ConfigureAppOutput extends AbstractCommand implements Command
                 )
             );
             if(is_null($initialOutputFile)) {
-                $dynamicOutputFilePath = strval(realpath($flags['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $flags['for-app'][0] . DIRECTORY_SEPARATOR . 'DynamicOutput' . DIRECTORY_SEPARATOR . $flags['name'][0] . '.php'));
+                $dynamicOutputFilePath = strval(realpath($flags['path-to-apps-directory'][0] . DIRECTORY_SEPARATOR . $flags['for-app'][0] . DIRECTORY_SEPARATOR . 'DynamicOutput' . DIRECTORY_SEPARATOR . $flags['name'][0] . '.php'));
                 file_put_contents($dynamicOutputFilePath, trim(implode(' ', $flags['output'])));
             }
             return;
@@ -246,7 +246,7 @@ class ConfigureAppOutput extends AbstractCommand implements Command
      */
     private function verifyOutputNameDoesNotConflictWithExistingConfiguredComponents(array $flags): void
     {
-        $appDirectoryPath = $flags['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $flags['for-app'][0];
+        $appDirectoryPath = $flags['path-to-apps-directory'][0] . DIRECTORY_SEPARATOR . $flags['for-app'][0];
         $outputComponentsDirectoryPath = $appDirectoryPath . DIRECTORY_SEPARATOR . 'OutputComponents';
         $requestsDirectoryPath = $appDirectoryPath . DIRECTORY_SEPARATOR . 'Requests';
         $responseDirectoryPath = $appDirectoryPath . DIRECTORY_SEPARATOR . 'Responses';

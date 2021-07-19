@@ -1,0 +1,30 @@
+[--debug]
+
+Show debug information for the current call to ddms.
+
+The following arguments can be specified to control what debug information is
+shown, at least one is expected.
+
+    flags :   This will cause ddms to output
+              the flags passed to ddms and
+              their arguments.
+
+    options : This will cause ddms to output
+              any options passed to ddms,
+              i.e, the arguments that were
+              specified that are not
+              associated with a flag.
+
+              Note: The 'options' argument is
+              provided for future use, at the
+              moment ddms does not accept any
+              options, only flags and flag
+              arguments.
+
+Examples:
+
+ddms --help --debug flags options
+
+ddms --start-server --debug flags
+
+ddms --view-active-servers --debug options

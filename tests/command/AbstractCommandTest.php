@@ -10,25 +10,25 @@ final class AbstractCommandTest extends TestCase
 
     public function testPrepareArgumentsReturnsArrayWith_ddms_apps_directory_path_FlagPresent(): void
     {
-        $this->assertTrue(isset($this->getMockCommand()->prepareArguments($this->getMockArray())['flags']['ddms-apps-directory-path']));
+        $this->assertTrue(isset($this->getMockCommand()->prepareArguments($this->getMockArray())['flags']['path-to-apps-directory']));
     }
 
     public function testPrepareArgumentsReturnsArrayWhose_ddms_apps_directory_path_FlagIsAssignedAtLeastOneArgument(): void
     {
-        $this->assertTrue(isset($this->getMockCommand()->prepareArguments($this->getMockArray())['flags']['ddms-apps-directory-path'][0]));
+        $this->assertTrue(isset($this->getMockCommand()->prepareArguments($this->getMockArray())['flags']['path-to-apps-directory'][0]));
     }
 
     public function testPrepareArgumentsReturnsArrayWhose_ddms_apps_directory_path_FlagsFirstAssignedArgumentIsAPathToAnExistingDirectoryEvenIfFirstSpecifiedArgumentIsNotAPathToAnExistingDirectory(): void
     {
-        $this->assertTrue(file_exists($this->getMockCommand()->prepareArguments(['--ddms-apps-directory-path', 'FooBar' . strval(rand(1000,999))])['flags']['ddms-apps-directory-path'][0]));
-        $this->assertTrue(is_dir($this->getMockCommand()->prepareArguments(['--ddms-apps-directory-path', 'FooBar' . strval(rand(1000,999))])['flags']['ddms-apps-directory-path'][0]));
+        $this->assertTrue(file_exists($this->getMockCommand()->prepareArguments(['--path-to-apps-directory', 'FooBar' . strval(rand(1000,999))])['flags']['path-to-apps-directory'][0]));
+        $this->assertTrue(is_dir($this->getMockCommand()->prepareArguments(['--path-to-apps-directory', 'FooBar' . strval(rand(1000,999))])['flags']['path-to-apps-directory'][0]));
     }
 
     public function testPrepareArgumentsReturnsArrayWhose_ddms_apps_directory_path_FlagsFirstAssignedArgumentMatchesSpecifiedArgumentIfSpecifiedArgumentIsAPathToAnExistingDirectory(): void
     {
         $this->assertEquals(
             __DIR__,
-            $this->getMockCommand()->prepareArguments(['--ddms-apps-directory-path', __DIR__])['flags']['ddms-apps-directory-path'][0]
+            $this->getMockCommand()->prepareArguments(['--path-to-apps-directory', __DIR__])['flags']['path-to-apps-directory'][0]
         );
     }
 
@@ -36,7 +36,7 @@ final class AbstractCommandTest extends TestCase
     {
         $this->assertEquals(
             realpath(str_replace('tests' . DIRECTORY_SEPARATOR . 'command', 'tmp', __DIR__)),
-            $this->getMockCommand()->prepareArguments(['--ddms-apps-directory-path', 'FooBar' . strval(rand(1000, 9999))])['flags']['ddms-apps-directory-path'][0]
+            $this->getMockCommand()->prepareArguments(['--path-to-apps-directory', 'FooBar' . strval(rand(1000, 9999))])['flags']['path-to-apps-directory'][0]
         );
     }
 
@@ -44,7 +44,7 @@ final class AbstractCommandTest extends TestCase
     {
         $this->assertEquals(
             realpath(str_replace('tests' . DIRECTORY_SEPARATOR . 'command', 'tmp', __DIR__)),
-            $this->getMockCommand()->prepareArguments(['--ddms-apps-directory-path'])['flags']['ddms-apps-directory-path'][0]
+            $this->getMockCommand()->prepareArguments(['--path-to-apps-directory'])['flags']['path-to-apps-directory'][0]
         );
     }
 
@@ -64,7 +64,7 @@ final class AbstractCommandTest extends TestCase
         $expectedDarlingDMSAppsDirectory = $this->determineExpectedDarlingDMSAppsDirectory();
         $this->assertEquals(
             $expectedDarlingDMSAppsDirectory,
-            $this->getMockCommand()->prepareArguments([])['flags']['ddms-apps-directory-path'][0]
+            $this->getMockCommand()->prepareArguments([])['flags']['path-to-apps-directory'][0]
         );
     }
 

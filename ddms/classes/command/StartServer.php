@@ -50,6 +50,6 @@ class StartServer extends AbstractCommand implements Command
      */
     private function defaultServerRoot(array $flags): string
     {
-        return str_replace(['Apps', 'tmp'], '', $flags['ddms-apps-directory-path'][0]);
+        return str_replace(['Apps', 'tmp'], '', $flags['path-to-apps-directory'][0]);
     }
 }

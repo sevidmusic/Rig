@@ -1,41 +1,57 @@
-ddms --new-app --name [--domain] [--ddms-apps-directory-path] [--debug]
+ddms --new-app --name [--domain]
 
 Description:
 
-Creates a new Darling Data Management System App.
+Creates a new Darling Data Management System App. The new App will be created at
+the path that corresponds to the value assigned to the --path-to-apps-directory
+flag.
 
-Arguments:
+For example, if --path-to-apps-directory is assigned the path:
+
+    /path/to/DarlingDataManagementSystem/Apps
+
+Then:
+
+    ddms --new-app --name Foo
+
+Would create the new Foo App at:
+
+    /path/to/DarlingDataManagementSystem/Apps/Foo
+
+Note: You do not need to explicitly set the --path-to-apps-directory unless you
+intend to use an alternative Apps directory. --path-to-apps-directory's
+assigned value will be determined by ddms at runtime unless it is set explicitly.
+
+Flags:
 
 --name                       The name to assign to the new App
 
+                             WARNING: The name must be unique, if an
+                             App with the same name already exists the
+                             new App will not be created.
+
 [--domain]                   A domain to assign as the new App's default domain.
+                             The default domain is used when an App's
+                             Components.php is executed without specifying a
+                             domain.
+
+                             For example, executing:
+
+                                 php Apps/Foo/Components.php
+
+                             Would build the Foo App for the App's assigned
+                             default domain.
 
                              If not specified, default domain will be:
 
-                               http://localhost:8080/
+                               http://localhost:8080
 
-[--ddms-apps-directory-path] Path to the Darling Data Management Apps
-                             directory or, an alternative directory.
-
-                             If not specified, ddms will attempt to locate
-                             the Apps directory, if it cannot find it ddms
-                             will set --ddms-apps-directory-path to the
-                             path to ddms's tmp directory.
-
-                             ddms will look for the Apps directory at
-                             the following path relative to ddms's root
-                             directory for an Apps directory:
-
-                               ../../../Apps
-
-                             Defaults to:
-
-                               ./tmp
+                             WARNING: Do not include the trailing / at the end
+                             of the domain or you may run into issues.
 
 Examples:
 
-`ddms --new-app --name "Foo"`
+ddms --new-app --name "Foo"
 
-`ddms --new-app --name "Foo" --domain "http://localhost:8765"`
+ddms --new-app --name "Foo" --domain "http://localhost:8765"
 
-`ddms --new-app --name "Foo"` --ddms-apps-directory-path /path/to/Apps

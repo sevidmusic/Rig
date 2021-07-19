@@ -47,7 +47,7 @@ class NewRequest extends AbstractCommand implements Command
      */
     private function pathToNewRequest(array $flags): string
     {
-        return $flags['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $flags['for-app'][0] . DIRECTORY_SEPARATOR . 'Requests' . DIRECTORY_SEPARATOR . $flags['name'][0] . '.php';
+        return $flags['path-to-apps-directory'][0] . DIRECTORY_SEPARATOR . $flags['for-app'][0] . DIRECTORY_SEPARATOR . 'Requests' . DIRECTORY_SEPARATOR . $flags['name'][0] . '.php';
     }
 
     /**

@@ -34,7 +34,7 @@ class NewApp extends AbstractCommand implements Command
      */
     private function pathToAppDirectory(array $flags): string
     {
-        return $flags['ddms-apps-directory-path'][0] . DIRECTORY_SEPARATOR . $flags['name'][0];
+        return $flags['path-to-apps-directory'][0] . DIRECTORY_SEPARATOR . $flags['name'][0];
     }
 
     private function showMessage(string $message): void
