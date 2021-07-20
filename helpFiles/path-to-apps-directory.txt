@@ -5,17 +5,22 @@ Darling Data Management Apps directory path used by ddms to an alternative
 Apps directory path.
 
 Typically it is not necessary to specify this flag. ddms will attempt to locate
-the Apps directory when it is run at the following path relative to ddms's root
-directory:
+the Apps directory at the following path relative to ddms's root directory:
 
     ../../../Apps
 
-if it cannot find the expected Apps directory ddms will use the path to it's
-tmp directory as the --path-to-apps-directory. ddms's tmp directory will
+If ddms cannot locate the expected Apps directory ddms will use the path to
+ddms's tmp directory as the --path-to-apps-directory. ddms's tmp directory will
 be located in ddms's root directory, for example:
 
 /path/to/ddms/tmp
 
-WARNING: Unless you really need to, it is best to let ddms manage this value to
-insure an appropriate path is used.
+WARNING: Unless you really need to, it is best to let ddms manage the
+--path-to-apps-directory flag's value to insure an appropriate path is used.
+
+Examples:
+
+ddms --new-app --name Foo --path-to-apps-directory ~/AlternativeAppsDirectory
+
+ddms --new-request --name Foo --for-app Foo --path-to-apps-directory ~/AlternativeAppsDirectory
 

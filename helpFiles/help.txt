@@ -25,23 +25,26 @@ Flags:
                                     Note: If the specified App does not exist
                                     it will be created.
 
-[--path-to-apps-directory]        The path to the Darling Data Management Apps
+[--path-to-apps-directory]          The path to the Darling Data Management Apps
                                     directory, or an alternative directory.
 
                                     If not specified, ddms will attempt to locate
                                     the Apps directory, if it cannot find it ddms
-                                    will set --path-to-apps-directory to the
-                                    path to ddms's tmp directory.
+                                    will set --path-to-apps-directory to the path
+                                    to ddms's tmp directory.
 
                                     ddms will look for the Apps directory at
                                     the following path relative to ddms's root
-                                    directory for an Apps directory:
+                                    directory:
 
-                                      ../../../Apps
+                                        ../../../Apps
 
-                                    Defaults to ddms's tmp directory's path:
+                                    If the Apps directory cannot be located then
+                                    the path to ddms's tmp directory's will be
+                                    assigned to the --path-to-apps-directory
+                                    flag, for example:
 
-                                      /path/to/ddms/tmp
+                                        /path/to/ddms/tmp
 
                                     Note: Typically, you do not need to
                                     specify the --path-to-apps-directory flag
@@ -51,8 +54,9 @@ Flags:
                                     alternative Apps directory.
 
                                     WARNING: Unless you really need to, it is
-                                    probably best to let ddms manage this value
-                                    to insure an appropriate path is used.
+                                    best to let ddms manage the
+                                    --path-to-apps-directory flag's value to
+                                    insure an appropriate path is used.
 
 [--debug]                           Show debug information for the current call
                                     to ddms. This flag is intended to be used in
@@ -66,13 +70,21 @@ Flags:
                                                 the flags passed to ddms and
                                                 their arguments.
 
+                                                For example:
+
+                                                    ddms --help --debug flags
+
                                       options : This will cause ddms to output
                                                 any options passed to ddms,
                                                 i.e, the arguments that were
                                                 specified that are not
                                                 associated with a flag.
 
-                                                Note: The 'options' argument is
+                                                For example:
+
+                                                    ddms --help --debug options
+
+                                                Note: The options argument is
                                                 provided for future use, at the
                                                 moment ddms does not accept any
                                                 options, only flags and flag
@@ -118,25 +130,67 @@ Flags:
 
 Notes:
 
-To get more detailed information about a specific flag use the --help flag
-and specify one of the available flags.
+To get more detailed information about a specific flag you can use the --help
+flag and specify one of the available flags as an argument.
 
-For example:
+Note: You do not need to include the flag's -- prefix when using --help.
 
+WARNING: The path-to-apps-directory flag is the only flag that cannont be
+passed to ddms --help with the -- prefix.
+
+    # Invalid, ddms will interpret the following as an attempt to set the
+    # --path-to-apps-directory flag's value:
+    ddms --help --path-to-apps-directory
+
+    # Valid, ddms will interpret the following as a reuest for the help
+    # information for the --path-to-apps-directory flag:
+    ddms --help path-to-apps-directory
+
+All other flags can be passed to --help with or without the -- prefix.
+
+The following examples demonstrate how to use ddms --help:
+
+ddms --help
+
+ddms --help assign-to-response
 ddms --help --assign-to-response
+
+ddms --help configure-app-output
 ddms --help --configure-app-output
-ddms --help --path-to-apps-directory
+
+ddms --help path-to-apps-directory
+
+ddms --help debug
 ddms --help --debug
-ddms --help --help
+
+ddms --help make-app-package
 ddms --help --make-app-package
+
+ddms --help new-app-package
 ddms --help --new-app-package
+
+ddms --help new-app
 ddms --help --new-app
+
+ddms --help new-dynamic-output-component
 ddms --help --new-dynamic-output-component
+
+ddms --help new-global-response
 ddms --help --new-global-response
+
+ddms --help new-output-component
 ddms --help --new-output-component
+
+ddms --help new-request
 ddms --help --new-request
+
+ddms --help new-response
 ddms --help --new-response
+
+ddms --help start-server
 ddms --help --start-server
+
+ddms --help view-active-servers
 ddms --help --view-active-servers
 
 Documentation for ddms and the Darling Data Management System can be found at:

@@ -4,6 +4,9 @@ Description:
 
 Configure a new GlobalResponse for the specified App.
 
+A GlobalResponse is a type of Response that will respond to all Requests to the
+domain the App is built for.
+
 Flags:
 
 --for-app    The name of the App to configure the GlobalResponse for.
