@@ -1,10 +1,10 @@
-name: ddms can configure a DynamicOutputComponent for an App
+name: rig can configure a DynamicOutputComponent for an App
 
 on:
   push:
-    branches: [ ddms ]
+    branches: [ rig ]
   pull_request:
-    branches: [ ddms ]
+    branches: [ rig ]
 
 jobs:
   build:
@@ -29,11 +29,11 @@ jobs:
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
 
-    - name: Add ddms to $PATH
+    - name: Add rig to $PATH
       run: echo "$(pwd)/bin" >> $GITHUB_PATH
 
-    - name: Run ddms --new-app --name Foo
-      run: ddms --new-app --name Foo
+    - name: Run rig --new-app --name Foo
+      run: rig --new-app --name Foo
     
-    - name: Run ddms --new-dynamic-output-component --for-app Foo --name Bin --container 'SpecifiedContainer' --file-name 'SpecifiedFileName.txt' --initial-output 'Initial output' --position '2.7' --shared
-      run: ddms --new-dynamic-output-component --for-app Foo --name Bin --container 'SpecifiedContainer' --file-name 'SpecifiedFileName.txt' --initial-output 'Initial output' --position '2.7' --shared
+    - name: Run rig --new-dynamic-output-component --for-app Foo --name Bin --container 'SpecifiedContainer' --file-name 'SpecifiedFileName.txt' --initial-output 'Initial output' --position '2.7' --shared
+      run: rig --new-dynamic-output-component --for-app Foo --name Bin --container 'SpecifiedContainer' --file-name 'SpecifiedFileName.txt' --initial-output 'Initial output' --position '2.7' --shared

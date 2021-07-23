@@ -1,4 +1,4 @@
-ddms --new-request --for-app --name [--relative-url]
+rig --new-request --for-app --name [--relative-url]
 
 Description:
 
@@ -24,7 +24,7 @@ Flags:
 
                For example:
 
-                   ddms --new-request \
+                   rig --new-request \
                    --for-app foo \
                    --name 'Spaces & Bad Chars'
 
@@ -32,7 +32,7 @@ Flags:
 
                    Spaces
 
-               It is also possible that ddms will refuse to configure the Request
+               It is also possible that rig will refuse to configure the Request
                if an alphanumeric name cannot be derived from a name that
                contains spaces or non-alphanumeric characters. This may happen,
                for instance, if the specified name starts with a non-alphanumeric
@@ -53,9 +53,9 @@ Flags:
 
 Examples:
 
-ddms --new-request --for-app Foo --name Bar
+rig --new-request --for-app Foo --name Bar
 
-ddms --new-request --for-app Foo --name Baz --relative-url "?request=Baz"
+rig --new-request --for-app Foo --name Baz --relative-url "?request=Baz"
 
-ddms --new-request --for-app Foo --name Bin --relative-url "?foo=bar&baz=biz"
+rig --new-request --for-app Foo --name Bin --relative-url "?foo=bar&baz=biz"
 

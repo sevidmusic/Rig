@@ -3,8 +3,8 @@
 namespace tests\command;
 
 use PHPUnit\Framework\TestCase;
-use ddms\classes\command\Help;
-use ddms\classes\ui\CommandLineUI;
+use rig\classes\command\Help;
+use rig\classes\ui\CommandLineUI;
 
 final class HelpTest extends TestCase
 {

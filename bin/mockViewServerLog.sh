@@ -7,7 +7,7 @@ function readServerLogFile(): string
 
 function getServerLogPath(): string
 {
-    return '/tmp/ddms-php-built-in-server.log';
+    return '/tmp/rig-php-built-in-server.log';
 }
 
 /**

@@ -2,9 +2,9 @@
 
 namespace tests\traits;
 
-use ddms\classes\command\NewApp;
-use ddms\classes\ui\CommandLineUI;
-use ddms\interfaces\ui\UserInterface;
+use rig\classes\command\NewApp;
+use rig\classes\ui\CommandLineUI;
+use rig\interfaces\ui\UserInterface;
 
 trait TestsCreateApps
 {

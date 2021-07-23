@@ -3,28 +3,28 @@
 namespace tests\command\AbstractCommand;
 
 use PHPUnit\Framework\TestCase;
-use ddms\abstractions\command\AbstractCommand;
+use rig\abstractions\command\AbstractCommand;
 
 final class AbstractCommandTest extends TestCase
 {
 
-    public function testPrepareArgumentsReturnsArrayWith_ddms_apps_directory_path_FlagPresent(): void
+    public function testPrepareArgumentsReturnsArrayWith_rig_apps_directory_path_FlagPresent(): void
     {
         $this->assertTrue(isset($this->getMockCommand()->prepareArguments($this->getMockArray())['flags']['path-to-apps-directory']));
     }
 
-    public function testPrepareArgumentsReturnsArrayWhose_ddms_apps_directory_path_FlagIsAssignedAtLeastOneArgument(): void
+    public function testPrepareArgumentsReturnsArrayWhose_rig_apps_directory_path_FlagIsAssignedAtLeastOneArgument(): void
     {
         $this->assertTrue(isset($this->getMockCommand()->prepareArguments($this->getMockArray())['flags']['path-to-apps-directory'][0]));
     }
 
-    public function testPrepareArgumentsReturnsArrayWhose_ddms_apps_directory_path_FlagsFirstAssignedArgumentIsAPathToAnExistingDirectoryEvenIfFirstSpecifiedArgumentIsNotAPathToAnExistingDirectory(): void
+    public function testPrepareArgumentsReturnsArrayWhose_rig_apps_directory_path_FlagsFirstAssignedArgumentIsAPathToAnExistingDirectoryEvenIfFirstSpecifiedArgumentIsNotAPathToAnExistingDirectory(): void
     {
         $this->assertTrue(file_exists($this->getMockCommand()->prepareArguments(['--path-to-apps-directory', 'FooBar' . strval(rand(1000,999))])['flags']['path-to-apps-directory'][0]));
         $this->assertTrue(is_dir($this->getMockCommand()->prepareArguments(['--path-to-apps-directory', 'FooBar' . strval(rand(1000,999))])['flags']['path-to-apps-directory'][0]));
     }
 
-    public function testPrepareArgumentsReturnsArrayWhose_ddms_apps_directory_path_FlagsFirstAssignedArgumentMatchesSpecifiedArgumentIfSpecifiedArgumentIsAPathToAnExistingDirectory(): void
+    public function testPrepareArgumentsReturnsArrayWhose_rig_apps_directory_path_FlagsFirstAssignedArgumentMatchesSpecifiedArgumentIfSpecifiedArgumentIsAPathToAnExistingDirectory(): void
     {
         $this->assertEquals(
             __DIR__,
@@ -32,7 +32,7 @@ final class AbstractCommandTest extends TestCase
         );
     }
 
-    public function testPrepareArgumentsReturnsArrayWhose_ddms_apps_directory_path_FlagsFirstArgumentIsAssignedPathTo_ddms_tmp_DirectoryIfFirstSpecifiedArgumentIsNotAPathToAnExistingDirectory(): void
+    public function testPrepareArgumentsReturnsArrayWhose_rig_apps_directory_path_FlagsFirstArgumentIsAssignedPathTo_rig_tmp_DirectoryIfFirstSpecifiedArgumentIsNotAPathToAnExistingDirectory(): void
     {
         $this->assertEquals(
             realpath(str_replace('tests' . DIRECTORY_SEPARATOR . 'command', 'tmp', __DIR__)),
@@ -40,7 +40,7 @@ final class AbstractCommandTest extends TestCase
         );
     }
 
-    public function testPrepareArgumentsReturnsArrayWhose_ddms_apps_directory_path_FlagsFirstArgumentIsAssignedPathTo_ddms_tmp_DirectoryIf_ddms_apps_directory_path_FlagIsSpecifiedWithNoArguments(): void
+    public function testPrepareArgumentsReturnsArrayWhose_rig_apps_directory_path_FlagsFirstArgumentIsAssignedPathTo_rig_tmp_DirectoryIf_rig_apps_directory_path_FlagIsSpecifiedWithNoArguments(): void
     {
         $this->assertEquals(
             realpath(str_replace('tests' . DIRECTORY_SEPARATOR . 'command', 'tmp', __DIR__)),
@@ -50,16 +50,16 @@ final class AbstractCommandTest extends TestCase
 
     private function determineExpectedDarlingDMSAppsDirectory(): string
     {
-        // This path is used if ddms is istalled  inside the DarlingDataManagementSystem's vendor directory, or mock vendor directory.
-        $expectedDarlingDMSAppsDirectory = strval(realpath(str_replace('vendor' . DIRECTORY_SEPARATOR . 'darling' . DIRECTORY_SEPARATOR . 'ddms' . DIRECTORY_SEPARATOR . 'tests' . DIRECTORY_SEPARATOR .  'command', 'Apps', __DIR__)));
+        // This path is used if rig is istalled  inside the DarlingDataManagementSystem's vendor directory, or mock vendor directory.
+        $expectedDarlingDMSAppsDirectory = strval(realpath(str_replace('vendor' . DIRECTORY_SEPARATOR . 'darling' . DIRECTORY_SEPARATOR . 'rig' . DIRECTORY_SEPARATOR . 'tests' . DIRECTORY_SEPARATOR .  'command', 'Apps', __DIR__)));
         if(substr($expectedDarlingDMSAppsDirectory, -4, 4) === 'Apps' && file_exists($expectedDarlingDMSAppsDirectory) && is_dir($expectedDarlingDMSAppsDirectory)) {
             return $expectedDarlingDMSAppsDirectory;
         }
-        // This path is used if ddms is not installed inside the DarlingDataManagementSystem's vendor directory, or mock vendor directory.
+        // This path is used if rig is not installed inside the DarlingDataManagementSystem's vendor directory, or mock vendor directory.
         return strval(realpath(str_replace('tests' . DIRECTORY_SEPARATOR . 'command', 'tmp', __DIR__)));
     }
 
-    public function testPrepareArgumentsReturnsArrayWhose_ddms_apps_directory_path_FlagsFirstArgumentIsAssignedPathToExpectedDarlingDataManagementSystemAppsDirectoryOr_ddms_tmp_DirectoryIf_ddms_apps_directory_path_FlagIsNotSpecified(): void
+    public function testPrepareArgumentsReturnsArrayWhose_rig_apps_directory_path_FlagsFirstArgumentIsAssignedPathToExpectedDarlingDataManagementSystemAppsDirectoryOr_rig_tmp_DirectoryIf_rig_apps_directory_path_FlagIsNotSpecified(): void
     {
         $expectedDarlingDMSAppsDirectory = $this->determineExpectedDarlingDMSAppsDirectory();
         $this->assertEquals(

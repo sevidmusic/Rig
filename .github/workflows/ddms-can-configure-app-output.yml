@@ -1,10 +1,10 @@
-name: ddms can configure App output
+name: rig can configure App output
 
 on:
   push:
-    branches: [ ddms ]
+    branches: [ rig ]
   pull_request:
-    branches: [ ddms ]
+    branches: [ rig ]
 
 jobs:
   build:
@@ -29,8 +29,8 @@ jobs:
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
 
-    - name: Add ddms to $PATH
+    - name: Add rig to $PATH
       run: echo "$(pwd)/bin" >> $GITHUB_PATH
 
-    - name: Run ddms --configure-app-output --for-app Foo --name Bar --output Baz
-      run: ddms --configure-app-output --for-app Foo --name Bar --output Baz
+    - name: Run rig --configure-app-output --for-app Foo --name Bar --output Baz
+      run: rig --configure-app-output --for-app Foo --name Bar --output Baz

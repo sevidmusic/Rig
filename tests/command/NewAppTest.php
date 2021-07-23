@@ -3,9 +3,9 @@
 namespace tests\command;
 
 use PHPUnit\Framework\TestCase;
-use ddms\classes\command\NewApp;
-use ddms\classes\ui\CommandLineUI;
-use ddms\interfaces\ui\UserInterface;
+use rig\classes\command\NewApp;
+use rig\classes\ui\CommandLineUI;
+use rig\interfaces\ui\UserInterface;
 use tests\traits\TestsCreateApps;
 
 final class NewAppTest extends TestCase
@@ -29,7 +29,7 @@ final class NewAppTest extends TestCase
         $this->getNewApp()->run($this->getUserInterface(), $preparedArguments);
     }
 
-    public function testRunCreatesNewAppDirectoryAtPathAssignedTo_ddms_apps_directory_path_Flag(): void
+    public function testRunCreatesNewAppDirectoryAtPathAssignedTo_rig_apps_directory_path_Flag(): void
     {
         $name = $this->getRandomAppName();
         $argv = ['--new-app', '--name', $name ];

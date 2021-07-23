@@ -3,9 +3,9 @@
 namespace tests\command;
 
 use PHPUnit\Framework\TestCase;
-use ddms\classes\command\NewAppPackage;
-use ddms\classes\ui\CommandLineUI;
-use ddms\interfaces\ui\UserInterface;
+use rig\classes\command\NewAppPackage;
+use rig\classes\ui\CommandLineUI;
+use rig\interfaces\ui\UserInterface;
 use tests\traits\TestsCreateApps;
 use \RuntimeException;
 
@@ -63,13 +63,13 @@ final class NewAppPackageTest extends TestCase
             [
                 '--name',
                 # Specifying current working directory as the target directory from
-                # the context of this script will target the ddms directory, which
+                # the context of this script will target the rig directory, which
                 # means the target directory in the context of this script will
-                # contain a directory named ddms, i.e. path/to/ddms/ddms, so the
-                # name ddms can be used for this test since a directory named ddms
-                # will exist so an App Package named ddms should not be created
+                # contain a directory named rig, i.e. path/to/rig/rig, so the
+                # name rig can be used for this test since a directory named rig
+                # will exist so an App Package named rig should not be created
                 # and run() should throw a RuntimeException.
-                'ddms',
+                'rig',
                 '--path',
                 realpath(strval(getcwd()))
             ]
@@ -84,15 +84,15 @@ final class NewAppPackageTest extends TestCase
         $preparedArguments = $newAppPackage->prepareArguments(
             [
                 '--name',
-                # Not specifying the --path will result in ddms using the current
+                # Not specifying the --path will result in rig using the current
                 # working directory as the target directory, which, from the
-                # context of this script will be the ddms directory. This means
+                # context of this script will be the rig directory. This means
                 # the target directory in the context of this script will contain
-                # a directory named ddms, i.e. path/to/ddms/ddms, so the name ddms
-                # can be used for this test since a directory named ddms will exist
-                # so an App Package named ddms should not be created and run()
+                # a directory named rig, i.e. path/to/rig/rig, so the name rig
+                # can be used for this test since a directory named rig will exist
+                # so an App Package named rig should not be created and run()
                 # should throw a RuntimeException.
-                'ddms',
+                'rig',
             ]
         );
         $newAppPackage->run($this->getUI(), $preparedArguments);

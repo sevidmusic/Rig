@@ -1,20 +1,20 @@
-The tmp/ directory is used by ddms in circumstances when an appropriate directory
+The tmp/ directory is used by rig in circumstances when an appropriate directory
 path cannot be determined.
 
-For example, if `ddms --new-app` is run and the path to the DarlingDataManagmentSystem's
+For example, if `rig --new-app` is run and the path to the DarlingDataManagmentSystem's
 Apps directory cannot be determined, the new App will be created in the tmp/ directory.
 
-If you find this directory is populated by ddms, it means that one of the following
-internal ddms flags was not passed to bin/ddms.php by bin/ddms:
+If you find this directory is populated by rig, it means that one of the following
+internal rig flags was not passed to bin/rig.php by bin/rig:
 
---ddms-internal-flag-pwd "$(pwd)"
+--rig-internal-flag-pwd "$(pwd)"
 
-To fix this, make sure bon/ddms's call to /usr/bin/php ddms.php sets the appropriate
+To fix this, make sure bon/rig's call to /usr/bin/php rig.php sets the appropriate
 internal flags after the $@ parameter:
 
-bin/ddms.php
+bin/rig.php
 ...
 
-/usr/bin/php ddms.php $@ --ddms-internal-flag-pwd "$(pwd)" ...
+/usr/bin/php rig.php $@ --rig-internal-flag-pwd "$(pwd)" ...
 
 ...

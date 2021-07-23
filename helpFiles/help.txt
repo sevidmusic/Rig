@@ -1,4 +1,4 @@
-ddms [--assign-to-response] [--configure-app-output] [--path-to-apps-directory]
+rig [--assign-to-response] [--configure-app-output] [--path-to-apps-directory]
      [--debug] [--help] [--make-app-package] [--new-app-package] [--new-app]
      [--new-dynamic-output-component] [--new-global-response]
      [--new-output-component] [--new-request] [--new-response] [--start-server]
@@ -7,8 +7,8 @@ ddms [--assign-to-response] [--configure-app-output] [--path-to-apps-directory]
 
 Description:
 
-ddms is a command line utility designed to aide in the development process
-with the Darling Data Management System. ddms provides a number of flags
+rig is a command line utility designed to aide in the development process
+with the Darling Data Management System. rig provides a number of flags
 that can be used to perform common development tasks.
 
 
@@ -28,65 +28,65 @@ Flags:
 [--path-to-apps-directory]          The path to the Darling Data Management Apps
                                     directory, or an alternative directory.
 
-                                    If not specified, ddms will attempt to locate
-                                    the Apps directory, if it cannot find it ddms
+                                    If not specified, rig will attempt to locate
+                                    the Apps directory, if it cannot find it rig
                                     will set --path-to-apps-directory to the path
-                                    to ddms's tmp directory.
+                                    to rig's tmp directory.
 
-                                    ddms will look for the Apps directory at
-                                    the following path relative to ddms's root
+                                    rig will look for the Apps directory at
+                                    the following path relative to rig's root
                                     directory:
 
                                         ../../../Apps
 
                                     If the Apps directory cannot be located then
-                                    the path to ddms's tmp directory's will be
+                                    the path to rig's tmp directory's will be
                                     assigned to the --path-to-apps-directory
                                     flag, for example:
 
-                                        /path/to/ddms/tmp
+                                        /path/to/rig/tmp
 
                                     Note: Typically, you do not need to
                                     specify the --path-to-apps-directory flag
-                                    since ddms will determine the appropriate
+                                    since rig will determine the appropriate
                                     path at runtime. The only reason to use this
                                     flag is if you explicitly want to target an
                                     alternative Apps directory.
 
                                     WARNING: Unless you really need to, it is
-                                    best to let ddms manage the
+                                    best to let rig manage the
                                     --path-to-apps-directory flag's value to
                                     insure an appropriate path is used.
 
 [--debug]                           Show debug information for the current call
-                                    to ddms. This flag is intended to be used in
+                                    to rig. This flag is intended to be used in
                                     conjunction with other flags, not alone.
 
                                     The following arguments can be specified to
                                     control what debug information is shown, at
                                     least one is expected.
 
-                                      flags :   This will cause ddms to output
-                                                the flags passed to ddms and
+                                      flags :   This will cause rig to output
+                                                the flags passed to rig and
                                                 their arguments.
 
                                                 For example:
 
-                                                    ddms --help --debug flags
+                                                    rig --help --debug flags
 
-                                      options : This will cause ddms to output
-                                                any options passed to ddms,
+                                      options : This will cause rig to output
+                                                any options passed to rig,
                                                 i.e, the arguments that were
                                                 specified that are not
                                                 associated with a flag.
 
                                                 For example:
 
-                                                    ddms --help --debug options
+                                                    rig --help --debug options
 
                                                 Note: The options argument is
                                                 provided for future use, at the
-                                                moment ddms does not accept any
+                                                moment rig does not accept any
                                                 options, only flags and flag
                                                 arguments.
 
@@ -96,9 +96,9 @@ Flags:
 
                                     For example:
 
-                                        ddms --help
+                                        rig --help
 
-                                        ddms --help --new-app
+                                        rig --help --new-app
 
 [--make-app-package]                Make an App Package into a Darling Data
                                     Management System App.
@@ -136,82 +136,82 @@ flag and specify one of the available flags as an argument.
 Note: You do not need to include the flag's -- prefix when using --help.
 
 WARNING: The path-to-apps-directory flag is the only flag that cannont be
-passed to ddms --help with the -- prefix.
+passed to rig --help with the -- prefix.
 
-    # Invalid, ddms will interpret the following as an attempt to set the
+    # Invalid, rig will interpret the following as an attempt to set the
     # --path-to-apps-directory flag's value:
-    ddms --help --path-to-apps-directory
+    rig --help --path-to-apps-directory
 
-    # Valid, ddms will interpret the following as a reuest for the help
+    # Valid, rig will interpret the following as a reuest for the help
     # information for the --path-to-apps-directory flag:
-    ddms --help path-to-apps-directory
+    rig --help path-to-apps-directory
 
 All other flags can be passed to --help with or without the -- prefix.
 
-The following examples demonstrate how to use ddms --help:
+The following examples demonstrate how to use rig --help:
 
-ddms --help
+rig --help
 
-ddms --help assign-to-response
-ddms --help --assign-to-response
+rig --help assign-to-response
+rig --help --assign-to-response
 
-ddms --help configure-app-output
-ddms --help --configure-app-output
+rig --help configure-app-output
+rig --help --configure-app-output
 
-ddms --help path-to-apps-directory
+rig --help path-to-apps-directory
 
-ddms --help debug
-ddms --help --debug
+rig --help debug
+rig --help --debug
 
-ddms --help make-app-package
-ddms --help --make-app-package
+rig --help make-app-package
+rig --help --make-app-package
 
-ddms --help new-app-package
-ddms --help --new-app-package
+rig --help new-app-package
+rig --help --new-app-package
 
-ddms --help new-app
-ddms --help --new-app
+rig --help new-app
+rig --help --new-app
 
-ddms --help new-dynamic-output-component
-ddms --help --new-dynamic-output-component
+rig --help new-dynamic-output-component
+rig --help --new-dynamic-output-component
 
-ddms --help new-global-response
-ddms --help --new-global-response
+rig --help new-global-response
+rig --help --new-global-response
 
-ddms --help new-output-component
-ddms --help --new-output-component
+rig --help new-output-component
+rig --help --new-output-component
 
-ddms --help new-request
-ddms --help --new-request
+rig --help new-request
+rig --help --new-request
 
-ddms --help new-response
-ddms --help --new-response
+rig --help new-response
+rig --help --new-response
 
-ddms --help start-server
-ddms --help --start-server
+rig --help start-server
+rig --help --start-server
 
-ddms --help view-active-servers
-ddms --help --view-active-servers
+rig --help view-active-servers
+rig --help --view-active-servers
 
-Documentation for ddms and the Darling Data Management System can be found at:
+Documentation for rig and the Darling Data Management System can be found at:
 
   https://darlingdata.tech
 
-ddms is available on GitHub:
+rig is available on GitHub:
 
-  https://github.com/sevidmusic/ddms
+  https://github.com/sevidmusic/rig
 
 The Darling Data Management System is available on GitHub:
 
   https://github.com/sevidmusic/DarlingDataManagementSystem
 
 A repo of supported App Packages that can be made into Darling Data Management
-System Apps via ddms --make-app-package is available on GitHub:
+System Apps via rig --make-app-package is available on GitHub:
 
-  https://github.com/sevidmusic/ddmsAppPackages
+  https://github.com/sevidmusic/rigAppPackages
 
-The Darling Data Managment System, the ddms command line utility, and
-ddmsAppPackages are all licensed under the MIT license.
+The Darling Data Managment System, the rig command line utility, and
+rigAppPackages are all licensed under the MIT license.
 
 MIT License
 
@@ -230,7 +230,7 @@ copies or substantial portions of the Software.
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+AUTHORS OR COPYRigHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.

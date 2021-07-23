@@ -1,10 +1,10 @@
-ddms --view-active-servers
+rig --view-active-servers
 
 Description:
 
-List the active php built in server instances started via ddms --start-server.
+List the active php built in server instances started via rig --start-server.
 
 Example:
 
-  ddms --view-active-servers
+  rig --view-active-servers
 

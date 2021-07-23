@@ -1,4 +1,4 @@
-ddms --new-response --for-app --name [--position]
+rig --new-response --for-app --name [--position]
 
 Description:
 
@@ -24,7 +24,7 @@ Flags:
 
              For example:
 
-                 ddms --new-response \
+                 rig --new-response \
                  --for-app foo \
                  --name 'Spaces & Bad Chars'
 
@@ -32,7 +32,7 @@ Flags:
 
                  Spaces
 
-             It is also possible that ddms will refuse to configure the Response
+             It is also possible that rig will refuse to configure the Response
              if an alphanumeric name cannot be derived from a name that
              contains spaces or non-alphanumeric characters. This may happen,
              for instance, if the specified name starts with a non-alphanumeric
@@ -45,7 +45,7 @@ Flags:
 
 Examples:
 
-ddms --new-response --for-app Foo --name Bar
+rig --new-response --for-app Foo --name Bar
 
-ddms --new-response --for-app Foo --name Baz --position 3.5
+rig --new-response --for-app Foo --name Baz --position 3.5
 

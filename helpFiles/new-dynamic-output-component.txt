@@ -1,4 +1,4 @@
-ddms --new-dynamic-output-component --for-app --name [--container]
+rig --new-dynamic-output-component --for-app --name [--container]
      [--file-name] [--initial-output-file] [--initial-output] [--position]
      [--shared]
 
@@ -31,7 +31,7 @@ Flags:
 
                              For example:
 
-                                 ddms --new-dynamic-output-component \
+                                 rig --new-dynamic-output-component \
                                  --for-app Foo \
                                  --name 'Spaces & Bad Chars' \
                                  --initial-output 'barBaz Foo'
@@ -40,7 +40,7 @@ Flags:
 
                                  Spaces
 
-                             It is also possible that ddms will refuse to
+                             It is also possible that rig will refuse to
                              configure the DynamicOutputComponent if an
                              alphanumeric name cannot be derived from a name that
                              contains spaces or non-alphanumeric characters.
@@ -92,13 +92,13 @@ Flags:
                              DynamicOutputComponent.
 
                              WARNING:
-                             ddms will fail if the creation of the new file
+                             rig will fail if the creation of the new file
                              would overwrite an existing file.
 
                              WARNING:
                              The --initial-output and --initial-output-file flags
                              cannot be used in conjunction with each other, if
-                             they are both specified ddms will not configure the
+                             they are both specified rig will not configure the
                              new DynamicOutputComponent.
 
 [initial-output-file]        A path to a file whose content will be used as the
@@ -106,20 +106,20 @@ Flags:
                              generate output for the new DynamicOutputComponent.
 
                              WARNING:
-                             ddms will fail if the specified file does not
+                             rig will fail if the specified file does not
                              exist.
 
                              WARNING:
-                             ddms will fail if the creation of the new file
+                             rig will fail if the creation of the new file
                              would overwrite an existing file.
 
                              WARNING:
                              The --initial-output-file and --initial-output flags
                              cannot be used in conjunction with each other, if
-                             they are both specified ddms will not configure the
+                             they are both specified rig will not configure the
                              new DynamicOutputComponent.
 
-[--shared]                   If specified, ddms will assume the file that generates
+[--shared]                   If specified, rig will assume the file that generates
                              the output for the DynamicOutputComponent exists,
                              or should be created at the following path relative
                              to the --path-to-apps-directory:
@@ -133,12 +133,12 @@ Flags:
 
 Examples:
 
-ddms --new-dynamic-output-component \
+rig --new-dynamic-output-component \
 --for-app Foo \
 --name Bar \
 --initial-output 'Foo bar bazzer'
 
-ddms --new-dynamic-output-component \
+rig --new-dynamic-output-component \
 --for-app Foo \
 --name Bin \
 --container 'SpecifiedContainer' \

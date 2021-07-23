@@ -1,4 +1,4 @@
-ddms --make-app-package --path
+rig --make-app-package --path
 
 Description:
 
@@ -9,14 +9,14 @@ For example, if --path-to-apps-directory is assigned the path:
 
     /path/to/DarlingDataManagementSystem/Apps
 
-Then ddms --make-app-package --path /path/to/AppPackage/Foo would make the Foo
+Then rig --make-app-package --path /path/to/AppPackage/Foo would make the Foo
 App at:
 
     /path/to/DarlingDataManagementSystem/Apps/Foo
 
 Note:    You do not need to explicitly set the --path-to-apps-directory unless
          you intend to use an alternative Apps directory.
-         --path-to-apps-directory's assigned value will be determined by ddms
+         --path-to-apps-directory's assigned value will be determined by rig
          at runtime unless it is set explicitly.
 
 WARNING: If an App whose name matches the name of the App to be made already exists
@@ -34,20 +34,20 @@ Flags:
 --path The path to the App Package to make.
 
        WARNING: If the specified path is not valid, or the path specified does
-       not point to a directory that contains a valid ddms make.sh, then the
+       not point to a directory that contains a valid rig make.sh, then the
        App will not be made.
 
        A valid make.sh is just a bash script that contains at least one call to
-       ddms --new-app that assigns the App a name that matches the specified
+       rig --new-app that assigns the App a name that matches the specified
        --name. For example, a valid make.sh for an App named Foo may look like:
 
            #!/bin/bash
 
            set -o posix
 
-           ddms --new-app --name Foo
+           rig --new-app --name Foo
 
 Examples:
 
-ddms --make-app-package --path /path/to/AppPackage
+rig --make-app-package --path /path/to/AppPackage
 

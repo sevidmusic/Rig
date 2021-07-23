@@ -1,4 +1,4 @@
-ddms --assign-to-response --for-app --response [--dynamic-output-components]
+rig --assign-to-response --for-app --response [--dynamic-output-components]
      [--output-components][--requests]
 
 Description:
@@ -34,7 +34,7 @@ Flags:
 
 Examples:
 
-ddms --assign-to-response \
+rig --assign-to-response \
      --for-app Foo \
      --response Bar \
      --dynamic-output-components ZorFoo BinFoo \

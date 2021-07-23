@@ -1,5 +1,5 @@
 {
-    "name": "darling/ddms",
+    "name": "darling/rig",
     "description": "Command line utility designed to aide in development with the Darling Data Management System",
     "type": "command-line-utility",
     "license": "MIT",
@@ -12,7 +12,7 @@
     "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
-            "ddms\\": "ddms",
+            "rig\\": "rig",
             "tests\\": "tests"
         }
     },

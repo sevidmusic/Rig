@@ -3,10 +3,10 @@
 namespace tests\command;
 
 use PHPUnit\Framework\TestCase;
-use ddms\classes\command\NewApp;
-use ddms\classes\command\NewDynamicOutputComponent;
-use ddms\classes\ui\CommandLineUI;
-use ddms\interfaces\ui\UserInterface;
+use rig\classes\command\NewApp;
+use rig\classes\command\NewDynamicOutputComponent;
+use rig\classes\ui\CommandLineUI;
+use rig\interfaces\ui\UserInterface;
 use \RuntimeException;
 use tests\traits\TestsCreateApps;
 

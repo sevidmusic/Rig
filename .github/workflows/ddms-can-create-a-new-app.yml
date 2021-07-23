@@ -1,10 +1,10 @@
-name: ddms can create a new App
+name: rig can create a new App
 
 on:
   push:
-    branches: [ ddms ]
+    branches: [ rig ]
   pull_request:
-    branches: [ ddms ]
+    branches: [ rig ]
 
 jobs:
   build:
@@ -29,11 +29,11 @@ jobs:
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
 
-    - name: Add ddms to $PATH
+    - name: Add rig to $PATH
       run: echo "$(pwd)/bin" >> $GITHUB_PATH
 
     - name: Show $PATH
       run: echo "$PATH"
 
-    - name: Run ddms --new-app --name Foo
-      run: ddms --new-app --name Foo
+    - name: Run rig --new-app --name Foo
+      run: rig --new-app --name Foo

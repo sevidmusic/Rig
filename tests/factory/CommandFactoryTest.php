@@ -3,9 +3,9 @@
 namespace tests\command\AbstractCommand;
 
 use PHPUnit\Framework\TestCase;
-use ddms\classes\command\Help;
-use ddms\classes\ui\CommandLineUI;
-use ddms\classes\factory\CommandFactory;
+use rig\classes\command\Help;
+use rig\classes\ui\CommandLineUI;
+use rig\classes\factory\CommandFactory;
 
 final class CommandFactoryTest extends TestCase
 {
@@ -20,7 +20,7 @@ final class CommandFactoryTest extends TestCase
 
     public function testGetCommandInstanceReturnsInstanceOfSpecifiedCommandIfSpecifiedCommandExists(): void {
         $commandName = $this->getRandomExistingCommandName();
-        $expectedCommandNamespace = 'ddms\\classes\\command\\' . $commandName;
+        $expectedCommandNamespace = 'rig\\classes\\command\\' . $commandName;
         $this->assertTrue(
             $this->getCommandFactoryInstance()->getCommandInstance($commandName, new CommandLineUI())
             instanceof $expectedCommandNamespace

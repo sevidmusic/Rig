@@ -3,9 +3,9 @@
 namespace tests\command\AbstractCommand;
 
 use PHPUnit\Framework\TestCase;
-use ddms\classes\command\ViewActiveServers;
-use ddms\classes\ui\CommandLineUI;
-use ddms\interfaces\ui\UserInterface;
+use rig\classes\command\ViewActiveServers;
+use rig\classes\ui\CommandLineUI;
+use rig\interfaces\ui\UserInterface;
 
 final class ViewActiveServersTest extends TestCase
 {
@@ -20,7 +20,7 @@ final class ViewActiveServersTest extends TestCase
 
     private function startBuiltInServerInstance(): void
     {
-        $serverLogPath = escapeshellarg('/tmp/ddms-php-built-in-server.log');
+        $serverLogPath = escapeshellarg('/tmp/rig-php-built-in-server.log');
         $localhost = escapeshellarg('localhost:' . strval(rand(8000, 8999)));
         shell_exec(
             '/usr/bin/php -S ' . $localhost . ' -t ' . escapeshellarg(__DIR__) . # start PHP built in server

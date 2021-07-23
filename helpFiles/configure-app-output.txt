@@ -1,4 +1,4 @@
-ddms --configure-app-output --for-app --name --output --output-source-file
+rig --configure-app-output --for-app --name --output --output-source-file
      [--global] [--output-position] [--relative-urls] [--response-position]
      [--static]
 
@@ -38,7 +38,7 @@ Flags:
 
 [--global]            If specifed, the output will served in response to all
                       Requests to any domain the App is built for. This causes
-                      ddms to configure a GlobalResponse to serve the output
+                      rig to configure a GlobalResponse to serve the output
                       instead of a Response.
 
 [--output-position]   The position to assign to the DynamicOutputComponent or
@@ -74,14 +74,14 @@ Flags:
 
 Examples:
 
-ddms --configure-app-output \
+rig --configure-app-output \
 --for-app Foo \
 --name Bar \
 --output '<p>Hello Universe</p>' \
 --relative-urls './' 'index.php' 'index.php?request=BarBaz' \
 --static
 
-ddms --configure-app-output \
+rig --configure-app-output \
 --for-app Foo \
 --name Bar \
 --output-source-file /path/to/output/source/file \
