@@ -1,4 +1,4 @@
-ddms --start-server [--ini-file] [--port] [--root-directory]
+rig --start-server [--ini-file] [--port] [--root-directory]
      [--open-in-browser]
 
 Description:
@@ -20,11 +20,11 @@ For example, to run an existing App named Foo locally on http://localhost:8080:
     php /path/to/DarlingDataManagementSystem/Apps/Foo/Components.php 'http://localhost:8080'
 
     # Start a local development server on port 8080
-    ddms --start-server --port 8080
+    rig --start-server --port 8080
 
     # The Foo App is now running on 'http://localhost:8080'
 
-To get a list of active development servers use: ddms --view-active-servers
+To get a list of active development servers use: rig --view-active-servers
 
 Flags:
 
@@ -49,15 +49,15 @@ Flags:
 
                       If the --path-to-apps-directory is:
 
-                          $HOME/ddms/tmp
+                          $HOME/rig/tmp
 
                       Then the default --root-dir will be:
 
-                          $HOME/ddms
+                          $HOME/rig
 
                       Note: It is typically not necessary to specify the
-                      --root-dir flag since ddms will typically determine the
-                      correct root directory for you, however, if you find ddms
+                      --root-dir flag since rig will typically determine the
+                      correct root directory for you, however, if you find rig
                       is unable to determine the correct root directory to use
                       for the development server instance, or if an alternative
                       root directory needs to be used, the --root-dir flag can be
@@ -83,11 +83,11 @@ Flags:
 
 Examples:
 
-ddms --start-server
+rig --start-server
 
-ddms --start-server --port 8927 --open-in-browser
+rig --start-server --port 8927 --open-in-browser
 
-ddms --start-server --port 8975 --root-directory "${HOME}/AlternativeRootDir/"
+rig --start-server --port 8975 --root-directory "${HOME}/AlternativeRootDir/"
 
 
 

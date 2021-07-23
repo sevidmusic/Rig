@@ -1,10 +1,10 @@
-name: ddms can start a development server
+name: rig can start a development server
 
 on:
   push:
-    branches: [ ddms ]
+    branches: [ rig ]
   pull_request:
-    branches: [ ddms ]
+    branches: [ rig ]
 
 jobs:
   build:
@@ -29,8 +29,8 @@ jobs:
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
  
-    - name: Add ddms to $PATH
+    - name: Add rig to $PATH
       run: echo "$(pwd)/bin" >> $GITHUB_PATH
       
-    - name: Run ddms --start-server
-      run: ddms --start-server
+    - name: Run rig --start-server
+      run: rig --start-server

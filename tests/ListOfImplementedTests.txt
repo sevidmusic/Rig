@@ -15,8 +15,8 @@
 ./tests/command/HelpTest.php     testRunOutputsHelpFile_Help_IfNoFlagsOrOptionsAreSpecified(): void
 ./tests/command/HelpTest.php     testRunOutputsEmptyStringIfFlagsAreSpecifiedAndHelpFlagIsNotPresent(): void
 ./tests/command/HelpTest.php     testRunOutputsHelpFile_Help_IfHelpFlagIsSpecifiedAndHasNoArguments(): void
-./tests/command/DDMSTest.php     testRunCommandReturnValueAndOutputMatchesReturnValueAndOutputOfIndpendantCallToSpecifiedCommandsRunMethod(): void
-./tests/command/DDMSTest.php     testRunCommandReturnValueAndOutputMatchesReturnValueAndOutputOfIndpendantCallToRunMethodOfCommandThatCorrespondsToFirstFlag(): void
-./tests/command/DDMSTest.php     testRunOutputs_help_HelpFileContentsAndThrowsARuntimeExceptionIfFlagsAreSpecifiedAndFirstFlagDoesNotCorrespondToAnExistingCommand(): void
-./tests/command/AbstractDDMSTest.php     testRunCommandReturnsValueMatchingValueReturnedOnIndependantCallToSpecifiedCommandsRunMethod(): void
-./tests/command/AbstractDDMSTest.php     testRunCommandOutputMatchesOutputOfIndpendantCallToSpecifiedCommandsRunMethod(): void
+./tests/command/RigTest.php     testRunCommandReturnValueAndOutputMatchesReturnValueAndOutputOfIndpendantCallToSpecifiedCommandsRunMethod(): void
+./tests/command/RigTest.php     testRunCommandReturnValueAndOutputMatchesReturnValueAndOutputOfIndpendantCallToRunMethodOfCommandThatCorrespondsToFirstFlag(): void
+./tests/command/RigTest.php     testRunOutputs_help_HelpFileContentsAndThrowsARuntimeExceptionIfFlagsAreSpecifiedAndFirstFlagDoesNotCorrespondToAnExistingCommand(): void
+./tests/command/AbstractRigTest.php     testRunCommandReturnsValueMatchingValueReturnedOnIndependantCallToSpecifiedCommandsRunMethod(): void
+./tests/command/AbstractRigTest.php     testRunCommandOutputMatchesOutputOfIndpendantCallToSpecifiedCommandsRunMethod(): void

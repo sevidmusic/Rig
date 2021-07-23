@@ -3,8 +3,8 @@
 namespace tests\ui;
 
 use PHPUnit\Framework\TestCase;
-use ddms\interfaces\ui\UserInterface;
-use ddms\classes\ui\CommandLineUI;
+use rig\interfaces\ui\UserInterface;
+use rig\classes\ui\CommandLineUI;
 
 final class CommandLineUITest extends TestCase
 {
@@ -16,7 +16,7 @@ final class CommandLineUITest extends TestCase
         $ui->showMessage($message);
     }
 
-    public function testShowBannerOutputsDDMSBanner(): void
+    public function testShowBannerOutputsRigBanner(): void
     {
         $this->expectOutputString($this->expectedBanner());
         $ui = new CommandLineUI();

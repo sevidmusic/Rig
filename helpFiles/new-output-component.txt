@@ -1,4 +1,4 @@
-ddms --new-output-component --for-app --name --output [--container] [--position]
+rig --new-output-component --for-app --name --output [--container] [--position]
 
 Description:
 
@@ -24,7 +24,7 @@ Flags:
 
               For example:
 
-                  ddms --new-output-component \
+                  rig --new-output-component \
                   --for-app foo \
                   --name 'Spaces & Bad Chars' \
                   --output bar
@@ -33,7 +33,7 @@ Flags:
 
                   Spaces
 
-              It is also possible that ddms will refuse to configure the
+              It is also possible that rig will refuse to configure the
               OutputComponent if an alphanumeric name cannot be derived
               from a name that contains spaces or non-alphanumeric
               characters. This may happen, for instance, if the specified
@@ -55,11 +55,11 @@ Flags:
 
 Examples:
 
-ddms --new-output-component --for-app Foo --name Baz --output Hi
+rig --new-output-component --for-app Foo --name Baz --output Hi
 
-ddms --new-output-component --for-app Foo --name Yaz --output Hello \
+rig --new-output-component --for-app Foo --name Yaz --output Hello \
 --container FooOutput
 
-ddms --new-output-component --for-app Foo --name Bar --output 'Hello Hello' \
+rig --new-output-component --for-app Foo --name Bar --output 'Hello Hello' \
 --position '2.4'
 

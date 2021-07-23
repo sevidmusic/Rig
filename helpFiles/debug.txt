@@ -1,30 +1,30 @@
 [--debug]
 
-Show debug information for the current call to ddms.
+Show debug information for the current call to rig.
 
 The following arguments can be specified to control what debug information is
 shown, at least one is expected.
 
-    flags :   This will cause ddms to output
-              the flags passed to ddms and
+    flags :   This will cause rig to output
+              the flags passed to rig and
               their arguments.
 
-    options : This will cause ddms to output
-              any options passed to ddms,
+    options : This will cause rig to output
+              any options passed to rig,
               i.e, the arguments that were
               specified that are not
               associated with a flag.
 
               Note: The 'options' argument is
               provided for future use, at the
-              moment ddms does not accept any
+              moment rig does not accept any
               options, only flags and flag
               arguments.
 
 Examples:
 
-ddms --help --debug flags options
+rig --help --debug flags options
 
-ddms --start-server --debug flags
+rig --start-server --debug flags
 
-ddms --view-active-servers --debug options
+rig --view-active-servers --debug options

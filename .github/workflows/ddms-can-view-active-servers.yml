@@ -1,10 +1,10 @@
-name: ddms can view active development servers
+name: rig can view active development servers
 
 on:
   push:
-    branches: [ ddms ]
+    branches: [ rig ]
   pull_request:
-    branches: [ ddms ]
+    branches: [ rig ]
 
 jobs:
   build:
@@ -29,11 +29,11 @@ jobs:
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
 
-    - name: Add ddms to $PATH
+    - name: Add rig to $PATH
       run: echo "$(pwd)/bin" >> $GITHUB_PATH
       
-    - name: Run ddms --start-server
-      run: ddms --start-server
+    - name: Run rig --start-server
+      run: rig --start-server
       
-    - name: Run ddms --view-active-servers
-      run: ddms --view-active-servers
+    - name: Run rig --view-active-servers
+      run: rig --view-active-servers

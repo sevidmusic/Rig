@@ -3,8 +3,8 @@
 namespace tests\ui;
 
 use PHPUnit\Framework\TestCase;
-use ddms\interfaces\ui\UserInterface;
-use ddms\abstractions\ui\AbstractUserInterface;
+use rig\interfaces\ui\UserInterface;
+use rig\abstractions\ui\AbstractUserInterface;
 
 final class AbstractUserInterfaceTest extends TestCase
 {

@@ -3,13 +3,13 @@
 namespace tests\command;
 
 use PHPUnit\Framework\TestCase;
-use ddms\classes\command\NewRequest;
-use ddms\classes\command\NewResponse;
-use ddms\classes\command\NewOutputComponent;
-use ddms\classes\command\NewDynamicOutputComponent;
-use ddms\classes\command\AssignToResponse;
-use ddms\classes\ui\CommandLineUI;
-use ddms\interfaces\ui\UserInterface;
+use rig\classes\command\NewRequest;
+use rig\classes\command\NewResponse;
+use rig\classes\command\NewOutputComponent;
+use rig\classes\command\NewDynamicOutputComponent;
+use rig\classes\command\AssignToResponse;
+use rig\classes\ui\CommandLineUI;
+use rig\interfaces\ui\UserInterface;
 use \RuntimeException;
 use tests\traits\TestsCreateApps;
 

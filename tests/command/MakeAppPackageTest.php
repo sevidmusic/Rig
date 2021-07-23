@@ -3,9 +3,9 @@
 namespace tests\command;
 
 use PHPUnit\Framework\TestCase;
-use ddms\classes\command\MakeAppPackage;
-use ddms\classes\ui\CommandLineUI;
-use ddms\interfaces\ui\UserInterface;
+use rig\classes\command\MakeAppPackage;
+use rig\classes\ui\CommandLineUI;
+use rig\interfaces\ui\UserInterface;
 use tests\traits\TestsCreateApps;
 use \RuntimeException;
 
@@ -48,13 +48,13 @@ final class MakeAppPackageTest extends TestCase
         $makeAppPackage->run(new CommandLineUI(), $preparedArguments);
     }
 
-    public function testRunThrowsRuntimeExceptionIfSpecifiedPathIncludesA_make_sh_FileThatDoesNotDefineExactlyOneCallTo_ddms_new_app(): void
+    public function testRunThrowsRuntimeExceptionIfSpecifiedPathIncludesA_make_sh_FileThatDoesNotDefineExactlyOneCallTo_rig_new_app(): void
     {
         $makeAppPackage = new MakeAppPackage();
         $preparedArguments = $makeAppPackage->prepareArguments(
             [
                 '--path',
-                $this->pathToInvalidAppPackage_InvalidNumberOfCallsToDdmsNewApp()
+                $this->pathToInvalidAppPackage_InvalidNumberOfCallsToRigNewApp()
             ]
         );
         $this->expectException(RuntimeException::class);
@@ -74,13 +74,13 @@ final class MakeAppPackageTest extends TestCase
         $makeAppPackage->run(new CommandLineUI(), $preparedArguments);
     }
 
-    public function testRunThrowsRuntimeExceptionIfSpecifiedPathIncludesA_make_sh_WhoseCallToDdmsNewAppUsesANameThatDoesNotMatchTheAppPackagesName(): void
+    public function testRunThrowsRuntimeExceptionIfSpecifiedPathIncludesA_make_sh_WhoseCallToRigNewAppUsesANameThatDoesNotMatchTheAppPackagesName(): void
     {
         $makeAppPackage = new MakeAppPackage();
         $preparedArguments = $makeAppPackage->prepareArguments(
             [
                 '--path',
-                $this->pathToAppPackageWhoseMakeShCallToDdmsNewAppUsesWrongName()
+                $this->pathToAppPackageWhoseMakeShCallToRigNewAppUsesWrongName()
             ]
         );
         $this->expectException(RuntimeException::class);
@@ -107,7 +107,7 @@ final class MakeAppPackageTest extends TestCase
         $this->assertEquals(
             $modifiedContent,
             file_get_contents($expectedFilePathInApp),
-            'ddms --make-app-package MUST always copy all files and directories defined by the App Package to the new App even if the file or directory was already created for the new App.'
+            'rig --make-app-package MUST always copy all files and directories defined by the App Package to the new App even if the file or directory was already created for the new App.'
         );
     }
 
@@ -140,27 +140,27 @@ final class MakeAppPackageTest extends TestCase
         $makeAppPackage->run(new CommandLineUI(), $preparedArguments);
         $this->assertTrue(
             file_exists($this->expectedNewAppPath($preparedArguments)),
-            'ddms --make-app-package MUST make an App when run, a new App should have been created at ' . $this->expectedNewAppPath($preparedArguments)
+            'rig --make-app-package MUST make an App when run, a new App should have been created at ' . $this->expectedNewAppPath($preparedArguments)
         );
         $this->assertTrue(
             file_exists($this->expectedNewAppPath($preparedArguments) . DIRECTORY_SEPARATOR . 'Components.php'),
-            'ddms --make-app-package MUST make an App when run, a Components.php file should have been created for the new App at ' . $this->expectedNewAppPath($preparedArguments) . DIRECTORY_SEPARATOR . 'Components.php'
+            'rig --make-app-package MUST make an App when run, a Components.php file should have been created for the new App at ' . $this->expectedNewAppPath($preparedArguments) . DIRECTORY_SEPARATOR . 'Components.php'
         );
         $this->assertTrue(
             file_exists($this->expectedNewAppPath($preparedArguments) . DIRECTORY_SEPARATOR . 'css'),
-            'ddms --make-app-package MUST make an App when run, a css directory should have been created for the new App at ' . $this->expectedNewAppPath($preparedArguments) . DIRECTORY_SEPARATOR . 'css'
+            'rig --make-app-package MUST make an App when run, a css directory should have been created for the new App at ' . $this->expectedNewAppPath($preparedArguments) . DIRECTORY_SEPARATOR . 'css'
         );
         $this->assertTrue(
             file_exists($this->expectedNewAppPath($preparedArguments) . DIRECTORY_SEPARATOR . 'js'),
-            'ddms --make-app-package MUST make an App when run, a js directory should have been created for the new App at ' . $this->expectedNewAppPath($preparedArguments) . DIRECTORY_SEPARATOR . 'js'
+            'rig --make-app-package MUST make an App when run, a js directory should have been created for the new App at ' . $this->expectedNewAppPath($preparedArguments) . DIRECTORY_SEPARATOR . 'js'
         );
         $this->assertTrue(
             file_exists($this->expectedNewAppPath($preparedArguments) . DIRECTORY_SEPARATOR . 'resources'),
-            'ddms --make-app-package MUST make an App when run, a resources directory should have been created for the new App at ' . $this->expectedNewAppPath($preparedArguments) . DIRECTORY_SEPARATOR . 'resources'
+            'rig --make-app-package MUST make an App when run, a resources directory should have been created for the new App at ' . $this->expectedNewAppPath($preparedArguments) . DIRECTORY_SEPARATOR . 'resources'
         );
         $this->assertTrue(
             file_exists($this->expectedNewAppPath($preparedArguments) . DIRECTORY_SEPARATOR . 'DynamicOutput'),
-            'ddms --make-app-package MUST make an App when run, a DynamicOutput directory should have been created for the new App at ' . $this->expectedNewAppPath($preparedArguments) . DIRECTORY_SEPARATOR . 'DynamicOutput'
+            'rig --make-app-package MUST make an App when run, a DynamicOutput directory should have been created for the new App at ' . $this->expectedNewAppPath($preparedArguments) . DIRECTORY_SEPARATOR . 'DynamicOutput'
         );
     }
 
@@ -179,7 +179,7 @@ final class MakeAppPackageTest extends TestCase
         foreach($expectedFilePaths as $path) {
             $this->assertTrue(
                 file_exists($path),
-                'With the exception of files that end with extension .sh, ddms --make-app-package MUST copy all files and directories defined by the App Package to the new App. ' . PHP_EOL . 'The following file or directory should have been created: ' . PHP_EOL . PHP_EOL .'    ' . $path . PHP_EOL
+                'With the exception of files that end with extension .sh, rig --make-app-package MUST copy all files and directories defined by the App Package to the new App. ' . PHP_EOL . 'The following file or directory should have been created: ' . PHP_EOL . PHP_EOL .'    ' . $path . PHP_EOL
             );
         }
     }
@@ -244,20 +244,20 @@ final class MakeAppPackageTest extends TestCase
             realpath(
                 str_replace(
                     'tests' . DIRECTORY_SEPARATOR . 'command',
-                    'testAppPackages' . DIRECTORY_SEPARATOR . 'ddmsTestAppPackageValidMakeSh',
+                    'testAppPackages' . DIRECTORY_SEPARATOR . 'rigTestAppPackageValidMakeSh',
                     __DIR__
                 )
             )
         );
     }
 
-    private function pathToAppPackageWhoseMakeShCallToDdmsNewAppUsesWrongName(): string
+    private function pathToAppPackageWhoseMakeShCallToRigNewAppUsesWrongName(): string
     {
         return strval(
             realpath(
                 str_replace(
                     'tests' . DIRECTORY_SEPARATOR . 'command',
-                    'testAppPackages' . DIRECTORY_SEPARATOR . 'ddmsTestAppPackageInValidMakeShWrongName',
+                    'testAppPackages' . DIRECTORY_SEPARATOR . 'rigTestAppPackageInValidMakeShWrongName',
                     __DIR__
                 )
             )
@@ -270,16 +270,16 @@ final class MakeAppPackageTest extends TestCase
             realpath(
                 str_replace(
                     'tests' . DIRECTORY_SEPARATOR . 'command',
-                    'testAppPackages' . DIRECTORY_SEPARATOR . 'ddmsTestAppPackageInValidMakeShNotExecutable',
+                    'testAppPackages' . DIRECTORY_SEPARATOR . 'rigTestAppPackageInValidMakeShNotExecutable',
                     __DIR__
                 )
             )
         );
     }
 
-    private function pathToInvalidAppPackage_InvalidNumberOfCallsToDdmsNewApp(): string
+    private function pathToInvalidAppPackage_InvalidNumberOfCallsToRigNewApp(): string
     {
-        $invalidPackageNames = ['ddmsTestAppPackageInValidMakeShMultiCallNewApp', 'ddmsTestAppPackageInValidMakeShSingleCallNewApp'];
+        $invalidPackageNames = ['rigTestAppPackageInValidMakeShMultiCallNewApp', 'rigTestAppPackageInValidMakeShSingleCallNewApp'];
         return strval(
             realpath(
                 str_replace(

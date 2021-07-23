@@ -2,9 +2,9 @@ name: phpstan
 
 on:
   push:
-    branches: [ ddms ]
+    branches: [ rig ]
   pull_request:
-    branches: [ ddms ]
+    branches: [ rig ]
 
 jobs:
   build:
@@ -30,4 +30,4 @@ jobs:
       run: composer install --prefer-dist --no-progress
  
     - name: Run phpstan tests
-      run: ./vendor/bin/phpstan analyze --level 8 ./ddms ./tests ./bin
+      run: ./vendor/bin/phpstan analyze --level 8 ./rig ./tests ./bin

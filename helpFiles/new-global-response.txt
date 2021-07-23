@@ -1,4 +1,4 @@
-ddms --new-global-response --for-app --name [--position]
+rig --new-global-response --for-app --name [--position]
 
 Description:
 
@@ -27,7 +27,7 @@ Flags:
 
              For example:
 
-                 ddms --new-global-response \
+                 rig --new-global-response \
                  --for-app foo \
                  --name 'Spaces & Bad Chars'
 
@@ -35,7 +35,7 @@ Flags:
 
                  Spaces
 
-             It is also possible that ddms will refuse to configure the
+             It is also possible that rig will refuse to configure the
              GlobalResponse if an alphanumeric name cannot be derived from a name
              that contains spaces or non-alphanumeric characters. This may happen,
              for instance, if the specified name starts with a non-alphanumeric
@@ -48,7 +48,7 @@ Flags:
 
 Examples:
 
-ddms --new-global-response --for-app Foo --name Bar
+rig --new-global-response --for-app Foo --name Bar
 
-ddms --new-global-response --for-app Foo --name Baz --position 3.5
+rig --new-global-response --for-app Foo --name Baz --position 3.5
 

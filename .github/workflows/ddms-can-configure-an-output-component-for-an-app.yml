@@ -1,10 +1,10 @@
-name: ddms can configure an OutputComponent for an App
+name: rig can configure an OutputComponent for an App
 
 on:
   push:
-    branches: [ ddms ]
+    branches: [ rig ]
   pull_request:
-    branches: [ ddms ]
+    branches: [ rig ]
 
 jobs:
   build:
@@ -29,11 +29,11 @@ jobs:
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
       
-    - name: Add ddms to $PATH
+    - name: Add rig to $PATH
       run: echo "$(pwd)/bin" >> $GITHUB_PATH
 
-    - name: Run ddms --new-app --name Foo
-      run: ddms --new-app --name Foo
+    - name: Run rig --new-app --name Foo
+      run: rig --new-app --name Foo
     
-    - name: Run ddms --new-output-component --for-app Foo --name Bar --output Baz
-      run: ddms --new-output-component --for-app Foo --name Bar --output Baz
+    - name: Run rig --new-output-component --for-app Foo --name Bar --output Baz
+      run: rig --new-output-component --for-app Foo --name Bar --output Baz

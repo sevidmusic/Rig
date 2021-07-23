@@ -3,5 +3,5 @@
 
 set -o posix
 
-ddms --new-app --name _NAME_ --domain "_DOMAIN_"
+rig --new-app --name _NAME_ --domain "_DOMAIN_"
 
