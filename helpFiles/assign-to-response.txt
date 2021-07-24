@@ -4,8 +4,8 @@ rig --assign-to-response --for-app --response [--dynamic-output-components]
 Description:
 
 Assign one or more Requests, OutputComponents, or DynamicOutputComponents to an
-existing Response or GlobalResponse for an existing Darling Data Management
-System App.
+existing Response or GlobalResponse for an existing Roady
+App.
 
 Flags:
 

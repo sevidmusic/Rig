@@ -35,7 +35,7 @@ abstract class AbstractCommand implements Command
      */
     private function determineDefaultAppsDirectoryPath(array $flags): string
     {
-        $expectedDarlingDMSAppsDirectory = strval(
+        $expectedRoadyAppsDirectory = strval(
             realpath(
                 str_replace(
                     'vendor' . DIRECTORY_SEPARATOR . 'darling' . DIRECTORY_SEPARATOR . 'rig' . DIRECTORY_SEPARATOR . 'rig' . DIRECTORY_SEPARATOR . 'abstractions' . DIRECTORY_SEPARATOR .  'command',
@@ -44,8 +44,8 @@ abstract class AbstractCommand implements Command
             )
         );
         $rigTmpDirectoryPath = strval(realpath(str_replace('rig' . DIRECTORY_SEPARATOR . 'abstractions' . DIRECTORY_SEPARATOR . 'command', 'tmp', __DIR__)));
-        if(!in_array('path-to-apps-directory', array_keys($flags)) && substr($expectedDarlingDMSAppsDirectory, -4, 4) === 'Apps' && file_exists($expectedDarlingDMSAppsDirectory) && is_dir($expectedDarlingDMSAppsDirectory)) {
-            return $expectedDarlingDMSAppsDirectory;
+        if(!in_array('path-to-apps-directory', array_keys($flags)) && substr($expectedRoadyAppsDirectory, -4, 4) === 'Apps' && file_exists($expectedRoadyAppsDirectory) && is_dir($expectedRoadyAppsDirectory)) {
+            return $expectedRoadyAppsDirectory;
         }
         return $rigTmpDirectoryPath;
     }

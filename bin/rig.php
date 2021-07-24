@@ -1,9 +1,9 @@
 <?php
 
-$darlingDataManagementSystemAutoloader = strval(realpath(str_replace('darling' . DIRECTORY_SEPARATOR . 'rig' . DIRECTORY_SEPARATOR . 'bin', '', __DIR__) . DIRECTORY_SEPARATOR . 'autoload.php'));
+$roadyAutoloader = strval(realpath(str_replace('darling' . DIRECTORY_SEPARATOR . 'rig' . DIRECTORY_SEPARATOR . 'bin', '', __DIR__) . DIRECTORY_SEPARATOR . 'autoload.php'));
 $standaloneAutoloader = strval(realpath(str_replace('bin', '', __DIR__) . DIRECTORY_SEPARATOR . 'vendor/autoload.php'));
-if(file_exists($darlingDataManagementSystemAutoloader)) {
-    require $darlingDataManagementSystemAutoloader;
+if(file_exists($roadyAutoloader)) {
+    require $roadyAutoloader;
 } else {
     require $standaloneAutoloader;
 }

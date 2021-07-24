@@ -2,8 +2,8 @@
 
 /** _NAME_.php */
 
-use DarlingDataManagementSystem\classes\component\OutputComponent;
-use DarlingDataManagementSystem\classes\component\DynamicOutputComponent;
+use roady\classes\component\OutputComponent;
+use roady\classes\component\DynamicOutputComponent;
 
 $appComponentsFactory->buildGlobalResponse(
     '_NAME_',

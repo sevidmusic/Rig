@@ -1,7 +1,7 @@
 The tmp/ directory is used by rig in circumstances when an appropriate directory
 path cannot be determined.
 
-For example, if `rig --new-app` is run and the path to the DarlingDataManagmentSystem's
+For example, if `rig --new-app` is run and the path to roady's
 Apps directory cannot be determined, the new App will be created in the tmp/ directory.
 
 If you find this directory is populated by rig, it means that one of the following

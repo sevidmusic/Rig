@@ -1,6 +1,6 @@
 {
     "name": "darling/rig",
-    "description": "Command line utility designed to aide in development with the Darling Data Management System",
+    "description": "Command line utility designed to aide in development with Roady",
     "type": "command-line-utility",
     "license": "MIT",
     "authors": [
