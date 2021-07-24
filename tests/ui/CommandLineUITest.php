@@ -72,11 +72,12 @@ final class CommandLineUITest extends TestCase
     {
         return
         "
-  \e[0m\e[94m    _    _\e[0m
-  \e[0m\e[93m __| |__| |_ __  ___\e[0m
-  \e[0m\e[94m/ _` / _` | '  \(_-<\e[0m
-  \e[0m\e[91m\__,_\__,_|_|_|_/__/\e[0m
-  \e[0m\e[105m\e[30m  v1.1.4 \e[0m\e[0m\e[101m\e[30m  " . date('h:i:s A') . "  \e[0m" . PHP_EOL . PHP_EOL;
+  \e[0m\e[94m       _)  \e[0m
+  \e[0m\e[95m    __| |  _` |  \e[0m
+  \e[0m\e[93m   |    | (   |  \e[0m
+  \e[0m\e[96m  _|   _|\__, |  \e[0m
+  \e[0m\e[92m         |___/  \e[0m
+  \e[0m\e[105m\e[30m  v1.2.1 \e[0m\e[0m\e[101m\e[30m  " . date('h:i:s A') . "  \e[0m" . PHP_EOL . PHP_EOL;
     }
 
 }
