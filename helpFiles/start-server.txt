@@ -10,14 +10,14 @@ WARNING: Do not use php's built in server in production, it is meant for
 
          https://www.php.net/manual/en/features.commandline.webserver.php
 
-Once a sever is started, it can be used to run one or more Darling Data
-Management System Apps locally by building the Apps to run for a domain that
+Once a sever is started, it can be used to run one or more Roady
+Apps locally by building the Apps to run for a domain that
 corresponds to a running development server instance's url.
 
 For example, to run an existing App named Foo locally on http://localhost:8080:
 
     # Build the App for the domain 'http://localhost:8080'
-    php /path/to/DarlingDataManagementSystem/Apps/Foo/Components.php 'http://localhost:8080'
+    php /path/to/roady/Apps/Foo/Components.php 'http://localhost:8080'
 
     # Start a local development server on port 8080
     rig --start-server --port 8080
@@ -41,11 +41,11 @@ Flags:
                       Defaults to the directory above --path-to-apps-directory.
                       For example, if --path-to-apps-directory is:
 
-                          $HOME/DarlingDataManagementSystem/Apps
+                          $HOME/roady/Apps
 
                       Then default --root-dir will be:
 
-                          $HOME/DarlingDataManagementSystem
+                          $HOME/roady
 
                       If the --path-to-apps-directory is:
 

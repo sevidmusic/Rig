@@ -72,11 +72,11 @@ Flags:
 
                              Note: If the --shared flag is specified, then the
                              file will be created or expected to exist in
-                             the Darling Data Management System's
+                             Roady's
                              SharedDynamicOutput directory instead of in the
                              App's DynamicOutput directory.
 
-                             Note: The path to the Darling Data Management System
+                             Note: The path to Roady
                              SharedDynamicOutput directory will correspond to the
                              following path relative to the path assigned to the
                              --path-to-apps-directory flag:

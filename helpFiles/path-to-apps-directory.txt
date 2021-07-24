@@ -1,7 +1,7 @@
 [--path-to-apps-directory]
 
 This flag can be used in conjunction with other rig flags to manually set the
-Darling Data Management Apps directory path used by rig to an alternative
+Roady Apps directory path used by rig to an alternative
 Apps directory path.
 
 Typically it is not necessary to specify this flag. rig will attempt to locate

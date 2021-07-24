@@ -2,13 +2,13 @@ rig --new-app --name [--domain]
 
 Description:
 
-Creates a new Darling Data Management System App. The new App will be created at
+Creates a new Roady App. The new App will be created at
 the path that corresponds to the value assigned to the --path-to-apps-directory
 flag.
 
 For example, if the --path-to-apps-directory flag is assigned the path:
 
-    /path/to/DarlingDataManagementSystem/Apps
+    /path/to/roady/Apps
 
 Then:
 
@@ -16,7 +16,7 @@ Then:
 
 Would create the new Foo App at:
 
-    /path/to/DarlingDataManagementSystem/Apps/Foo
+    /path/to/roady/Apps/Foo
 
 Note: You do not need to explicitly set the --path-to-apps-directory unless you
 intend to use an alternative Apps directory. The --path-to-apps-directory flag's
@@ -61,7 +61,7 @@ Flags:
                              of the domain or you may run into issues. This is
                              a bug, and it is being addressed. See issue #193:
 
-                             https://github.com/sevidmusic/DarlingDataManagementSystem/issues/193
+                             https://github.com/sevidmusic/roady/issues/193
 
 Examples:
 

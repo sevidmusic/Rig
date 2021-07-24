@@ -8,7 +8,7 @@ rig [--assign-to-response] [--configure-app-output] [--path-to-apps-directory]
 Description:
 
 rig is a command line utility designed to aide in the development process
-with the Darling Data Management System. rig provides a number of flags
+with Roady. rig provides a number of flags
 that can be used to perform common development tasks.
 
 
@@ -17,7 +17,7 @@ Flags:
 [--assign-to-response]              Assign one or more Requests, OutputComponents,
                                     or DynamicOutputComponents to an existing
                                     Response or GlobalResponse for an existing
-                                    Darling Data Management System App.
+                                    Roady App.
 
 [--configure-app-output]            Configure output for a specified App to
                                     show up in response to specified Requests.
@@ -25,7 +25,7 @@ Flags:
                                     Note: If the specified App does not exist
                                     it will be created.
 
-[--path-to-apps-directory]          The path to the Darling Data Management Apps
+[--path-to-apps-directory]          The path to Roady Apps
                                     directory, or an alternative directory.
 
                                     If not specified, rig will attempt to locate
@@ -100,28 +100,28 @@ Flags:
 
                                         rig --help --new-app
 
-[--make-app-package]                Make an App Package into a Darling Data
-                                    Management System App.
+[--make-app-package]                Make an App Package into a Roady
+                                    App.
 
 [--new-app-package]                 Create a new app package.
 
-[--new-app]                         Create a new Darling Data Management System
+[--new-app]                         Create a new Roady
                                     App.
 
 [--new-dynamic-output-component]    Configure a new DynamicOutputComponent for a
-                                    Darling Data Management System App.
+                                    Roady App.
 
-[--new-global-response]             Configure a new GlobalResponse for a Darling
-                                    Data Management System App.
+[--new-global-response]             Configure a new GlobalResponse for a Roady
+                                    App.
 
-[--new-output-component]            Configure a new OutputComponent for a Darling
-                                    Data Management System App.
+[--new-output-component]            Configure a new OutputComponent for a Roady
+                                    App.
 
-[--new-request]                     Configure a new Request for a Darling Data
-                                    Management System App.
+[--new-request]                     Configure a new Request for a Roady
+                                    App.
 
-[--new-response]                    Configure a new Response for a Darling Data
-                                    Management System App.
+[--new-response]                    Configure a new Response for a Roady
+                                    App.
 
 [--start-server]                    Start a development server.
 
@@ -193,7 +193,7 @@ rig --help --start-server
 rig --help view-active-servers
 rig --help --view-active-servers
 
-Documentation for rig and the Darling Data Management System can be found at:
+Documentation for rig and Roady can be found at:
 
   https://darlingdata.tech
 
@@ -201,16 +201,16 @@ rig is available on GitHub:
 
   https://github.com/sevidmusic/rig
 
-The Darling Data Management System is available on GitHub:
+Roady is available on GitHub:
 
-  https://github.com/sevidmusic/DarlingDataManagementSystem
+  https://github.com/sevidmusic/roady
 
-A repo of supported App Packages that can be made into Darling Data Management
-System Apps via rig --make-app-package is available on GitHub:
+A repo of supported App Packages that can be made into Roady
+Apps via rig --make-app-package is available on GitHub:
 
   https://github.com/sevidmusic/rigAppPackages
 
-The Darling Data Managment System, the rig command line utility, and
+Roady, the rig command line utility, and
 rigAppPackages are all licensed under the MIT license.
 
 MIT License

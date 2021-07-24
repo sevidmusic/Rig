@@ -2,9 +2,9 @@
 
 /** _NAME_.php */
 
-use DarlingDataManagementSystem\classes\component\OutputComponent;
-use DarlingDataManagementSystem\classes\component\DynamicOutputComponent;
-use DarlingDataManagementSystem\classes\component\Web\Routing\Request;
+use roady\classes\component\OutputComponent;
+use roady\classes\component\DynamicOutputComponent;
+use roady\classes\component\Web\Routing\Request;
 
 $appComponentsFactory->buildResponse(
     '_NAME_',

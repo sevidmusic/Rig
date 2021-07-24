@@ -48,22 +48,22 @@ final class AbstractCommandTest extends TestCase
         );
     }
 
-    private function determineExpectedDarlingDMSAppsDirectory(): string
+    private function determineExpectedRoadyAppsDirectory(): string
     {
-        // This path is used if rig is istalled  inside the DarlingDataManagementSystem's vendor directory, or mock vendor directory.
-        $expectedDarlingDMSAppsDirectory = strval(realpath(str_replace('vendor' . DIRECTORY_SEPARATOR . 'darling' . DIRECTORY_SEPARATOR . 'rig' . DIRECTORY_SEPARATOR . 'tests' . DIRECTORY_SEPARATOR .  'command', 'Apps', __DIR__)));
-        if(substr($expectedDarlingDMSAppsDirectory, -4, 4) === 'Apps' && file_exists($expectedDarlingDMSAppsDirectory) && is_dir($expectedDarlingDMSAppsDirectory)) {
-            return $expectedDarlingDMSAppsDirectory;
+        // This path is used if rig is istalled  inside roady's vendor directory, or mock vendor directory.
+        $expectedRoadyAppsDirectory = strval(realpath(str_replace('vendor' . DIRECTORY_SEPARATOR . 'darling' . DIRECTORY_SEPARATOR . 'rig' . DIRECTORY_SEPARATOR . 'tests' . DIRECTORY_SEPARATOR .  'command', 'Apps', __DIR__)));
+        if(substr($expectedRoadyAppsDirectory, -4, 4) === 'Apps' && file_exists($expectedRoadyAppsDirectory) && is_dir($expectedRoadyAppsDirectory)) {
+            return $expectedRoadyAppsDirectory;
         }
-        // This path is used if rig is not installed inside the DarlingDataManagementSystem's vendor directory, or mock vendor directory.
+        // This path is used if rig is not installed inside roady's vendor directory, or mock vendor directory.
         return strval(realpath(str_replace('tests' . DIRECTORY_SEPARATOR . 'command', 'tmp', __DIR__)));
     }
 
-    public function testPrepareArgumentsReturnsArrayWhose_rig_apps_directory_path_FlagsFirstArgumentIsAssignedPathToExpectedDarlingDataManagementSystemAppsDirectoryOr_rig_tmp_DirectoryIf_rig_apps_directory_path_FlagIsNotSpecified(): void
+    public function testPrepareArgumentsReturnsArrayWhose_rig_apps_directory_path_FlagsFirstArgumentIsAssignedPathToExpectedroadyAppsDirectoryOr_rig_tmp_DirectoryIf_rig_apps_directory_path_FlagIsNotSpecified(): void
     {
-        $expectedDarlingDMSAppsDirectory = $this->determineExpectedDarlingDMSAppsDirectory();
+        $expectedRoadyAppsDirectory = $this->determineExpectedRoadyAppsDirectory();
         $this->assertEquals(
-            $expectedDarlingDMSAppsDirectory,
+            $expectedRoadyAppsDirectory,
             $this->getMockCommand()->prepareArguments([])['flags']['path-to-apps-directory'][0]
         );
     }

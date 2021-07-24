@@ -1,6 +1,6 @@
 # rig
 
-Command line utility designed to aide in development with the Darling Data Management System
+Command line utility designed to aide in development with Roady
 
 To install run:
 
