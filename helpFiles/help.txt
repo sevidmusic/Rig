@@ -20,7 +20,7 @@
   installation.
 
   rig's executable should exist at the following path relative to the relevant
-  Roady's root directory:
+  Roady installation's root directory:
 
       ./vendor/darling/rig/bin/rig
 
@@ -35,7 +35,8 @@
 
   [--configure-app-output]            Configure output for a specified Roady App
                                       to show up in response to specified
-                                      requests.
+                                      requests to any domain the App is built
+                                      for.
 
                                       Note: If the specified App does not exist
                                       it will be created.
@@ -164,7 +165,7 @@
   [--view-active-servers]             Show active development servers.
 
 
-  rig --help Examples:
+  Examples:
 
   rig --help
 

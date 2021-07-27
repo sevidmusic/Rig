@@ -1,89 +1,147 @@
-rig --configure-app-output --for-app --name --output --output-source-file
-     [--global] [--output-position] [--relative-urls] [--response-position]
-     [--static]
+  rig --configure-app-output --for-app --name --output --output-source-file
+       [--global] [--output-position] [--relative-urls] [--response-position]
+       [--static]
 
-Description:
+  Description:
 
-Configure output for a specified App to show up in response to specified Requests.
-Note: If the specified App does not exist it will be created.
+  Configure output for a specified App to show up in response to specified
+  requests to any domain the App is built for.
 
-Flags:
+  Note: If the specified App does not exist it will be created.
 
---for-app             The name of the App to configure the output for.
+  The App is expected to exist, or will be created, at the path that corresponds
+  to the path assigned to the --path-to-apps-directory flag.
 
---name                The name used to determine the names to assign to the
-                      components that will be configured for the output.
+  For more information about the --path-to-apps-directory flag use:
 
-                      WARNING: The specified --name MUST be unique. If any of the
-                      names that would be assigned to the one of the Components
-                      to be configured for the output would conflict with the
-                      name of an existing Component then the output will not be
-                      configured. This is to prevent existing Components from
-                      being replaced by mistake.
+  rig --help path-to-apps-directory
 
---output              The output to assign. This flag is required unless the
-                      --output-source-file flag is specified.
 
-                      WARNING: This flag will be ignored if specified in
-                      conjunction with the --output-source-file flag.
+  Flags:
 
---output-source-file  The path to the file whose contents will be assigned as the
-                      output. This flag is requried unless the --output flag is
-                      specified.
+  --for-app             The name of the App to configure the output for.
 
-                      WARNING: If both the --output and --output-source-file
-                      flags are specified the --output-source-file's contents
-                      will be assigned as the output, and the --output flag will
-                      be ignored.
+                        WARNING: The specified App name must be alphanumeric or
+                        rig will refuse to configure the output.
 
-[--global]            If specifed, the output will served in response to all
-                      Requests to any domain the App is built for. This causes
-                      rig to configure a GlobalResponse to serve the output
-                      instead of a Response.
+                        WARNING: If the specified App name contains spaces, only
+                        the alphanumeric characters up to the first space will be
+                        used. For example:
 
-[--output-position]   The position to assign to the DynamicOutputComponent or
-                      OutputComponent that will be configured for the output.
-                      This position will be used to sort the output relative to
-                      other output that is being served by the same Response
-                      or GlobalResponse.
+                            rig --configure-app-output \
+                            --for-app 'Spaces In Alphanumeric Name' \
+                            --name Bar \
+                            --output '<p>Hello World</p>'
 
-[--relative-urls]     The relative urls the output should be served in response
-                      to. Thes urls are defined relative to a domain.
+                        Would configure output for an App named:
 
-                      For example, to configure the output to show up in response
-                      to requests to the domain's root, the relative url '/'
-                      could be specified.
+                            Spaces
 
-                      Another example, to configure the output to be served in
-                      response to a request named "Homepage" the relative url
-                      '?request=Homepage' or 'index.php?request=Homepage' could
-                      be defined.
+  --name                The name used to determine the names to assign to the
+                        components that will be configured for the output.
 
-[--response-position] The position to assign to the Response or GlobalResponse
-                      that will be configured for the output. This position is
-                      used to sort the Response or GlobalResponse configured for
-                      the output relative to other Responses and GlobalResponses
-                      that respond to the same Request.
+                        WARNING: The specified name must be alphanumeric or rig
+                        will refuse to configure the output.
 
-[--static]            If specified, an OutputComponent will be configured for the
-                      output instead of a DynamicOutputComponent.
+                        WARNING: If the specified name contains spaces, only the
+                        alphanumeric characters up to the first space will be
+                        used. For example:
 
-                      This means the output will be defined in a OutputComponent
-                      configuration file in the App's OutputComponents directory
-                      instead of in a file in the App's DynamicOutput directory.
+                            rig --configure-app-output \
+                            --for-app Foo \
+                            --name 'Spaces In Alphanumeric Name' \
+                            --output '<p>Hello World</p>'
 
-Examples:
+                        Would result in the derived name:
 
-rig --configure-app-output \
---for-app Foo \
---name Bar \
---output '<p>Hello Universe</p>' \
---relative-urls './' 'index.php' 'index.php?request=BarBaz' \
---static
+                            Spaces
 
-rig --configure-app-output \
---for-app Foo \
---name Bar \
---output-source-file /path/to/output/source/file \
---global
+  --output              The output to assign. This flag is required unless the
+                        --output-source-file flag is specified.
+
+                        WARNING: This flag will be ignored if specified in
+                        conjunction with the --output-source-file flag.
+
+  --output-source-file  The path to the file whose contents will be assigned as
+                        the output. This flag is required unless the --output
+                        flag is specified.
+
+                        WARNING: If both the --output and --output-source-file
+                        flags are specified the --output-source-file's contents
+                        will be assigned as the output, and the --output flag
+                        will be ignored.
+
+  [--global]            If specified, the output will served in response to all
+                        Requests to any domain the App is built for. This causes
+                        rig to configure a GlobalResponse to serve the output
+                        instead of a Response.
+
+  [--output-position]   The position to assign to the DynamicOutputComponent or
+                        OutputComponent that will be configured for the output.
+                        This position will be used to sort the output relative to
+                        other output that is being served by the same Response
+                        or GlobalResponse.
+
+  [--relative-urls]     The relative urls the output should be served in response
+                        to. These urls are defined in relation to a domain.
+
+                        For example, to configure the output to show up in
+                        response to requests to a domain's root, the relative url
+                        '/' could be specified:
+
+                            rig --configure-app-output \
+                            --for-app Foo \
+                            --name Bar \
+                            --output '<p>Hello World</p>' \
+                            --relative-urls '/'
+
+                        Another example, to configure the output to be served in
+                        response to a request named "Homepage" the relative urls
+                        '?request=Homepage' and 'index.php?request=Homepage'
+                        could be defined:
+
+                            rig --configure-app-output \
+                            --for-app Foo \
+                            --name Bar \
+                            --output '<p>Hello World</p>' \
+                            --relative-urls \
+                            '?request=Homepage' \
+                            'index.php?request=Homepage'
+
+
+  [--response-position] The position to assign to the Response or GlobalResponse
+                        that will be configured for the output. This position is
+                        used to sort the Response or GlobalResponse configured
+                        for the output relative to other Responses and
+                        GlobalResponses that respond to the same request.
+
+  [--static]            If specified, an OutputComponent will be configured for
+                        the output instead of a DynamicOutputComponent.
+
+                        This means the output will be defined in a
+                        OutputComponent configuration file in the App's
+                        OutputComponents directory instead of in a file in the
+                        App's DynamicOutput directory.
+
+  Examples:
+
+
+  rig --configure-app-output \
+  --for-app Foo \
+  --name Bar \
+  --output '<p>Hello World</p>'
+
+  rig --configure-app-output \
+  --for-app Foo \
+  --name Baz \
+  --output '<p>Hello World</p>' \
+  --relative-urls '/' 'index.php' 'index.php?request=BarBaz' \
+  --static
+
+  rig --configure-app-output \
+  --for-app Foo \
+  --name Biz \
+  --output-source-file /path/to/output/source/file \
+  --global \
+  --response-position 3
 
