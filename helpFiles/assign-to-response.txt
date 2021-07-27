@@ -22,7 +22,7 @@
 
   --response                   Name of the target Response or GlobalResponse.
 
-                               Note: The Respnse or GlobalResponse must already
+                               Note: The Response or GlobalResponse must already
                                be defined by the specified App.
 
   --dynamic-output-components  Names of the DynamicOutputComponents to assign to

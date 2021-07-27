@@ -5,7 +5,7 @@
   Description:
 
   Configure output for a specified App to show up in response to specified
-  requests to any domain the App is built for.
+  requests to any domain that the App is built for.
 
   Note: If the specified App does not exist it will be created.
 
@@ -40,6 +40,16 @@
   --name                The name used to determine the names to assign to the
                         components that will be configured for the output.
 
+                        WARNING: The specified name must be unique or rig will
+                        refuse to configure the output.
+
+                        WARNING: The names rig would derive from the specified
+                        name must also be unique. If any of the names that rig
+                        derives from the specified name to assign to one of the
+                        Components configured for the output would conflict with
+                        the name of an existing Component rig will refuse to
+                        configure the output.
+
                         WARNING: The specified name must be alphanumeric or rig
                         will refuse to configure the output.
 
@@ -72,12 +82,13 @@
                         will be ignored.
 
   [--global]            If specified, the output will served in response to all
-                        Requests to any domain the App is built for. This causes
+                        requests to any domain the App is built for. This causes
                         rig to configure a GlobalResponse to serve the output
                         instead of a Response.
 
   [--output-position]   The position to assign to the DynamicOutputComponent or
                         OutputComponent that will be configured for the output.
+
                         This position will be used to sort the output relative to
                         other output that is being served by the same Response
                         or GlobalResponse.
@@ -96,9 +107,9 @@
                             --relative-urls '/'
 
                         Another example, to configure the output to be served in
-                        response to a request named "Homepage" the relative urls
-                        '?request=Homepage' and 'index.php?request=Homepage'
-                        could be defined:
+                        response to a request named "Homepage", and a request
+                        named "Home", the relative urls '?request=Homepage' and
+                        '?request=Home' could be defined:
 
                             rig --configure-app-output \
                             --for-app Foo \
@@ -106,8 +117,25 @@
                             --output '<p>Hello World</p>' \
                             --relative-urls \
                             '?request=Homepage' \
-                            'index.php?request=Homepage'
+                            '?request=Home'
 
+                        Regardless of whether or not any --relative-urls are
+                        specified, rig will always configure at least one Request
+                        whose assigned relative url will be:
+
+                            index.php?request=[--name]
+
+                        For example, the following:
+
+                            rig --configure-app-output \
+                            --for-app Bar \
+                            --name Baz \
+                            --output '<p>Hello World</p>'
+
+                        Would configure output for an App named Bar whose only
+                        configured Request would be assigned the relative url:
+
+                            index.php?request=Baz
 
   [--response-position] The position to assign to the Response or GlobalResponse
                         that will be configured for the output. This position is
@@ -143,5 +171,6 @@
   --name Biz \
   --output-source-file /path/to/output/source/file \
   --global \
-  --response-position 3
+  --response-position 3 \
+  --output-position 1
 
