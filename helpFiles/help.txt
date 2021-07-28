@@ -19,8 +19,8 @@
   are currently working with, or else rig may perform actions on the wrong Roady
   installation.
 
-  rig's executable should exist at the following path relative to the relevant
-  Roady installation's root directory:
+  rig's executable should be located at the following path relative to the
+  relevant Roady installation's root directory:
 
       ./vendor/darling/rig/bin/rig
 
@@ -61,7 +61,7 @@
 
                                       Note: Typically, you do not need to specify
                                       the --path-to-apps-directory flag since rig
-                                      will determine the appropriate path at
+                                      will determine an appropriate path at
                                       runtime.
 
                                       The only reason to use this flag is if you

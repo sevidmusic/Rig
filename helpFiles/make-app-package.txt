@@ -16,7 +16,9 @@
 
   WARNING: If an App whose name matches the name of the App to be made already
   exists at the path where the new App will be made, the original App will be
-  replaced! Be careful with this command, any directory whose name matches the
+  replaced!
+
+  WARNING: Be careful with this command, any directory whose name matches the
   specified --name that exists at the --path-to-apps-directory will be replaced
   by the newly made App.
 
@@ -35,9 +37,9 @@
 
   Note: With the exception of files ending in extension .sh, any files or
   directories that exist in the App Package will be copied to a corresponding
-  path in the new App.
+  path in the new App's directory.
 
-  For example, if an App package at /path/to/Foo contained a file at:
+  For example, if an App package at /path/to/Foo contains a file at:
 
       /path/to/Foo/css/styles.css
 
@@ -55,12 +57,14 @@
   --path The path to the App Package to make.
 
          WARNING: If the specified path is not valid, or the path specified does
-         not point to a directory that contains a valid rig make.sh, then the
-         App will not be made.
+         not point to a directory that contains a valid make.sh, then the App
+         will not be made.
 
          A valid make.sh is just a bash script that contains at least one call to
-         rig --new-app that assigns the App a name that matches the specified
-         --name. For example, a valid make.sh for an App named Foo may look like:
+         `rig --new-app` that specifies a --name that matches the App package's
+         directory name.
+
+         For example, a valid make.sh for an App package named Foo may look like:
 
              #!/bin/bash
 

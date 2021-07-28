@@ -18,7 +18,7 @@
                                For more information about the
                                --path-to-apps-directory flag use:
 
-                               rig --help path-to-apps-directory
+                                   rig --help path-to-apps-directory
 
   --response                   Name of the target Response or GlobalResponse.
 
