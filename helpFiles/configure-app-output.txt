@@ -12,7 +12,7 @@
   The App's root directory is expected to be located, or will be created, at the
   path that corresponds to the path assigned to the --path-to-apps-directory flag.
 
-  For example, if the --path-to-apps-directory flag's value is:
+  For example, if the value assigned to the --path-to-apps-directory flag is:
 
       /path/to/Roady/Apps
 
@@ -23,7 +23,8 @@
       --name Bar \
       --output Baz
 
-  Would configure output for an App named Foo, whose root directory path is:
+  Will configure the output Baz for an App named Foo, whose root directory
+  path is:
 
       /path/to/Roady/Apps/Foo
 
@@ -59,7 +60,7 @@
                             --name Bar \
                             --output Baz
 
-                        Would configure output for an App named:
+                        Will configure output for an App named:
 
                             Spaces
 
@@ -74,7 +75,7 @@
 
                         Then rig --configure-app-output will configure one
                         DynamicOutputComponent, one Response, and one Request for
-                        the output.
+                        the output that all are assigned the specified --name.
 
                         For example, if the Foo App does not exist, then the following:
 
@@ -116,7 +117,7 @@
                         WARNING: The names rig derives from the specified name
                         must also be unique. If any of the names that rig derives
                         from the specified name to assign to the Components
-                        configured for the output would conflict with the name of
+                        configured for the output will conflict with the name of
                         an existing Component rig will refuse to configure the
                         output.
 
@@ -130,14 +131,68 @@
                             rig --configure-app-output \
                             --for-app Foo \
                             --name 'Spaces In Alphanumeric Name' \
-                            --output '<p>Hello World</p>'
+                            --output Baz
 
-                        Would result in the derived name:
+                        Will result in the derived name:
 
                             Spaces
 
   --output              The output to assign. This flag is required unless the
                         --output-source-file flag is specified.
+
+                        Note: If the --static flag is not specified, the
+                        specified --output will be saved to a php file in the
+                        App's DynamicOutput directory whose name matches the
+                        specified --name.
+
+                        For example:
+
+                            rig --configure-app-output \
+                            --for-app Foo \
+                            --name Bar \
+                            --output Baz
+
+                        Will create a php file at the following path relative to
+                        the path assigned to the --path-to-apps-directory flag:
+
+                            ./Foo/DynamicOutput/Bar.php
+
+                        Whose contents will be:
+
+                            Baz
+
+                        Note: If the --static flag is specified, the specified
+                        --output will will be defined in a OutputComponent
+                        configuration file in the App's OutputComponents
+                        directory whose name matches the specified --name.
+
+                        For example:
+
+                            rig --configure-app-output \
+                            --for-app Foo \
+                            --name Bar \
+                            --output Baz \
+                            --static
+
+                        Will define the output in an OutputComponent
+                        configuration file at the following path relative to the
+                        path assigned to the --path-to-apps-directory flag:
+
+                            ./Foo/OutputComponents/Bar.php
+
+                        Whose contents will be:
+
+                            <?php
+
+                            /** Bar.php */
+
+                            $appComponentsFactory->buildOutputComponent(
+                                'Bar',
+                                'FooOutput',
+                                'Baz',
+                                0
+                            );
+
 
                         WARNING: This flag will be ignored if specified in
                         conjunction with the --output-source-file flag.
@@ -145,6 +200,24 @@
   --output-source-file  The path to the file whose contents will be assigned as
                         the output. This flag is required unless the --output
                         flag is specified.
+
+                        This flag is useful if you already have output defined in
+                        a file that you want to use.
+
+                        For example, say you had created a homepage.html file
+                        at the following path:
+
+                            ~/Documents/homepage.html
+
+                        The following will configure a DynamicOutputComponent
+                        named Bar for an App named Foo using the homepage.html
+                        file's contents as the output:
+
+                            rig configure-app-output \
+                            --for-app Foo \
+                            --name Bar \
+                            --output-source-file ~/Documents/homepage.html
+
 
                         WARNING: If both the --output and --output-source-file
                         flags are specified, the --output flag will be ignored.
@@ -166,12 +239,12 @@
                         other output that is being served by the same Response
                         or GlobalResponse.
 
-  [--relative-urls]     The relative urls the output should be served in response
+  [--relative-urls]     The relative urls the output shill be served in response
                         to. These urls are defined in relation to a domain.
 
                         For example, to configure the output to show up in
                         response to requests to a domain's root, the relative url
-                        '/' could be specified:
+                        '/' cill be specified:
 
                             rig --configure-app-output \
                             --for-app Foo \
@@ -182,7 +255,7 @@
                         Another example, to configure the output to be served in
                         response to a request named "Homepage", and a request
                         named "Home", the relative urls '?request=Homepage' and
-                        '?request=Home' could be defined:
+                        '?request=Home' cill be defined:
 
                             rig --configure-app-output \
                             --for-app Foo \
@@ -205,8 +278,8 @@
                             --name Bar \
                             --output '<p>Hello World</p>'
 
-                        Would configure output for an App named Foo whose only
-                        configured Request would be assigned the relative url:
+                        Will configure output for an App named Foo whose only
+                        configured Request will be assigned the relative url:
 
                             index.php?request=Bar
 
@@ -224,7 +297,7 @@
                             '?request=Homepage' \
                             '?request=Home'
 
-                        Would configure three Requests for the output at the
+                        Will configure three Requests for the output at the
                         following paths relative to the App's root directory:
 
                             ./Requests/Bar.php
