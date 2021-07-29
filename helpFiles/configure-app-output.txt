@@ -202,25 +202,28 @@
                         the output. This flag is required unless the --output
                         flag is specified.
 
-                        This flag is useful if you already have output defined in
-                        a file that you want to use.
+                        This flag is useful if you already have a file that you
+                        want to use to generate the output.
 
-                        For example, say you had already created a homepage.html
+                        For example, say you had already created a homepage.php
                         file at the following path:
 
-                            ~/Documents/homepage.html
+                            ~/Documents/homepage.php
 
-                        The following would configure a DynamicOutputComponent
-                        named Bar for an App named Foo using the homepage.html
-                        file's contents as the output:
+                        Whose contents was:
 
-                            rig configure-app-output \
+                            <p>Hello World</p>
+
+                        Then the following would configure output for an App
+                        named Foo using homepage.php as the source of the output:
+
+                            rig --configure-app-output \
                             --for-app Foo \
                             --name Bar \
-                            --output-source-file ~/Documents/homepage.html
+                            --output-source-file ~/Documents/homepage.php
 
-                        Note: If the --static flag is not specified, the
-                        specified --output-source-file's contents  will be saved
+                        Note: If the --static flag is not specified, then the
+                        specified --output-source-file's contents will be saved
                         to a php file in the App's DynamicOutput directory
                         whose name matches the specified --name.
 
@@ -229,19 +232,41 @@
                             rig --configure-app-output \
                             --for-app Foo \
                             --name Bar \
-                            --output-source-file ~/Documents/homepage.html
+                            --output-source-file ~/Documents/homepage.php
 
                         Will create a php file at the following path relative to
                         the path assigned to the --path-to-apps-directory flag:
 
                             ./Foo/DynamicOutput/Bar.php
 
-                        Whose contents will match the contents of:
+                        Whose contents will match the contents of the
+                        ~/Documents/homepage.php file:
 
-                            ~/Documents/homepage.php
+                            <p>Hello World</p>
+
+                        Additionally, if the --static flag is not specified, a
+                        DynamicOutputComponent configuration file will be created
+                        for the output at the following path relative to the
+                        path assigned to the --path-to-apps-directory flag.
+
+                            ./Foo/OutputComponents/Bar.php
+
+                        Whose contents will be:
+
+                            <?php
+
+                            /** Bar.php */
+
+                             $appComponentsFactory->buildDynamicOutputComponent(
+                                'Bar',
+                                'FooDynamicOutput',
+                                0,
+                                'Foo',
+                                'Bar.php'
+                            );
 
                         Note: If the --static flag is specified, the specified
-                        --output-source-file's content  will be defined in a
+                        --output-source-file's content will be defined in an
                         OutputComponent configuration file in the App's
                         OutputComponents directory whose name matches the
                         specified --name.
@@ -251,13 +276,13 @@
                             rig --configure-app-output \
                             --for-app Foo \
                             --name Bar \
-                            --output-source-file ~/Documents/homepage.html \
+                            --output-source-file ~/Documents/homepage.php \
                             --static
 
                         Will assign the contents of the homepage.php file as the
-                        defined output in in an OutputComponent configuration
-                        file at the following path relative to the path assigned
-                        to the --path-to-apps-directory flag:
+                        defined output in an OutputComponent configuration file
+                        named Bar.php at the following path relative to the path
+                        assigned to the --path-to-apps-directory flag:
 
                             ./Foo/OutputComponents/Bar.php
 
@@ -270,9 +295,11 @@
                             $appComponentsFactory->buildOutputComponent(
                                 'Bar',
                                 'FooOutput',
-                                'Baz',
+                                '<p>Hello World</p>
+                            ',
                                 0
                             );
+
 
                         WARNING: If both the --output and --output-source-file
                         flags are specified, the --output flag will be ignored.
