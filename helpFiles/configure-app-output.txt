@@ -351,7 +351,6 @@
 
                         Whose contents will be:
 
-
                             <?php
 
                             /** Bar.php */
@@ -421,10 +420,30 @@
                             --name Bar \
                             --output '<p>Hello World</p>'
 
-                        Will configure output for an App named Foo whose only
-                        configured Request will be assigned the relative url:
+                        Will configure the output <p>Hello World</p> for an App
+                        named Foo whose only configured Request will be assigned
+                        the relative url:
 
                             index.php?request=Bar
+
+                        This Request's configuration file will be named Bar.php,
+                        and will be located at the following path relative to the
+                        path assigned to the --path-to-apps-directory flag:
+
+                            ./Foo/Requests/Bar.php
+
+                        The Bar Request's configuration file's content will be:
+
+                            <?php
+
+                            /** Bar.php */
+
+                            $appComponentsFactory->buildRequest(
+                                'Bar',
+                                'FooRequests',
+                                $appComponentsFactory->getApp()->getAppDomain()->getUrl() . '/index.php?request=Bar',
+                            );
+
 
                         Note: If more than one relative url is specified, they
                         will be named using the specified --name appended with
@@ -441,11 +460,12 @@
                             '?request=Home'
 
                         Will configure three Requests for the output at the
-                        following paths relative to the App's root directory:
+                        following paths relative to the path assigned to the
+                        --path-to-apps-directory flag:
 
-                            ./Requests/Bar.php
-                            ./Requests/Bar0.php
-                            ./Requests/Bar1.php
+                            ./Foo/Requests/Bar.php
+                            ./Foo/Requests/Bar0.php
+                            ./Foo/Requests/Bar1.php
 
                         Note: It is not necessary to specify the --relative-urls
                         flag if the --global flag is specified. Output configured
