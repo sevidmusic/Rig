@@ -13,6 +13,11 @@
 
   WARNING: Make sure rig is in your $PATH or you may have issues.
 
+  rig's executable should be located at the following path relative to the
+  relevant Roady installation's root directory:
+
+      ./vendor/darling/rig/bin/rig
+
   For example, if roady is installed at:
 
       ~/roady
@@ -29,12 +34,6 @@
   rig executable located in the vendor directory of the Roady installation you
   are currently working with, or else rig may perform actions on the wrong Roady
   installation.
-
-  rig's executable should be located at the following path relative to the
-  relevant Roady installation's root directory:
-
-      ./vendor/darling/rig/bin/rig
-
 
   Flags:
 
@@ -239,7 +238,7 @@
       https://github.com/sevidmusic/roadyAppPackages
 
   Roady, the rig command line utility, and
-  ddmsAppPackages are all licensed under the MIT license.
+  roadyAppPackages are all licensed under the MIT license.
 
   MIT License
 
