@@ -97,7 +97,7 @@
       http://localhost:8080/index.php?foo=bar&baz=bazzer
 
   Hint: For local development you can use rig --start-server to start a local
-  development server to run your Roady Apps.
+  development server to run your Roady Apps locally.
 
   Flags:
 
