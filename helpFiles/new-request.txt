@@ -25,7 +25,7 @@ Flags:
                For example:
 
                    rig --new-request \
-                   --for-app foo \
+                   --for-app Foo \
                    --name 'Spaces & Bad Chars'
 
                Would result in the assigned name:
@@ -57,5 +57,5 @@ rig --new-request --for-app Foo --name Bar
 
 rig --new-request --for-app Foo --name Baz --relative-url "?request=Baz"
 
-rig --new-request --for-app Foo --name Bin --relative-url "?foo=bar&baz=biz"
+rig --new-request --for-app Foo --name Bin --relative-url "?Foo=bar&baz=biz"
 
