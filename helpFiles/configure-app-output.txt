@@ -14,7 +14,7 @@
 
   For example, if the value assigned to the --path-to-apps-directory flag is:
 
-      /path/to/Roady/Apps
+      /path/to/roady/Apps
 
   Then the following:
 
@@ -26,7 +26,7 @@
   Will configure the output Baz for an App named Foo, whose root directory
   path is:
 
-      /path/to/Roady/Apps/Foo
+      /path/to/roady/Apps/Foo
 
   Again, if the App does not exist, it will be created.
 
@@ -161,6 +161,27 @@
                         Whose contents will be:
 
                             Baz
+
+                        Additionally, if the --static flag is not specified, a
+                        DynamicOutputComponent configuration file will be created
+                        for the output at the following path relative to the path
+                        assigned to the --path-to-apps-directory flag:
+
+                            ./Foo/OutputComponents/Bar.php
+
+                        Whose contents will be:
+
+                            <?php
+
+                            /** Bar.php */
+
+                             $appComponentsFactory->buildDynamicOutputComponent(
+                                'Bar',
+                                'FooDynamicOutput',
+                                0,
+                                'Foo',
+                                'Bar.php'
+                            );
 
                         Note: If the --static flag is specified, the specified
                         --output will be assigned as the defined output in an
