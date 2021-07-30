@@ -309,10 +309,51 @@
                         rig to configure a GlobalResponse to serve the output
                         instead of a Response.
 
-                        Note: If this flag is used, it is not necessary to
-                        specify the --relative-urls flag since GlobalResponses
-                        will always be served in response to any request to any
-                        domain the App is built for.
+                        Note: Regardless of whether or not the --global flag is
+                        specified, the configuration file for the Response or
+                        GlobalResponse will be created in the App's Responses
+                        directory, and will be named after the specified --name.
+
+                        For example:
+
+                            rig --configure-app-output \
+                            --for-app Foo \
+                            --name Bar \
+                            --output Baz \
+                            --global
+
+                        Will configure a GlobalResponse whose configuration file
+                        will be located at the following path relative to the
+                        path assigned to the --path-to-apps-directory flag:
+
+                            ./Foo/Responses/Bar.php
+
+                        Whose contents will be:
+
+
+                            <?php
+
+                            /** Bar.php */
+
+                            use roady\classes\component\OutputComponent;
+                            use roady\classes\component\DynamicOutputComponent;
+
+                            $appComponentsFactory->buildGlobalResponse(
+                                'Bar',
+                                0,
+                                $appComponentsFactory->getComponentCrud()->readByNameAndType(
+                                    'Bar',
+                                    DynamicOutputComponent::class,
+                                    $appComponentsFactory->getLocation(),
+                                    'FooDynamicOutput'
+                                ),
+
+                            );
+
+                        Note: If the --global flag is used, it is not necessary
+                        to specify the --relative-urls flag since GlobalResponses
+                        will be served in response to all requests to any domain
+                        the App is built for.
 
   [--output-position]   The position to assign to the DynamicOutputComponent or
                         OutputComponent that will be configured for the output.
@@ -321,12 +362,12 @@
                         other output that is being served by the same Response
                         or GlobalResponse.
 
-  [--relative-urls]     The relative urls the output shill be served in response
+  [--relative-urls]     The relative urls the output should be served in response
                         to. These urls are defined in relation to a domain.
 
                         For example, to configure the output to show up in
                         response to requests to a domain's root, the relative url
-                        '/' cill be specified:
+                        '/' can be specified:
 
                             rig --configure-app-output \
                             --for-app Foo \
@@ -335,9 +376,8 @@
                             --relative-urls '/'
 
                         Another example, to configure the output to be served in
-                        response to a request named "Homepage", and a request
-                        named "Home", the relative urls '?request=Homepage' and
-                        '?request=Home' cill be defined:
+                        response the relative urls '?request=Homepage' and
+                        '?request=Home':
 
                             rig --configure-app-output \
                             --for-app Foo \
@@ -388,8 +428,8 @@
 
                         Note: It is not necessary to specify the --relative-urls
                         flag if the --global flag is specified. Output configured
-                        with the --global flag will be served in response to any
-                        request to any domain the App is built for.
+                        with the --global flag will be served in response to all
+                        requests to any domain the App is built for.
 
   [--response-position] The position to assign to the Response or GlobalResponse
                         that will be configured for the output. This position is
