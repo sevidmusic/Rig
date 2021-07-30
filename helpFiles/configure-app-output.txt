@@ -39,6 +39,12 @@
   WARNING: Unless you really need to, it is best to let rig manage the
   --path-to-apps-directory flag's value to insure an appropriate path is used.
 
+  WARNING: The --path-to-apps-directory flag causes issues when used in
+  conjunction with the --configure-app-output flag. This is a bug, and it is
+  being addressed. See issue #100:
+
+      https://github.com/sevidmusic/rig/issues/100
+
   For more information about the --path-to-apps-directory flag use:
 
       rig --help path-to-apps-directory

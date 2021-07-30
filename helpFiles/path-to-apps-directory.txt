@@ -10,13 +10,20 @@ the Apps directory at the following path relative to rig's root directory:
     ../../../Apps
 
 If rig cannot locate the expected Apps directory rig will use the path to
-rig's tmp directory as the --path-to-apps-directory. rig's tmp directory will
-be located in rig's root directory, for example:
+rig's tmp directory as the --path-to-apps-directory.
+
+rig's tmp directory will be located in rig's root directory, for example:
 
 /path/to/rig/tmp
 
 WARNING: Unless you really need to, it is best to let rig manage the
 --path-to-apps-directory flag's value to insure an appropriate path is used.
+
+WARNING: This flag causes issues when used in conjunction with the
+--configure-app-output flag. This is a bug, and it is being addressed.
+See issue #100:
+
+    https://github.com/sevidmusic/rig/issues/100
 
 Examples:
 

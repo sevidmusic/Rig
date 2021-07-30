@@ -2,8 +2,10 @@
 
   Description:
 
-  Make an App Package into an App. The newly made App will be located at the path
-  that corresponds to the value assigned to the --path-to-apps-directory flag.
+  Make an App Package into an App.
+
+  The newly made App will be located at the path that corresponds to the value
+  assigned to the --path-to-apps-directory flag.
 
   For example, if --path-to-apps-directory is assigned the path:
 
@@ -13,10 +15,6 @@
   App at:
 
       /path/to/roady/Apps/Foo
-
-  WARNING: If an App whose name matches the name of the App to be made already
-  exists at the path where the new App will be made, the original App will be
-  replaced!
 
   WARNING: Be careful with this command, any directory whose name matches the
   specified --name that exists at the --path-to-apps-directory will be replaced
