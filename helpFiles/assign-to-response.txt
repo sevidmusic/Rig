@@ -1,5 +1,5 @@
   rig --assign-to-response --for-app --response [--dynamic-output-components]
-      [--output-components][--requests]
+      [--output-components] [--requests]
 
   Description:
 

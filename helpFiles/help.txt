@@ -13,6 +13,17 @@
 
   WARNING: Make sure rig is in your $PATH or you may have issues.
 
+  For example, if roady is installed at:
+
+      ~/roady
+
+  You could run the following to temporarily add rig to your $PATH:
+
+      export PATH="${PATH}:${HOME}/roady/vendor/darling/rig/bin"
+
+  Note: This step may be different from one shell to another. If you are using
+  sh or bash, then the previous example should work.
+
   WARNING: If you have multiple installations of Roady on your system, make sure
   the path to the rig executable defined in your $PATH matches the path to the
   rig executable located in the vendor directory of the Roady installation you
@@ -222,10 +233,10 @@
 
       https://github.com/sevidmusic/roady
 
-  A repo of supported App Packages that can be made into Roady Apps via
+  A collection of supported App Packages that can be made into Roady Apps via
   rig --make-app-package is available on GitHub:
 
-      https://github.com/sevidmusic/ddmsAppPackages
+      https://github.com/sevidmusic/roadyAppPackages
 
   Roady, the rig command line utility, and
   ddmsAppPackages are all licensed under the MIT license.
