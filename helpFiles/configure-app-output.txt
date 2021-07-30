@@ -488,46 +488,59 @@
 
                             ./DynamicOutput
 
-                        For example, if the --static flag is not used:
+                        For example, if the --static flag is not specified:
 
                             rig --configure-app-output \
                             --for-app Foo \
                             --name Bar \
                             --output '<p>Hello World</p>'
 
-                        rig will create two files for the output:
+                        Then rig will create two files for the output:
 
                             1. A dynamic output file named Bar.php in the Foo
-                               App's DynamicOutput directory whose contents is:
+                               App's DynamicOutput directory whose contents
+                               will be:
 
                                    <p>Hello World</p>
 
                                Bar's DynamicOutput file will be located at the
-                               following path relative to the Foo App's root
-                               directory:
+                               following path relative to the path assigned to
+                               the --path-to-apps-directory flag:
 
-                                   ./DynamicOutput/Bar.php
+                                   ./Foo/DynamicOutput/Bar.php
 
-                            2. A configuration file named Bar.php in the App's
-                               OutputComponents directory with the following
-                               DynamicOutputComponent configuration:
+                            2. A DynamicOutputComponent configuration file named
+                               Bar.php in the App's OutputComponents directory
+                               with the following DynamicOutputComponent
+                               configuration:
 
-                                   EXAMPLE NEEDED
+                                   <?php
+
+                                   /** Bar.php */
+
+                                    $appComponentsFactory->buildDynamicOutputComponent(
+                                       'Bar',
+                                       'FooDynamicOutput',
+                                       0,
+                                       'Foo',
+                                       'Bar.php'
+                                   );
 
                                Bar's configuration file will be located at the
-                               following path relative to the Foo App's root
-                               directory:
+                               following path relative to the path assigned to
+                               the --path-to-apps-directory flag:
 
-                                   ./OutputComponents/Bar.php
+                                   ./Foo/OutputComponents/Bar.php
 
-                        OutputComponents define their output in a OutputComponent
-                        configuration file located in the App's OutputComponents
+                        OutputComponents define their output in OutputComponent
+                        configuration files located in the App's OutputComponents
                         directory. This directory will be located at the
-                        following path relative to the App's root directory:
+                        following path relative to the path assigned to the
+                        --path-to-apps-directory flag:
 
-                            ./OutputComponents
+                            ./Foo/OutputComponents
 
-                        For example, if the --static flag is used:
+                        For example, if the --static flag is specified
 
                             rig --configure-app-output \
                             --for-app Foo \
@@ -551,9 +564,9 @@
                             );
 
                         Bar.php will be located at the following path relative to
-                        the Foo App's root directory:
+                        the path assigned to the --path-to-apps-directory flag:
 
-                            ./OutputComponents/Bar.php
+                            ./Foo/OutputComponents/Bar.php
 
 
   Examples:
