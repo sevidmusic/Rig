@@ -1,236 +1,263 @@
-rig [--assign-to-response] [--configure-app-output] [--path-to-apps-directory]
-     [--debug] [--help] [--make-app-package] [--new-app-package] [--new-app]
-     [--new-dynamic-output-component] [--new-global-response]
-     [--new-output-component] [--new-request] [--new-response] [--start-server]
-     [--view-active-servers]
+  rig  [--assign-to-response] [--configure-app-output] [--path-to-apps-directory]
+       [--debug] [--help] [--make-app-package] [--new-app-package] [--new-app]
+       [--new-dynamic-output-component] [--new-global-response]
+       [--new-output-component] [--new-request] [--new-response] [--start-server]
+       [--view-active-servers]
 
 
-Description:
+  Description:
 
-rig is a command line utility designed to aide in the development process
-with Roady. rig provides a number of flags
-that can be used to perform common development tasks.
+  rig is a command line utility designed to aide in the development of Roady Apps.
+  rig provides a number of flags that can be used to perform common development
+  tasks.
 
+  WARNING: Make sure rig is in your $PATH or you may have issues.
 
-Flags:
+  rig's executable should be located at the following path relative to the
+  relevant Roady installation's root directory:
 
-[--assign-to-response]              Assign one or more Requests, OutputComponents,
-                                    or DynamicOutputComponents to an existing
-                                    Response or GlobalResponse for an existing
-                                    Roady App.
+      ./vendor/darling/rig/bin/rig
 
-[--configure-app-output]            Configure output for a specified App to
-                                    show up in response to specified Requests.
+  For example, if roady is installed at:
 
-                                    Note: If the specified App does not exist
-                                    it will be created.
+      ~/roady
 
-[--path-to-apps-directory]          The path to Roady Apps
-                                    directory, or an alternative directory.
+  You could run the following to temporarily add rig to your $PATH:
 
-                                    If not specified, rig will attempt to locate
-                                    the Apps directory, if it cannot find it rig
-                                    will set --path-to-apps-directory to the path
-                                    to rig's tmp directory.
+      export PATH="${PATH}:${HOME}/roady/vendor/darling/rig/bin"
 
-                                    rig will look for the Apps directory at
-                                    the following path relative to rig's root
-                                    directory:
+  Note: This step may be different from one shell to another. If you are using
+  sh or bash, then the previous example should work.
 
-                                        ../../../Apps
+  WARNING: If you have multiple installations of Roady on your system, make sure
+  the path to the rig executable defined in your $PATH matches the path to the
+  rig executable located in the vendor directory of the Roady installation you
+  are currently working with, or else rig may perform actions on the wrong Roady
+  installation.
 
-                                    If the Apps directory cannot be located then
-                                    the path to rig's tmp directory's will be
-                                    assigned to the --path-to-apps-directory
-                                    flag, for example:
+  Flags:
 
-                                        /path/to/rig/tmp
+  [--assign-to-response]              Assign one or more Requests,
+                                      OutputComponents, or
+                                      DynamicOutputComponents to an existing
+                                      Response or GlobalResponse for an existing
+                                      Roady App.
 
-                                    Note: Typically, you do not need to
-                                    specify the --path-to-apps-directory flag
-                                    since rig will determine the appropriate
-                                    path at runtime. The only reason to use this
-                                    flag is if you explicitly want to target an
-                                    alternative Apps directory.
+  [--configure-app-output]            Configure output for a specified Roady App
+                                      to show up in response to specified
+                                      requests to any domain the App is built
+                                      for.
 
-                                    WARNING: Unless you really need to, it is
-                                    best to let rig manage the
-                                    --path-to-apps-directory flag's value to
-                                    insure an appropriate path is used.
+                                      Note: If the specified App does not exist
+                                      it will be created.
 
-[--debug]                           Show debug information for the current call
-                                    to rig. This flag is intended to be used in
-                                    conjunction with other flags, not alone.
+  [--path-to-apps-directory]          The path to Roady's Apps directory, or an
+                                      alternative directory.
 
-                                    The following arguments can be specified to
-                                    control what debug information is shown, at
-                                    least one is expected.
+                                      If not specified, rig will attempt to
+                                      locate Roady's Apps directory.
 
-                                      flags :   This will cause rig to output
-                                                the flags passed to rig and
-                                                their arguments.
+                                      rig will look for Roady's Apps directory at
+                                      the following path relative to rig's root
+                                      directory:
 
-                                                For example:
+                                          ../../../Apps
 
-                                                    rig --help --debug flags
+                                      If the Apps directory cannot be located
+                                      there, then the path to rig's tmp
+                                      directory will be used, for example:
 
-                                      options : This will cause rig to output
-                                                any options passed to rig,
-                                                i.e, the arguments that were
-                                                specified that are not
-                                                associated with a flag.
+                                          /path/to/rig/tmp
 
-                                                For example:
+                                      Note: Typically, you do not need to specify
+                                      the --path-to-apps-directory flag since rig
+                                      will determine an appropriate path at
+                                      runtime.
 
-                                                    rig --help --debug options
+                                      The only reason to use this flag is if you
+                                      explicitly want to target an alternative
+                                      Apps directory.
 
-                                                Note: The options argument is
-                                                provided for future use, at the
-                                                moment rig does not accept any
-                                                options, only flags and flag
-                                                arguments.
+                                      WARNING: Unless you really need to, it is
+                                      best to let rig manage the
+                                      --path-to-apps-directory flag's value to
+                                      insure an appropriate path is used.
 
+  [--debug]                           Show debug information for the current call
+                                      to rig. This flag is intended to be used in
+                                      conjunction with other flags, not alone.
 
-[--help] [FLAG]                     Show this help message, or the appropriate
-                                    help message for the specified FLAG.
+                                      The following arguments can be specified to
+                                      control what debug information is shown, at
+                                      least one is expected.
 
-                                    For example:
+                                        flags :   This will cause rig to output
+                                                  the flags passed to rig and
+                                                  their arguments.
 
-                                        rig --help
+                                                  For example:
 
-                                        rig --help --new-app
+                                                      rig --help --debug flags
 
-[--make-app-package]                Make an App Package into a Roady
-                                    App.
+                                        options : This will cause rig to output
+                                                  any options passed to rig,
+                                                  i.e, the arguments that were
+                                                  specified that are not
+                                                  associated with a flag.
 
-[--new-app-package]                 Create a new app package.
+                                                  For example:
 
-[--new-app]                         Create a new Roady
-                                    App.
+                                                      rig --help --debug options
 
-[--new-dynamic-output-component]    Configure a new DynamicOutputComponent for a
-                                    Roady App.
+                                                  Note: The options argument is
+                                                  provided for future use, at the
+                                                  moment rig does not accept any
+                                                  options, only flags and flag
+                                                  arguments.
 
-[--new-global-response]             Configure a new GlobalResponse for a Roady
-                                    App.
 
-[--new-output-component]            Configure a new OutputComponent for a Roady
-                                    App.
+  [--help] [FLAG]                     Show this help message, or the appropriate
+                                      help message for the specified [FLAG].
 
-[--new-request]                     Configure a new Request for a Roady
-                                    App.
+                                      For example:
 
-[--new-response]                    Configure a new Response for a Roady
-                                    App.
+                                          rig --help
 
-[--start-server]                    Start a development server.
+                                          rig --help --new-app
 
-[--view-active-servers]             Show active development servers.
+                                      Note: [FLAG] may be specified with or
+                                      without the -- prefix. For example:
 
+                                          rig --help --new-app
 
-Notes:
+                                          rig --help new-app
 
-To get more detailed information about a specific flag you can use the --help
-flag and specify one of the available flags as an argument.
+                                      WARNING: The --path-to-apps-directory flag
+                                      is an exception, to get help information
+                                      for it the -- prefix must be excluded.
 
-Note: You do not need to include the flag's -- prefix when using --help.
+                                      For example:
 
-WARNING: The path-to-apps-directory flag is the only flag that cannont be
-passed to rig --help with the -- prefix.
+                                          # The following example wont work, rig
+                                          # will think you are trying to set an
+                                          # alternative Apps directory path.
 
-    # Invalid, rig will interpret the following as an attempt to set the
-    # --path-to-apps-directory flag's value:
-    rig --help --path-to-apps-directory
+                                          rig --help --path-to-apps-directory
 
-    # Valid, rig will interpret the following as a reuest for the help
-    # information for the --path-to-apps-directory flag:
-    rig --help path-to-apps-directory
+                                          # To get help information about the
+                                          # --path-to-apps-directory flag the
+                                          # -- prefix must be excluded:
 
-All other flags can be passed to --help with or without the -- prefix.
+                                          rig --help path-to-apps-directory
 
-The following examples demonstrate how to use rig --help:
 
-rig --help
+  [--make-app-package]                Make an App Package into a Roady App.
 
-rig --help assign-to-response
-rig --help --assign-to-response
+  [--new-app-package]                 Create a new App package.
 
-rig --help configure-app-output
-rig --help --configure-app-output
+  [--new-app]                         Create a new Roady App.
 
-rig --help path-to-apps-directory
+  [--new-dynamic-output-component]    Configure a new DynamicOutputComponent for
+                                      a Roady App.
 
-rig --help debug
-rig --help --debug
+  [--new-global-response]             Configure a new GlobalResponse for a Roady
+                                      App.
 
-rig --help make-app-package
-rig --help --make-app-package
+  [--new-output-component]            Configure a new OutputComponent for a Roady
+                                      App.
 
-rig --help new-app-package
-rig --help --new-app-package
+  [--new-request]                     Configure a new Request for a Roady App.
 
-rig --help new-app
-rig --help --new-app
+  [--new-response]                    Configure a new Response for a Roady App.
 
-rig --help new-dynamic-output-component
-rig --help --new-dynamic-output-component
+  [--start-server]                    Start a development server.
 
-rig --help new-global-response
-rig --help --new-global-response
+  [--view-active-servers]             Show active development servers.
 
-rig --help new-output-component
-rig --help --new-output-component
 
-rig --help new-request
-rig --help --new-request
+  Examples:
 
-rig --help new-response
-rig --help --new-response
+  rig --help
 
-rig --help start-server
-rig --help --start-server
+  rig --help assign-to-response
+  rig --help --assign-to-response
 
-rig --help view-active-servers
-rig --help --view-active-servers
+  rig --help configure-app-output
+  rig --help --configure-app-output
 
-Documentation for rig and Roady can be found at:
+  rig --help path-to-apps-directory
 
-  https://darlingdata.tech
+  rig --help debug
+  rig --help --debug
 
-rig is available on GitHub:
+  rig --help make-app-package
+  rig --help --make-app-package
 
-  https://github.com/sevidmusic/rig
+  rig --help new-app-package
+  rig --help --new-app-package
 
-Roady is available on GitHub:
+  rig --help new-app
+  rig --help --new-app
 
-  https://github.com/sevidmusic/roady
+  rig --help new-dynamic-output-component
+  rig --help --new-dynamic-output-component
 
-A repo of supported App Packages that can be made into Roady
-Apps via rig --make-app-package is available on GitHub:
+  rig --help new-global-response
+  rig --help --new-global-response
 
-  https://github.com/sevidmusic/rigAppPackages
+  rig --help new-output-component
+  rig --help --new-output-component
 
-Roady, the rig command line utility, and
-rigAppPackages are all licensed under the MIT license.
+  rig --help new-request
+  rig --help --new-request
 
-MIT License
+  rig --help new-response
+  rig --help --new-response
 
-Copyright (c) 2021 Sevi Donnelly Foreman
+  rig --help start-server
+  rig --help --start-server
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+  rig --help view-active-servers
+  rig --help --view-active-servers
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+  Documentation for rig and Roady can be found at:
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRigHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+      https://roady.tech
+
+  rig is available on GitHub:
+
+      https://github.com/sevidmusic/rig
+
+  Roady is available on GitHub:
+
+      https://github.com/sevidmusic/roady
+
+  A collection of supported App Packages that can be made into Roady Apps via
+  rig --make-app-package is available on GitHub:
+
+      https://github.com/sevidmusic/roadyAppPackages
+
+  Roady, the rig command line utility, and
+  roadyAppPackages are all licensed under the MIT license.
+
+  MIT License
+
+  Copyright (c) 2021 Sevi Donnelly Foreman
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRigHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.

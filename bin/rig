@@ -30,14 +30,6 @@ determineRigDirectoryPath() {
     printf "%s" "$(cd -P "$(dirname "$CURRENT_FILE_PATH")" >/dev/null 2>&1 && pwd)"
 }
 
-loadLibrary() {
-    # use of -x instead of -f is intentinal, the file MUST exist and be executable
-    # @seehttps://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Bash-Conditional-Expressions
-    [[ ! -x "${1}" ]] && logErrorMsg "Error! Failed to load ${1}!" && logErrorMsgAndExit1 "The script either does not exist, or is not executable."
-    . ${1} ${2}
-}
-
-
 [[ -z "$(command -v php)" ]] && logErrorMsgAndExit1 "php is not available!"
 
 "$(command -v php)" "$(determineRigDirectoryPath)/rig.php" $@

@@ -1,51 +1,146 @@
-rig --new-response --for-app --name [--position]
+  rig --new-response --for-app --name [--position]
 
-Description:
+  Description:
 
-Configure a new Response for the specified App.
+  Configure a new Response for the specified App.
 
-Flags:
+  The purpose of a Response is to serve output in response to appropriate
+  requests to any domains that the App is built for.
 
---for-app    The name of the App to configure the Response for.
+  For example, the following:
 
-             WARNING: The specified App must exist, if it does not, the new
-             Response will not be configured.
+      rig --new-app \
+      --name Foo
 
---name       A name to assign to the new Response.
+      rig --new-request \
+      --for-app Foo \
+      --name BarRequest \
+      --relative-url 'index.php?foo=bar&baz=bazzer'
 
-             WARNING: The name must be unique, if a Response already
-             exists with the same name the new Response will not be
-             configured.
+      rig --new-output-component \
+      --for-app Foo \
+      --name BarOutput \
+      --output 'Hello World'
 
-             WARNING: The name must be alphanumeric with no spaces, if spaces
-             or non-alphanumeric characters are present in the specified name,
-             only the alphanumeric characters up to the first space or
-             non-alphanumeric character will be used.
+      rig --new-response \
+      --for-app Foo \
+      --name BarResponse
 
-             For example:
+      rig --assign-to-response \
+      --for-app Foo \
+      --response BarResponse \
+      --requests BarRequest \
+      --output-components BarOutput
 
-                 rig --new-response \
-                 --for-app foo \
-                 --name 'Spaces & Bad Chars'
+  Would configure the output:
 
-             Would result in the assigned name:
+      Hello World
 
-                 Spaces
+  To be served in response to requests to the following url relative to any
+  domain the Foo App is built for:
 
-             It is also possible that rig will refuse to configure the Response
-             if an alphanumeric name cannot be derived from a name that
-             contains spaces or non-alphanumeric characters. This may happen,
-             for instance, if the specified name starts with a non-alphanumeric
-             character.
+      index.php?foo=bar&baz=bazzer
 
-[--position] The position to assign to the Response. This position is used to
-             sort the Response relative to other Responses and GlobalResponses
-             that respond to the same Request.
-             Defaults to: 0
+  And, in the context of this example, will result in creation of a Response
+  configuration file at the following path:
 
-Examples:
+      /path/to/roady/Apps/Foo/Responses/BarResponse.php
 
-rig --new-response --for-app Foo --name Bar
+  Whose contents will be:
 
-rig --new-response --for-app Foo --name Baz --position 3.5
+      <?php
+
+      /** BarResponse.php */
+
+      use roady\classes\component\OutputComponent;
+      use roady\classes\component\DynamicOutputComponent;
+      use roady\classes\component\Web\Routing\Request;
+
+      $appComponentsFactory->buildResponse(
+          'BarResponse',
+          0,
+          $appComponentsFactory->getComponentCrud()->readByNameAndType(
+              'BarRequest',
+              Request::class,
+              $appComponentsFactory->getLocation(),
+              'Requests'
+          ),
+
+          $appComponentsFactory->getComponentCrud()->readByNameAndType(
+              'BarOutput',
+              OutputComponent::class,
+              $appComponentsFactory->getLocation(),
+              'OutputComponents'
+          ),
+
+      );
+
+  Note: The paths used in these examples are for example only.
+  Make sure to adjust the paths used in these examples appropriately based on
+  where Roady and rig are actually installed.
+
+  Assuming the --path-to-apps-directory is assigned the path:
+
+      /path/to/roady/Apps
+
+  Then building the Foo App for the domain https://localhost:8080:
+
+      php /path/to/roady/Apps/Foo/Components.php 'http://localhost:8080'
+
+  Will make the output "Hello World" available in response to the following
+  request to the domain http://localhost:8080:
+
+      http://localhost:8080/index.php?foo=bar&baz=bazzer
+
+  Note: Responses can be assigned any number of DynamicOutputComponents,
+  OutputComponents, and Requests, as long as the respective Response,
+  DynamicOutputComponents, OutputComponents, and Requests are all defined by
+  the same App.
+
+  Hint: You can use rig --start-server to start a local development server to run
+  your Roady Apps locally. For more information about the --start-server flag
+  use:
+
+      rig --help start-server
+
+  Flags:
+
+  --for-app    The name of the App to configure the Response for.
+
+               WARNING: The specified App must exist, if it does not, the new
+               Response will not be configured.
+
+  --name       A name to assign to the new Response.
+
+               WARNING: The name must be unique, if a Response already
+               exists with the same name the new Response will not be
+               configured.
+
+               WARNING: The specified name must be alphanumeric or rig will
+               refuse to configure the Response.
+
+               WARNING: If the specified name contains spaces, only the
+               alphanumeric characters up to the first space will be used.
+
+               For example:
+
+                   rig --new-response \
+                   --for-app Foo \
+                   --name 'Spaces In Alphanumeric Name'
+
+               Would result in the assigned name:
+
+                   Spaces
+
+  [--position] The position to assign to the Response. This position is used to
+               sort the Response relative to other Responses and GlobalResponses
+               that respond to the same Requests.
+
+               Defaults to: 0
+
+  Examples:
+
+  rig --new-response --for-app Foo --name Bar
+
+  rig --new-response --for-app Foo --name Baz --position 3.5
 
