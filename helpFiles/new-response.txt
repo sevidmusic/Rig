@@ -4,19 +4,10 @@
 
   Configure a new Response for the specified App.
 
-  A Response is used to serve output in response to appropriate requests to
-  the domains that the App that defines the Response is built for.
+  The purpose of a Response is to serve output in response to appropriate
+  requests to any domains that the App is built for.
 
-  For example, to create a new App named Foo, and configure the output:
-
-      Hello World
-
-  To be served in response to requests to any domain the Foo App
-  is built for that correspond to the relative url:
-
-      index.php?foo=bar&baz=bazzer
-
-  You could make the following calls to rig:
+  For example, the following:
 
       rig --new-app \
       --name Foo
@@ -41,8 +32,21 @@
       --requests BarRequest \
       --output-components BarOutput
 
-  The combination of these calls to rig would result in the following Response
-  configuration file:
+  Would configure the output:
+
+      Hello World
+
+  To be served in response to requests to the following url relative to any
+  domain the Foo App is built for:
+
+      index.php?foo=bar&baz=bazzer
+
+  And, in the context of this example, will result in creation of a Response
+  configuration file at the following path:
+
+      /path/to/roady/Apps/Foo/Responses/BarResponse.php
+
+  Whose contents will be:
 
       <?php
 
@@ -71,19 +75,11 @@
 
       );
 
-  Which, in the context of this example, would be located at the following path:
-
-      /path/to/roady/Apps/Foo/Responses/BarResponse.php
-
   Note: The paths used in these examples are for example only.
   Make sure to adjust the paths used in these examples appropriately based on
   where Roady and rig are actually installed.
 
-  Assuming rig is installed in Roady's vendor directory at:
-
-      /path/to/roady/vendor/darling/rig
-
-  And assuming the --path-to-apps-directory is assigned the path:
+  Assuming the --path-to-apps-directory is assigned the path:
 
       /path/to/roady/Apps
 
@@ -91,13 +87,21 @@
 
       php /path/to/roady/Apps/Foo/Components.php 'http://localhost:8080'
 
-  Will make the output "Hello World" available at the following request:
-  to the domain http://localhost:8080:
+  Will make the output "Hello World" available in response to the following
+  request to the domain http://localhost:8080:
 
       http://localhost:8080/index.php?foo=bar&baz=bazzer
 
-  Hint: For local development you can use rig --start-server to start a local
-  development server to run your Roady Apps locally.
+  Note: Responses can be assigned any number of DynamicOutputComponents,
+  OutputComponents, and Requests, as long as the respective Response,
+  DynamicOutputComponents, OutputComponents, and Requests are all defined by
+  the same App.
+
+  Hint: You can use rig --start-server to start a local development server to run
+  your Roady Apps locally. For more information about the --start-server flag
+  use:
+
+      rig --help start-server
 
   Flags:
 

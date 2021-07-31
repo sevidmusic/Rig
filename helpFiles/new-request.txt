@@ -4,6 +4,25 @@ Description:
 
 Configure a new Request for the specified App.
 
+The purpose of a Request is to represent a specific request to a domain.
+
+Requests are defined using relative urls. This allows them to be domain
+agnostic.
+
+For example, the following would define a request that represents a request
+to index.php:
+
+    rig --new-request \
+    --for-app Foo \
+    --name Bar \
+    --relative-url 'index.php'
+
+If the Foo App was built for the domain, http://localhost:8080, then the Bar
+Request configured in the previous example would represent the following
+request to the domain http://localhost:8080:
+
+    http://localhost:8080/index.php
+
 Flags:
 
 --for-app      The name of the App to configure the Request for.
@@ -17,26 +36,21 @@ Flags:
                exists with the same name the new Request will not be
                configured.
 
-               WARNING: The name must be alphanumeric with no spaces, if spaces
-               or non-alphanumeric characters are present in the specified name,
-               only the alphanumeric characters up to the first space or
-               non-alphanumeric character will be used.
+               WARNING: The specified name must be alphanumeric or rig will
+               refuse to configure the Request.
+
+               WARNING: If the specified name contains spaces, only the
+               alphanumeric characters up to the first space will be used.
 
                For example:
 
                    rig --new-request \
                    --for-app Foo \
-                   --name 'Spaces & Bad Chars'
+                   --name 'Spaces In Alphanumeric Name'
 
                Would result in the assigned name:
 
                    Spaces
-
-               It is also possible that rig will refuse to configure the Request
-               if an alphanumeric name cannot be derived from a name that
-               contains spaces or non-alphanumeric characters. This may happen,
-               for instance, if the specified name starts with a non-alphanumeric
-               character.
 
 --relative-url A relative url to assign to the new Request. This relative url
                will correspond to a complete url when an App is built for a domain.
