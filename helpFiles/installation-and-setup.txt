@@ -1,9 +1,9 @@
 Installation & Setup
 
-        1. Move into the directory where you wish to install roady and rig.
+Note: The user's home directory is used in this example,
+make sure to adjust the paths used in the example if necessary:
 
-           Note that the user's home directory is used in this example, make sure to adjust
-           paths if necessary:
+        1. Move into the directory where you wish to install roady and rig.
 
                cd ~/
 
@@ -26,5 +26,3 @@ Installation & Setup
         6. Make sure rig is working:
 
                rig --help | more
-
-

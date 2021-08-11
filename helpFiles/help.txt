@@ -220,15 +220,15 @@
   rig --help view-active-servers
   rig --help --view-active-servers
 
-  Hint:
+  Note:
 
-  The following arguments may also be passed to the --help flag to get
-  additional information about roady and rig:
+  The following arguments may also be passed to the --help flag
+  to get additional information about roady and rig:
 
   rig --help roady
   rig --help installation-and-setup
 
-  Documentation for rig and roady can be found at:
+  Note: Documentation for rig and roady can be found at:
 
       https://roady.tech
 
