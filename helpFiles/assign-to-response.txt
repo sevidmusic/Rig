@@ -4,7 +4,7 @@
   Description:
 
   Assign one or more Requests, OutputComponents, or DynamicOutputComponents to an
-  existing Response or GlobalResponse for an existing Roady App.
+  existing Response or GlobalResponse for an existing roady App.
 
   Flags:
 

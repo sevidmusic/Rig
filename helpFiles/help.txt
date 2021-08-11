@@ -7,14 +7,14 @@
 
   Description:
 
-  rig is a command line utility designed to aide in the development of Roady Apps.
+  rig is a command line utility designed to aide in the development of roady Apps.
   rig provides a number of flags that can be used to perform common development
   tasks.
 
   WARNING: Make sure rig is in your $PATH or you may have issues.
 
   rig's executable should be located at the following path relative to the
-  relevant Roady installation's root directory:
+  relevant roady installation's root directory:
 
       ./vendor/darling/rig/bin/rig
 
@@ -29,10 +29,10 @@
   Note: This step may be different from one shell to another. If you are using
   sh or bash, then the previous example should work.
 
-  WARNING: If you have multiple installations of Roady on your system, make sure
+  WARNING: If you have multiple installations of roady on your system, make sure
   the path to the rig executable defined in your $PATH matches the path to the
-  rig executable located in the vendor directory of the Roady installation you
-  are currently working with, or else rig may perform actions on the wrong Roady
+  rig executable located in the vendor directory of the roady installation you
+  are currently working with, or else rig may perform actions on the wrong roady
   installation.
 
   Flags:
@@ -41,9 +41,9 @@
                                       OutputComponents, or
                                       DynamicOutputComponents to an existing
                                       Response or GlobalResponse for an existing
-                                      Roady App.
+                                      roady App.
 
-  [--configure-app-output]            Configure output for a specified Roady App
+  [--configure-app-output]            Configure output for a specified roady App
                                       to show up in response to specified
                                       requests to any domain the App is built
                                       for.
@@ -51,13 +51,13 @@
                                       Note: If the specified App does not exist
                                       it will be created.
 
-  [--path-to-apps-directory]          The path to Roady's Apps directory, or an
+  [--path-to-apps-directory]          The path to roady's Apps directory, or an
                                       alternative directory.
 
                                       If not specified, rig will attempt to
-                                      locate Roady's Apps directory.
+                                      locate roady's Apps directory.
 
-                                      rig will look for Roady's Apps directory at
+                                      rig will look for roady's Apps directory at
                                       the following path relative to rig's root
                                       directory:
 
@@ -151,24 +151,24 @@
                                           rig --help path-to-apps-directory
 
 
-  [--make-app-package]                Make an App Package into a Roady App.
+  [--make-app-package]                Make an App Package into a roady App.
 
   [--new-app-package]                 Create a new App package.
 
-  [--new-app]                         Create a new Roady App.
+  [--new-app]                         Create a new roady App.
 
   [--new-dynamic-output-component]    Configure a new DynamicOutputComponent for
-                                      a Roady App.
+                                      a roady App.
 
-  [--new-global-response]             Configure a new GlobalResponse for a Roady
+  [--new-global-response]             Configure a new GlobalResponse for a roady
                                       App.
 
-  [--new-output-component]            Configure a new OutputComponent for a Roady
+  [--new-output-component]            Configure a new OutputComponent for a roady
                                       App.
 
-  [--new-request]                     Configure a new Request for a Roady App.
+  [--new-request]                     Configure a new Request for a roady App.
 
-  [--new-response]                    Configure a new Response for a Roady App.
+  [--new-response]                    Configure a new Response for a roady App.
 
   [--start-server]                    Start a development server.
 
@@ -220,7 +220,15 @@
   rig --help view-active-servers
   rig --help --view-active-servers
 
-  Documentation for rig and Roady can be found at:
+  Note:
+
+  The following arguments may also be passed to the --help flag
+  to get additional information about roady and rig:
+
+  rig --help roady
+  rig --help installation-and-setup
+
+  Note: Documentation for rig and roady can be found at:
 
       https://roady.tech
 
@@ -228,16 +236,16 @@
 
       https://github.com/sevidmusic/rig
 
-  Roady is available on GitHub:
+  roady is available on GitHub:
 
       https://github.com/sevidmusic/roady
 
-  A collection of supported App Packages that can be made into Roady Apps via
+  A collection of supported App Packages that can be made into roady Apps via
   rig --make-app-package is available on GitHub:
 
       https://github.com/sevidmusic/roadyAppPackages
 
-  Roady, the rig command line utility, and
+  roady, the rig command line utility, and
   roadyAppPackages are all licensed under the MIT license.
 
   MIT License
