@@ -77,7 +77,7 @@
 
   Note: The paths used in these examples are for example only.
   Make sure to adjust the paths used in these examples appropriately based on
-  where Roady and rig are actually installed.
+  where roady and rig are actually installed.
 
   Assuming the --path-to-apps-directory is assigned the path:
 
@@ -98,7 +98,7 @@
   the same App.
 
   Hint: You can use rig --start-server to start a local development server to run
-  your Roady Apps locally. For more information about the --start-server flag
+  your roady Apps locally. For more information about the --start-server flag
   use:
 
       rig --help start-server

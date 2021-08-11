@@ -2,7 +2,7 @@ rig --new-app --name [--domain]
 
 Description:
 
-Creates a new Roady App. The new App will be created at
+Creates a new roady App. The new App will be created at
 the path that corresponds to the value assigned to the --path-to-apps-directory
 flag.
 

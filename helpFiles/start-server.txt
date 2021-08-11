@@ -10,7 +10,7 @@
 
            https://www.php.net/manual/en/features.commandline.webserver.php
 
-  Once a sever is started, it can be used to run one or more Roady Apps locally
+  Once a sever is started, it can be used to run one or more roady Apps locally
   by building the desired Apps for a domain that corresponds to the running
   development server instance's url.
 
