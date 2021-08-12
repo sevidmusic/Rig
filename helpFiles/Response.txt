@@ -1,0 +1,2 @@
+Responses serve output in response to appropriate requests to the
+domains an App is built for.

@@ -37,7 +37,7 @@
                                Note: The OutputComponents must already be defined
                                by the specified App.
 
-  -requests                    Names of the Requests to assign to the Response or
+  --requests                   Names of the Requests to assign to the Response or
                                GlobalResponse.
 
                                Note: The Requests must already be defined by the

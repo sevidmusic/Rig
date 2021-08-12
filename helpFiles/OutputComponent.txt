@@ -1,0 +1,3 @@
+OutputComponents generate output based on assigned string
+defined in a OutputComponent configuration fle located in
+the relevant App's OutputComponents directory.

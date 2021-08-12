@@ -1,0 +1,4 @@
+DynamicOutputComponents generate output for an App via an assigned file.
+
+This file will exist in the relevant App's DynamicOutput directory, or
+in roady's SharedDynamicOutput directory.

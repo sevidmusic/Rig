@@ -1,0 +1,6 @@
+GlobalResponses are used to serve output that should be served in
+response to all requests to the domains an App is built for.
+
+For example, the OutputComponent or DynamicOutputComponent that generates the
+sites Main Menu could be assigned to a GlobalResponse so it would show
+up on every page of a website.
