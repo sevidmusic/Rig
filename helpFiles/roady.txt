@@ -10,6 +10,8 @@ The features an App provides can be made available to multiple websites running 
 
 Apps can configure output to show up in response to appropriate requests to a website, and can also provide stylesheets, scripts, and other resources necessary to implement the specific features they provide.
 
-New documentation is being added to https://roady.tech regularly.
+Note: roady is available on github at:
 
-Version 1.0 will be out soon.
+https://github.com/sevidmusic/roady.git
+
+Note: For help getting started visit https://roady.tech/index.php?request=GettingStarted
