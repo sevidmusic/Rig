@@ -87,7 +87,7 @@ AppBuilder::buildApp(
              *          still pass the value you use for the $domain parameter to
              *          escapeshellarg().
              */
-            escapeshellarg($argv[1] ?? '')
+            escapeshellarg($argv[1] ?? '_DOMAIN_')
         )
     )
 );
