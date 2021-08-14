@@ -73,7 +73,7 @@ final class RigTest extends TestCase
     private function get_help_file_contents(string $path):string {
         if(file_exists($path)) {
             $output = file_get_contents($path);
-            return strval($output);
+            return strval(preg_replace(['#`#', '#~~~~~#', '#~~~#', '/#(\s?)/'], '', strval($output)));
         }
         return '';
     }
