@@ -46,7 +46,7 @@ final class HelpTest extends TestCase
 
     private function expectedHelpFileOutput(string $helpFlagName): string
     {
-        return ($this->getHelpFileContents($helpFlagName) ?? '');
+        return strval(preg_replace(['#`#', '#~~~~~#', '#~~~#', '/#(\s?)/'], '', ($this->getHelpFileContents($helpFlagName) ?? '')));
     }
 
     private function getHelpFileContents(string $helpFlagName): string|null

@@ -36,7 +36,7 @@ class Help extends AbstractCommand implements Command
 
     private function getHelpFileOutput(string $helpFlagName): string
     {
-        return ($this->getHelpFileContents($helpFlagName) ?? '');
+        return strval(preg_replace(['#`#', '#~~~~~#', '#~~~#', '/#(\s?)/'], '', ($this->getHelpFileContents($helpFlagName) ?? '')));
     }
 
     private function getHelpFileContents(string $helpFlagName): string|null
