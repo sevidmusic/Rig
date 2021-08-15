@@ -15,7 +15,7 @@
   ~~~~~
 
   ~~~
-  WARNING: Make sure rig is in your $PATH or you may have issues.
+  WARNING: Make sure rig is in your `$PATH` or you may have issues.
   ~~~~~
 
   ~~~
@@ -36,7 +36,7 @@
   ~~~~~
 
   ~~~
-  You could run the following to temporarily add rig to your $PATH:
+  You could run the following to temporarily add rig to your `$PATH`:
   ~~~~~
 
   ~~~
@@ -45,12 +45,12 @@
 
   ~~~
   Note: This step may be different from one shell to another. If you are using
-  sh or bash, then the previous example should work.
+  `sh` or `bash`, then the previous example should work.
   ~~~~~
 
   ~~~
   WARNING: If you have multiple installations of roady on your system, make sure
-  the path to the rig executable defined in your $PATH matches the path to the
+  the path to the rig executable defined in your `$PATH` matches the path to the
   rig executable located in the vendor directory of the roady installation you
   are currently working with, or else rig may perform actions on the wrong roady
   installation.
@@ -58,96 +58,102 @@
 
   ### Flags:
 
-  ~~~```[--assign-to-response]```~~~~~              Assign one or more Requests,
+  ~~~```[--assign-to-response]```~~~~~              ~~~Assign one or more Requests,
                                       OutputComponents, or
                                       DynamicOutputComponents to an existing
                                       Response or GlobalResponse for an existing
-                                      roady App.
+                                      roady App.~~~~~
 
-  ~~~```[--configure-app-output]```~~~~~            Configure output for a specified roady App
+  ~~~```[--configure-app-output]```~~~~~            ~~~Configure output for a specified roady App
                                       to show up in response to specified
                                       requests to any domain the App is built
-                                      for.
+                                      for.~~~~~
 
-                                      Note: If the specified App does not exist
-                                      it will be created.
+                                      ~~~Note: If the specified App does not exist
+                                      it will be created.~~~~~
 
-  ~~~```[--path-to-apps-directory]```~~~~~          The path to roady's Apps directory, or an
-                                      alternative directory.
+  ~~~```[--path-to-apps-directory]```~~~~~          ~~~The path to roady's Apps directory, or an
+                                      alternative directory.~~~~~
 
-                                      If not specified, rig will attempt to
-                                      locate roady's Apps directory.
+                                      ~~~If not specified, rig will attempt to
+                                      locate roady's Apps directory.~~~~~
 
-                                      rig will look for roady's Apps directory at
+                                      ~~~rig will look for roady's Apps directory at
                                       the following path relative to rig's root
-                                      directory:
+                                      directory:~~~~~
 
-                                          ../../../Apps
+                                      ~~~
+                                          `../../../Apps`
+                                      ~~~~~
 
-                                      If the Apps directory cannot be located
+                                      ~~~If the Apps directory cannot be located
                                       there, then the path to rig's tmp
-                                      directory will be used, for example:
+                                      directory will be used, for example:~~~~~
+                                      ~~~
+                                          `/path/to/rig/tmp`
+                                      ~~~~~
 
-                                          /path/to/rig/tmp
-
-                                      Note: Typically, you do not need to specify
+                                      ~~~Note: Typically, you do not need to specify
                                       the --path-to-apps-directory flag since rig
                                       will determine an appropriate path at
-                                      runtime.
+                                      runtime.~~~~~
 
-                                      The only reason to use this flag is if you
+                                      ~~~The only reason to use this flag is if you
                                       explicitly want to target an alternative
-                                      Apps directory.
+                                      Apps directory.~~~~~
 
-                                      WARNING: Unless you really need to, it is
+                                      ~~~WARNING: Unless you really need to, it is
                                       best to let rig manage the
                                       --path-to-apps-directory flag's value to
-                                      insure an appropriate path is used.
+                                      insure an appropriate path is used.~~~~~
 
-  ~~~```[--debug]```~~~~~                           Show debug information for the current call
+  ~~~```[--debug]```~~~~~                           ~~~Show debug information for the current call
                                       to rig. This flag is intended to be used in
-                                      conjunction with other flags, not alone.
+                                      conjunction with other flags, not alone.~~~~~
 
-                                      The following arguments can be specified to
+                                      ~~~The following arguments can be specified to
                                       control what debug information is shown, at
-                                      least one is expected.
+                                      least one is expected.~~~~~
 
-                                        flags :   This will cause rig to output
+                                        ~~~`flags` :   This will cause rig to output
                                                   the flags passed to rig and
-                                                  their arguments.
+                                                  their arguments.~~~~~
 
-                                                  For example:
+                                                  ~~~For example:~~~~~
 
-                                                      rig --help --debug flags
+                                                      ~~~`rig --help --debug flags`~~~~~
 
-                                        options : This will cause rig to output
+                                        ~~~`options` : This will cause rig to output
                                                   any options passed to rig,
                                                   i.e, the arguments that were
                                                   specified that are not
-                                                  associated with a flag.
+                                                  associated with a flag.~~~~~
 
-                                                  For example:
+                                                  ~~~For example:~~~~~
 
-                                                      rig --help --debug options
+                                                      ~~~`rig --help --debug options`~~~~~
 
-                                                  Note: The options argument is
+                                                  ~~~Note: The options argument is
                                                   provided for future use, at the
                                                   moment rig does not accept any
                                                   options, only flags and flag
-                                                  arguments.
+                                                  arguments.~~~~~
 
 
-  ~~~```[--help]```~~~~~ [FLAG]                     Show this help message, or the appropriate
-                                      help message for the specified [FLAG].
+  ~~~```[--help] [FLAG]```~~~~~                      ~~~Show this help message, or the appropriate
+                                      help message for the specified `[FLAG]`.~~~~~
 
-                                      For example:
+                                      ~~~For example:~~~~~
 
+                                          ```
                                           rig --help
 
                                           rig --help --new-app
+                                          ```
 
-                                      Note: [FLAG] may be specified with or
-                                      without the -- prefix. For example:
+                                      ~~~Note: `[FLAG]` may be specified with or
+                                      without the `--` prefix.~~~~~
+                                      ~~~For example:~~~~~
 
                                           rig --help --new-app
 
@@ -159,15 +165,15 @@
 
                                       For example:
 
-                                          # The following example wont work, rig
-                                          # will think you are trying to set an
-                                          # alternative Apps directory path.
+                                          The following example wont work, rig
+                                          will think you are trying to set an
+                                          alternative Apps directory path.
 
                                           rig --help --path-to-apps-directory
 
-                                          # To get help information about the
-                                          # --path-to-apps-directory flag the
-                                          # -- prefix must be excluded:
+                                          To get help information about the
+                                          --path-to-apps-directory flag the
+                                          -- prefix must be excluded:
 
                                           rig --help path-to-apps-directory
 

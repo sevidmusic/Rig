@@ -1,0 +1,1 @@
+Requests represent a request to a domain.

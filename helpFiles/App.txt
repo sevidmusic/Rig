@@ -1,0 +1,84 @@
+~~~
+Apps are used to implement niche features that can be made available to one or
+more websites. The structure of an App is as follows:
+~~~~~
+
+```
+Components.php
+css
+js
+DynamicOutput
+OutputComponents
+Requests
+Responses
+resources
+```
+
+~~~
+`Components.php`
+~~~~~
+
+~~~
+This file is used to build the App for a specific domain.
+~~~~~
+
+~~~
+`css`
+~~~~~
+
+~~~
+This directory is where an Apps stylsheets should be placed.
+~~~~~
+
+~~~
+`js`
+~~~~~
+
+~~~
+This directory is where an Apps scripts should be placed.
+~~~~~
+
+~~~
+`DynamicOutput`
+~~~~~
+
+~~~
+This directory is where an Apps Dynamic Output files should be
+placed. These files are used to generate output for a DynamicOutputComponent.
+~~~~~
+
+~~~
+`OutputComponents`
+~~~~~
+
+~~~
+This directory is where an Apps OutputComponent and DynamicOutputComponent
+configuration files should be placed.
+~~~~~
+
+~~~
+`Requests`
+~~~~~
+
+~~~
+This directory is where an Apps Request configuration files should be placed.
+~~~~~
+
+~~~
+`Responses`
+~~~~~
+
+~~~
+This directory is where an Apps Response and GlobalResponse configuration
+files should be placed.
+~~~~~
+
+~~~
+`resources`
+~~~~~
+
+~~~
+This directory is where any additional resources provided by, or required
+by the App should be placed.
+~~~~~
+
