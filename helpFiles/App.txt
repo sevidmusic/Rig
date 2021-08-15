@@ -1,6 +1,10 @@
 ~~~
 Apps are used to implement niche features that can be made available to one or
-more websites. The structure of an App is as follows:
+more websites.
+~~~~~
+
+~~~
+The structure of an App is as follows:
 ~~~~~
 
 ```
