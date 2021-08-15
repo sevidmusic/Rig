@@ -154,44 +154,56 @@
                                       ~~~Note: `[FLAG]` may be specified with or
                                       without the `--` prefix.~~~~~
                                       ~~~For example:~~~~~
-
+                                      ```
                                           rig --help --new-app
 
                                           rig --help new-app
-
-                                      WARNING: The --path-to-apps-directory flag
+                                      ```
+                                      ~~~
+                                      WARNING: The `--path-to-apps-directory` flag
                                       is an exception, to get help information
-                                      for it the -- prefix must be excluded.
+                                      for it the `--` prefix must be excluded.
+                                      ~~~~~
 
+                                      ~~~
                                       For example:
+                                      ~~~~~
 
-                                          The following example wont work, rig
+                                          ~~~
+                                          The following example won't work, rig
                                           will think you are trying to set an
                                           alternative Apps directory path.
+                                          ~~~~~
 
-                                          rig --help --path-to-apps-directory
+                                          ~~~
+                                          `rig --help --path-to-apps-directory`
+                                          ~~~~~
 
+                                          ~~~
                                           To get help information about the
-                                          --path-to-apps-directory flag the
-                                          -- prefix must be excluded:
+                                          `--path-to-apps-directory` flag the
+                                          `--` prefix must be excluded:
+                                          ~~~~~
 
-                                          rig --help path-to-apps-directory
+                                          ~~~
+                                          `rig --help path-to-apps-directory`
+                                          ~~~~~
 
 
-  ~~~```[--make-app-package]```~~~~~                Make an App Package into a roady App.
+  ~~~```[--make-app-package]```~~~~~                ~~~Make an App Package into a roady App.~~~~~
 
-  ~~~```[--new-app-package]```~~~~~                 Create a new App package.
+  ~~~```[--new-app-package]```~~~~~                 ~~~Create a new App package.~~~~~
 
-  ~~~```[--new-app]```~~~~~                         Create a new roady App.
+  ~~~```[--new-app]```~~~~~                         ~~~Create a new roady App.~~~~~
 
-  ~~~```[--new-dynamic-output-component]```~~~~~    Configure a new DynamicOutputComponent for
-                                      a roady App.
+  ~~~```[--new-dynamic-output-component]```~~~~~    ~~~Configure a new DynamicOutputComponent for
+                                      a roady App.~~~~~
 
-  ~~~```[--new-global-response]```~~~~~             Configure a new GlobalResponse for a roady
-                                      App.
+  ~~~```[--new-global-response]```~~~~~             ~~~Configure a new GlobalResponse for a roady
+                                      App.~~~~~
 
-  ~~~```[--new-output-component]```~~~~~            Configure a new OutputComponent for a roady
-                                      App.
+  ~~~```[--new-output-component]```~~~~~            ~~~Configure a new OutputComponent for a roady
+                                      App.~~~~~
 
   ~~~```[--new-request]```~~~~~                     Configure a new Request for a roady App.
 
@@ -202,8 +214,9 @@
   ~~~```[--view-active-servers]```~~~~~             Show active development servers.
 
 
-  Examples:
+  ### Examples:
 
+  ```
   rig --help
 
   rig --help assign-to-response
@@ -246,35 +259,46 @@
 
   rig --help view-active-servers
   rig --help --view-active-servers
+  ```
 
-  Note:
+  ~~~Note:
 
   The following arguments may also be passed to the --help flag
-  to get additional information about roady and rig:
+  to get additional information about roady and rig:~~~~~
 
+  ```
   rig --help roady
+
   rig --help installation-and-setup
+  ```
 
+  ~~~
   Note: Documentation for rig and roady can be found at:
+  ~~~~~
 
-      https://roady.tech
+  ~~~
+      `https://roady.tech`
+  ~~~~~
 
+  ~~~
   rig is available on GitHub:
+  ~~~~~
 
-      https://github.com/sevidmusic/rig
+      ~~~https://github.com/sevidmusic/rig~~~~~
 
-  roady is available on GitHub:
+  ~~~roady is available on GitHub:~~~~~
 
-      https://github.com/sevidmusic/roady
+      ~~~https://github.com/sevidmusic/roady~~~~~
 
-  A collection of supported App Packages that can be made into roady Apps via
-  rig --make-app-package is available on GitHub:
+  ~~~A collection of supported App Packages that can be made into roady Apps via
+  rig --make-app-package is available on GitHub:~~~~~
 
-      https://github.com/sevidmusic/roadyAppPackages
+      ~~~https://github.com/sevidmusic/roadyAppPackages~~~~~
 
-  roady, the rig command line utility, and
-  roadyAppPackages are all licensed under the MIT license.
+  ~~~roady, the rig command line utility, and
+  roadyAppPackages are all licensed under the MIT license.~~~~~
 
+  ```
   MIT License
 
   Copyright (c) 2021 Sevi Donnelly Foreman
@@ -296,3 +320,4 @@
   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
+  ```
