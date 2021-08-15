@@ -94,7 +94,7 @@
                                       ~~~~~
 
                                       ~~~Note: Typically, you do not need to specify
-                                      the --path-to-apps-directory flag since rig
+                                      the `--path-to-apps-directory` flag since rig
                                       will determine an appropriate path at
                                       runtime.~~~~~
 
@@ -104,7 +104,7 @@
 
                                       ~~~WARNING: Unless you really need to, it is
                                       best to let rig manage the
-                                      --path-to-apps-directory flag's value to
+                                      `--path-to-apps-directory` flag's value to
                                       insure an appropriate path is used.~~~~~
 
   ~~~```[--debug]```~~~~~                           ~~~Show debug information for the current call
@@ -220,44 +220,57 @@
   rig --help
 
   rig --help assign-to-response
+
   rig --help --assign-to-response
 
   rig --help configure-app-output
+
   rig --help --configure-app-output
 
   rig --help path-to-apps-directory
 
   rig --help debug
+
   rig --help --debug
 
   rig --help make-app-package
+
   rig --help --make-app-package
 
   rig --help new-app-package
+
   rig --help --new-app-package
 
   rig --help new-app
+
   rig --help --new-app
 
   rig --help new-dynamic-output-component
+
   rig --help --new-dynamic-output-component
 
   rig --help new-global-response
+
   rig --help --new-global-response
 
   rig --help new-output-component
+
   rig --help --new-output-component
 
   rig --help new-request
+
   rig --help --new-request
 
   rig --help new-response
+
   rig --help --new-response
 
   rig --help start-server
+
   rig --help --start-server
 
   rig --help view-active-servers
+
   rig --help --view-active-servers
   ```
 
@@ -267,9 +280,21 @@
   to get additional information about roady and rig:~~~~~
 
   ```
-  rig --help roady
+  rig --help App
+
+  rig --help DynamicOutputComponent
+
+  rig --help GlobalResponse
 
   rig --help installation-and-setup
+
+  rig --help OutputComponent
+
+  rig --help Request
+
+  rig --help Response
+
+  rig --help roady
   ```
 
   ~~~
