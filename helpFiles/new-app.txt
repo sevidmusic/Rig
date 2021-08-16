@@ -1,71 +1,104 @@
-rig --new-app --name [--domain]
+```rig --new-app --name [--domain] ```
 
-Description:
+### Description:
 
+~~~
 Creates a new roady App. The new App will be created at
-the path that corresponds to the value assigned to the --path-to-apps-directory
-flag.
+the path that corresponds to the value assigned to the
+`--path-to-apps-directory` flag.
+~~~~~
 
-For example, if the --path-to-apps-directory flag is assigned the path:
+~~~
+For example, if the `--path-to-apps-directory` flag is assigned the path:
+~~~~~
 
-    /path/to/roady/Apps
+~~~
+    `/path/to/roady/Apps`
+~~~~~
 
+~~~
 Then:
+~~~~~
 
-    rig --new-app --name Foo
+~~~
+    `rig --new-app --name Foo`
+~~~~~
 
+~~~
 Would create the new Foo App at:
+~~~~~
 
-    /path/to/roady/Apps/Foo
+~~~
+    `/path/to/roady/Apps/Foo`
+~~~~~
 
-Note: You do not need to explicitly set the --path-to-apps-directory unless you
-intend to use an alternative Apps directory. The --path-to-apps-directory flag's
+~~~
+Note: You do not need to explicitly set the `--path-to-apps-directory` unless you
+intend to use an alternative Apps directory. The `--path-to-apps-directory` flag's
 value will be determined by rig at runtime unless it is set explicitly.
+~~~~~
 
+~~~
 WARNING: Unless you really need to, it is best to let rig manage the
---path-to-apps-directory flag's value to insure an appropriate path is used.
+`--path-to-apps-directory` flag's value to insure an appropriate path is used.
+~~~~~
 
-For more information about the --path-to-apps-directory flag use:
+~~~
+For more information about the `--path-to-apps-directory` flag use:
+~~~~~
 
-    rig --help path-to-apps-directory
+~~~
+    `rig --help path-to-apps-directory`
+~~~~~
 
-Flags:
+### Flags:
 
---name                       The name to assign to the new App
+~~~```--name```~~~~~                       ~~~The name to assign to the new App~~~~~
 
-                             WARNING: The name must be unique, if an
+                             ~~~WARNING: The name must be unique, if an
                              App with the same name already exists the
-                             new App will not be created.
+                             new App will not be created.~~~~~
 
-[--domain]                   A domain to assign as the new App's default domain.
+~~~```[--domain]```~~~~~                   ~~~A domain to assign as the new App's default domain.
                              The default domain is used when an App is built
-                             without specifying a domain.
+                             without specifying a domain.~~~~~
 
+                             ~~~
                              For example:
+                             ~~~~~
+                             ~~~
+                                 `php Apps/Foo/Components.php`
+                             ~~~~~
 
-                                 php Apps/Foo/Components.php
-
+                             ~~~
                              Would build the Foo App for the App's assigned
                              default domain.
+                             ~~~~~
 
+                             ~~~
                              If a --domain is not specified, the default
                              domain will be:
-
-                               http://localhost:8080
-
+                             ~~~~~
+                             ~~~
+                               `http://localhost:8080`
+                             ~~~~~
+                             ~~~
                              The App's default domain will be defined in the
                              App's Components.php, and can be changed later
                              if necessary by editing the App's Components.php.
-
+                             ~~~~~
+                             ~~~
                              WARNING: Do not include the trailing / at the end
                              of the domain or you may run into issues. This is
                              a bug, and it is being addressed. See issue #193:
+                             ~~~~~
+                             ~~~
+                             `https://github.com/sevidmusic/roady/issues/193`
+                             ~~~~~
 
-                             https://github.com/sevidmusic/roady/issues/193
-
-Examples:
-
+### Examples:
+```
 rig --new-app --name "Foo"
 
 rig --new-app --name "Foo" --domain "http://localhost:8765"
-
+```

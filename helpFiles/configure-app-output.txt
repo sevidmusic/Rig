@@ -1,99 +1,143 @@
-  rig --configure-app-output --for-app --name --output --output-source-file
+  ```rig --configure-app-output --for-app --name --output --output-source-file
       [--global] [--output-position] [--relative-urls] [--response-position]
-      [--static]
+      [--static]```
 
-  Description:
+  ### Description:
 
+  ~~~
   Configure output for a specified App to show up in response to specified
   requests to any domain that the App is built for.
+  ~~~~~
 
+  ~~~
   Note: If the specified App does not exist it will be created.
+  ~~~~~
 
+  ~~~
   The App's root directory is expected to be located, or will be created, at the
   path that corresponds to the path assigned to the --path-to-apps-directory flag.
+  ~~~~~
 
+  ~~~
   For example, if the value assigned to the --path-to-apps-directory flag is:
+  ~~~~~
 
-      /path/to/roady/Apps
+  ~~~
+      `/path/to/roady/Apps`
+  ~~~~~
 
+  ~~~
   Then the following:
+  ~~~~~
 
-      rig --configure-app-output \
+      ```rig --configure-app-output \
       --for-app Foo \
       --name Bar \
-      --output Baz
+      --output Baz```
 
+  ~~~
   Will configure the output Baz for an App named Foo, whose root directory
   path is:
+  ~~~~~
 
-      /path/to/roady/Apps/Foo
+  ~~~
+      `/path/to/roady/Apps/Foo`
+  ~~~~~
 
+  ~~~
   Again, if the App does not exist, it will be created.
+  ~~~~~
 
-  Note: You do not need to explicitly set the --path-to-apps-directory flag's
+  ~~~
+  Note: You do not need to explicitly set the `--path-to-apps-directory` flag's
   value unless you intend to use an alternative Apps directory.
+  ~~~~~
 
-  The --path-to-apps-directory flag's assigned value will be determined by rig at
+  ~~~
+  The `--path-to-apps-directory` flag's assigned value will be determined by rig at
   runtime unless it is set explicitly.
+  ~~~~~
 
+  ~~~
   WARNING: Unless you really need to, it is best to let rig manage the
-  --path-to-apps-directory flag's value to insure an appropriate path is used.
+  `--path-to-apps-directory` flag's value to insure an appropriate path is used.
+  ~~~~~
 
+  ~~~
   WARNING: The --path-to-apps-directory flag causes issues when used in
   conjunction with the --configure-app-output flag. This is a bug, and it is
   being addressed. See issue #100:
+  ~~~~~
 
-      https://github.com/sevidmusic/rig/issues/100
+  ~~~
+      `https://github.com/sevidmusic/rig/issues/100`
+  ~~~~~
 
+  ~~~
   For more information about the --path-to-apps-directory flag use:
+  ~~~~~
 
-      rig --help path-to-apps-directory
+  ~~~
+      `rig --help path-to-apps-directory`
+  ~~~~~
 
 
-  Flags:
+  ### Flags:
 
-  --for-app             The name of the App to configure the output for.
+  ~~~```--for-app```~~~~~             ~~~The name of the App to configure the output for.~~~~~
 
-                        WARNING: The specified App name must be alphanumeric or
-                        rig will refuse to configure the output.
+                        ~~~WARNING: The specified App name must be alphanumeric or
+                        rig will refuse to configure the output.~~~~~
 
-                        WARNING: If the specified App name contains spaces, only
+                        ~~~WARNING: If the specified App name contains spaces, only
                         the alphanumeric characters up to the first space will be
-                        used. For example:
+                        used.~~~~~
 
-                            rig --configure-app-output \
+                        ~~~For example:~~~~~
+
+                            ```rig --configure-app-output \
                             --for-app 'Spaces In Alphanumeric Name' \
                             --name Bar \
-                            --output Baz
+                            --output Baz```
 
+                        ~~~
                         Will configure output for an App named:
+                        ~~~~~
+                        ~~~
+                            `Spaces`
+                        ~~~~~
 
-                            Spaces
+  ~~~```--name```~~~~~                ~~~The name used to determine the names to assign to the
+                        components that will be configured for the output.~~~~~
 
-  --name                The name used to determine the names to assign to the
-                        components that will be configured for the output.
-
+                        ~~~
                         If only the required flags are specified:
+                        ~~~~~
 
-                            --for-app
+                            ```--for-app
                             --name
-                            [--output] or [--output-source-file]
+                            [--output] or [--output-source-file]```
 
+                        ~~~
                         Then rig --configure-app-output will configure one
                         DynamicOutputComponent, one Response, and one Request for
                         the output that all are assigned the specified --name.
+                        ~~~~~
 
+                        ~~~
                         For example, if the Foo App does not exist, then the
                         following:
+                        ~~~~~
 
-                            rig --configure-app-output \
+                            ```rig --configure-app-output \
                             --for-app Foo \
                             --name Bar \
-                            --output Baz
-
+                            --output Baz```
+                        ~~~
                         Is equivalent to:
+                        ~~~~~
 
-                            rig --new-app \
+                            ```rig --new-app \
                             --name Foo
 
                             rig --new-dynamic-output-component \
@@ -116,33 +160,48 @@
                             --for-app Foo \
                             --response Bar \
                             --dynamic-output-components Bar \
-                            --requests Bar
+                            --requests Bar```
 
+                        ~~~
                         WARNING: The specified --name must be unique or rig will
                         refuse to configure the output.
+                        ~~~~~
 
+                        ~~~
                         WARNING: The names rig derives from the specified --name
                         must also be unique. If any of the names that rig derives
                         from the specified --name to assign to the Components
                         configured for the output would conflict with the name of
                         an existing Component rig will refuse to configure the
                         output.
+                        ~~~~~
 
+                        ~~~
                         WARNING: The specified name must be alphanumeric or rig
                         will refuse to configure the output.
+                        ~~~~~
 
+                        ~~~
                         WARNING: If the specified name contains spaces, only the
                         alphanumeric characters up to the first space will be
-                        used. For example:
+                        used.~~~~~
 
-                            rig --configure-app-output \
+                        ~~~
+                        For example:
+                        ~~~~~
+
+                            ```rig --configure-app-output \
                             --for-app Foo \
                             --name 'Spaces In Alphanumeric Name' \
-                            --output Baz
-
+                            --output Baz```
+                        ~~~
                         Will result in the derived name:
+                        ~~~~~
 
-                            Spaces
+
+                        ~~~
+                            `Spaces`
+                        ~~~~~
 
   --output              The output to assign. This flag is required unless the
                         --output-source-file flag is specified.
@@ -575,10 +634,9 @@
                             ./Foo/OutputComponents/Bar.php
 
 
-  Examples:
+  ### Examples:
 
-
-  rig --configure-app-output \
+  ```rig --configure-app-output \
   --for-app Foo \
   --name Bar \
   --output '<p>Hello World</p>'
@@ -596,5 +654,5 @@
   --output-source-file /path/to/output/source/file \
   --global \
   --response-position 3 \
-  --output-position 1
+  --output-position 1```
 
