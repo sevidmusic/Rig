@@ -374,6 +374,7 @@
                         ~~~
                         Whose contents will match the contents of the
                         `~/Documents/homepage.php` file:
+                        ~~~~~
 
                             ~~~
                             `<p>Hello World</p>`
