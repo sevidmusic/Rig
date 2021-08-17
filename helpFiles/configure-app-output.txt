@@ -103,6 +103,7 @@
                         ~~~
                         Will configure output for an App named:
                         ~~~~~
+
                         ~~~
                             `Spaces`
                         ~~~~~
@@ -594,7 +595,7 @@
 
                             ~~~
                             `./Foo/Requests/Bar.php`
-                            ~~~
+                            ~~~~~
 
                         ~~~
                         The Bar Request's configuration file's content will be:
