@@ -1,54 +1,68 @@
-  rig --assign-to-response --for-app --response [--dynamic-output-components]
-      [--output-components] [--requests]
+  ```rig --assign-to-response --for-app --response [--dynamic-output-components]
+      [--output-components] [--requests]```
 
-  Description:
+  ### Description:
 
+  ~~~
   Assign one or more Requests, OutputComponents, or DynamicOutputComponents to an
   existing Response or GlobalResponse for an existing roady App.
+  ~~~~~
 
-  Flags:
+  ### Flags:
 
-  --for-app                    Name of the App that defined the target Response
-                               or GlobalResponse.
+  ~~~```--for-app```~~~~~                    ~~~Name of the App that defined the target Response
+                               or GlobalResponse.~~~~~
 
+                               ~~~
                                WARNING: The App must exist at the path that
                                corresponds to the path assigned to the
-                               --path-to-apps-directory flag.
+                               `--path-to-apps-directory` flag.
+                               ~~~~~
 
+                               ~~~
                                For more information about the
-                               --path-to-apps-directory flag use:
+                               `--path-to-apps-directory` flag use:
+                               ~~~~~
 
-                                   rig --help path-to-apps-directory
+                                   ~~~
+                                   `rig --help path-to-apps-directory`
+                                   ~~~~~
 
-  --response                   Name of the target Response or GlobalResponse.
+  ~~~```--response```~~~~~                   ~~~Name of the target Response or GlobalResponse.~~~~~
 
+                               ~~~
                                Note: The Response or GlobalResponse must already
                                be defined by the specified App.
+                               ~~~~~
 
-  --dynamic-output-components  Names of the DynamicOutputComponents to assign to
-                               the Response or GlobalResponse.
+  ~~~```--dynamic-output-components```~~~~~  ~~~Names of the DynamicOutputComponents to assign to
+                               the Response or GlobalResponse.~~~~~
 
+                               ~~~
                                Note: The DynamicOutputComponents must already be
                                defined by the specified App.
+                               ~~~~~
 
-  --output-components          Names of the OutputComponents to assign to the
-                               Response or GlobalResponse.
+  ~~~```--output-components```~~~~~          ~~~Names of the OutputComponents to assign to the
+                               Response or GlobalResponse.~~~~~
 
+                               ~~~
                                Note: The OutputComponents must already be defined
                                by the specified App.
+                               ~~~~~
 
-  --requests                   Names of the Requests to assign to the Response or
-                               GlobalResponse.
+  ~~~```--requests```~~~~~                   ~~~Names of the Requests to assign to the Response or
+                               GlobalResponse.~~~~~
 
-                               Note: The Requests must already be defined by the
-                               specified App.
+                               ~~~Note: The Requests must already be defined by the
+                               specified App.~~~~~
 
-  Examples:
+  ### Examples:
 
-  rig --assign-to-response \
+  ```rig --assign-to-response \
       --for-app Foo \
       --response Bar \
       --dynamic-output-components FooBar BazBiz \
       --output-components FooBaz  BizBar \
-      --requests BarBaz BazFoo
+      --requests BarBaz BazFoo```
 
