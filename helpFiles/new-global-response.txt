@@ -1,54 +1,83 @@
-rig --new-global-response --for-app --name [--position]
+  ```
+  rig --new-global-response --for-app --name [--position]
+  ```
 
-Description:
+  ### Description:
 
-Configure a new GlobalResponse for the specified App.
+  ~~~
+  Configure a new GlobalResponse for the specified App.
+  ~~~~~
 
-A GlobalResponse is a type of Response that will respond to all Requests to the
-domain the App is built for.
+  ~~~
+  A GlobalResponse is a type of Response that will respond to all Requests to the
+  domain the App is built for.
+  ~~~~~
 
-Flags:
+  ### Flags:
 
---for-app    The name of the App to configure the GlobalResponse for.
+  ~~~```--for-app```~~~~~    ~~~The name of the App to configure the GlobalResponse for.~~~~~
 
-             WARNING: The specified App must exist, if it does not, the new
-             GlobalResponse will not be configured.
+               ~~~
+               WARNING: The specified App must exist, if it does not, the new
+               GlobalResponse will not be configured.
+               ~~~~~
 
---name       A name to assign to the new GlobalResponse.
+  ~~~```--name```~~~~~       ~~~A name to assign to the new GlobalResponse.~~~~~
 
-             WARNING: The name must be unique, if a GlobalResponse already
-             exists with the same name the new GlobalResponse will not be
-             configured.
+               ~~~
+               WARNING: The name must be unique, if a GlobalResponse already
+               exists with the same name the new GlobalResponse will not be
+               configured.
+               ~~~~~
 
-             WARNING: The name must be alphanumeric with no spaces, if spaces
-             or non-alphanumeric characters are present in the specified name,
-             only the alphanumeric characters up to the first space or
-             non-alphanumeric character will be used.
+               ~~~
+               WARNING: The name must be alphanumeric with no spaces, if spaces
+               or non-alphanumeric characters are present in the specified name,
+               only the alphanumeric characters up to the first space or
+               non-alphanumeric character will be used.
+               ~~~~~
 
-             For example:
+               ~~~
+               For example:
+               ~~~~~
 
-                 rig --new-global-response \
-                 --for-app foo \
-                 --name 'Spaces & Bad Chars'
+                   ```
+                   rig --new-global-response \
+                   --for-app foo \
+                   --name 'Spaces & Bad Chars'
+                   ```
 
-             Would result in the assigned name:
+               ~~~
+               Would result in the assigned name:
+               ~~~~~
 
-                 Spaces
+                   ~~~
+                   `Spaces`
+                   ~~~~~
 
-             It is also possible that rig will refuse to configure the
-             GlobalResponse if an alphanumeric name cannot be derived from a name
-             that contains spaces or non-alphanumeric characters. This may happen,
-             for instance, if the specified name starts with a non-alphanumeric
-             character.
+               ~~~
+               It is also possible that rig will refuse to configure the
+               GlobalResponse if an alphanumeric name cannot be derived from a name
+               that contains spaces or non-alphanumeric characters. This may happen,
+               for instance, if the specified name starts with a non-alphanumeric
+               character.
+               ~~~~~
 
-[--position] The position to assign to the GlobalResponse. This position is used
-             to sort the GlobalResponse relative to other GlobalResponses and
-             Responses that respond to the same Request.
-             Defaults to: 0
+  ~~~```[--position]```~~~~~ ~~~The position to assign to the GlobalResponse. This position is used
+               to sort the GlobalResponse relative to other GlobalResponses and
+               Responses that respond to the same Request.~~~~~
 
-Examples:
+               ~~~
+               Defaults to: `0`
+               ~~~~~
 
-rig --new-global-response --for-app Foo --name Bar
+  ### Examples:
 
-rig --new-global-response --for-app Foo --name Baz --position 3.5
+  ```
+  rig --new-global-response --for-app Foo --name Bar
+  ```
+
+  ```
+  rig --new-global-response --for-app Foo --name Baz --position 3.5
+  ```
 

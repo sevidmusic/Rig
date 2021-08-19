@@ -1,10 +1,15 @@
-rig --view-active-servers
-
-Description:
-
-List the active php built in server instances started via rig --start-server.
-
-Example:
-
+  ```
   rig --view-active-servers
+  ```
+  ### Description:
+
+  ~~~
+  List the active php built in server instances started via rig --start-server.
+  ~~~~~
+
+  ### Example:
+
+    ```
+    rig --view-active-servers
+    ```
 
