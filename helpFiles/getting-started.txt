@@ -1,14 +1,14 @@
   # Getting Started
 
   ~~~
-  The following goes over how to install and setup roady and rig, and how to build
-  a `HelloWorld` App.
+  The following goes over how to install and setup roady and rig, and how to
+  build a `HelloWorld` App.
   ~~~~~
 
   ~~~
-  Note: roady is installed in the user's `home` directory in the following example,
-  make sure to adjust the paths used in the example if you install roady at a
-  different path:
+  Note: roady is installed in the user's `home` directory in the following
+  example. Make sure to adjust the paths used in the example if you install
+  roady at a different path:
   ~~~~~
 
   ### Installation, Setup, and Hello World Demo
@@ -106,8 +106,8 @@
       <h1>Roady</h1>
 
       <p>
-          <a href="https://github.com/sevidmusic/roady">Roady</a> is a tool designed
-          to aid in the development of websites.
+          <a href="https://github.com/sevidmusic/roady">Roady</a> is a tool
+          designed to aid in the development of websites.
       </p>
 
       <p>
@@ -116,26 +116,24 @@
       </p>
 
       <p>
-          <a href="https://github.com/sevidmusic/roady">Roady</a> Apps are responsible for implementing one or more related features.
+          The features of an App can be made available to multiple websites
+          running on a single installation of
+          <a href="https://github.com/sevidmusic/roady">Roady</a>.
       </p>
 
       <p>
-          The features of an App can be made available to multiple websites running on
-          a single installation of the <a href="https://github.com/sevidmusic/roady">Roady</a>.
-      </p>
-
-      <p>
-          Apps can configure output to show up in response to appropriate requests to a
-          website, and can also provide stylesheets, scripts, and other resources
-          necessary to implement the specific features they provide.
+          Apps can configure output to show up in response to appropriate
+          requests to a
+          website, and can also provide stylesheets, scripts, and other
+          resources necessary to implement the specific features they provide.
       </p>
 
   </div>
   ```
 
   ~~~
-  5. Add some style by creating a global stylesheet for the `HelloWorld` App using a
-  text editor or IDE:
+  5. Add some style by creating a global stylesheet for the `HelloWorld` App
+  using a text editor or IDE:
   ~~~~~
 
   ```
@@ -149,7 +147,10 @@
   ```
   body {
       background: #140a09;
-      background-image: linear-gradient(45deg, #00bbff 25%, transparent 25%), linear-gradient(-45deg, #020203 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #00bbff 75%), linear-gradient(-45deg, transparent 75%, #020203 75%);
+      background-image: linear-gradient(45deg, #00bbff 25%, transparent 25%),
+                        linear-gradient(-45deg, #020203 25%, transparent 25%),
+                        linear-gradient(45deg, transparent 75%, #00bbff 75%),
+                        linear-gradient(-45deg, transparent 75%, #020203 75%);
       background-size: 10rem 10rem;
       background-position: 0 0, 0 10rem, 10rem -10rem, -10rem 0rem;
       color: #fa5f11;
@@ -185,8 +186,8 @@
   ### Hello World App Package
 
   ~~~
-  Note: The App Package for the HelloWorld App created in the example above can be
-  found on github:
+  Note: The App Package for the HelloWorld App created in the example above can
+  be found on github:
   ~~~~~
 
   ~~~
