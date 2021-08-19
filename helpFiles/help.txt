@@ -138,7 +138,7 @@
                                                   arguments.~~~~~
 
 
-  ~~~```[--help] [FLAG]```~~~~~                      ~~~Show this help message, or the appropriate
+  ~~~```[--help] [FLAG]```~~~~~                     ~~~Show this help message, or the appropriate
                                       help message for the specified `[FLAG]`.~~~~~
 
                                       ~~~For example:~~~~~
