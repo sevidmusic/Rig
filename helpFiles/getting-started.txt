@@ -11,7 +11,12 @@
   different path:
   ~~~~~
 
-  ### Installation & Setup
+  ### Installation, Setup, and Hello World Demo
+  ~~~
+  https://roadydemos.us-east-1.linodeobjects.com/roadyInstallAndHelloWorldTake3-2021-07-31_14.06.34.webm
+  ~~~~~
+
+  ### Installation & Setup Steps
 
   ~~~
   1. Move into the directory where you wish to install roady and rig:
@@ -61,7 +66,7 @@
          `rig --help | more`
          ~~~~~
 
-  # Hello World
+  ### Hello World Steps
 
   ~~~
   1. Use rig to create an App named `HelloWorld`
