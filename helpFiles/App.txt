@@ -6,17 +6,8 @@ more websites running on a roady installation.
 ~~~~~
 
 ~~~
-New App's can be created with either `rig --new-app` or
-`rig --configure-app-output`.
-~~~~~
-
-~~~
-`rig --new-app` will create a new App in Roady's App's directory.
-~~~~~
-
-~~~
-`rig --configure-app-output` will configure output for an App, creating the App
-if it does not already exist.
+New App's can be created with either rig --new-app or
+rig --configure-app-output.
 ~~~~~
 
 ~~~
@@ -41,6 +32,18 @@ resources
 ~~~
 The `Components.php` file is used to build the App for a specific domain.
 ~~~~~
+
+~~~
+For example, to create an App named `Foo` and build it for the domain
+https://foobar.baz:
+~~~~~
+
+```
+rig --new-app --name Foo
+
+php /path/to/roady/Apps/Foo/Components.php 'https://foobar.baz'
+```
+
 
 ``` css ```
 

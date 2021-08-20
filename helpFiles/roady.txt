@@ -31,7 +31,7 @@
 
   ### Installation, Setup, and Hello World Demo
   ~~~
-  https://roadydemos.us-east-1.linodeobjects.com/roadyInstallAndHelloWorldTake3-2021-07-31_14.06.34.webm
+  https://roadydemos.us-east-1.linodeobjects.com/roady-rig-installation-setup-helloworld-2021-08-20_02.05.27.webm
   ~~~~~
 
   ~~~
