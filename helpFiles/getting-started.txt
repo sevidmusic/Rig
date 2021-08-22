@@ -6,9 +6,9 @@
   ~~~~~
 
   ~~~
-  Note: roady is installed in the user's `home` directory in the following
-  example. Make sure to adjust the paths used in the example if you install
-  roady at a different path:
+  Note: In the following example roady is installed in the user's `home`
+  directory. Make sure to adjust the paths used in the following example
+  if you install roady at a different path:
   ~~~~~
 
   ### Installation, Setup, and Hello World Demo
@@ -22,49 +22,47 @@
   1. Move into the directory where you wish to install roady and rig:
   ~~~~~
 
-         ~~~
-         `cd ~/`
-         ~~~~~
+         ~~~```cd ~/```~~~~~
 
   ~~~
   2. Clone roady from https://github.com/sevidmusic/roady.git:
   ~~~~~
 
-         ~~~
-         `git clone https://github.com/sevidmusic/roady.git`
-         ~~~~~
+         ~~~```git clone https://github.com/sevidmusic/roady.git```~~~~~
 
   ~~~
   3. Move into roady's directory:
   ~~~~~
 
-         ~~~
-         `cd ~/roady`
-         ~~~~~
+         ~~~```cd ~/roady```~~~~~
 
   ~~~
-  4. Update `composer`, this will install rig in `./vendor/darling/rig`:
+  4. Update `composer`, this will install rig in `~/roady/vendor/darling/rig`:
   ~~~~~
 
-         ~~~
-         `composer update`
-         ~~~~~
+         ~~~```composer update```~~~~~
 
   ~~~
   5. Add rig to your path:
   ~~~~~
 
-         ~~~
-         `export PATH="${PATH}:${HOME}/roady/vendor/darling/rig/bin"`
-         ~~~~~
+         ~~~```export PATH="${PATH}:${HOME}/roady/vendor/darling/rig/bin"```~~~~~
 
   ~~~
   6. Make sure rig is working:
   ~~~~~
 
-         ~~~
-         `rig --help | more`
-         ~~~~~
+         ~~~```rig --help | less -R```~~~~~
+
+  ~~~
+  Note: `less` is not related to roady or rig. The `less` command is used in the
+  example to make it easier to view the output of `rig --help`. More information
+  about the `less` command can be found online at:
+  ~~~~~
+
+      ~~~
+      https://man7.org/linux/man-pages/man1/less.1.html
+      ~~~~~
 
   ### Hello World Steps
 
@@ -72,34 +70,37 @@
   1. Use rig to create an App named `HelloWorld`
   ~~~~~
 
+  ~~~
   ```rig --configure-app-output \
      --for-app HelloWorld \
      --name HelloWorld \
      --output '<p>Hello World</p>' \
      --relative-urls '/'```
+  ~~~~~
 
   ~~~
   2. Build the `HelloWorld` App for the domain `http://localhost:8080`:
   ~~~~~
 
-  ```php ./Apps/HelloWorld/Components.php 'http://localhost:8080'```
+  ~~~```php ./Apps/HelloWorld/Components.php 'http://localhost:8080'```~~~~~
 
   ~~~
   3. Use rig to start a development server:
   ~~~~~
 
-  ```rig --start-server --port 8080 --open-in-browser```
+  ~~~```rig --start-server --port 8080 --open-in-browser```~~~~~
 
   ~~~
   4. Use a text editor or IDE to edit `HelloWorld`'s output:
   ~~~~~
 
-  ```vim ./Apps/HelloWorld/DynamicOutput/HelloWorld.php```
+  ~~~```vim ./Apps/HelloWorld/DynamicOutput/HelloWorld.php```~~~~~
 
   ~~~
   NOTE: `HelloWorld/DynamicOutput/HelloWorld.php`'s content should now be:
   ~~~~~
 
+  ~~~
   ```
   <div class="container">
 
@@ -130,20 +131,20 @@
 
   </div>
   ```
+  ~~~~~
 
   ~~~
   5. Add some style by creating a global stylesheet for the `HelloWorld` App
   using a text editor or IDE:
   ~~~~~
 
-  ```
-  vim ./Apps/HelloWorld/css/hw-global-styles.css
-  ```
+  ~~~```vim ./Apps/HelloWorld/css/hw-global-styles.css```~~~~~
 
   ~~~
   NOTE: `hw-global-styles.css`'s content should now be:
   ~~~~~
 
+  ~~~
   ```
   body {
       background: #140a09;
@@ -182,22 +183,68 @@
       color: #00bbff;
   }
   ```
+  ~~~~~
 
   ### Hello World App Package
 
   ~~~
-  Note: The App Package for the HelloWorld App created in the example above can
-  be found on github:
+  Note: roady Apps can be shared easily in the form of App Packages. The App
+  Package for the `HelloWorld` App created in the example is part of a collection
+  of roady App Packages that can be found on github:
   ~~~~~
 
   ~~~
-  https://github.com/sevidmusic/roadyAppPackages/tree/main/HelloWorld
+  https://github.com/sevidmusic/roadyAppPackages
   ~~~~~
 
   ~~~
-  And can be made into a roady App via:
+  To following demonstrates how to install roadyAppPackages, and make the
+  `HelloWorld` App from the Hello World App Package.
+  ~~~~~
+
+      ~~~
+      1. Move into the directory where you want to install roadyAppPackages:
+      ~~~~~
+
+          ~~~```cd ~/```~~~~~
+
+      ~~~
+      2. Download roadyAppPackages from GitHub:
+      ~~~~~
+
+          ~~~```git clone https://github.com/sevidmusic/roadyAppPackages.git```~~~~~
+
+      ~~~
+      3. Run `rig --make-app-package` to make the `HelloWorld` App Package
+      into the `HelloWorld` App.
+      ~~~~~
+
+          ~~~```rig --make-app-package --path ~/roadyAppPackages/HelloWorld```~~~~~
+
+      ~~~
+      Warning: You do not need to remove the original HelloWorld App if it exists,
+      `rig --make-app-package` will always replace existing Apps with the newly
+      made App. Be careful with this command, --make-app-package will overwrite
+      any directory whose name matches the name of the App to be made that exists
+      at the path assigned to the --path-to-apps-directory flag.
+      ~~~~~
+
+  ~~~
+  The `HelloWorld` App will be located at the path that corresponds to the
+  path assigned to the --path-to-apps-directory flag. If roady and rig were
+  installed according to the steps in this documentation, then the `HelloWorld`
+  App will be located at the following path:
+  ~~~~~
+
+      ~~~```~/roady/Apps/HelloWorld```~~~~~
+
+  ~~~
+  If you installed roady and rig at a different location then the path will
+  depend on where roady and rig were installed.
   ~~~~~
 
   ~~~
-  `rig --make-app-package`
+  Note: For more information on the `--make-app-package` command use
+  `rig --help --make-app-package`
   ~~~~~
+

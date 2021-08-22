@@ -1,0 +1,120 @@
+  ### App Packages
+
+  ~~~
+  roady Apps can be shared easily in the form of App Packages. You can create a
+  new App Package with `rig --new-app-package`.
+  ~~~~~
+
+  ~~~
+  App Packages can be made into roady Apps with `rig --make-app-package`.
+  ~~~~~
+
+  ~~~
+  To convert an existing App into an App Package you will need the AppPackager
+  App.
+  ~~~~~
+
+  ~~~
+  If you have already installed roady, the AppPackager's App Package will have
+  been installed as part of the roadyAppPackages library when `composer update`
+  was run.
+  ~~~~~
+
+  ~~~
+  Note: For help installing roady and rig, use:
+  ~~~~~
+
+    ~~~
+    `rig --help getting-started`
+    ~~~~~
+  ~~~
+  The AppPackager's App Package will be located at the following path
+  relative to roady's root directory:
+  ~~~~~
+
+      ~~~
+      `./vendor/darling/roadyAppPackages/AppPackager`
+      ~~~~~
+
+  ~~~
+  To make the AppPackager App, move into roady's root directory and run:
+  ~~~~~
+
+    ~~~
+    `rig --make-app-package --path ./vendor/darling/roadyAppPackages/AppPackager`
+    ~~~~~
+
+  ~~~
+  To use the AppPackager App, you will need to build it for a domain. In this
+  example the AppPackager will be built for the local domain
+  http://localhost:8080, though it could be built for another domain.
+  ~~~~~
+
+  ~~~
+  To build the AppPackager App move into roadys root directory and run the
+  following:
+  ~~~~~
+
+    ~~~
+    `php ./Apps/AppPackager/Components.php 'http://localhost:8080'`
+    ~~~~~
+
+  ~~~
+  The next step is to build the App you want to package for the same domain.
+  ~~~~~
+
+    ~~~
+    `php ./Apps/APPTOPACKAGE/Components.php 'http://localhost:8080'`
+    ~~~~~
+
+  ~~~
+  Finally, if one is not already running, start a development server
+  at `localhost` on port `8080`
+  ~~~~~
+
+    ~~~
+    `rig --start-server --port 8080`
+    ~~~~~
+
+  ~~~
+  Next, open a web browser and navigate to the following url:
+  ~~~~~
+
+    ~~~
+    http://localhost:8080/index.php?page=AppPackager
+    ~~~~~
+
+  ~~~
+  Using the provided select form, select the App you wish to package
+  and click submit.
+  ~~~~~
+
+  ~~~
+  The new App Package will be located in the AppPackager App's
+  `resources/AppPackages` directory which will be located at the
+  following path relative to roady's root directory:
+  ~~~~~
+
+  ~~~
+  `./Apps/AppPackager/resources/AppPackages/`
+  ~~~~~
+
+  ~~~
+  This App Package can be easily shared, and used to rebuild the original
+  app on any roady installation.
+  ~~~~~
+
+  ~~~
+  Note: The functionality of the AppPackager App is going to be incorprated into
+  rig in the future so that the AppPackager App is not needed to package Apps.
+  See issue #120 at:
+  ~~~~~
+
+    ~~~
+    https://github.com/sevidmusic/rig/issues/120
+    ~~~~~
+
+  ~~~
+  Note: More documentation is being written on the topic of App Packages and
+  will be added to this documenation as soon as it is complete.
+  ~~~~~
