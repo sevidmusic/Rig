@@ -37,10 +37,21 @@
          ~~~```cd ~/roady```~~~~~
 
   ~~~
-  4. Update `composer`, this will install rig in `~/roady/vendor/darling/rig`:
+  4. Update `composer`, this will install rig at `~/roady/vendor/darling/rig`:
   ~~~~~
 
          ~~~```composer update```~~~~~
+
+  ~~~
+  Note: This will also install the roadyAppPackages library which provides a
+  collection of roady App Packages that can be made into roady Apps via
+  `rig --make-app-package`. In this example, the roadyAppPackages library
+  will be installed at:
+  ~~~~~
+
+      ~~~
+      `~/roady/vendor/darling/roadyAppPackages`
+      ~~~~~
 
   ~~~
   5. Add rig to your path:
@@ -206,63 +217,144 @@
   ### Hello World App Package
 
   ~~~
-  Note: roady Apps can be shared easily in the form of App Packages. The App
-  Package for the `HelloWorld` App created in the example is part of a
-  collection of roady App Packages that can be found on github:
+  Note: roady Apps can be shared easily in the form of App Packages. You can
+  create a new App Package with `rig --new-app-package`.
   ~~~~~
 
   ~~~
-  https://github.com/sevidmusic/roadyAppPackages
+  App Packages can be made into roady Apps with `rig --make-app-package`.
   ~~~~~
 
   ~~~
-  To following demonstrates how to install roadyAppPackages, and make the
-  `HelloWorld` App from the Hello World App Package.
+  The HelloWorld App's App Package is part of a collection of App Packages that
+  are installed as part of the roadyAppPackages library when `composer update`
+  is run after installing roady.
+  ~~~~~
+
+  ~~~
+  If roady is installed in the user's home directory, the HelloWorld App's App
+  Package will be located at the following path:
   ~~~~~
 
       ~~~
-      1. Move into the directory where you want to install roadyAppPackages:
-      ~~~~~
-
-          ~~~```cd ~/```~~~~~
-
-      ~~~
-      2. Download roadyAppPackages from GitHub:
-      ~~~~~
-
-          ~~~```git clone https://github.com/sevidmusic/roadyAppPackages.git```~~~~~
-
-      ~~~
-      3. Run `rig --make-app-package` to make the `HelloWorld` App Package
-      into the `HelloWorld` App.
-      ~~~~~
-
-          ~~~```rig --make-app-package --path ~/roadyAppPackages/HelloWorld```~~~~~
-
-      ~~~
-      Warning: You do not need to remove the original HelloWorld App if it
-      exists, `rig --make-app-package` will always replace existing Apps with
-      the newly made App. Be careful with this command, --make-app-package will
-      overwrite any directory whose name matches the name of the App to be made
-      that exists at the path assigned to the --path-to-apps-directory flag.
+      `~/roady/vendor/darling/roadyAppPackages/HelloWorld`
       ~~~~~
 
   ~~~
-  The `HelloWorld` App will be located at the path that corresponds to the
-  path assigned to the --path-to-apps-directory flag. If roady and rig were
-  installed according to the steps in this documentation, then the `HelloWorld`
-  App will be located at the following path:
-  ~~~~~
-
-      ~~~```~/roady/Apps/HelloWorld```~~~~~
-
-  ~~~
-  If you installed roady and rig at a different location then the path will
-  depend on where roady and rig were installed.
+  Note: The examples assume roady is installed in the user's home directory,
+  if roady is installed somewhere else make sure to adjust the paths used
+  in the examples appropriately.
   ~~~~~
 
   ~~~
-  Note: For more information on the `--make-app-package` command use
-  `rig --help --make-app-package`
+  To make the HelloWorld App from the HelloWorld App Package, run:
+  ~~~~~
+
+      ~~~
+      ```rig --make-app-package \
+      --path ~/roady/vendor/darling/roadyAppPackages/HelloWorld```
+      ~~~~~
+
+  ~~~
+  The newly made HelloWorld App will be located at the following path:
+  ~~~~~
+
+      ~~~
+      `~/roady/Apps/HelloWorld`
+      ~~~~~
+
+  ~~~
+  Warning: Be careful with `--make-app-package`, it will overwrite any directory
+  whose name matches the name of the App to be made with the newly made App.
+  For example, if you followed the getting-started documentation and created
+  a HelloWorld App, running `rig --make-app-package --path
+  ~/roady/vendor/darling/roadyAppPackages/HelloWorld` will replace the original
+  HelloWorld App with the HelloWorld App made from the HelloWorld App Package.
+  ~~~~~
+
+  ~~~
+  To build the newly made HelloWorld App, run:
+  ~~~~~
+
+      ~~~
+      ```php ~/roady/Apps/HelloWorld/Components.php 'http://localhost:8080'```
+      ~~~~~
+
+  ~~~
+  And if one is not already running, start a development server:
+  ~~~~~
+
+      ~~~
+      ```rig --start-server --port 8080 --open-in-browser```
+      ~~~~~
+
+  ~~~
+  The HelloWorld App's output should be accessible from a web browser at
+  the following url:
+  ~~~~~
+
+      ~~~
+      http://localhost:8080
+      ~~~~~
+
+  ### The AppPackager
+
+  ~~~
+  In addition to the HelloWorld App Package, an App Package named AppPackager is
+  also provided by the roadyAppPackages library. The AppPackager is an App that
+  can be used to convert existing Apps into AppPackages. To use it, first
+  make the AppPackager App Package into an App:
+  ~~~~~
+
+      ~~~
+      ```rig --make-app-package \
+      --path ~/roady/vendor/darling/roadyAppPackages/AppPackager```
+      ~~~~~
+
+  ~~~
+  Then build the AppPackager App for the domain http://localhost:8080
+  ~~~~~
+
+      ~~~
+      ```php ~/roady/Apps/AppPackager/Components.php 'http://localhost:8080'```
+      ~~~~~
+
+  ~~~
+  If you haven't already, start a development server:
+  ~~~~~
+
+      ~~~
+      `rig --start-server --port 8080`
+      ~~~~~
+
+  ~~~
+  Then visit the following url in a web browser:
+  ~~~~~
+
+      ~~~
+      http://localhost:8080/index.php?page=AppPackager
+      ~~~~~
+
+  ~~~
+  Use the select form provided to select an App to package, for example, select
+  the AppPackager, and click submit.
+  ~~~~~
+
+  ~~~
+  This will create an App Package for the AppPackager App at the following path:
+  ~~~~~
+
+      ~~~
+      `~/roady/Apps/AppPackager/resources/AppPackages/AppPackager`
+      ~~~~~
+
+  ~~~
+  This App Package can be shared, used as a backup, used as a base for a new
+  version of the App, or used to re-make the AppPackager App in the future.
+  ~~~~~
+
+  ~~~
+  Note: The documentation is still being worked on, and will continue to be
+  updated regularly.
   ~~~~~
 
