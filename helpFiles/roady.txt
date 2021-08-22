@@ -17,28 +17,26 @@
   ~~~~~
 
   ~~~
-  Note: roady is available on github at:
-  ~~~~~
-  ~~~
-  https://github.com/sevidmusic/roady.git
-  ~~~~~
-  ~~~
   Note: For help getting started visit:
   ~~~~~
   ~~~
   https://roady.tech/index.php?request=getting-started
   ~~~~~
 
-  ### Installation, Setup, and Hello World Demo
   ~~~
-  https://roadydemos.us-east-1.linodeobjects.com/roady-rig-installation-setup-helloworld-2021-08-20_02.05.27.webm
+  Note: The documentation is still being written, and some sections are not
+  complete. New documentation will continue to be added regularly.
   ~~~~~
 
   ~~~
-  Note: The documentation is still being written, and some sections are not
-  complete.
+  Note: roady is available on github at:
   ~~~~~
   ~~~
-  New documentation will continue to be added regularly.
+  https://github.com/sevidmusic/roady.git
+  ~~~~~
+
+  ### Installation, Setup, and Hello World Demo
+  ~~~
+  https://roadydemos.us-east-1.linodeobjects.com/roady-rig-installation-setup-helloworld-2021-08-20_02.05.27.webm
   ~~~~~
 
