@@ -91,6 +91,24 @@
   ~~~```rig --start-server --port 8080 --open-in-browser```~~~~~
 
   ~~~
+  Note: The `--open-in-browser` flag should cause rig to open
+  http://localhost:8080 in a web browser. This flag relies on the `xdg-open`
+  command, and may not always work. If it fails, you can still manually open a
+  web browser and navigate to http://localhost:8080.
+  ~~~~~
+
+  ~~~
+  Note: `xdg-open` is a utility that will open a url in the user's default
+  browser, if it is not available on your system then the `--open-in-broswer`
+  flag will not work. The `xdg-open` utility is not associated with roady or
+  rig, more information about the `xdg-open` utility can be found at:
+  ~~~~~
+
+      ~~~
+      https://linux.die.net/man/1/xdg-open
+      ~~~~~
+
+  ~~~
   4. Use a text editor or IDE to edit `HelloWorld`'s output:
   ~~~~~
 
@@ -189,8 +207,8 @@
 
   ~~~
   Note: roady Apps can be shared easily in the form of App Packages. The App
-  Package for the `HelloWorld` App created in the example is part of a collection
-  of roady App Packages that can be found on github:
+  Package for the `HelloWorld` App created in the example is part of a
+  collection of roady App Packages that can be found on github:
   ~~~~~
 
   ~~~
@@ -222,11 +240,11 @@
           ~~~```rig --make-app-package --path ~/roadyAppPackages/HelloWorld```~~~~~
 
       ~~~
-      Warning: You do not need to remove the original HelloWorld App if it exists,
-      `rig --make-app-package` will always replace existing Apps with the newly
-      made App. Be careful with this command, --make-app-package will overwrite
-      any directory whose name matches the name of the App to be made that exists
-      at the path assigned to the --path-to-apps-directory flag.
+      Warning: You do not need to remove the original HelloWorld App if it
+      exists, `rig --make-app-package` will always replace existing Apps with
+      the newly made App. Be careful with this command, --make-app-package will
+      overwrite any directory whose name matches the name of the App to be made
+      that exists at the path assigned to the --path-to-apps-directory flag.
       ~~~~~
 
   ~~~
