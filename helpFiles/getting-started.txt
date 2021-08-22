@@ -50,7 +50,7 @@
   ~~~~~
 
       ~~~
-      `~/roady/vendor/darling/roadyAppPackages`
+      `~/roady/vendor/darling/roady-app-packages`
       ~~~~~
 
   ~~~
@@ -237,7 +237,7 @@
   ~~~~~
 
       ~~~
-      `~/roady/vendor/darling/roadyAppPackages/HelloWorld`
+      `~/roady/vendor/darling/roady-app-packages/HelloWorld`
       ~~~~~
 
   ~~~
@@ -252,7 +252,7 @@
 
       ~~~
       ```rig --make-app-package \
-      --path ~/roady/vendor/darling/roadyAppPackages/HelloWorld```
+      --path ~/roady/vendor/darling/roady-app-packages/HelloWorld```
       ~~~~~
 
   ~~~
@@ -268,7 +268,7 @@
   whose name matches the name of the App to be made with the newly made App.
   For example, if you followed the getting-started documentation and created
   a HelloWorld App, running `rig --make-app-package --path
-  ~/roady/vendor/darling/roadyAppPackages/HelloWorld` will replace the original
+  ~/roady/vendor/darling/roady-app-packages/HelloWorld` will replace the original
   HelloWorld App with the HelloWorld App made from the HelloWorld App Package.
   ~~~~~
 
@@ -308,7 +308,7 @@
 
       ~~~
       ```rig --make-app-package \
-      --path ~/roady/vendor/darling/roadyAppPackages/AppPackager```
+      --path ~/roady/vendor/darling/roady-app-packages/AppPackager```
       ~~~~~
 
   ~~~
