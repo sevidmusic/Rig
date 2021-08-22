@@ -280,11 +280,13 @@
   ```
   rig --help App
 
+  rig --help AppPackage
+
   rig --help DynamicOutputComponent
 
   rig --help GlobalResponse
 
-  rig --help installation-and-setup
+  rig --help getting-started
 
   rig --help OutputComponent
 
