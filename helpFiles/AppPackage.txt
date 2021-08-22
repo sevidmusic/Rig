@@ -33,7 +33,7 @@
   ~~~~~
 
       ~~~
-      `./vendor/darling/roadyAppPackages/AppPackager`
+      `./vendor/darling/roady-app-packages/AppPackager`
       ~~~~~
 
   ~~~
@@ -41,7 +41,7 @@
   ~~~~~
 
     ~~~
-    `rig --make-app-package --path ./vendor/darling/roadyAppPackages/AppPackager`
+    `rig --make-app-package --path ./vendor/darling/roady-app-packages/AppPackager`
     ~~~~~
 
   ~~~
