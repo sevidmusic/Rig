@@ -109,10 +109,10 @@
   ~~~~~
 
   ~~~
-  Note: `xdg-open` is a utility that will open a url in the user's default
+  Note: `xdg-open` is a command that will open a url in the user's default
   browser, if it is not available on your system then the `--open-in-broswer`
-  flag will not work. The `xdg-open` utility is not associated with roady or
-  rig, more information about the `xdg-open` utility can be found at:
+  flag will not work. The `xdg-open` command is not associated with roady or
+  rig, more information about the `xdg-open` command can be found at:
   ~~~~~
 
       ~~~
