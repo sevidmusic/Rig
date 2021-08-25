@@ -6,8 +6,8 @@
   ~~~~~
 
   ~~~
-  Note: In the following example roady is installed in the user's `home`
-  directory. Make sure to adjust the paths used in the following example
+  Note: In the following examples roady is installed in the user's `home`
+  directory. Make sure to adjust the paths used in the following examples
   if you install roady at a different path:
   ~~~~~
 
@@ -23,6 +23,11 @@
   ~~~~~
 
          ~~~```cd ~/```~~~~~
+
+  ~~~
+  Note: `~/` is shorthand for the path to the current users `home`
+  directory.
+  ~~~~~
 
   ~~~
   2. Clone roady from https://github.com/sevidmusic/roady.git:
@@ -78,8 +83,8 @@
   ### Hello World Steps
 
   ~~~
-  Note: In the following example roady is installed in the user's `home`
-  directory. Make sure to adjust the paths used in the following example
+  Note: In the following examples roady is installed in the user's `home`
+  directory. Make sure to adjust the paths used in the following examples
   if you install roady at a different path:
   ~~~~~
 
@@ -187,19 +192,20 @@
   ~~~~~
 
   ~~~
-  Otherwise, they will only be loaded in response to requests whose name
+  If the stylesheet's name does not contain the word `global`, then the
+  stylesheet will only be loaded in response to requests whose name
   matches the name of the stylesheet.
   ~~~~~
 
   ~~~
-  For instance, in this example a stylesheet named `hw-global-styles.css` is
-  defined by the HelloWorld App, and the HelloWorld App is built for the
-  domain http://localhost:8080, will therefore be loaded in response
-  to all requests http://localhost:8080.
+  For instance, in this example a stylesheet named `hw-global-styles.css`
+  is defined by the HelloWorld App, and the HelloWorld App is built for
+  the domain http://localhost:8080, so `hw-global-styles.css` will
+  be loaded in response to all requests to http://localhost:8080.
   ~~~~~
 
   ~~~
-  In this example, if the HelloWorld App also defined a stylesheet named
+  If, in this example, the HelloWorld App also defined a stylesheet named
   `homepage.css`, then `homepage.css` would only be loaded in response to
   the requests that have the name `homepage`:
   ~~~~~
