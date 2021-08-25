@@ -6,8 +6,8 @@ more websites running on a roady installation.
 ~~~~~
 
 ~~~
-New App's can be created with either rig --new-app or
-rig --configure-app-output.
+New App's can be created with either `rig --new-app` or
+`rig --configure-app-output`.
 ~~~~~
 
 ~~~
@@ -25,9 +25,9 @@ Responses
 resources
 ```
 
-### Overview
+# Overview
 
-``` Components.php ```
+### Components.php
 
 ~~~
 The `Components.php` file is used to build the App for a specific domain.
@@ -45,46 +45,46 @@ php /path/to/roady/Apps/Foo/Components.php 'https://foobar.baz'
 ```
 
 
-``` css ```
+### css
 
 ~~~
 The `css` directory is where an Apps stylsheets should be placed.
 ~~~~~
 
-``` js ```
+### js
 
 ~~~
 The `js` directory is where an Apps scripts should be placed.
 ~~~~~
 
-``` DynamicOutput ```
+### DynamicOutput
 
 ~~~
 The `DynamicOutput` directory is where an Apps Dynamic Output files should be
 placed. These files are used to generate output for DynamicOutputComponents.
 ~~~~~
 
-``` OutputComponents ```
+### OutputComponents
 
 ~~~
 The `OutputComponents` directory is where an Apps OutputComponent and DynamicOutputComponent
 configuration files should be placed.
 ~~~~~
 
-``` Requests ```
+### Requests
 
 ~~~
 The `Requests` directory is where an Apps Request configuration files should be placed.
 ~~~~~
 
-``` Responses ```
+### Responses
 
 ~~~
 The `Responses` directory is where an Apps Response and GlobalResponse configuration
 files should be placed.
 ~~~~~
 
-``` resources ```
+### resources
 
 ~~~
 The `resources` directory is where any additional resources provided by, or required

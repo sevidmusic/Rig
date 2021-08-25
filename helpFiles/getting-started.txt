@@ -78,7 +78,13 @@
   ### Hello World Steps
 
   ~~~
-  1. Use rig to create an App named `HelloWorld`
+  Note: In the following example roady is installed in the user's `home`
+  directory. Make sure to adjust the paths used in the following example
+  if you install roady at a different path:
+  ~~~~~
+
+  ~~~
+  1. Use `rig --configure-app-output` to create an App named `HelloWorld`
   ~~~~~
 
   ~~~
@@ -93,7 +99,7 @@
   2. Build the `HelloWorld` App for the domain `http://localhost:8080`:
   ~~~~~
 
-  ~~~```php ./Apps/HelloWorld/Components.php 'http://localhost:8080'```~~~~~
+  ~~~```php ~/roady/Apps/HelloWorld/Components.php 'http://localhost:8080'```~~~~~
 
   ~~~
   3. Use rig to start a development server:
@@ -120,13 +126,13 @@
       ~~~~~
 
   ~~~
-  4. Use a text editor or IDE to edit `HelloWorld`'s output:
+  4. Use a text editor or IDE to edit `HelloWorld`'s DynamicOutput file:
   ~~~~~
 
-  ~~~```vim ./Apps/HelloWorld/DynamicOutput/HelloWorld.php```~~~~~
+  ~~~```vim ~/roady/Apps/HelloWorld/DynamicOutput/HelloWorld.php```~~~~~
 
   ~~~
-  NOTE: `HelloWorld/DynamicOutput/HelloWorld.php`'s content should now be:
+  And revise `~/roady/Apps/HelloWorld/DynamicOutput/HelloWorld.php`'s content to be:
   ~~~~~
 
   ~~~
@@ -167,10 +173,49 @@
   using a text editor or IDE:
   ~~~~~
 
-  ~~~```vim ./Apps/HelloWorld/css/hw-global-styles.css```~~~~~
+  ~~~
+  Note: Apps can define stylesheets that are loaded in response to specific
+  requests to the domains an App is built for, or can define stylesheets
+  that are loaded in response to all requests to the domains an App is
+  built for.
+  ~~~~~
 
   ~~~
-  NOTE: `hw-global-styles.css`'s content should now be:
+  If the name of a stylesheet defined by an App contains the word `global`,
+  it will be loaded in response to all requests to the domains that the App
+  is built for.
+  ~~~~~
+
+  ~~~
+  Otherwise, they will only be loaded in response to requests whose name
+  matches the name of the stylesheet.
+  ~~~~~
+
+  ~~~
+  For instance, in this example a stylesheet named `hw-global-styles.css` is
+  defined by the HelloWorld App, and the HelloWorld App is built for the
+  domain http://localhost:8080, will therefore be loaded in response
+  to all requests http://localhost:8080.
+  ~~~~~
+
+  ~~~
+  In this example, if the HelloWorld App also defined a stylesheet named
+  `homepage.css`, then `homepage.css` would only be loaded in response to
+  the requests that have the name `homepage`:
+  ~~~~~
+
+      ~~~
+      http://localhost:8080?request=homepage
+      ~~~~~
+
+      ~~~
+      http://localhost:8080/index.php?request=homepage
+      ~~~~~
+
+  ~~~```vim ~/roady/Apps/HelloWorld/css/hw-global-styles.css```~~~~~
+
+  ~~~
+  Define the following styles in `vim ~/roady/Apps/HelloWorld/css/hw-global-styles.css`:
   ~~~~~
 
   ~~~
@@ -217,7 +262,7 @@
   ### Hello World App Package
 
   ~~~
-  Note: roady Apps can be shared easily in the form of App Packages. You can
+  roady Apps can be shared easily in the form of App Packages. You can
   create a new App Package with `rig --new-app-package`.
   ~~~~~
 
@@ -289,7 +334,12 @@
       ~~~~~
 
   ~~~
-  The HelloWorld App's output should be accessible from a web browser at
+  Note: `rig --view-active-servers` can be used to get a list of the
+  active php built in server instances started via `rig --start-server`.
+  ~~~~~
+
+  ~~~
+  The HelloWorld App's output should now be accessible from a web browser at
   the following url:
   ~~~~~
 
