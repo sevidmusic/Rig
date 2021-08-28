@@ -1,8 +1,8 @@
   # Getting Started
 
   ~~~
-  The following goes over how to install and setup roady and rig, and how to
-  build a `HelloWorld` App.
+  The following goes over how to install and setup roady and rig, and
+  how to build a HelloWorld App.
   ~~~~~
 
   ~~~
@@ -22,7 +22,7 @@
   1. Move into the directory where you wish to install roady and rig:
   ~~~~~
 
-         ~~~```cd ~/```~~~~~
+      ~~~```cd ~/```~~~~~
 
   ~~~
   Note: `~/` is shorthand for the path to the current users `home`
@@ -33,7 +33,7 @@
   2. Clone roady from https://github.com/sevidmusic/roady.git:
   ~~~~~
 
-         ~~~```git clone https://github.com/sevidmusic/roady.git```~~~~~
+      ~~~```git clone https://github.com/sevidmusic/roady.git```~~~~~
 
   ~~~
   3. Move into roady's directory:
@@ -45,13 +45,13 @@
   4. Update `composer`, this will install rig at `~/roady/vendor/darling/rig`:
   ~~~~~
 
-         ~~~```composer update```~~~~~
+      ~~~```composer update```~~~~~
 
   ~~~
-  Note: This will also install the roadyAppPackages library which provides a
-  collection of roady App Packages that can be made into roady Apps via
-  `rig --make-app-package`. In this example, the roadyAppPackages library
-  will be installed at:
+  Note: This will also install the roadyAppPackages library which
+  provides a collection of roady App Packages that can be made into
+  roady Apps via `rig --make-app-package`. In this example, the
+  roadyAppPackages library will be installed at:
   ~~~~~
 
       ~~~
@@ -62,18 +62,18 @@
   5. Add rig to your path:
   ~~~~~
 
-         ~~~```export PATH="${PATH}:${HOME}/roady/vendor/darling/rig/bin"```~~~~~
+      ~~~```export PATH="${PATH}:${HOME}/roady/vendor/darling/rig/bin"```~~~~~
 
   ~~~
   6. Make sure rig is working:
   ~~~~~
 
-         ~~~```rig --help | less -R```~~~~~
+      ~~~```rig --help | less -R```~~~~~
 
   ~~~
-  Note: `less` is not related to roady or rig. The `less` command is used in the
-  example to make it easier to view the output of `rig --help`. More information
-  about the `less` command can be found online at:
+  Note: `less` is not related to roady or rig. The `less` command is used
+  in the example to make it easier to view the output of `rig --help`. More
+  information about the `less` command can be found online at:
   ~~~~~
 
       ~~~
@@ -89,7 +89,7 @@
   ~~~~~
 
   ~~~
-  1. Use `rig --configure-app-output` to create an App named `HelloWorld`
+  1. Use `rig --configure-app-output` to create an App named HelloWorld
   ~~~~~
 
   ~~~
@@ -101,7 +101,7 @@
   ~~~~~
 
   ~~~
-  2. Build the `HelloWorld` App for the domain `http://localhost:8080`:
+  2. Build the HelloWorld App for the domain `http://localhost:8080`:
   ~~~~~
 
   ~~~```php ~/roady/Apps/HelloWorld/Components.php 'http://localhost:8080'```~~~~~
@@ -114,16 +114,17 @@
 
   ~~~
   Note: The `--open-in-browser` flag should cause rig to open
-  http://localhost:8080 in a web browser. This flag relies on the `xdg-open`
-  command, and may not always work. If it fails, you can still manually open a
-  web browser and navigate to http://localhost:8080.
+  http://localhost:8080 in a web browser. This flag relies on the
+  `xdg-open` command, and may not always work. If it fails, you can
+  still manually open a web browser and navigate to http://localhost:8080.
   ~~~~~
 
   ~~~
   Note: `xdg-open` is a command that will open a url in the user's default
-  browser, if it is not available on your system then the `--open-in-broswer`
-  flag will not work. The `xdg-open` command is not associated with roady or
-  rig, more information about the `xdg-open` command can be found at:
+  browser, if it is not available on your system then the
+  `--open-in-broswer` flag will not work. The `xdg-open` command is not
+  associated with roady or rig, more information about the `xdg-open`
+  command can be found at:
   ~~~~~
 
       ~~~
@@ -131,13 +132,14 @@
       ~~~~~
 
   ~~~
-  4. Use a text editor or IDE to edit `HelloWorld`'s DynamicOutput file:
+  4. Use a text editor or IDE to edit HelloWorld's DynamicOutput file:
   ~~~~~
 
   ~~~```vim ~/roady/Apps/HelloWorld/DynamicOutput/HelloWorld.php```~~~~~
 
   ~~~
-  And revise `~/roady/Apps/HelloWorld/DynamicOutput/HelloWorld.php`'s content to be:
+  And revise `~/roady/Apps/HelloWorld/DynamicOutput/HelloWorld.php`'s
+  content to be:
   ~~~~~
 
   ~~~
@@ -164,7 +166,7 @@
 
       <p>
           Apps can configure output to show up in response to appropriate
-          requests to a
+          Requests to a
           website, and can also provide stylesheets, scripts, and other
           resources necessary to implement the specific features they provide.
       </p>
@@ -174,54 +176,15 @@
   ~~~~~
 
   ~~~
-  5. Add some style by creating a global stylesheet for the `HelloWorld` App
-  using a text editor or IDE:
+  5. Add some style by creating a global stylesheet for the
+  HelloWorld App using a text editor or IDE:
   ~~~~~
-
-  ~~~
-  Note: Apps can define stylesheets that are loaded in response to specific
-  requests to the domains an App is built for, or can define stylesheets
-  that are loaded in response to all requests to the domains an App is
-  built for.
-  ~~~~~
-
-  ~~~
-  If the name of a stylesheet defined by an App contains the word `global`,
-  it will be loaded in response to all requests to the domains that the App
-  is built for.
-  ~~~~~
-
-  ~~~
-  If the stylesheet's name does not contain the word `global`, then the
-  stylesheet will only be loaded in response to requests whose name
-  matches the name of the stylesheet.
-  ~~~~~
-
-  ~~~
-  For instance, in this example a stylesheet named `hw-global-styles.css`
-  is defined by the HelloWorld App, and the HelloWorld App is built for
-  the domain http://localhost:8080, so `hw-global-styles.css` will
-  be loaded in response to all requests to http://localhost:8080.
-  ~~~~~
-
-  ~~~
-  If, in this example, the HelloWorld App also defined a stylesheet named
-  `homepage.css`, then `homepage.css` would only be loaded in response to
-  the requests that have the name `homepage`:
-  ~~~~~
-
-      ~~~
-      http://localhost:8080?request=homepage
-      ~~~~~
-
-      ~~~
-      http://localhost:8080/index.php?request=homepage
-      ~~~~~
 
   ~~~```vim ~/roady/Apps/HelloWorld/css/hw-global-styles.css```~~~~~
 
   ~~~
-  Define the following styles in `vim ~/roady/Apps/HelloWorld/css/hw-global-styles.css`:
+  Define the following styles in
+  `~/roady/Apps/HelloWorld/css/hw-global-styles.css`:
   ~~~~~
 
   ~~~
@@ -265,6 +228,52 @@
   ```
   ~~~~~
 
+  ~~~
+  Note: Apps can define stylesheets that are loaded in response to
+  specific Requests to the domains an App is built for, or can define
+  stylesheets that are loaded in response to all Requests to the
+  domains an App is built for.
+  ~~~~~
+
+  ~~~
+  If the name of a stylesheet defined by an App contains the word
+  `global`, it will be loaded in response to all Requests to the
+  domains that the App is built for.
+  ~~~~~
+
+  ~~~
+  If the stylesheet's name does not contain the word `global`, then the
+  stylesheet will only be loaded in response to Requests whose name
+  matches the name of the stylesheet.
+  ~~~~~
+
+  ~~~
+  For instance, in this example a stylesheet named `hw-global-styles.css`
+  is defined by the HelloWorld App, and the HelloWorld App is built for
+  the domain http://localhost:8080, so `hw-global-styles.css` will
+  be loaded in response to all Requests to the domain
+  http://localhost:8080.
+  ~~~~~
+
+  ~~~
+  If, in this example, the HelloWorld App also defined a stylesheet named
+  `homepage.css`, then `homepage.css` would only be loaded in response to
+  Requests that have the name `homepage`:
+  ~~~~~
+
+      ~~~
+      http://localhost:8080?request=homepage
+      ~~~~~
+
+      ~~~
+      http://localhost:8080/index.php?request=homepage
+      ~~~~~
+
+  ~~~
+  Note: The name of the Request will correspond to the value of
+  `$_GET['request']`.
+  ~~~~~
+
   ### Hello World App Package
 
   ~~~
@@ -273,18 +282,19 @@
   ~~~~~
 
   ~~~
-  App Packages can be made into roady Apps with `rig --make-app-package`.
+  roady App Packages can be made into roady Apps with
+  `rig --make-app-package`.
   ~~~~~
 
   ~~~
   The HelloWorld App's App Package is part of a collection of App Packages that
-  are installed as part of the roadyAppPackages library when `composer update`
-  is run after installing roady.
+  are installed as part of the roadyAppPackages library when
+  `composer update` is run after installing roady.
   ~~~~~
 
   ~~~
-  If roady is installed in the user's home directory, the HelloWorld App's App
-  Package will be located at the following path:
+  If roady is installed in the user's home directory, the HelloWorld
+  App's App Package will be located at the following path:
   ~~~~~
 
       ~~~
@@ -292,9 +302,9 @@
       ~~~~~
 
   ~~~
-  Note: The examples assume roady is installed in the user's home directory,
-  if roady is installed somewhere else make sure to adjust the paths used
-  in the examples appropriately.
+  Note: The examples assume roady is installed in the user's home
+  directory, if roady is installed somewhere else make sure to adjust
+  the paths used in the examples appropriately.
   ~~~~~
 
   ~~~
@@ -315,16 +325,30 @@
       ~~~~~
 
   ~~~
-  Warning: Be careful with `--make-app-package`, it will overwrite any directory
-  whose name matches the name of the App to be made with the newly made App.
-  For example, if you followed the getting-started documentation and created
-  a HelloWorld App, running `rig --make-app-package --path
-  ~/roady/vendor/darling/roady-app-packages/HelloWorld` will replace the original
-  HelloWorld App with the HelloWorld App made from the HelloWorld App Package.
+  Warning: Be careful with `--make-app-package`, it will overwrite
+  any directory located at the path that corresponds to the path assigned
+  to the --path-to-apps-directory flag whose name matches the name of
+  the App to be made with the newly made App.
   ~~~~~
 
   ~~~
-  To build the newly made HelloWorld App, run:
+  For example, if you followed the getting-started documentation and
+  created a HelloWorld App, then running:
+  ~~~~~
+
+      ~~~
+      ```rig --make-app-package \
+      --path ~/roady/vendor/darling/roady-app-packages/HelloWorld```
+      ~~~~~
+
+  ~~~
+  Will replace the original HelloWorld App with the HelloWorld App made
+  from the HelloWorld App Package.
+  ~~~~~
+
+  ~~~
+  To build the newly made HelloWorld App for the local domain
+  http://localhost:8080, run:
   ~~~~~
 
       ~~~
@@ -332,7 +356,8 @@
       ~~~~~
 
   ~~~
-  And if one is not already running, start a development server:
+  To use the HelloWorld App locally start a development server on
+  port `8080` if one is not already running:
   ~~~~~
 
       ~~~
@@ -345,8 +370,8 @@
   ~~~~~
 
   ~~~
-  The HelloWorld App's output should now be accessible from a web browser at
-  the following url:
+  The HelloWorld App should now be accessible from a web
+  browser at the following local domain:
   ~~~~~
 
       ~~~
@@ -356,10 +381,17 @@
   ### The AppPackager
 
   ~~~
-  In addition to the HelloWorld App Package, an App Package named AppPackager is
-  also provided by the roadyAppPackages library. The AppPackager is an App that
-  can be used to convert existing Apps into AppPackages. To use it, first
-  make the AppPackager App Package into an App:
+  In addition to the HelloWorld App Package, an App Package named
+  AppPackager is also provided by the roadyAppPackages library.
+  ~~~~~
+
+  ~~~
+  The AppPackager is an App that can be used to convert existing Apps
+  into AppPackages. To use it:
+  ~~~~~
+
+  ~~~
+  1. Make the AppPackager App Package into an App:
   ~~~~~
 
       ~~~
@@ -368,7 +400,7 @@
       ~~~~~
 
   ~~~
-  Then build the AppPackager App for the domain http://localhost:8080
+  2. Build the AppPackager App for the domain http://localhost:8080:
   ~~~~~
 
       ~~~
@@ -376,15 +408,18 @@
       ~~~~~
 
   ~~~
-  If you haven't already, start a development server:
+  3. If you haven't already, start a development server on port `8080`:
   ~~~~~
 
-      ~~~
-      `rig --start-server --port 8080`
-      ~~~~~
+      ~~~```rig --start-server --port 8080```~~~~~
 
   ~~~
-  Then visit the following url in a web browser:
+  Note: `rig --view-active-servers` can be used to get a list of the
+  active php built in server instances started via `rig --start-server`.
+  ~~~~~
+
+  ~~~
+  4. Visit the following url in a web browser:
   ~~~~~
 
       ~~~
@@ -392,12 +427,13 @@
       ~~~~~
 
   ~~~
-  Use the select form provided to select an App to package, for example, select
-  the AppPackager, and click submit.
+  5. Select an App to package using the provided select form, in this
+  example the AppPackager will be packaged:
   ~~~~~
 
   ~~~
-  This will create an App Package for the AppPackager App at the following path:
+  This will create an App Package for the AppPackager App at the
+  following path:
   ~~~~~
 
       ~~~
@@ -405,12 +441,13 @@
       ~~~~~
 
   ~~~
-  This App Package can be shared, used as a backup, used as a base for a new
-  version of the App, or used to re-make the AppPackager App in the future.
+  This App Package can be shared, used as a backup, used as a base
+  for a new version of the App, or used to re-make the AppPackager
+  App in the future.
   ~~~~~
 
   ~~~
-  Note: The documentation is still being worked on, and will continue to be
-  updated regularly.
+  Note: The documentation is still being worked on, and will continue
+  to be updated regularly.
   ~~~~~
 
