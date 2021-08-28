@@ -1,1 +1,48 @@
-Requests represent a request to a domain.
+  ~~~
+  Note: The documentation is still being written, and some sections are not
+  complete. New documentation will continue to be added regularly.
+  ~~~~~
+
+  ~~~
+  Requests represent a request to a domain, and conform to the following interface:
+  ~~~~~
+
+  ~~~
+  ```
+  <?php
+
+  namespace roady\interfaces\component\Web\Routing;
+
+  use roady\interfaces\component\SwitchableComponent as SwitchableComponentInterface;
+
+  interface Request extends SwitchableComponentInterface
+  {
+
+      /**
+       * Return an array of defined $_GET vars, or an empty array.
+       *
+       * @return array <mixed>
+       */
+      public function getGet(): array;
+
+      /**
+       * Return an array of defined $_POST vars, or an empty array.
+       *
+       * @return array <mixed>
+       */
+      public function getPost(): array;
+
+      /**
+       * Return the url for this Request as a string.
+       *
+       * @return string
+       */
+      public function getUrl(): string;
+
+  }
+
+  ```
+  ~~~~~
+
+  New requests can be configured for an App with `rig --new-request`.
+

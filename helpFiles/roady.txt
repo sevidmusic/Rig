@@ -11,7 +11,7 @@
   on a single installation of roady.
   ~~~~~
   ~~~
-  Apps can configure output to show up in response to appropriate requests to a
+  Apps can configure output to show up in Response to appropriate Requests to a
   website, and can also provide stylesheets, scripts, and other resources
   necessary to implement the specific features they provide.
   ~~~~~
