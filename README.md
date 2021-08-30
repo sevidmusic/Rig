@@ -1,7 +1,5 @@
-# rig
+# [rig](https://roady.tech/index.php?request=rig)
 
-Command line utility designed to aide in development with Roady
+Command line utility designed to aide in development with [Roady](https://github.com/sevidmusic/roady)
 
-To install run:
 
-`composer require --dev "darling/rig:0.0.0-alpha"`
