@@ -48,10 +48,13 @@
       ~~~```composer update```~~~~~
 
   ~~~
-  Note: This will also install the roadyAppPackages library which
-  provides a collection of roady App Packages that can be made into
-  roady Apps via `rig --make-app-package`. In this example, the
-  roadyAppPackages library will be installed at:
+  Note: This will also install the roadyAppPackages library which provides
+  a collection of roady App Packages that can be made into roady Apps via
+  `rig --make-app-package`.
+  ~~~~~
+
+  ~~~
+  In this example, the roadyAppPackages library will be installed at:
   ~~~~~
 
       ~~~
@@ -381,8 +384,9 @@
   ### The AppPackager
 
   ~~~
-  In addition to the HelloWorld App Package, an App Package named
-  AppPackager is also provided by the roadyAppPackages library.
+  In addition to the HelloWorld App Package, an App Package
+  named AppPackager is also provided by the roadyAppPackages
+  library.
   ~~~~~
 
   ~~~
