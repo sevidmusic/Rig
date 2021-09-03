@@ -23,7 +23,7 @@
                                The default domain is used when an App is built
                                without specifying a domain.~~~~~
 
-  ~~~```[--path]```~~~~~                   ~~~The path to create the App Package at.~~~~~
+  ~~~```[--path]```~~~~~                     ~~~The path to create the App Package at.~~~~~
 
 
   ### Examples:
