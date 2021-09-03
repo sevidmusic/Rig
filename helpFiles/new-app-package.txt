@@ -1,0 +1,38 @@
+  ```rig --new-app-package --name [--path] [--domain]```
+
+  ### Description:
+
+  ~~~
+  Creates a new App Package.
+  ~~~~~
+
+
+  ### Flags:
+
+  ~~~```--name```~~~~~                       ~~~The name to assign to the new App~~~~~
+
+                               ~~~WARNING: The name must be unique, if an
+                               App with the same name already exists the
+                               new App will not be created.~~~~~
+
+  ~~~```[--domain]```~~~~~                   ~~~A domain to use as the default domain for the App
+                               that the App Package represents.
+                               ~~~~~
+
+                               ~~~
+                               The default domain is used when an App is built
+                               without specifying a domain.~~~~~
+
+  ~~~```[--path]```~~~~~                     ~~~The path to create the App Package at.~~~~~
+
+
+  ### Examples:
+  ```
+  rig --new-app-package --name "Foo"
+
+  rig --new-app-package --name "Bar" --domain "http://localhost:8765"
+
+  rig --new-app-package --name "Baz" --domain "http://localhost:8765" --path ~/
+  ```
+
+
