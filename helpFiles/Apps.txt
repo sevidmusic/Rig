@@ -1,0 +1,173 @@
+  ~~~
+  # Apps
+  ~~~~~
+  ~~~
+  Apps are used to implement niche features that can be made
+  available to one or more websites running on a single
+  installation of roady.
+  ~~~~~
+  ~~~
+  New App's can be created with either `rig --new-app` or
+  `rig --configure-app-output`.
+  ~~~~~
+  ~~~
+  For information about `rig --new-app` use:
+  ~~~~~
+  ~~~
+  ```rig --help --new-app```
+  ~~~~~
+  ~~~
+  For information about `rig --configure-app-output` use:
+  ~~~~~
+  ~~~
+  ```rig --help --configure-app-output```
+  ~~~~~
+  ~~~
+  The structure of an App is as follows:
+  ~~~~~
+  ~~~
+  ```
+  Components.php
+  css
+  js
+  DynamicOutput
+  OutputComponents
+  Requests
+  Responses
+  resources
+  ```
+  ~~~~~
+
+  ~~~
+  # Overview
+  ~~~~~
+
+  ~~~
+  ### Components.php
+  ~~~~~
+  ~~~
+  The `Components.php` file is used to build the App for a specific
+  domain.
+  ~~~~~
+  ~~~
+  For example, to create an App named `Foo` and build it for the
+  domain https://foobar.baz:
+  ~~~~~
+  ~~~
+  ```
+  rig --new-app --name Foo
+
+  php /path/to/roady/Apps/Foo/Components.php 'https://foobar.baz'
+  ```
+  ~~~~~
+  ~~~
+  Note: Foo's Components.php will be generated when `rig --new-app` is run.
+  ~~~~~
+
+  ~~~
+  ### css
+  ~~~~~
+  ~~~
+  The `css` directory is where an Apps stylsheets should be placed.
+  ~~~~~
+  ~~~
+  Apps can define stylesheets that are loaded in response to
+  specific Requests to the domains an App is built for, or can
+  define stylesheets that are loaded in response to all Requests to
+  the domains an App is built for.
+  ~~~~~
+  ~~~
+  If the name of a stylesheet defined by an App contains the word
+  `global`, it will be loaded in response to all Requests to the
+  domains that the App is built for.
+  ~~~~~
+  ~~~
+  If the stylesheet's name does not contain the word `global`, then the
+  stylesheet will only be loaded in response to Requests whose name
+  matches the name of the stylesheet, excluding the `.css` extension.
+  ~~~~~
+  ~~~
+  For instance, if a stylesheet named `global-styles.css`
+  is defined by an App named HelloWorld, and the HelloWorld App is
+  built for the domain http://localhost:8080, then `global-styles.css`
+  will be loaded in response to all Requests to the domain
+  http://localhost:8080.
+  ~~~~~
+  ~~~
+  If the HelloWorld App also defined a stylesheet named `homepage.css`,
+  then `homepage.css` would only be loaded in response to Requests
+  that have the name `homepage`:
+  ~~~~~
+  ~~~
+  For Example:
+  ~~~~~
+
+      ~~~
+      http://localhost:8080?request=homepage
+      ~~~~~
+
+      ~~~
+      http://localhost:8080/index.php?request=homepage
+      ~~~~~
+
+  ~~~
+  Note: The name of the Request will correspond to the value of
+  `$_GET['request']`.
+  ~~~~~
+
+  ~~~
+  ### js
+  ~~~~~
+  ~~~
+  The `js` directory is where an Apps scripts should be placed.
+  ~~~~~
+  ~~~
+  Note: There are plans to implment similar functionality
+  for loading App javascript files as is currently used to
+  load App css files. See issue #234:
+  ~~~~~
+  ~~~
+  https://github.com/sevidmusic/Roady/issues/234
+  ~~~~~
+
+  ~~~
+  ### DynamicOutput
+  ~~~~~
+  ~~~
+  The `DynamicOutput` directory is where an Apps Dynamic Output
+  files should be placed. These files are used to generate output
+  for DynamicOutputComponents.
+  ~~~~~
+
+  ~~~
+  ### OutputComponents
+  ~~~~~
+  ~~~
+  The `OutputComponents` directory is where an Apps OutputComponent
+  and DynamicOutputComponent configuration files should be placed.
+  ~~~~~
+
+  ~~~
+  ### Requests
+  ~~~~~
+  ~~~
+  The `Requests` directory is where an Apps Request configuration
+  files should be placed.
+  ~~~~~
+
+  ~~~
+  ### Responses
+  ~~~~~
+  ~~~
+  The `Responses` directory is where an Apps Response and
+  GlobalResponse configuration files should be placed.
+  ~~~~~
+
+  ~~~
+  ### resources
+  ~~~~~
+  ~~~
+  The `resources` directory is where any additional resources
+  provided by, or required by the App should be placed.
+  ~~~~~
+
