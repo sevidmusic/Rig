@@ -1,4 +1,6 @@
+  ~~~
   # Apps
+  ~~~~~
   ~~~
   Apps are used to implement niche features that can be made
   available to one or more websites running on a single
@@ -9,8 +11,21 @@
   `rig --configure-app-output`.
   ~~~~~
   ~~~
+  For information about `rig --new-app` use:
+  ~~~~~
+  ~~~
+  ```rig --help --new-app```
+  ~~~~~
+  ~~~
+  For information about `rig --configure-app-output` use:
+  ~~~~~
+  ~~~
+  ```rig --help --configure-app-output```
+  ~~~~~
+  ~~~
   The structure of an App is as follows:
   ~~~~~
+  ~~~
   ```
   Components.php
   css
@@ -21,10 +36,15 @@
   Responses
   resources
   ```
+  ~~~~~
 
+  ~~~
   # Overview
+  ~~~~~
 
+  ~~~
   ### Components.php
+  ~~~~~
   ~~~
   The `Components.php` file is used to build the App for a specific
   domain.
@@ -33,114 +53,20 @@
   For example, to create an App named `Foo` and build it for the
   domain https://foobar.baz:
   ~~~~~
+  ~~~
   ```
   rig --new-app --name Foo
 
   php /path/to/roady/Apps/Foo/Components.php 'https://foobar.baz'
   ```
-  ~~~
-  Foo's Components.php will be generated when `rig --new-app` is run,
-  and will look like:
   ~~~~~
   ~~~
-  ```
-<?php
-
-/**
- * Components.php
- *
- * This file is used to configure an AppBuilder for the App.
- *
- * The AppBuilder is responsible for building the App for a domian when the this
- * file is executed via php.
- *
- *     For example:
- *
- *     php Apps/APPNAME/Components.php
- *
- * Unless you modify this file's logic, the domain the App is built for will be
- * determined as follows:
- *
- *     1. If a domain is specified via $argv[1] the App will be built
- *        for that domain.
- *
- *        For example:
- *
- *            php Apps/APPNAME/Components.php 'https://specified.domain'
- *
- *        Would build the App for the domain:
- *
- *            https://specified.domain
- *
- *     2. If a domain is not specified via $argv[1] then the App will be built
- *        for the hard coded domain passed as the $domain parameter to this
- *        files call to the AppBuilder::getAppsAppComponentsFactory() method:
- *
- *            AppBuilder::buildApp(
- *                AppBuilder::getAppsAppComponentsFactory($appName, $domain)
- *                                                                     ^
- *            );
- *
- *     3. If a domain is not specified via $argv[1], and the hard-coded default
- *        domain is either not defined, or defined as an empty string, then the
- *        App will be built for the domain:
- *
- *            http://localhost:8080
- */
-
-use roady\classes\utility\AppBuilder;
-
-ini_set('display_errors', 'true');
-
-require(
-    strval(
-        realpath(
-            str_replace(
-                'Apps' . DIRECTORY_SEPARATOR . strval(basename(__DIR__)),
-                'vendor' . DIRECTORY_SEPARATOR . 'autoload.php',
-                __DIR__
-            )
-        )
-    )
-);
-
-AppBuilder::buildApp(
-    AppBuilder::getAppsAppComponentsFactory(
-        /**
-         * @param string $appName
-         * Configure the App's name. The App's name should match the App's
-         * directory's name.
-         */
-        strval(basename(__DIR__)),
-        (
-            /**
-             * @param string $domain
-             * Configure the domain to build the App for.
-             * App will be built for Domain specified via $argv[1] if provided.
-             *
-             * If $argv[1] is not provided, and the
-             * AppBuilder::getAppsAppComponentsFactory() method's $domain
-             * parameter is set, the App will be built for the domain passed
-             * to the $domain parameter.
-             *
-             * Note: If $argv[1] is not specified, and the $domain parameter
-             * is an empty string, then the AppBuilder will build the App for the
-             * domain:
-             *
-             *     http://localhost:8080
-             *
-             * WARNING: If you modify this file, it is recomeneded that you
-             *          still pass the value you use for the $domain parameter to
-             *          escapeshellarg().
-             */
-            escapeshellarg($argv[1] ?? 'http://localhost:8080/')
-        )
-    )
-);
-  ```
+  Note: Foo's Components.php will be generated when `rig --new-app` is run.
   ~~~~~
 
+  ~~~
   ### css
+  ~~~~~
   ~~~
   The `css` directory is where an Apps stylsheets should be placed.
   ~~~~~
@@ -189,7 +115,9 @@ AppBuilder::buildApp(
   `$_GET['request']`.
   ~~~~~
 
+  ~~~
   ### js
+  ~~~~~
   ~~~
   The `js` directory is where an Apps scripts should be placed.
   ~~~~~
@@ -202,32 +130,42 @@ AppBuilder::buildApp(
   https://github.com/sevidmusic/Roady/issues/234
   ~~~~~
 
+  ~~~
   ### DynamicOutput
+  ~~~~~
   ~~~
   The `DynamicOutput` directory is where an Apps Dynamic Output
   files should be placed. These files are used to generate output
   for DynamicOutputComponents.
   ~~~~~
 
+  ~~~
   ### OutputComponents
+  ~~~~~
   ~~~
   The `OutputComponents` directory is where an Apps OutputComponent
   and DynamicOutputComponent configuration files should be placed.
   ~~~~~
 
+  ~~~
   ### Requests
+  ~~~~~
   ~~~
   The `Requests` directory is where an Apps Request configuration
   files should be placed.
   ~~~~~
 
+  ~~~
   ### Responses
+  ~~~~~
   ~~~
   The `Responses` directory is where an Apps Response and
   GlobalResponse configuration files should be placed.
   ~~~~~
 
+  ~~~
   ### resources
+  ~~~~~
   ~~~
   The `resources` directory is where any additional resources
   provided by, or required by the App should be placed.
