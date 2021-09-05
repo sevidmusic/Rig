@@ -50,25 +50,26 @@
   domain.
   ~~~~~
   ~~~
-  For example, to create an App named `Foo` and build it for the
-  domain https://foobar.baz:
+  For example, if roady is installed at `~/`, then to create an App
+  named `Foo` and build it for the domain https://foobar.baz run:
   ~~~~~
   ~~~
   ```
   rig --new-app --name Foo
 
-  php /path/to/roady/Apps/Foo/Components.php 'https://foobar.baz'
+  php ~/roady/Apps/Foo/Components.php 'https://foobar.baz'
   ```
   ~~~~~
   ~~~
-  Note: Foo's Components.php will be generated when `rig --new-app` is run.
+  Note: Foo's Components.php will be generated when `rig --new-app`
+  is run.
   ~~~~~
 
   ~~~
   ### css
   ~~~~~
   ~~~
-  The `css` directory is where an Apps stylsheets should be placed.
+  The `css` directory is where an Apps stylesheets should be placed.
   ~~~~~
   ~~~
   Apps can define stylesheets that are loaded in response to
@@ -122,7 +123,7 @@
   The `js` directory is where an Apps scripts should be placed.
   ~~~~~
   ~~~
-  Note: There are plans to implment similar functionality
+  Note: There are plans to implement similar functionality
   for loading App javascript files as is currently used to
   load App css files. See issue #234:
   ~~~~~
@@ -138,6 +139,32 @@
   files should be placed. These files are used to generate output
   for DynamicOutputComponents.
   ~~~~~
+  ~~~
+  Dynamic output files can be `.php` files, `.html` files, plain text
+  files, or any other type of file.
+  ~~~~~
+  ~~~
+  Note: `.php` files will be interpreted as php, all other file
+  types will be interpreted as plain text.
+  ~~~~~
+  ~~~
+  Note: Typically, you do not need to create these files manually,
+  if you use `rig --new-dynamic-output-component` or
+  `rig --configure-app-output` then an appropriate DynamicOutput
+  file will be generated for you.
+  ~~~~~
+  ~~~
+  For information about `rig --new-dynamic-output-component` use:
+  ~~~~~
+  ~~~
+  ```rig --help --new-dynamic-output-component```
+  ~~~~~
+  ~~~
+  For information about `rig --configure-app-output` use:
+  ~~~~~
+  ~~~
+  ```rig --help --configure-app-output```
+  ~~~~~
 
   ~~~
   ### OutputComponents
@@ -145,6 +172,25 @@
   ~~~
   The `OutputComponents` directory is where an Apps OutputComponent
   and DynamicOutputComponent configuration files should be placed.
+  ~~~~~
+  ~~~
+  Typically, you do not need to create these files manually. You
+  can use either the `rig --new-dynamic-output-component`,
+  `rig --new-output-component`, or `rig --configure-app-output`,
+  command to configure a new DynamicOutputComponent or
+  OutputComponent for an App.
+  ~~~~~
+  ~~~
+  For information about `rig --new-dynamic-output-component` use:
+  ~~~~~
+  ~~~
+  ```rig --help --new-dynamic-output-component```
+  ~~~~~
+  ~~~
+  For information about `rig --configure-app-output` use:
+  ~~~~~
+  ~~~
+  ```rig --help --configure-app-output```
   ~~~~~
 
   ~~~
@@ -154,6 +200,27 @@
   The `Requests` directory is where an Apps Request configuration
   files should be placed.
   ~~~~~
+  ~~~
+  Typically, you do not need to create these files manually. You
+  can use the `rig --new-request` command to configure a new Request
+  for an App.
+  ~~~~~
+  ~~~
+  Note: When the `rig --configure-app-output` command is used, one
+  or more appropriate Requests will be configured for the output.
+  ~~~~~
+  ~~~
+  For information about `rig --new-request` use:
+  ~~~~~
+  ~~~
+  ```rig --help --new-request```
+  ~~~~~
+  ~~~
+  For information about `rig --configure-app-output` use:
+  ~~~~~
+  ~~~
+  ```rig --help --configure-app-output```
+  ~~~~~
 
   ~~~
   ### Responses
@@ -161,6 +228,34 @@
   ~~~
   The `Responses` directory is where an Apps Response and
   GlobalResponse configuration files should be placed.
+  ~~~~~
+  ~~~
+  Typically, you do not need to create these files manually. You
+  can use the `rig --new-response`, or `rig --new-global-response`
+  command to configure a new Response for an App.
+  ~~~~~
+  ~~~
+  Note: When the `rig --configure-app-output` command is used,
+  an appropriate Response or GlobalResponse will be configured
+  for the output.
+  ~~~~~
+  ~~~
+  For information about `rig --new-response` use:
+  ~~~~~
+  ~~~
+  ```rig --help --new-response```
+  ~~~~~
+  ~~~
+  For information about `rig --new-global-response` use:
+  ~~~~~
+  ~~~
+  ```rig --help --new-global-response```
+  ~~~~~
+  ~~~
+  For information about `rig --configure-app-output` use:
+  ~~~~~
+  ~~~
+  ```rig --help --configure-app-output```
   ~~~~~
 
   ~~~
