@@ -1,29 +1,196 @@
   ~~~
-  # Apps
+  # Apps:
   ~~~~~
   ~~~
   Apps are used to implement niche features that can be made
   available to one or more websites running on a single
   installation of roady.
   ~~~~~
+
   ~~~
-  New App's can be created with either `rig --new-app` or
-  `rig --configure-app-output`.
+  For example, the online documentation on https://roady.tech
+  is output via an App named RoadyAndRigDocs that reads the help
+  files provided by rig and outputs them as html pages.
   ~~~~~
   ~~~
-  For information about `rig --new-app` use:
+  An App should fulfill one purpose, the intent is to create small
+  focused Apps that can be used alone, or in conjunction with other
+  Apps to generate one or more websites.
+  ~~~~~
+  ~~~
+  Note: The App Package for the App that generates the documentation
+  for https://roady.tech from rig's help files can be found on github
+  as part of the roadyAppPackages library:
+  ~~~~~
+  ~~~
+  https://github.com/sevidmusic/roadyAppPackages
+  ~~~~~
+  ~~~
+  Note: The roadyAppPackages library will be installed in roady's
+  vendor directory when `composer update` is run after installing
+  roady.
+  ~~~~~
+  ~~~
+  Note: For more information on installing and setting up roady visit:
+  ~~~~~
+  ~~~
+  https://roady.tech/index.php?request=getting-started
+  ~~~~~
+  ~~~
+  To make any of the the App Packages provided by the roadyAppPackages
+  library into a roady App use:
+  ~~~~~
+  ~~~
+  ```rig --make-app-package```
+  ~~~~~
+  ~~~
+  For example, if roady is installed at the path `~/roady`, then
+  to make, and then build the RoadyAndRigDocs App for the local
+  domain http://localhost:8080:
+  ~~~~~
+  ~~~
+  ```
+  rig --make-app-package \
+  --path ~/roady/vendor/darling/roady-app-packages/RoadyAndRigDocs
+
+  php ~/roady/Apps/RoadyAndRigDocs/Components.php \
+  'http://localhost:8080'
+
+  rig --start-server --port 8080 --open-in-browser
+  ```
+  ~~~~~
+  ~~~
+  For more information about `rig --make-app-package` use:
+  ~~~~~
+  ~~~
+  ```rig --help --make-app-package```
+  ~~~~~
+  ~~~
+  # Creating Apps:
+  ~~~~~
+  ~~~
+  New App's can be created with either `rig --new-app` or
+  `rig --configure-app-output`,
+  ~~~~~
+  ~~~
+  For more information about `rig --new-app` use:
   ~~~~~
   ~~~
   ```rig --help --new-app```
   ~~~~~
   ~~~
-  For information about `rig --configure-app-output` use:
+  For more information about `rig --configure-app-output` use:
   ~~~~~
   ~~~
   ```rig --help --configure-app-output```
   ~~~~~
   ~~~
-  The structure of an App is as follows:
+  # Building Apps for a Domain:
+  ~~~~~
+  ~~~
+  Apps can be built for a domain by passing the desired
+  domain to the relevant App's Components.php file.
+  ~~~~~
+  ~~~
+  For example, if an App existed at:
+  ~~~~~
+  ~~~
+  `~/roady/Apps/Foo`
+  ~~~~~
+  ~~~
+  It could be built for the domain http://localhost:8080 via:
+  ~~~~~
+  ~~~
+  ```php ~/roady/Apps/Foo/Components.php 'http://localhost:8080'```
+  ~~~~~
+  ~~~
+  Note: It is best to wrap the domain in single quotes.
+  ~~~~~
+  ~~~
+  Warning: Do not include a trailing foward-slash in the domain.
+  This is bug, it will be resolved. See issue #193:
+  ~~~~~
+  ~~~
+  https://github.com/sevidmusic/Roady/issues/193
+  ~~~~~
+  ~~~
+  Until issue #193 is resolved, the following examples show the
+  incorrect, and correct ways to build an App:
+  ~~~~~
+  ~~~
+  Incorrect:
+  ~~~~~
+  ~~~
+  ```
+  php ~/roady/Apps/Foo/Components.php 'https://localhost:8080/'
+  ```
+  ~~~~~
+  ~~~
+  Correct:
+  ~~~~~
+  ~~~
+  ```
+  php ~/roady/Apps/Foo/Components.php 'https://localhost:8080'
+  ```
+  ~~~~~
+  ~~~
+  It is possible to build the same App for multiple domains, making
+  it available to multiple websites running on a single installation
+  of roady.
+  ~~~~~
+  ~~~
+  For example, if roady is installed at the path `~/roady`, then
+  to build an existing App named Foo for the domains
+  https://localhost:8080, https://localhost:8947, and
+  https://localhost:8017 you would execute:
+  ~~~~~
+  ~~~
+  ```
+  php ~/roady/Apps/Foo/Components.php 'https://localhost:8080'
+  php ~/roady/Apps/Foo/Components.php 'https://localhost:8947'
+  php ~/roady/Apps/Foo/Components.php 'https://localhost:8017'
+  ```
+  ~~~~~
+  ~~~
+  Once built, the Apps will be available on the domains they
+  were built for.
+  ~~~~~
+  ~~~
+  Note: If you are developing locally, you can use `rig --start-server`
+  to start a development server to run your Apps.
+  ~~~~~
+  ~~~
+  Note: To build Apps for production domains the process is the same,
+  but your domain and your server must be setup properly. Hosting, and
+  server setup are beyond the scope of this documentation.
+  ~~~~~
+
+  ~~~
+  For a good example on getting started developing roady Apps use:
+  ~~~~~
+  ~~~
+  ```rig --help getting-started```
+  ~~~~~
+
+  ~~~
+  # The Apps directory:
+  ~~~~~
+  ~~~
+  Apps must exist in roady's Apps directory to be used.
+  ~~~~~
+  ~~~
+  For example, if roady is installed at the path `~/roady` then
+  the Apps directory will be located at the following path:
+  ~~~~~
+  ~~~
+  `~/roady/Apps`
+  ~~~~~
+
+  ~~~
+  # App Structure:
+  ~~~~~
+  ~~~
+  An App has the following structure:
   ~~~~~
   ~~~
   ```
@@ -39,7 +206,7 @@
   ~~~~~
 
   ~~~
-  # Overview
+  Overview:
   ~~~~~
 
   ~~~
@@ -50,25 +217,26 @@
   domain.
   ~~~~~
   ~~~
-  For example, to create an App named `Foo` and build it for the
-  domain https://foobar.baz:
+  For example, if roady is installed at `~/roady`, then to create an App
+  named `Foo` and build it for the domain https://foobar.baz run:
   ~~~~~
   ~~~
   ```
   rig --new-app --name Foo
 
-  php /path/to/roady/Apps/Foo/Components.php 'https://foobar.baz'
+  php ~/roady/Apps/Foo/Components.php 'https://foobar.baz'
   ```
   ~~~~~
   ~~~
-  Note: Foo's Components.php will be generated when `rig --new-app` is run.
+  Note: Foo's Components.php will be generated when `rig --new-app`
+  is run.
   ~~~~~
 
   ~~~
   ### css
   ~~~~~
   ~~~
-  The `css` directory is where an Apps stylsheets should be placed.
+  The `css` directory is where an Apps stylesheets should be placed.
   ~~~~~
   ~~~
   Apps can define stylesheets that are loaded in response to
@@ -122,7 +290,7 @@
   The `js` directory is where an Apps scripts should be placed.
   ~~~~~
   ~~~
-  Note: There are plans to implment similar functionality
+  Note: There are plans to implement similar functionality
   for loading App javascript files as is currently used to
   load App css files. See issue #234:
   ~~~~~
@@ -138,6 +306,32 @@
   files should be placed. These files are used to generate output
   for DynamicOutputComponents.
   ~~~~~
+  ~~~
+  Dynamic output files can be `.php` files, `.html` files, plain text
+  files, or any other type of file.
+  ~~~~~
+  ~~~
+  Note: `.php` files will be interpreted as php, all other file
+  types will be interpreted as plain text.
+  ~~~~~
+  ~~~
+  Note: Typically, you do not need to create these files manually,
+  if you use `rig --new-dynamic-output-component` or
+  `rig --configure-app-output` then an appropriate DynamicOutput
+  file will be generated for you.
+  ~~~~~
+  ~~~
+  For more information about `rig --new-dynamic-output-component` use:
+  ~~~~~
+  ~~~
+  ```rig --help --new-dynamic-output-component```
+  ~~~~~
+  ~~~
+  For more information about `rig --configure-app-output` use:
+  ~~~~~
+  ~~~
+  ```rig --help --configure-app-output```
+  ~~~~~
 
   ~~~
   ### OutputComponents
@@ -145,6 +339,31 @@
   ~~~
   The `OutputComponents` directory is where an Apps OutputComponent
   and DynamicOutputComponent configuration files should be placed.
+  ~~~~~
+  ~~~
+  Typically, you do not need to create these files manually. You
+  can use either the `rig --new-dynamic-output-component`,
+  `rig --new-output-component`, or `rig --configure-app-output`,
+  command to configure a new DynamicOutputComponent or
+  OutputComponent for an App.
+  ~~~~~
+  ~~~
+  For more information about `rig --new-dynamic-output-component` use:
+  ~~~~~
+  ~~~
+  ```rig --help --new-dynamic-output-component```
+  ~~~~~
+  ~~~
+  For more information about `rig --new-output-component` use:
+  ~~~~~
+  ~~~
+  ```rig --help --new-output-component```
+  ~~~~~
+  ~~~
+  For more information about `rig --configure-app-output` use:
+  ~~~~~
+  ~~~
+  ```rig --help --configure-app-output```
   ~~~~~
 
   ~~~
@@ -154,6 +373,27 @@
   The `Requests` directory is where an Apps Request configuration
   files should be placed.
   ~~~~~
+  ~~~
+  Typically, you do not need to create these files manually. You
+  can use the `rig --new-request` command to configure a new Request
+  for an App.
+  ~~~~~
+  ~~~
+  Note: When the `rig --configure-app-output` command is used, one
+  or more appropriate Requests will be configured for the output.
+  ~~~~~
+  ~~~
+  For more information about `rig --new-request` use:
+  ~~~~~
+  ~~~
+  ```rig --help --new-request```
+  ~~~~~
+  ~~~
+  For more information about `rig --configure-app-output` use:
+  ~~~~~
+  ~~~
+  ```rig --help --configure-app-output```
+  ~~~~~
 
   ~~~
   ### Responses
@@ -161,6 +401,34 @@
   ~~~
   The `Responses` directory is where an Apps Response and
   GlobalResponse configuration files should be placed.
+  ~~~~~
+  ~~~
+  Typically, you do not need to create these files manually. You
+  can use the `rig --new-response`, or `rig --new-global-response`
+  command to configure a new Response for an App.
+  ~~~~~
+  ~~~
+  Note: When the `rig --configure-app-output` command is used,
+  an appropriate Response or GlobalResponse will be configured
+  for the output.
+  ~~~~~
+  ~~~
+  For more information about `rig --new-response` use:
+  ~~~~~
+  ~~~
+  ```rig --help --new-response```
+  ~~~~~
+  ~~~
+  For more information about `rig --new-global-response` use:
+  ~~~~~
+  ~~~
+  ```rig --help --new-global-response```
+  ~~~~~
+  ~~~
+  For more information about `rig --configure-app-output` use:
+  ~~~~~
+  ~~~
+  ```rig --help --configure-app-output```
   ~~~~~
 
   ~~~
