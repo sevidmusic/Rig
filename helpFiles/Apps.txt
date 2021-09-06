@@ -12,25 +12,16 @@
   files provided by rig and outputs them as html pages.
   ~~~~~
   ~~~
-  Note: The App Package for the RoadyAndRigDocs App that generates
-  the documentation for https://roady.tech from rig's help files can
-  be found on github as part of the roadyAppPackages library:
-  ~~~~~
-  ~~~
-  https://github.com/sevidmusic/roadyAppPackages
-  ~~~~~
-  ~~~
-  Note: App Packages can be made with `rig --make-app-package`.
+  Note: The App Package for the RoadyAndRigDocs App
+  can be found on github as part of the roadyAppPackages
+  library at https://github.com/sevidmusic/roadyAppPackages.
   ~~~~~
   ~~~
   Note: The roadyAppPackages library is installed in roady's
   vendor directory when `composer update` is run.
   ~~~~~
   ~~~
-  For help getting-started use:
-  ~~~~~
-  ~~~
-  ```rig --help getting-started```
+  Note: App Packages can be made with `rig --make-app-package`.
   ~~~~~
 
   ~~~
