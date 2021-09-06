@@ -14,8 +14,8 @@
   ~~~~~
   ~~~
   An App should fulfill one purpose, the intent is to create small
-  focused Apps that can be used alone or in conjunction with other
-  Apps to generate a website.
+  focused Apps that can be used alone, or in conjunction with other
+  Apps to generate one or more websites.
   ~~~~~
   ~~~
   Note: The App Package for the App that generates the documentation
@@ -26,6 +26,17 @@
   https://github.com/sevidmusic/roadyAppPackages
   ~~~~~
   ~~~
+  Note: The roadyAppPackages library will be installed in roady's
+  vendor directory when `composer update` is run after installing
+  roady.
+  ~~~~~
+  ~~~
+  Note: For more information on installing and setting up roady visit:
+  ~~~~~
+  ~~~
+  https://roady.tech/index.php?request=getting-started
+  ~~~~~
+  ~~~
   To make any of the the App Packages provided by the roadyAppPackages
   library into a roady App use:
   ~~~~~
@@ -33,7 +44,23 @@
   ```rig --make-app-package```
   ~~~~~
   ~~~
-  For information about `rig --make-app-package` use:
+  For example, if roady is installed at the path `~/roady`, then
+  to make, and then build the RoadyAndRigDocs App for the local
+  domain http://localhost:8080:
+  ~~~~~
+  ~~~
+  ```
+  rig --make-app-package \
+  --path ~/roady/vendor/darling/roady-app-packages/RoadyAndRigDocs
+
+  php ~/roady/Apps/RoadyAndRigDocs/Components.php \
+  'http://localhost:8080'
+
+  rig --start-server --port 8080 --open-in-browser
+  ```
+  ~~~~~
+  ~~~
+  For more information about `rig --make-app-package` use:
   ~~~~~
   ~~~
   ```rig --help --make-app-package```
@@ -46,13 +73,13 @@
   `rig --configure-app-output`,
   ~~~~~
   ~~~
-  For information about `rig --new-app` use:
+  For more information about `rig --new-app` use:
   ~~~~~
   ~~~
   ```rig --help --new-app```
   ~~~~~
   ~~~
-  For information about `rig --configure-app-output` use:
+  For more information about `rig --configure-app-output` use:
   ~~~~~
   ~~~
   ```rig --help --configure-app-output```
@@ -112,9 +139,10 @@
   of roady.
   ~~~~~
   ~~~
-  For example, to build an existing App named Foo for the
-  domains https://localhost:8080, https://localhost:8947,
-  and https://localhost:8017:
+  For example, if roady is installed at the path `~/roady`, then
+  to build an existing App named Foo for the domains
+  https://localhost:8080, https://localhost:8947, and
+  https://localhost:8017 you would execute:
   ~~~~~
   ~~~
   ```
@@ -293,13 +321,13 @@
   file will be generated for you.
   ~~~~~
   ~~~
-  For information about `rig --new-dynamic-output-component` use:
+  For more information about `rig --new-dynamic-output-component` use:
   ~~~~~
   ~~~
   ```rig --help --new-dynamic-output-component```
   ~~~~~
   ~~~
-  For information about `rig --configure-app-output` use:
+  For more information about `rig --configure-app-output` use:
   ~~~~~
   ~~~
   ```rig --help --configure-app-output```
@@ -320,13 +348,19 @@
   OutputComponent for an App.
   ~~~~~
   ~~~
-  For information about `rig --new-dynamic-output-component` use:
+  For more information about `rig --new-dynamic-output-component` use:
   ~~~~~
   ~~~
   ```rig --help --new-dynamic-output-component```
   ~~~~~
   ~~~
-  For information about `rig --configure-app-output` use:
+  For more information about `rig --new-output-component` use:
+  ~~~~~
+  ~~~
+  ```rig --help --new-output-component```
+  ~~~~~
+  ~~~
+  For more information about `rig --configure-app-output` use:
   ~~~~~
   ~~~
   ```rig --help --configure-app-output```
@@ -349,13 +383,13 @@
   or more appropriate Requests will be configured for the output.
   ~~~~~
   ~~~
-  For information about `rig --new-request` use:
+  For more information about `rig --new-request` use:
   ~~~~~
   ~~~
   ```rig --help --new-request```
   ~~~~~
   ~~~
-  For information about `rig --configure-app-output` use:
+  For more information about `rig --configure-app-output` use:
   ~~~~~
   ~~~
   ```rig --help --configure-app-output```
@@ -379,19 +413,19 @@
   for the output.
   ~~~~~
   ~~~
-  For information about `rig --new-response` use:
+  For more information about `rig --new-response` use:
   ~~~~~
   ~~~
   ```rig --help --new-response```
   ~~~~~
   ~~~
-  For information about `rig --new-global-response` use:
+  For more information about `rig --new-global-response` use:
   ~~~~~
   ~~~
   ```rig --help --new-global-response```
   ~~~~~
   ~~~
-  For information about `rig --configure-app-output` use:
+  For more information about `rig --configure-app-output` use:
   ~~~~~
   ~~~
   ```rig --help --configure-app-output```
