@@ -21,7 +21,8 @@
   vendor directory when `composer update` is run.
   ~~~~~
   ~~~
-  Note: App Packages can be made with `rig --make-app-package`.
+  Note: App Packages can be made into roady Apps with
+  `rig --make-app-package`.
   ~~~~~
 
   ~~~
@@ -132,13 +133,15 @@
   ~~~~~
 
   ~~~
-  # The Apps directory:
+  #  roady's Apps directory:
   ~~~~~
   ~~~
-  Apps must exist in roady's Apps directory to be used.
+  Apps must be placed in roady's Apps directory for them to be
+  available for use. roady's Apps directory will be located in
+  roady's root directory.
   ~~~~~
   ~~~
-  For example, if roady is installed at the path `~/roady` then
+  For example, if roady is installed at the path `~/roady`, then
   the Apps directory will be located at the following path:
   ~~~~~
   ~~~
@@ -172,23 +175,38 @@
   ### Components.php
   ~~~~~
   ~~~
-  The `Components.php` file is used to build the App for a specific
+  The `Components.php` file is used to build an App for a specific
   domain.
   ~~~~~
   ~~~
   For example, if roady is installed at `~/roady`, then to create an App
-  named `Foo` and build it for the domain https://foobar.baz run:
+  named `Foo` and build it for the domain https://localhost:8080 run:
   ~~~~~
   ~~~
   ```
   rig --new-app --name Foo
 
-  php ~/roady/Apps/Foo/Components.php 'https://foobar.baz'
+  php ~/roady/Apps/Foo/Components.php 'https://localhost:8080'
   ```
   ~~~~~
   ~~~
   Note: Foo's Components.php will be generated when `rig --new-app`
   is run.
+  ~~~~~
+  ~~~
+  Warning: If an App does not configure any output, then you will
+  not see any output from the App even if you successfully build
+  it for one or more domains.
+  ~~~~~
+  ~~~
+  The easiest way to configure output for an App is to use
+  `rig --configure-app-output`.
+  ~~~~~
+  ~~~
+  For more information on `rig --configure-app-output` use:
+  ~~~~~
+  ~~~
+  ```rig --help --configure-app-output```
   ~~~~~
 
   ~~~
