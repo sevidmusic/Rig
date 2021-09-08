@@ -20,8 +20,6 @@
   ~~~~~
   ~~~
   Note: For help getting started visit:
-  ~~~~~
-  ~~~
   https://roady.tech/index.php?request=getting-started
   ~~~~~
   ~~~
@@ -31,8 +29,6 @@
   ~~~~~
   ~~~
   Note: roady is available on github at:
-  ~~~~~
-  ~~~
   https://github.com/sevidmusic/roady.git
   ~~~~~
 
