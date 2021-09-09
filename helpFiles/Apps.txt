@@ -2,8 +2,8 @@
   # Apps:
   ~~~~~
   ~~~
-  Apps are used to implement niche features that can be made
-  available to one or more websites running on a single
+  Apps are used to implement the features of a website,
+  and can be used by one or more websites running on a single
   installation of roady.
   ~~~~~
   ~~~
@@ -12,11 +12,28 @@
   any domains the Apps are built for.
   ~~~~~
   ~~~
-  # An Example:
+  Apps should be self contained, and unless absolutely necessary,
+  not depend on other Apps.
   ~~~~~
   ~~~
-  Note: For a Hello World example, follow the getting-started
-  documentation available via `rig --help getting-started`.
+  # Some Examples:
+  ~~~~~
+  ~~~
+  ### Hello World
+  ~~~~~
+  ~~~
+  If roady is installed at `~/roady`, and `rig` is in your
+  `$PATH`, then you can create a HelloWorld App and run it
+  on the local domain http://localhost:8080:
+  ~~~~~
+  ~~~
+  ```
+  rig --configure-app-output \
+  --for-app HelloWorld \
+  --name HelloWorld \
+  --output HelloWorld \
+  --global
+  ```
   ~~~~~
   ~~~
   The online documentation on https://roady.tech is generated
@@ -60,6 +77,10 @@
   ~~~
   Note: For more information about `rig --make-app-package` use:
   `rig --help --make-app-package`
+  ~~~~~
+  ~~~
+  Note: For a Hello World example, follow the getting-started
+  documentation available via `rig --help getting-started`.
   ~~~~~
 
   ~~~

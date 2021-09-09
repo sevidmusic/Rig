@@ -5,8 +5,8 @@
   roady is a tool designed to aid in the development of websites.
   ~~~~~
   ~~~
-  Its design allows the features of a website to be implemented as
-  smaller niche applications called Apps.
+  The features of a website are implemented by small niche
+  applications called Apps.
   ~~~~~
   ~~~
   The features an App provides can be made available to multiple
@@ -20,6 +20,7 @@
   ~~~~~
   ~~~
   Note: For help getting started visit:
+
   https://roady.tech/index.php?request=getting-started
   ~~~~~
   ~~~
@@ -29,6 +30,7 @@
   ~~~~~
   ~~~
   Note: roady is available on github at:
+
   https://github.com/sevidmusic/roady.git
   ~~~~~
 
