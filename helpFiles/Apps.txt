@@ -12,8 +12,7 @@
   any domains the Apps are built for.
   ~~~~~
   ~~~
-  Apps should be self contained, and unless absolutely necessary,
-  not depend on other Apps.
+  Apps should be self contained, and should not depend on other Apps.
   ~~~~~
   ~~~
   # Some Examples:
@@ -21,8 +20,8 @@
   ~~~
   Note: The following examples assume roady is installed at
   `~/roady`, and that rig is in your `$PATH`. If you need
-  help getting-started use `rig --help gettiing-started` or
-  view the documenatation online at:
+  help getting-started use `rig --help getting-started` or
+  view the documentation online at:
 
   https://roady.tech?request=getting-started
   ~~~~~
@@ -30,10 +29,9 @@
   ### Hello World
   ~~~~~
   ~~~
-  If roady is installed at `~/roady`, and `rig` is in your
-  `$PATH`, then you can create a HelloWorld App that outputs
-  `<p>Hello World</p>` in Response to every Request, and build
-  it for the local domain http://localhost:8080 via:
+  1. Use `rig --configure-app-output` to create a HelloWorld App
+  and configure the output `<p>Hello World</p>` to be served
+  globally:
   ~~~~~
   ~~~
   ```
@@ -43,6 +41,36 @@
   --output '<p>Hello World</p>' \
   --global
   ```
+  ~~~~~
+  ~~~
+  Warning: An App named HelloWorld must not already exist or else
+  the example above will fail.
+  ~~~~~
+  ~~~
+  2. Build the HelloWorld App for the local domain:
+
+  http://localhost:8080
+  ~~~~~
+  ~~~
+  ```
+  php ~/roady/Apps/HelloWorld/Components.php 'http://localhost:8080'
+  ```
+  ~~~~~
+  ~~~
+  3. Start a local development server on port 8080 so
+  http://localhost:8080 is accessible locally:
+  ~~~~~
+  ~~~
+  ```
+  rig --start-server --port 8080
+  ```
+  ~~~~~
+  ~~~
+  4. Visit http://localhost:8080 in a web browser.
+  ~~~~~
+
+  ~~~
+  ### RoadyAndRigDocs
   ~~~~~
   ~~~
   The online documentation on https://roady.tech is generated
@@ -57,6 +85,11 @@
   is built for.
   ~~~~~
   ~~~
+  The RoadyAndRigDocs App does not depend on any other Apps, and
+  can be used alone, or in conjunction with other Apps that are
+  built for the same domain(s).
+  ~~~~~
+  ~~~
   Note: The RoadyAndRigDocs App is part of the roadyAppPackages
   library which is installed in roady's vendor directory when
   `composer update` is run, and is available on github:
@@ -69,7 +102,7 @@
 
   For example, if roady is installed at `~/roady`, then to make
   the RoadyAndRigDocs App Package from the roadyAppPackages library
-  into a App, and build it to run on the local domain
+  into a roady App, and build it to run on the local domain
   http://localhost:8080 you would:
   ~~~~~
   ~~~
@@ -86,10 +119,6 @@
   ~~~
   Note: For more information about `rig --make-app-package` use:
   `rig --help --make-app-package`
-  ~~~~~
-  ~~~
-  Note: For a Hello World example, follow the getting-started
-  documentation available via `rig --help getting-started`.
   ~~~~~
 
   ~~~
@@ -128,7 +157,7 @@
   ~~~~~
 
   ~~~
-  Overview:
+  # Overview:
   ~~~~~
 
   ~~~
