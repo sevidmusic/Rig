@@ -1,41 +1,42 @@
+  ~~~
   # roady
+  ~~~~~
   ~~~
   roady is a tool designed to aid in the development of websites.
   ~~~~~
   ~~~
-  Its design allows the features of a website to be implemented as smaller niche
+  The features of a website are implemented by small niche
   applications called Apps.
   ~~~~~
   ~~~
-  The features an App provides can be made available to multiple websites running
-  on a single installation of roady.
+  The features an App implements can be made available to multiple
+  websites running on a single installation of roady.
   ~~~~~
   ~~~
-  Apps can configure output to show up in Response to appropriate Requests to a
-  website, and can also provide stylesheets, scripts, and other resources
-  necessary to implement the specific features they provide.
+  Apps can configure output be served in Response to appropriate
+  Requests to a website, and can also provide stylesheets, scripts,
+  or any other resources necessary to implement the specific features
+  they are responsible for.
   ~~~~~
-
   ~~~
   Note: For help getting started visit:
-  ~~~~~
-  ~~~
+
   https://roady.tech/index.php?request=getting-started
   ~~~~~
-
-  ~~~
-  Note: The documentation is still being written, and some sections are not
-  complete. New documentation will continue to be added regularly.
-  ~~~~~
-
   ~~~
   Note: roady is available on github at:
-  ~~~~~
-  ~~~
+
   https://github.com/sevidmusic/roady.git
   ~~~~~
+  ~~~
+  Note: The documentation is still being written, and some sections
+  are not complete. New documentation will continue to be added
+  regularly.
+  ~~~~~
 
+  ~~~
   ### Installation, Setup, and Hello World Demo
+  ~~~~~
   ~~~
   https://roadydemos.us-east-1.linodeobjects.com/getting-started-2021-08-31_02.11.21.webm
   ~~~~~
