@@ -19,19 +19,28 @@
   # Some Examples:
   ~~~~~
   ~~~
+  Note: The following examples assume roady is installed at
+  `~/roady`, and that rig is in your `$PATH`. If you need
+  help getting-started use `rig --help gettiing-started` or
+  view the documenatation online at:
+
+  https://roady.tech?request=getting-started
+  ~~~~~
+  ~~~
   ### Hello World
   ~~~~~
   ~~~
   If roady is installed at `~/roady`, and `rig` is in your
-  `$PATH`, then you can create a HelloWorld App and run it
-  on the local domain http://localhost:8080:
+  `$PATH`, then you can create a HelloWorld App that outputs
+  `<p>Hello World</p>` in Response to every Request, and build
+  it for the local domain http://localhost:8080 via:
   ~~~~~
   ~~~
   ```
   rig --configure-app-output \
   --for-app HelloWorld \
   --name HelloWorld \
-  --output HelloWorld \
+  --output '<p>Hello World</p>' \
   --global
   ```
   ~~~~~
