@@ -9,8 +9,9 @@
   applications called Apps.
   ~~~~~
   ~~~
-  Apps may provide stylesheets, scripts, or configure output to
-  be served in response to appropriate requests to a website.
+  Apps may provide stylesheets, scripts, and may configure output
+  to be served in response to appropriate requests to a website's
+  domain.
   ~~~~~
   ~~~
   Multiple websites can run on a single installation of roady, each
