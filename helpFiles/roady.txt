@@ -36,8 +36,3 @@
   ~~~
   https://roadydemos.us-east-1.linodeobjects.com/getting-started-2021-08-31_02.11.21.webm
   ~~~~~
-  ~~~
-  Note: The documentation is still being written, and some sections
-  are not complete. New documentation will continue to be added
-  regularly.
-  ~~~~~
