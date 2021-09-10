@@ -9,29 +9,24 @@
   applications called Apps.
   ~~~~~
   ~~~
-  The features an App implements can be made available to multiple
-  websites running on a single installation of roady.
+  Apps may provide stylesheets, scripts, or configure output to
+  be served in Response to appropriate Requests to a website.
   ~~~~~
   ~~~
-  Apps can configure output be served in Response to appropriate
-  Requests to a website, and can also provide stylesheets, scripts,
-  or any other resources necessary to implement the specific features
-  they are responsible for.
+  Multiple websites can run on a single installation of roady, each
+  making use of one or more roady Apps.
   ~~~~~
   ~~~
-  Note: For help getting started visit:
-
+  For help getting started visit:
+  ~~~~~
+  ~~~
   https://roady.tech/index.php?request=getting-started
   ~~~~~
   ~~~
-  Note: roady is available on github at:
-
-  https://github.com/sevidmusic/roady.git
+  roady is available on github at:
   ~~~~~
   ~~~
-  Note: The documentation is still being written, and some sections
-  are not complete. New documentation will continue to be added
-  regularly.
+  https://github.com/sevidmusic/roady.git
   ~~~~~
 
   ~~~
@@ -40,4 +35,8 @@
   ~~~
   https://roadydemos.us-east-1.linodeobjects.com/getting-started-2021-08-31_02.11.21.webm
   ~~~~~
-
+  ~~~
+  Note: The documentation is still being written, and some sections
+  are not complete. New documentation will continue to be added
+  regularly.
+  ~~~~~
