@@ -1,14 +1,9 @@
+  ~~~
   # Getting Started
-
+  ~~~~~
   ~~~
   The following goes over how to install and setup roady and rig, and
   how to build a HelloWorld App.
-  ~~~~~
-
-  ~~~
-  Note: In the following examples roady is installed in the user's `home`
-  directory. Make sure to adjust the paths used in the following examples
-  if you install roady at a different path:
   ~~~~~
 
   ### Installation, Setup, and Hello World Demo
@@ -17,84 +12,67 @@
   ~~~~~
 
   ### Installation & Setup Steps
-
-  ~~~
-  1. Move into the directory where you wish to install roady and rig:
-  ~~~~~
-
-      ~~~```cd ~/```~~~~~
-
-  ~~~
-  Note: `~/` is shorthand for the path to the current users `home`
-  directory.
-  ~~~~~
-
-  ~~~
-  2. Clone roady from https://github.com/sevidmusic/roady.git:
-  ~~~~~
-
-      ~~~```git clone https://github.com/sevidmusic/roady.git```~~~~~
-
-  ~~~
-  3. Move into roady's directory:
-  ~~~~~
-
-         ~~~```cd ~/roady```~~~~~
-
-  ~~~
-  4. Update `composer`, this will install rig at `~/roady/vendor/darling/rig`:
-  ~~~~~
-
-      ~~~```composer update```~~~~~
-
-  ~~~
-  Note: This will also install the roadyAppPackages library which provides
-  a collection of roady App Packages that can be made into roady Apps via
-  `rig --make-app-package`.
-  ~~~~~
-
-  ~~~
-  In this example, the roadyAppPackages library will be installed at:
-  ~~~~~
-
-      ~~~
-      `~/roady/vendor/darling/roady-app-packages`
-      ~~~~~
-
-  ~~~
-  5. Add rig to your path:
-  ~~~~~
-
-      ~~~```export PATH="${PATH}:${HOME}/roady/vendor/darling/rig/bin"```~~~~~
-
-  ~~~
-  6. Make sure rig is working:
-  ~~~~~
-
-      ~~~```rig --help | less -R```~~~~~
-
-  ~~~
-  Note: `less` is not related to roady or rig. The `less` command is used
-  in the example to make it easier to view the output of `rig --help`. More
-  information about the `less` command can be found online at:
-  ~~~~~
-
-      ~~~
-      https://man7.org/linux/man-pages/man1/less.1.html
-      ~~~~~
-
-  ### Hello World Steps
-
   ~~~
   Note: In the following examples roady is installed in the user's `home`
   directory. Make sure to adjust the paths used in the following examples
   if you install roady at a different path:
   ~~~~~
+  ~~~
+  1. Move into the directory where you wish to install roady and rig:
+  ~~~~~
+      ~~~```cd ~/```~~~~~
+  ~~~
+  Note: `~/` is shorthand for the path to the current users `home`
+  directory.
+  ~~~~~
+  ~~~
+  2. Clone roady from https://github.com/sevidmusic/roady.git:
+  ~~~~~
+      ~~~```git clone https://github.com/sevidmusic/roady.git```~~~~~
+  ~~~
+  3. Move into roady's directory:
+  ~~~~~
+         ~~~```cd ~/roady```~~~~~
+  ~~~
+  4. Update `composer`, this will install rig at `~/roady/vendor/darling/rig`:
+  ~~~~~
+      ~~~```composer update```~~~~~
+  ~~~
+  Note: This will also install the roadyAppPackages library which provides
+  a collection of roady App Packages that can be made into roady Apps via
+  `rig --make-app-package`.
 
+  In this example, the roadyAppPackages library will be installed at:
+
+  `~/roady/vendor/darling/roady-app-packages`
+  ~~~~~
+  ~~~
+  5. Add rig to your path:
+  ~~~~~
+      ~~~```export PATH="${PATH}:${HOME}/roady/vendor/darling/rig/bin"```~~~~~
+  ~~~
+  6. Make sure rig is working:
+  ~~~~~
+      ~~~```rig --help | less -R```~~~~~
+  ~~~
+  Note: `less` is not related to roady or rig. The `less` command is used
+  in the example to make it easier to view the output of `rig --help`. More
+  information about the `less` command can be found online at:
+
+  https://man7.org/linux/man-pages/man1/less.1.html
+  ~~~~~
+
+  ~~~
+  ### Hello World Steps
+  ~~~~~
+  ~~~
+  Note: In the following examples roady is installed in the user's `home`
+  directory. Make sure to adjust the paths used in the following examples
+  if you install roady at a different path:
+  ~~~~~
   ~~~
   1. Use `rig --configure-app-output` to create an App named HelloWorld
   ~~~~~
-
   ~~~
   ```rig --configure-app-output \
      --for-app HelloWorld \
@@ -102,26 +80,20 @@
      --output '<p>Hello World</p>' \
      --relative-urls '/'```
   ~~~~~
-
   ~~~
   2. Build the HelloWorld App for the domain `http://localhost:8080`:
   ~~~~~
-
   ~~~```php ~/roady/Apps/HelloWorld/Components.php 'http://localhost:8080'```~~~~~
-
   ~~~
   3. Use rig to start a development server:
   ~~~~~
-
   ~~~```rig --start-server --port 8080 --open-in-browser```~~~~~
-
   ~~~
   Note: The `--open-in-browser` flag should cause rig to open
   http://localhost:8080 in a web browser. This flag relies on the
   `xdg-open` command, and may not always work. If it fails, you can
   still manually open a web browser and navigate to http://localhost:8080.
   ~~~~~
-
   ~~~
   Note: `xdg-open` is a command that will open a url in the user's default
   browser, if it is not available on your system then the
@@ -129,22 +101,17 @@
   associated with roady or rig, more information about the `xdg-open`
   command can be found at:
   ~~~~~
-
-      ~~~
-      https://linux.die.net/man/1/xdg-open
-      ~~~~~
-
+  ~~~
+  https://linux.die.net/man/1/xdg-open
+  ~~~~~
   ~~~
   4. Use a text editor or IDE to edit HelloWorld's DynamicOutput file:
   ~~~~~
-
   ~~~```vim ~/roady/Apps/HelloWorld/DynamicOutput/HelloWorld.php```~~~~~
-
   ~~~
   And revise `~/roady/Apps/HelloWorld/DynamicOutput/HelloWorld.php`'s
   content to be:
   ~~~~~
-
   ~~~
   ```
   <div class="container">
@@ -177,19 +144,15 @@
   </div>
   ```
   ~~~~~
-
   ~~~
   5. Add some style by creating a global stylesheet for the
   HelloWorld App using a text editor or IDE:
   ~~~~~
-
   ~~~```vim ~/roady/Apps/HelloWorld/css/hw-global-styles.css```~~~~~
-
   ~~~
   Define the following styles in
   `~/roady/Apps/HelloWorld/css/hw-global-styles.css`:
   ~~~~~
-
   ~~~
   ```
   body {
@@ -230,9 +193,8 @@
   }
   ```
   ~~~~~
-
   ~~~
-  Note: Apps can define stylesheets that are loaded in response to
+  Apps can define stylesheets that are loaded in response to
   specific Requests to the domains an App is built for, or can define
   stylesheets that are loaded in response to all Requests to the
   domains an App is built for.
@@ -264,13 +226,13 @@
   Requests that have the name `homepage`:
   ~~~~~
 
-      ~~~
-      http://localhost:8080?request=homepage
-      ~~~~~
+  ~~~
+  http://localhost:8080?request=homepage
+  ~~~~~
 
-      ~~~
-      http://localhost:8080/index.php?request=homepage
-      ~~~~~
+  ~~~
+  http://localhost:8080/index.php?request=homepage
+  ~~~~~
 
   ~~~
   Note: The name of the Request will correspond to the value of

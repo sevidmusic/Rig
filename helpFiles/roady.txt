@@ -5,11 +5,11 @@
   roady is a tool designed to aid in the development of websites.
   ~~~~~
   ~~~
-  The features of a website are implemented by small niche
-  applications called Apps.
+  The features of a website running on roady are implemented by
+  small niche applications called Apps.
   ~~~~~
   ~~~
-  Apps may provide stylesheets, scripts, and may configure output
+  roady Apps may provide stylesheets, scripts, and may configure output
   to be served in response to appropriate requests to a website's
   domain.
   ~~~~~
@@ -18,20 +18,27 @@
   making use of one or more roady Apps.
   ~~~~~
   ~~~
-  For help getting started visit:
+  For help getting started view the getting started documentation
+  online at:
   ~~~~~
   ~~~
   https://roady.tech/index.php?request=getting-started
   ~~~~~
   ~~~
-  roady is available on github at:
+  Note: If roady is already installed, and the rig command line utility
+  is in your `$PATH`, then you can access the getting-started
+  documentation locally via:
+
+  `rig --help getting-started`
   ~~~~~
   ~~~
+  Note: roady is available on github at:
+
   https://github.com/sevidmusic/roady.git
   ~~~~~
 
   ~~~
-  ### Installation, Setup, and Hello World Demo
+  # Installation, Setup, and Hello World Demo
   ~~~~~
   ~~~
   https://roadydemos.us-east-1.linodeobjects.com/getting-started-2021-08-31_02.11.21.webm
