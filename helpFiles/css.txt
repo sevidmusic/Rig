@@ -1,0 +1,90 @@
+  ~~~
+  # Css
+  ~~~~~
+  ~~~
+  Css stylesheets must be provided by a roady App to be served
+  by a website running on roady.
+  ~~~~~
+  ~~~
+  An App's stylesheets must be located in the App's css directory.
+  ~~~~~
+  ~~~
+  Stylesheets can be served globally, or in response to specific
+  requests.
+  ~~~~~
+  ~~~
+  If an App defines a stylesheet whose name contains the word `global`,
+  then that stylesheet will be served in response to all requests to
+  any domains the App is built for.
+  ~~~~~
+  ~~~
+  If an App defines a stylesheet whose name does not contain the word
+  `global`, then the stylesheet will only be served in response to
+  requests whose name matches the name of the stylesheet excluding
+  the `.css` extension.
+  ~~~~~
+  ~~~
+  The name of the request will correspond to the value of
+  `$_GET['request']`.
+  ~~~~~
+
+  ~~~
+  # For example:
+  ~~~~~
+  ~~~
+  Create a HelloWorld App that provides a single stylesheet named
+  `homepage.css`. `homepage.css` will only be served in response
+  to requests with the name `homepage`. This will be any request
+  that assigns the value `homepage` to `$_GET['request']`.
+  ~~~~~
+  ~~~
+  Note: In the following example roady is assumed to be installed
+  at the path `~/roady`, if roady is installed somewhere else make
+  sure to adjust the paths used in the example appropriately.
+  ~~~~~
+  ~~~
+  1. Create a HelloWorld App that configures global output:
+  ~~~~~
+  ~~~
+  ```rig --configure-app-output \
+  --for-app HelloWorld \
+  --name HelloWorld \
+  --output '<p>Hello World</p>' \
+  --global```
+  ~~~~~
+  ~~~
+  Note: `rig --configure-app-output` is used in this example to
+  create the HelloWorld App and configure the appropriate Components.
+  For more information about `rig --configure-app-output` use:
+
+  `rig --help --configure-app-output`.
+  ~~~~~
+  ~~~
+  2. Define styles for the HelloWorld App in a stylsheet named
+  `homepage.css`:
+  ~~~~~
+  ~~~
+  ```printf '\n%s\n' 'p { background: black; color: white; }' \
+  > ~/roady/Apps/HelloWorld/css/homepage.css```
+  ~~~~~
+  ~~~
+  3. Build the HelloWorld App for the local domain http://localhost:8080:
+  ~~~~~
+  ~~~
+  ```php ~/roady/Apps/HelloWorld/Components.php \
+  'https://localhost:8080'```
+  ~~~~~
+  ~~~
+  4. If one is not already running, start a development server on
+  port `8080` so HelloWorld is available at the local domain
+  `http://localhost:8080`:
+  ~~~~~
+  ~~~
+  ```rig --start-server --port 8080 --open-in-browser```
+  ~~~~~
+  ~~~
+  Note: If http://localhost:8080 does not open in a web browser
+  automatically you will have to open it in a web browser manually.
+  For more information about `rig --start-server` use
+  `rig --help --start-server`.
+  ~~~~~
