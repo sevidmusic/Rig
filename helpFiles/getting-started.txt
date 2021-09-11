@@ -2,7 +2,7 @@
   # Getting Started
   ~~~~~
   ~~~
-  The following goes over how to install and setup roady and rig, and
+  The following goes over how to install and setup roady, and
   how to build a HelloWorld App.
   ~~~~~
   ~~~
@@ -40,22 +40,17 @@
   ~~~~~
         ~~~```composer update```~~~~~
   ~~~
-  Note: This will install the rig command line utility at:
+  Note: This will install rig, a command line utility designed to
+  aid in the development of roady Apps, at the following path:
 
   `~/roady/vendor/darling/rig`
   ~~~~~
   ~~~
-  Note: rig is a command line utility designed to aid in the
-  development of roady Apps.
-  ~~~~~
-  ~~~
-  Note: This will also install the roadyAppPackages library at:
+  Note: This will also install the roadyAppPackages library, a
+  collection of roady App Packages that can be made into roady
+  Apps via `rig --make-app-package`, at the following path:
 
   `~/roady/vendor/darling/roady-app-packages`
-  ~~~~~
-  ~~~
-  Note: The roadyAppPackages library provides a collection of roady App
-  Packages that can be made into roady Apps via `rig --make-app-package`.
   ~~~~~
   ~~~
   5. Add rig to your path:
