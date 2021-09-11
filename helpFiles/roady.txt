@@ -5,7 +5,7 @@
   roady is a tool designed to aid in the development of websites.
   ~~~~~
   ~~~
-  The features of a website running on roady are implemented by
+  With roady, the features of a website are implemented by
   small niche applications called Apps.
   ~~~~~
   ~~~
@@ -16,6 +16,12 @@
   ~~~
   Multiple websites can run on a single installation of roady, each
   making use of one or more roady Apps.
+  ~~~~~
+  ~~~
+  roady is available on github at:
+  ~~~~~
+  ~~~
+  https://github.com/sevidmusic/roady.git
   ~~~~~
   ~~~
   For help getting started view the getting started documentation
@@ -32,14 +38,44 @@
   `rig --help getting-started`
   ~~~~~
   ~~~
-  Note: roady is available on github at:
-
-  https://github.com/sevidmusic/roady.git
-  ~~~~~
-
-  ~~~
-  # Installation, Setup, and Hello World Demo
+  # A note from the developer:
   ~~~~~
   ~~~
-  https://roadydemos.us-east-1.linodeobjects.com/getting-started-2021-08-31_02.11.21.webm
+  My name is Sevi, I am the developer of roady, and rig. I release
+  roady as an open source project with humility, and want to
+  emphasize that I developed roady as a tool for myself.
+  ~~~~~
+  ~~~
+  I love coding, I love to learn about coding, and I love to build things
+  for the experience, and knowledge gained from that experience.
+  ~~~~~
+  ~~~
+  roady is not a fully-featured framework, nor is it intended to be.
+  ~~~~~
+  ~~~
+  roady is my own personal experiment, and will continue to evolve based on my
+  own needs.
+  ~~~~~
+  ~~~
+  If you need a framework that's feature packed, designed to accommodate a large
+  number of use cases, and is developed used and supported by a large community of
+  incredible developers please use Laravel, Symphony, or any of the other
+  wonderful open source PHP projects that are out there.
+  ~~~~~
+  ~~~
+  However, if you like to tinker and try new things solely out of curiosity, then
+  I hope you'll give roady a try. If you have any questions or feedback
+  roady is on twitter and reddit:
+  ~~~~~
+  ~~~
+  https://twitter.com/RoadyRig
+  ~~~~~
+  ~~~
+  https://www.reddit.com/r/roady/
+  ~~~~~
+  ~~~
+  Thank you,
+  ~~~~~
+  ~~~
+  Sevi
   ~~~~~
