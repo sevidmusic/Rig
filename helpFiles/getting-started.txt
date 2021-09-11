@@ -42,19 +42,20 @@
   ~~~
   Note: This will install the rig command line utility at:
 
-        `~/roady/vendor/darling/rig`:
+  `~/roady/vendor/darling/rig`
   ~~~~~
   ~~~
-  Note: This will also install the roadyAppPackages at:
-
-        `~/roady/vendor/darling/roady-app-packages`
+  Note: rig is a command line utility designed to aid in the
+  development of roady Apps.
   ~~~~~
   ~~~
+  Note: This will also install the roadyAppPackages library at:
 
+  `~/roady/vendor/darling/roady-app-packages`
+  ~~~~~
+  ~~~
   Note: The roadyAppPackages library provides a collection of roady App
-  Packages that can be made into roady Apps via:
-
-        `rig --make-app-package`
+  Packages that can be made into roady Apps via `rig --make-app-package`.
   ~~~~~
   ~~~
   5. Add rig to your path:
