@@ -41,41 +41,35 @@
   # A note from the developer:
   ~~~~~
   ~~~
-  My name is Sevi, I am the developer of roady, and rig. I release
-  roady as an open source project with humility, and want to
-  emphasize that I developed roady as a tool for myself.
+  I want to emphasize that I developed roady as a tool for myself, and
+  I share it humbly as an example of my work and learning.
   ~~~~~
   ~~~
   I love coding, I love to learn about coding, and I love to build things
-  for the experience, and knowledge gained from that experience.
+  for the experience, and for the knowledge gained from that experience.
   ~~~~~
   ~~~
   roady is not a fully-featured framework, nor is it intended to be.
   ~~~~~
   ~~~
-  roady is my own personal experiment, and will continue to evolve based on my
-  own needs.
+  roady is my own personal experiment, and will continue to evolve
+  based on my own needs.
   ~~~~~
   ~~~
-  If you need a framework that's feature packed, designed to accommodate a large
-  number of use cases, and is developed used and supported by a large community of
-  incredible developers please use Laravel, Symphony, or any of the other
-  wonderful open source PHP projects that are out there.
+  If you need a framework that's feature packed, designed to
+  accommodate a large number of use cases, and is developed used and
+  supported by a large community of incredible developers please use
+  Laravel, Symphony, or any of the other wonderful open source PHP
+  projects that have a solid reputation and years of work behind them.
   ~~~~~
   ~~~
-  However, if you like to tinker and try new things solely out of curiosity, then
-  I hope you'll give roady a try. If you have any questions or feedback
-  roady is on twitter and reddit:
+  However, if you like to tinker and try new things solely out of
+  curiosity, then I hope you'll give roady a try. If you have any
+  questions or feedback roady is on twitter and reddit:
   ~~~~~
   ~~~
   https://twitter.com/RoadyRig
   ~~~~~
   ~~~
   https://www.reddit.com/r/roady/
-  ~~~~~
-  ~~~
-  Thank you,
-  ~~~~~
-  ~~~
-  Sevi
   ~~~~~
