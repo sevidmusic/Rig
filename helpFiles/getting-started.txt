@@ -14,7 +14,7 @@
   ~~~
   Note: In the following examples roady is installed in the user's `home`
   directory. Make sure to adjust the paths used in the following examples
-  if you install roady at a different path:
+  if you install roady at a different path.
   ~~~~~
   ~~~
   1. Move into the directory where you want to install roady:
@@ -46,8 +46,9 @@
   Note: Running `composer update` will install rig at the following path:
 
   `~/roady/vendor/darling/rig`
-
-  rig is a command line utility designed to aid in the development
+  ~~~~~
+  ~~~
+  Note: rig is a command line utility designed to aid in the development
   of roady Apps.
   ~~~~~
   ~~~
@@ -55,8 +56,9 @@
   following path:
 
   `~/roady/vendor/darling/roady-app-packages`
-
-  The roadyAppPackages library is a collection of roady App Packages
+  ~~~~~
+  ~~~
+  Note: The roadyAppPackages library is a collection of roady App Packages
   that can be made into roady Apps via `rig --make-app-package`.
 
   More information about `rig --make-app-package` can be obtained via
