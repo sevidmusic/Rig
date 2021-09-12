@@ -6,13 +6,10 @@
   how to build a HelloWorld App.
   ~~~~~
   ~~~
-  ### Installation, Setup, and Hello World Demo
-  ~~~~~
-  ~~~
   https://roadydemos.us-east-1.linodeobjects.com/getting-started-2021-08-31_02.11.21.webm
   ~~~~~
   ~~~
-  ### Installation & Setup Steps
+  # Installation & Setup
   ~~~~~
   ~~~
   Note: In the following examples roady is installed in the user's `home`
@@ -24,7 +21,7 @@
   ~~~~~
         ~~~```cd ~/```~~~~~
   ~~~
-  Note: `~/` is shorthand for the path to the current users `home`
+  Note: `~/` is shorthand for the path to the current user's `home`
   directory.
   ~~~~~
   ~~~
@@ -40,17 +37,33 @@
   ~~~~~
         ~~~```composer update```~~~~~
   ~~~
-  Note: This will install rig, a command line utility designed to
-  aid in the development of roady Apps, at the following path:
+  Note: composer is a dependency manager for PHP, for more information
+  about composer visit:
 
-  `~/roady/vendor/darling/rig`
+  https://getcomposer.org/
   ~~~~~
   ~~~
-  Note: This will also install the roadyAppPackages library, a
-  collection of roady App Packages that can be made into roady
-  Apps via `rig --make-app-package`, at the following path:
+  Note: Running `composer update` will install rig at the following path:
+
+  `~/roady/vendor/darling/rig`
+
+  rig is a command line utility designed to aid in the development
+  of roady Apps.
+  ~~~~~
+  ~~~
+  Note: Running `composer update` will also install the roadyAppPackages library at the
+  following path:
 
   `~/roady/vendor/darling/roady-app-packages`
+
+  The roadyAppPackages library is a collection of roady App Packages
+  that can be made into roady Apps via `rig --make-app-package`.
+
+  More information about `rig --make-app-package` can be obtained via
+  `rig --help --make-app-package` once roady is installed and setup.
+
+  More information about App Packages can be obtained via
+  `rig --help AppPackage` once roady is installed and setup.
   ~~~~~
   ~~~
   5. Add rig to your path:
@@ -60,6 +73,12 @@
   6. Make sure rig is working:
   ~~~~~
         ~~~```rig --help | less -R```~~~~~
+
+  ~~~
+  Note: The documentation can always be obtained locally via:
+
+  `rig --help`
+  ~~~~~
   ~~~
   Note: `less` is not related to roady or rig. The `less` command is used
   in the example to make it easier to view the output of `rig --help`. More
@@ -68,34 +87,50 @@
   https://man7.org/linux/man-pages/man1/less.1.html
   ~~~~~
   ~~~
-  ### Hello World Steps
+  That's it, roady should now be installed at `~/roady`, and rig
+  should be in your `$PATH` and available for use. The next step
+  is to start building roady Apps.
   ~~~~~
   ~~~
-  Note: In the following examples roady is installed in the user's `home`
-  directory. Make sure to adjust the paths used in the following examples
-  if you install roady at a different path:
+  # Hello World
+  ~~~~~
+  ~~~
+  Note: In the following examples roady is assumed to be installed
+  in the user's `home` directory. Make sure to adjust the paths
+  used in the following examples if you installed roady at a
+  different path:
   ~~~~~
   ~~~
   1. Use `rig --configure-app-output` to create an App named HelloWorld
   ~~~~~
   ~~~
-        ```rig --configure-app-output \
+  ```
+        rig --configure-app-output \
         --for-app HelloWorld \
         --name HelloWorld \
         --output '<p>Hello World</p>' \
-        --relative-urls '/'```
+        --relative-urls '/'
+  ```
   ~~~~~
   ~~~
   2. Build the HelloWorld App for the domain `http://localhost:8080`:
   ~~~~~
-        ~~~```php ~/roady/Apps/HelloWorld/Components.php \
-        'http://localhost:8080'```~~~~~
+  ~~~
+  ```
+        php ~/roady/Apps/HelloWorld/Components.php \
+        'http://localhost:8080'
+  ```
+  ~~~~~
   ~~~
   3. Use rig to start a development server:
   ~~~~~
-        ~~~```rig --start-server \
+  ~~~
+  ```
+        rig --start-server \
         --port 8080 \
-        --open-in-browser```~~~~~
+        --open-in-browser
+  ```
+  ~~~~~
   ~~~
   Note: The `--open-in-browser` flag should cause rig to open
   http://localhost:8080 in a web browser. This flag relies on the
@@ -247,7 +282,7 @@
   `$_GET['request']`.
   ~~~~~
 
-  ### Hello World App Package
+  # Hello World App Package
 
   ~~~
   roady Apps can be shared easily in the form of App Packages. You can
@@ -351,7 +386,7 @@
       http://localhost:8080
       ~~~~~
 
-  ### The AppPackager
+  # The AppPackager
 
   ~~~
   In addition to the HelloWorld App Package, an App Package
