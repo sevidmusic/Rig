@@ -17,7 +17,7 @@
   if you install roady at a different path:
   ~~~~~
   ~~~
-  1. Move into the directory where you wish to install roady:
+  1. Move into the directory where you want to install roady:
   ~~~~~
         ~~~```cd ~/```~~~~~
   ~~~
@@ -143,8 +143,7 @@
   `--open-in-broswer` flag will not work. The `xdg-open` command is not
   associated with roady or rig, more information about the `xdg-open`
   command can be found at:
-  ~~~~~
-  ~~~
+
   https://linux.die.net/man/1/xdg-open
   ~~~~~
   ~~~
