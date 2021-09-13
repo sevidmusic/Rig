@@ -9,12 +9,12 @@
   https://roadydemos.us-east-1.linodeobjects.com/getting-started-2021-08-31_02.11.21.webm
   ~~~~~
   ~~~
-  # Installation & Setup
-  ~~~~~
-  ~~~
   Note: In the following examples roady is installed in the user's `home`
   directory. Make sure to adjust the paths used in the following examples
   if you install roady at a different path.
+  ~~~~~
+  ~~~
+  # Installation & Setup
   ~~~~~
   ~~~
   1. Move into the directory where you want to install roady:
@@ -60,11 +60,13 @@
   ~~~
   Note: The roadyAppPackages library is a collection of roady App Packages
   that can be made into roady Apps via `rig --make-app-package`.
-
-  More information about `rig --make-app-package` can be obtained via
+  ~~~~~
+  ~~~
+  Note: More information about `rig --make-app-package` can be obtained via
   `rig --help --make-app-package` once roady is installed and setup.
-
-  More information about App Packages can be obtained via
+  ~~~~~
+  ~~~
+  Note: More information about App Packages can be obtained via
   `rig --help AppPackage` once roady is installed and setup.
   ~~~~~
   ~~~
