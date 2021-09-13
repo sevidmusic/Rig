@@ -29,7 +29,7 @@
   ~~~~~
         ~~~```git clone https://github.com/sevidmusic/roady.git```~~~~~
   ~~~
-  3. Move into roady's directory:
+  3. Move into roady's root directory:
   ~~~~~
         ~~~```cd ~/roady```~~~~~
   ~~~
@@ -73,6 +73,13 @@
   5. Add rig to your path:
   ~~~~~
         ~~~```export PATH="${PATH}:${HOME}/roady/vendor/darling/rig/bin"```~~~~~
+  ~~~
+  Note: This will only add rig to your `$PATH` temporarily, to add it
+  permanently you will need to set your `$PATH` in the appropriate
+  configuration file for the shell you are using. For information
+  on setting your `$PATH` permanently consult the documentation for
+  the shell you are using.
+  ~~~~~
   ~~~
   6. Make sure rig is working:
   ~~~~~
