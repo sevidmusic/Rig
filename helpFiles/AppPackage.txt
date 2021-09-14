@@ -118,3 +118,12 @@
   Note: More documentation is being written on the topic of App Packages and
   will be added to this documenation as soon as it is complete.
   ~~~~~
+
+
+  ~~~
+  Note: An App Package has the same structure as an App, but instead
+  of providing individual Component configuration files, and a
+  Components.php file, an App Package provides a bash script
+  named `make.sh` which defines the neccesary calls to rig
+  to make the roady App Package back into a roady App.
+  ~~~~~

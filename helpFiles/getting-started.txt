@@ -91,7 +91,7 @@
   `rig --help`
   ~~~~~
   ~~~
-  Note: `less` is not related to roady or rig. The `less` command is used
+  Note: `less` is not associated with roady or rig. The `less` command is used
   in the example to make it easier to view the output of `rig --help`. More
   information about the `less` command can be found online at:
 
@@ -106,6 +106,39 @@
   ~~~~~
   ~~~
   # Hello World
+  ~~~~~
+  ~~~
+  roady Apps are responsible for implementing the features of a
+  website. An App may provide stylesheets, scripts, or configure
+  output to be served in response to appropriate requests to
+  any domains the App is built for.
+  ~~~~~
+  ~~~
+  An App has the following structure:
+  ~~~~~
+  ~~~
+  ```
+  Components.php
+  css
+  js
+  DynamicOutput
+  OutputComponents
+  Requests
+  Responses
+  resources
+  ```
+  ~~~~~
+  ~~~
+  Apps must be located in roady's Apps directory to be available
+  for use. In this example roady's Apps directory will be located
+  at the following path:
+  ~~~~~
+  ~~~
+  `~/roady/Apps`
+  ~~~~~
+  ~~~
+  The following example demonstrates how to use rig to begin
+  developing an App named HelloWorld.
   ~~~~~
   ~~~
   Note: In the following examples roady is assumed to be installed
@@ -294,5 +327,37 @@
   # App Packages
   ~~~~~
   ~~~
-  roady Apps...
+  App Packages are stripped down versions of roady Apps.
   ~~~~~
+  ~~~
+  App Packages can be shared, used to create a backup of an App,
+  or used as the base for new versions of an App.
+  ~~~~~
+  ~~~
+  For example, the roadyAppPackages library includes an App Package
+  for an App named `AppPackager`, which is an App that can be used
+  to convert existing roady Apps into a roady App Package.
+  ~~~~~
+  ~~~
+  Note: The roadyAppPackages library will have been installed in
+  roady's vendor directory when `composer update` was run. In this
+  example the roadyAppPackages library will be located at the
+  following path:
+
+  `~/roady/vendor/darling/roady-app-packages`
+  ~~~~~
+  ~~~
+  ~~~~~
+  ~~~
+  1. Use `rig --make-app-package` to make the AppPackager App
+  from the AppPackager App Package provided by the roadyAppPackages
+  library.
+  ~~~~~
+  ~~~
+  ```
+  rig --make-app-package \
+  --path ~/roady/vendor/darling/roady-app-packages/AppPackager
+  ```
+  ~~~~~
+
+
