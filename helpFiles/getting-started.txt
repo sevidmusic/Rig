@@ -67,7 +67,7 @@
   ~~~
   `rig --help --make-app-package`
   ~~~~~
-  Also, once roady is installed and setup, more information can
+  Once roady is installed and setup, more information can
   be obtained about App Packages via:
   ~~~
   `rig --help AppPackage`
@@ -102,7 +102,10 @@
   https://man7.org/linux/man-pages/man1/less.1.html
   ~~~~~
   ~~~
-  That's it, roady should now be installed at the path `~/roady`, and rig
+  ### Installation And Setup Finished
+  ~~~~~
+  ~~~
+  roady should now be installed at the path `~/roady`, and rig
   should now be in your `$PATH` and available for use.
   ~~~~~
   ~~~
@@ -136,10 +139,18 @@
   Apps can be created via `rig --new-app`, or `rig --configure-app-output`.
   ~~~~~
   ~~~
-  Once created, the can be built for one or more domains.
+  Once created, they can be built for one or more domains.
   ~~~~~
   ~~~
-  Note: More information about Apps can be obtained via:
+  Note: More information about `rig --new-app` can be obtained via:
+  ~~~
+  `rig --help --new-app`
+  ~~~~~
+  More information about `rig --configure-app-output` can be obtained via:
+  ~~~
+  `rig --help --configure-app-output`
+  ~~~~~
+  More information about Apps can be obtained via:
   ~~~
   `rig --help Apps`
   ~~~~~
