@@ -39,35 +39,39 @@
   ~~~
   Note: composer is a dependency manager for PHP, for more information
   about composer visit:
-
+  ~~~
   https://getcomposer.org/
+  ~~~~~
   ~~~~~
   ~~~
   Note: Running `composer update` will install rig at the following path:
-
+  ~~~
   `~/roady/vendor/darling/rig`
   ~~~~~
-  ~~~
-  Note: rig is a command line utility designed to aid in the development
+  rig is a command line utility designed to aid in the development
   of roady Apps.
   ~~~~~
   ~~~
   Note: Running `composer update` will also install the roadyAppPackages
   library at the following path:
-
+  ~~~
   `~/roady/vendor/darling/roady-app-packages`
   ~~~~~
+  The roadyAppPackages library is a collection of roady App Packages
+  that can be made into roady Apps via:
   ~~~
-  Note: The roadyAppPackages library is a collection of roady App Packages
-  that can be made into roady Apps via `rig --make-app-package`.
+  `rig --make-app-package`.
   ~~~~~
+  Once roady is installed and setup, more information can
+  be obtained about `rig --make-app-package` via:
   ~~~
-  Note: More information about `rig --make-app-package` can be obtained
-  via `rig --help --make-app-package` once roady is installed and setup.
+  `rig --help --make-app-package`
   ~~~~~
+  Also, once roady is installed and setup, more information can
+  be obtained about App Packages via:
   ~~~
-  Note: More information about App Packages can be obtained via
-  `rig --help AppPackage` once roady is installed and setup.
+  `rig --help AppPackage`
+  ~~~~~
   ~~~~~
   ~~~
   5. Add rig to your path:
@@ -105,7 +109,7 @@
   The next step is to start building roady Apps.
   ~~~~~
   ~~~
-  # Hello World
+  # A brief introduction to roady Apps
   ~~~~~
   ~~~
   roady Apps are responsible for implementing the features of a
@@ -129,12 +133,19 @@
   ```
   ~~~~~
   ~~~
-  Apps must be located in roady's Apps directory to be available
-  for use. In this example roady's Apps directory will be located
-  at the following path:
+  Apps can be created via `rig --new-app`, or `rig --configure-app-output`.
   ~~~~~
   ~~~
-  `~/roady/Apps`
+  Once created, the can be built for one or more domains.
+  ~~~~~
+  ~~~
+  Note: More information about Apps can be obtained via:
+  ~~~
+  `rig --help Apps`
+  ~~~~~
+  ~~~~~
+  ~~~
+  # Hello World
   ~~~~~
   ~~~
   The following example demonstrates how to use rig to begin
@@ -144,7 +155,7 @@
   Note: In the following examples roady is assumed to be installed
   in the user's `home` directory. Make sure to adjust the paths
   used in the following examples if you installed roady at a
-  different path:
+  different path.
   ~~~~~
   ~~~
   1. Use `rig --configure-app-output` to create an App named HelloWorld
@@ -282,6 +293,8 @@
   ```
   ~~~~~
   ~~~
+  Note:
+  ~~~
   Apps can define stylesheets that are served in response to
   specific Requests to the domains an App is built for, or can define
   stylesheets that are served in response to all Requests to the
@@ -322,6 +335,7 @@
   ~~~~~
   ~~~
   http://localhost:8080/index.php?foo=bar&request=homepage
+  ~~~~~
   ~~~~~
   ~~~
   # App Packages
