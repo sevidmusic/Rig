@@ -62,13 +62,13 @@
   ~~~
   `rig --make-app-package`.
   ~~~~~
-  Once roady is installed and setup, more information can
-  be obtained about `rig --make-app-package` via:
+  Once roady is installed and setup, more information about
+  `rig --make-app-package` can be obtained via:
   ~~~
   `rig --help --make-app-package`
   ~~~~~
-  Once roady is installed and setup, more information can
-  be obtained about App Packages via:
+  Once roady is installed and setup, more information about
+  App Packages can be obtained via:
   ~~~
   `rig --help AppPackage`
   ~~~~~
@@ -102,7 +102,7 @@
   https://man7.org/linux/man-pages/man1/less.1.html
   ~~~~~
   ~~~
-  ### Installation And Setup Finished
+  # Installation And Setup Finished
   ~~~~~
   ~~~
   roady should now be installed at the path `~/roady`, and rig
@@ -113,6 +113,12 @@
   ~~~~~
   ~~~
   # A brief introduction to roady Apps
+  ~~~~~
+  ~~~
+  Note: More information about Apps can be obtained via:
+  ~~~
+  `rig --help Apps`
+  ~~~~~
   ~~~~~
   ~~~
   roady Apps are responsible for implementing the features of a
