@@ -358,6 +358,46 @@
   ~~~~~
   ~~~~~
   ~~~
-  # App Packages
+  # A Brief Introduction To App Packages
   ~~~~~
-
+  ~~~
+  Apps may be developed, backed up, or shared as App Packages.
+  ~~~~~
+  ~~~
+  roady App Packages have the same structure as a roady App, except
+  an App Package defines all an App's Component configurations in a
+  single file named `make.sh`, instead of in individual `.php`
+  files.
+  ~~~~~
+  ~~~
+  Note: `make.sh` is a bash script that defines the appropriate
+  calls to rig to make the roady App Package into a roady
+  App.
+  ~~~~~
+  ~~~
+  Note: More information about App Packages can be obtained via:
+  ~~~
+  `rig --help AppPackage`
+  ~~~~~
+  ~~~~~
+  ~~~
+  # The App Packager
+  ~~~~~
+  ~~~
+  Note: In the following examples roady is assumed to be installed
+  in the user's `home` directory. Make sure to adjust the paths
+  used in the following examples if you installed roady at a
+  different path.
+  ~~~~~
+  ~~~
+  # Packaging Hello World
+  ~~~~~
+  ~~~
+  # Modifying Hello World's App Package
+  ~~~~~
+  ~~~
+  # Re-making Hello World
+  ~~~~~
+  ~~~
+  # Final Thoughts...
+  ~~~~~
