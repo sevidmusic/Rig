@@ -52,7 +52,7 @@
   of roady Apps.
   ~~~~~
   ~~~
-  Note: Running `composer update` will also install the roadyAppPackages
+  Note: Running `composer update` will install the roadyAppPackages
   library at the following path:
   ~~~
   `~/roady/vendor/darling/roady-app-packages`
