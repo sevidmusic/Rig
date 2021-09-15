@@ -106,19 +106,13 @@
   ~~~~~
   ~~~
   roady should now be installed at the path `~/roady`, and rig
-  should now be in your `$PATH` and available for use.
+  should now be in your `$PATH`.
   ~~~~~
   ~~~
   The next step is to start building roady Apps.
   ~~~~~
   ~~~
   # A brief introduction to roady Apps
-  ~~~~~
-  ~~~
-  Note: More information about Apps can be obtained via:
-  ~~~
-  `rig --help Apps`
-  ~~~~~
   ~~~~~
   ~~~
   roady Apps are responsible for implementing the features of a
@@ -353,42 +347,17 @@
   ~~~
   http://localhost:8080/index.php?foo=bar&request=homepage
   ~~~~~
+  More information about using css stylesheets in roady Apps
+  can be obtained via:
+  ~~~
+  `rig --help css`
+  ~~~~~
+  More information about roady Apps can be obtained via:
+  ~~~
+  `rig --help Apps`
+  ~~~~~
   ~~~~~
   ~~~
   # App Packages
   ~~~~~
-  ~~~
-  App Packages are stripped down versions of roady Apps.
-  ~~~~~
-  ~~~
-  App Packages can be shared, used to create a backup of an App,
-  or used as the base for new versions of an App.
-  ~~~~~
-  ~~~
-  For example, the roadyAppPackages library includes an App Package
-  for an App named `AppPackager`, which is an App that can be used
-  to convert existing roady Apps into a roady App Package.
-  ~~~~~
-  ~~~
-  Note: The roadyAppPackages library will have been installed in
-  roady's vendor directory when `composer update` was run. In this
-  example the roadyAppPackages library will be located at the
-  following path:
-
-  `~/roady/vendor/darling/roady-app-packages`
-  ~~~~~
-  ~~~
-  ~~~~~
-  ~~~
-  1. Use `rig --make-app-package` to make the AppPackager App
-  from the AppPackager App Package provided by the roadyAppPackages
-  library.
-  ~~~~~
-  ~~~
-  ```
-  rig --make-app-package \
-  --path ~/roady/vendor/darling/roady-app-packages/AppPackager
-  ```
-  ~~~~~
-
 
