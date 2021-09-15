@@ -102,7 +102,7 @@
   https://man7.org/linux/man-pages/man1/less.1.html
   ~~~~~
   ~~~
-  # Installation And Setup Finished
+  # Installation & Setup Is Finished
   ~~~~~
   ~~~
   roady should now be installed at the path `~/roady`, and rig
@@ -142,17 +142,17 @@
   Once created, they can be built for one or more domains.
   ~~~~~
   ~~~
-  Note: More information about `rig --new-app` can be obtained via:
+  Note: More information about Apps can be obtained via:
+  ~~~
+  `rig --help Apps`
+  ~~~~~
+  More information about `rig --new-app` can be obtained via:
   ~~~
   `rig --help --new-app`
   ~~~~~
   More information about `rig --configure-app-output` can be obtained via:
   ~~~
   `rig --help --configure-app-output`
-  ~~~~~
-  More information about Apps can be obtained via:
-  ~~~
-  `rig --help Apps`
   ~~~~~
   ~~~~~
   ~~~
@@ -181,7 +181,7 @@
   ```
   ~~~~~
   ~~~
-  2. Build the HelloWorld App for the domain `http://localhost:8080`:
+  2. Build the HelloWorld App for the local domain `http://localhost:8080`:
   ~~~~~
   ~~~
   ```
@@ -190,7 +190,7 @@
   ```
   ~~~~~
   ~~~
-  3. Use rig to start a development server:
+  3. Use `rig --start-server` to start a local development server on port `8080`:
   ~~~~~
   ~~~
   ```
@@ -215,7 +215,7 @@
   https://linux.die.net/man/1/xdg-open
   ~~~~~
   ~~~
-  4. Use a text editor or IDE to edit HelloWorld's DynamicOutput file:
+  4. Use a text editor or IDE to edit HelloWorld's output:
   ~~~~~
   ~~~```vim ~/roady/Apps/HelloWorld/DynamicOutput/HelloWorld.php```~~~~~
   ~~~
