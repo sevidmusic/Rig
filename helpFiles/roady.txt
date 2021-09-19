@@ -21,34 +21,56 @@
   # Quick Installation, Setup, & Hello World Example
   ~~~~~
   ~~~
-  The following example demonstrates how to install and setup roady,
-  and how to create a Hello World App. The following example only provides
-  examples of the neccesary commands to run at the command line, it does
-  not provide any details about the commands being executed.
+  The following is a quick demonstration of how to install
+  and setup roady, and how to create a Hello World App.
   ~~~~~
   ~~~
-  Note: For a more detailed guide on getting started with roady visit:
+  The following example only demonstrates the necessary
+  commands to run at the command line, it does not provide any
+  details about the commands being executed.
+  ~~~~~
+  ~~~
+  For a more detailed guide on getting started with roady visit:
   ~~~
   https://roady.tech/index.php?request=getting-started
   ~~~~~
   ~~~~~
   ~~~
+
+  ### Install roady:
   ```
   cd ~/
 
   git clone https://github.com/sevidmusic/roady.git
+  ```
 
+  ### Setup:
+  ```
   cd ~/roady
 
   composer update
+  ```
 
+  ### Add rig to your `$PATH`:
+  ```
   export PATH="${PATH}:${HOME}/roady/vendor/darling/rig/bin"
+  ```
 
+  ### Create a an App named `HelloWorld`:
+  ```
   rig --configure-app-output --for-app HelloWorld \
   --name HelloWorld \
   --output 'Hello World' \
   --relative-urls '/'
+  ```
 
+  ### Build the `HelloWorld` App for the local domain: `http://localhost:8080`:
+  ```
+  php ~/roady/Apps/HelloWorld/Components.php 'http://localhost:8080'
+  ```
+
+  ### Start a development server so `http://localhost:8080` can be accessed locally from a web browser:
+  ```
   rig --start-server --open-in-browser
   ```
   ~~~~~
