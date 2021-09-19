@@ -18,11 +18,33 @@
   making use of one or more roady Apps.
   ~~~~~
   ~~~
-  For help getting started view the getting started documentation
-  online at:
+  # Brief Install, Setup, & Hello World Guide
   ~~~~~
   ~~~
+  Note: For a more detailed guide on getting started visit:
+  ~~~
   https://roady.tech/index.php?request=getting-started
+  ~~~~~
+  ~~~~~
+  ~~~
+  ```
+  cd ~/
+
+  git clone https://github.com/sevidmusic/roady.git
+
+  cd ~/roady
+
+  composer update
+
+  export PATH="${PATH}:${HOME}/roady/vendor/darling/rig/bin"
+
+  rig --configure-app-output --for-app HelloWorld \
+  --name HelloWorld \
+  --output 'Hello World' \
+  --relative-urls '/'
+
+  rig --start-server --open-in-browser
+  ```
   ~~~~~
   ~~~
   Note: Once roady is already installed, and the rig command line
@@ -30,12 +52,6 @@
   will be accessible locally from the command line via:
   ~~~
   `rig --help getting-started`
-  ~~~~~
-  ~~~~~
-  ~~~
-  Note: roady is available on github at:
-  ~~~
-  https://github.com/sevidmusic/roady.git
   ~~~~~
   ~~~~~
   ~~~
