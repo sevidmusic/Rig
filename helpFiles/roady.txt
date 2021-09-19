@@ -18,7 +18,13 @@
   making use of one or more roady Apps.
   ~~~~~
   ~~~
-  # Brief Install, Setup, & Hello World Guide
+  # Quick Installation, Setup, & Hello World Example
+  ~~~~~
+  ~~~
+  The following example demonstrates how to install and setup roady,
+  and how to create a Hello World App. The following example only provides
+  examples of the neccesary commands to run at the command line, it does
+  not provide any details about the commands being executed.
   ~~~~~
   ~~~
   Note: For a more detailed guide on getting started with roady visit:
