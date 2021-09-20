@@ -9,9 +9,9 @@
   small niche applications called Apps.
   ~~~~~
   ~~~
-  roady Apps may provide stylesheets, scripts, and may configure
-  output to be served in response to appropriate requests to a
-  website's domain.
+  roady Apps may define css, javascript, and may configure output
+  to be served in response to appropriate requests to a website's
+  domain.
   ~~~~~
   ~~~
   Multiple websites can run on a single installation of roady, each
@@ -36,6 +36,13 @@
   ~~~~~
   ~~~~~
   ~~~
+  Note: If you have already installed roady, you can access
+  the getting started documentation locally via:
+  ~~~
+  `rig --help getting-started`
+  ~~~~~
+  ~~~~~
+  ~~~
 
   ### Install roady:
   ```
@@ -56,9 +63,10 @@
   export PATH="${PATH}:${HOME}/roady/vendor/darling/rig/bin"
   ```
 
-  ### Create a an App named `HelloWorld`:
+  ### Create an App named `HelloWorld`:
   ```
-  rig --configure-app-output --for-app HelloWorld \
+  rig --configure-app-output \
+  --for-app HelloWorld \
   --name HelloWorld \
   --output 'Hello World' \
   --relative-urls '/'
@@ -75,7 +83,7 @@
   ```
   ~~~~~
   ~~~
-  Note: Once roady is already installed, and the rig command line
+  Note: Once roady is installed, and the rig command line
   utility is in your `$PATH`, then the getting-started documentation
   will be accessible locally from the command line via:
   ~~~
