@@ -2,7 +2,7 @@
   # Getting Started
   ~~~~~
   ~~~
-  The following goes over how to install and setup roady, and
+  The following examples demonstrate how to install and setup roady, and
   how to build a HelloWorld App.
   ~~~~~
   ~~~
@@ -18,24 +18,38 @@
   ~~~~~
   ~~~
   1. Move into the directory where you want to install roady:
+  ~~~
+  ```cd ~/```
   ~~~~~
-        ~~~```cd ~/```~~~~~
   ~~~
   Note: `~/` is shorthand for the path to the current user's `home`
   directory.
   ~~~~~
+  ~~~~~
   ~~~
   2. Clone roady from https://github.com/sevidmusic/roady.git:
+  ~~~
+  ```git clone https://github.com/sevidmusic/roady.git```
   ~~~~~
-        ~~~```git clone https://github.com/sevidmusic/roady.git```~~~~~
+  ~~~
+  Note: git is a version control system, for more information
+  about git visit:
+  ~~~
+  http://github.com
+  ~~~~~
+  ~~~~~
+  ~~~~~
   ~~~
   3. Move into roady's root directory:
+  ~~~
+  ```cd ~/roady```
   ~~~~~
-        ~~~```cd ~/roady```~~~~~
+  ~~~~~
   ~~~
   4. Update `composer`:
+  ~~~
+  ```composer update```
   ~~~~~
-        ~~~```composer update```~~~~~
   ~~~
   Note: composer is a dependency manager for PHP, for more information
   about composer visit:
@@ -73,10 +87,12 @@
   `rig --help AppPackage`
   ~~~~~
   ~~~~~
+  ~~~~~
   ~~~
   5. Add rig to your path:
+  ~~~
+  ```export PATH="${PATH}:${HOME}/roady/vendor/darling/rig/bin"```
   ~~~~~
-        ~~~```export PATH="${PATH}:${HOME}/roady/vendor/darling/rig/bin"```~~~~~
   ~~~
   Note: This will only add rig to your `$PATH` temporarily, to add it
   permanently you will need to set your `$PATH` in the appropriate
@@ -84,11 +100,12 @@
   on setting your `$PATH` permanently, please consult the documentation
   for the shell you are using.
   ~~~~~
+  ~~~~~
   ~~~
   6. Make sure rig is working:
+  ~~~
+  ```rig --help | less -R```
   ~~~~~
-        ~~~```rig --help | less -R```~~~~~
-
   ~~~
   Note: The documentation can always be obtained locally via:
 
@@ -100,6 +117,7 @@
   information about the `less` command can be found online at:
 
   https://man7.org/linux/man-pages/man1/less.1.html
+  ~~~~~
   ~~~~~
   ~~~
   # Installation & Setup Is Finished
@@ -169,34 +187,33 @@
   different path.
   ~~~~~
   ~~~
-  1. Use `rig --configure-app-output` to create an App named HelloWorld
-  ~~~~~
+  1. Use `rig --configure-app-output` to create an App named HelloWorld:
   ~~~
   ```
-        rig --configure-app-output \
-        --for-app HelloWorld \
-        --name HelloWorld \
-        --output '<p>Hello World</p>' \
-        --relative-urls '/'
+  rig --configure-app-output \
+  --for-app HelloWorld \
+  --name HelloWorld \
+  --output '<p>Hello World</p>' \
+  --relative-urls '/'
   ```
+  ~~~~~
   ~~~~~
   ~~~
   2. Build the HelloWorld App for the local domain `http://localhost:8080`:
-  ~~~~~
   ~~~
   ```
-        php ~/roady/Apps/HelloWorld/Components.php \
-        'http://localhost:8080'
+  php ~/roady/Apps/HelloWorld/Components.php \
+  'http://localhost:8080'
   ```
+  ~~~~~
   ~~~~~
   ~~~
   3. Use `rig --start-server` to start a local development server on port `8080`:
-  ~~~~~
   ~~~
   ```
-        rig --start-server \
-        --port 8080 \
-        --open-in-browser
+  rig --start-server \
+  --port 8080 \
+  --open-in-browser
   ```
   ~~~~~
   ~~~
@@ -214,9 +231,9 @@
 
   https://linux.die.net/man/1/xdg-open
   ~~~~~
+  ~~~~~
   ~~~
   4. Use a text editor or IDE to edit HelloWorld's output:
-  ~~~~~
   ~~~```vim ~/roady/Apps/HelloWorld/DynamicOutput/HelloWorld.php```~~~~~
   ~~~
   And revise `~/roady/Apps/HelloWorld/DynamicOutput/HelloWorld.php`'s
@@ -254,10 +271,10 @@
   </div>
   ```
   ~~~~~
+  ~~~~~
   ~~~
   5. Create a stylesheet named `hw-global-styles.css` for the
   HelloWorld App using a text editor or IDE:
-  ~~~~~
   ~~~```vim ~/roady/Apps/HelloWorld/css/hw-global-styles.css```~~~~~
   ~~~
   Define the following styles in
@@ -355,6 +372,7 @@
   More information about roady Apps can be obtained via:
   ~~~
   `rig --help Apps`
+  ~~~~~
   ~~~~~
   ~~~~~
   ~~~
