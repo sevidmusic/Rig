@@ -9,13 +9,17 @@
   small niche applications called Apps.
   ~~~~~
   ~~~
-  roady Apps may define css, javascript, and may configure output
-  to be served in response to appropriate requests to a website's
-  domain.
+  roady Apps may provide css stylesheets, utilize javascript, and
+  may configure output to be served in response to appropriate requests
+  to a website's domain.
   ~~~~~
   ~~~
   Multiple websites can run on a single installation of roady, each
   making use of one or more roady Apps.
+  ~~~~~
+  ~~~
+  roady is a unique tool, an ongoing experiment, developed out of a
+  passion for coding.
   ~~~~~
   ~~~
   # Quick Installation, Setup, & Hello World Example
@@ -74,7 +78,8 @@
 
   ### Build the `HelloWorld` App for the local domain: `http://localhost:8080`:
   ```
-  php ~/roady/Apps/HelloWorld/Components.php 'http://localhost:8080'
+  php ~/roady/Apps/HelloWorld/Components.php \
+  'http://localhost:8080'
   ```
 
   ### Start a development server so `http://localhost:8080` can be accessed locally from a web browser:
