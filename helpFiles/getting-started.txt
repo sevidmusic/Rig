@@ -107,7 +107,8 @@
   ```rig --help | less -R```
   ~~~~~
   ~~~
-  Note: The documentation can always be obtained locally via:
+  Note: The documentation can always be obtained locally via
+  the command line by using:
 
   `rig --help`
   ~~~~~
@@ -134,9 +135,9 @@
   ~~~~~
   ~~~
   roady Apps are responsible for implementing the features of a
-  website. An App may provide stylesheets, scripts, or configure
-  output to be served in response to appropriate requests to
-  any domains the App is built for.
+  website. An App may provide css stylesheets, utilize javascript,
+  or configure output to be served in response to appropriate
+  requests to any domains the App is built for.
   ~~~~~
   ~~~
   An App has the following structure:
@@ -187,7 +188,10 @@
   different path.
   ~~~~~
   ~~~
-  1. Use `rig --configure-app-output` to create an App named HelloWorld:
+  1. Use `rig --configure-app-output` to create an App named
+  HelloWorld, and configure the output `<p>Hello World</p>`
+  to be served in response to requests to the root of any
+  domain the HelloWorld App is built for:
   ~~~
   ```
   rig --configure-app-output \
@@ -241,33 +245,26 @@
   ~~~~~
   ~~~
   ```
-  <div class="container">
-
+  <div class="hw-container">
       <h1>Roady</h1>
-
       <p>
-          <a href="https://github.com/sevidmusic/roady">Roady</a> is a tool
-          designed to aid in the development of websites.
+          roady is a tool designed to aid in the development of websites.
       </p>
-
       <p>
-          Its design allows the features of a website to be implemented as
-          smaller niche applications called Apps.
+          With roady, the features of a website are implemented by small niche
+          applications called Apps.
       </p>
-
       <p>
-          The features of an App can be made available to multiple websites
-          running on a single installation of
-          <a href="https://github.com/sevidmusic/roady">Roady</a>.
+          roady Apps may provide css stylesheets, utilize javascript, and may
+          configure output to be served in response to appropriate requests to
+          a website's domain.
       </p>
-
       <p>
-          Apps can configure output to show up in response to appropriate
-          Requests to a
-          website, and can also provide stylesheets, scripts, and other
-          resources necessary to implement the specific features they provide.
+          Multiple websites can run on a single installation of roady, each
+          making use of one or more roady Apps.
+          roady is a unique tool, an ongoing experiment, developed out of a
+          passion for coding.
       </p>
-
   </div>
   ```
   ~~~~~
@@ -290,32 +287,33 @@
                         linear-gradient(-45deg, transparent 75%, #020203 75%);
       background-size: 10rem 10rem;
       background-position: 0 0, 0 10rem, 10rem -10rem, -10rem 0rem;
-      color: #fa5f11;
+      color: #00ffc3;
       font-size: 1.2rem;
       font-family: monospace;
       padding: 0;
       margin: 0;
   }
 
-  .container h1 {
-      color: white;
-  }
-
-  .container {
+  .hw-container {
       width: 80%;
       background: #010103;
-      opacity: .72;
+      opacity: .92;
       margin: 3rem auto;
       padding: 3rem;
       border: .2rem double white;
   }
 
-  .container a, .container a:link, .container a:visited {
+  .hw-container h1 {
+      color: white;
+      text-shadow: -1px 1px #00ffc3;
+  }
+
+  .hw-container a, .hw-container a:link, .hw-container a:visited {
       text-decoration: none;
       color: white;
   }
 
-  .container a:hover, .container a:active {
+  .hw-container a:hover, .hw-container a:active {
       color: #00bbff;
   }
   ```
