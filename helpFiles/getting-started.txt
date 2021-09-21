@@ -35,7 +35,7 @@
   Note: git is a version control system, for more information
   about git visit:
   ~~~
-  http://github.com
+  https://git-scm.com
   ~~~~~
   ~~~~~
   ~~~~~
