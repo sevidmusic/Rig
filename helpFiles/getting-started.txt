@@ -84,7 +84,7 @@
   Once roady is installed and setup, more information about
   App Packages can be obtained via:
   ~~~
-  `rig --help AppPackage`
+  `rig --help AppPackages`
   ~~~~~
   ~~~~~
   ~~~~~
@@ -489,7 +489,7 @@
   ~~~
   Note: More information about App Packages can be obtained via:
   ~~~
-  `rig --help AppPackage`
+  `rig --help AppPackages`
   ~~~~~
   ~~~~~
   ~~~
