@@ -128,7 +128,7 @@
   should now be in your `$PATH`.
   ~~~~~
   ~~~
-  The next step is to start building roady Apps.
+  The next step is to start developing roady Apps.
   ~~~~~
   ~~~
   # A brief introduction to roady Apps
@@ -140,19 +140,53 @@
   requests to any domains the App is built for.
   ~~~~~
   ~~~
-  An App has the following structure:
+  roady App's are just directories that contain the source code
+  and resources required to implement the App's features.
   ~~~~~
   ~~~
-  ```
-  Components.php
-  css
-  js
-  DynamicOutput
-  OutputComponents
-  Requests
-  Responses
-  resources
-  ```
+  A roady App has the following structure:
+  ~~~~~
+  ~~~
+  ~~~
+  `Components.php` : This file is used to build an App for a domain.
+  ~~~
+  Note: To build an App simply execute the relevant App's Components.php
+  via `php`, for example:
+  ~~~
+  ```php ~/roady/Apps/HelloWorld/Components.php \
+  'http://localhost:8080'```
+  ~~~~~
+  ~~~
+  Note: The App must exist in roady's Apps directory to be built.
+  ~~~~~
+  ~~~~~
+  ~~~~~
+  ~~~
+  `css` : This directory is for an App's css stylesheets.
+  ~~~~~
+  ~~~
+  `js` : This directory is for an App's javascript files.
+  ~~~~~
+  ~~~
+  `DynamicOutput` : This directory is for files that generate an App's
+  output.
+  ~~~~~
+  ~~~
+  `OutputComponents` : This directory is for files that configure an
+  App's output.
+  ~~~~~
+  ~~~
+  `Requests` : This directory is for files that configure an
+  App's Requests.
+  ~~~~~
+  ~~~
+  `Responses` : This directory is for files that configure an
+  App's Responses.
+  ~~~~~
+  ~~~
+  `resources` : This directory is for any other miscellaneous files
+  and directories utilized by the App.
+  ~~~~~
   ~~~~~
   ~~~
   Apps can be created via `rig --new-app`, or `rig --configure-app-output`.
