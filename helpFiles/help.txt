@@ -273,21 +273,21 @@
   to get additional information about roady and rig:~~~~~
 
   ```
-  rig --help App
+  rig --help Apps
 
-  rig --help AppPackage
+  rig --help AppPackages
 
-  rig --help DynamicOutputComponent
+  rig --help DynamicOutputComponents
 
-  rig --help GlobalResponse
+  rig --help GlobalResponses
 
   rig --help getting-started
 
-  rig --help OutputComponent
+  rig --help OutputComponents
 
-  rig --help Request
+  rig --help Requests
 
-  rig --help Response
+  rig --help Responses
 
   rig --help roady
   ```

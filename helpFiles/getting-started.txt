@@ -109,15 +109,49 @@
   ~~~
   Note: The documentation can always be obtained locally via
   the command line by using:
-
+  ~~~
   `rig --help`
+  ~~~~~
+  ~~~
+  Note: Additional documentation can be obtained by passing a topic
+  to `rig --help`. The following is a list of the possible help topics
+  available via `rig --help`:
+  ~~~
+  ```
+  rig --help AppPackages
+  rig --help Apps
+  rig --help DynamicOutputComponents
+  rig --help GlobalResponses
+  rig --help OutputComponents
+  rig --help Requests
+  rig --help Responses
+  rig --help getting-started
+  rig --help roady
+  rig --help --assign-to-response
+  rig --help --configure-app-output
+  rig --help --debug
+  rig --help --make-app-package
+  rig --help --new-app
+  rig --help --new-app-package
+  rig --help --new-dynamic-output-component
+  rig --help --new-global-response
+  rig --help --new-output-component
+  rig --help --new-request
+  rig --help --new-response
+  rig --help --start-server
+  rig --help --view-active-servers
+  rig --help path-to-apps-directory
+  ```
+  ~~~~~
+  ~~~~~
   ~~~~~
   ~~~
   Note: `less` is not associated with roady or rig. The `less` command is used
   in the example to make it easier to view the output of `rig --help`. More
   information about the `less` command can be found online at:
-
+  ~~~
   https://man7.org/linux/man-pages/man1/less.1.html
+  ~~~~~
   ~~~~~
   ~~~~~
   ~~~
@@ -180,7 +214,7 @@
   App's Requests.
   ~~~~~
   ~~~
-  `resources` : This directory is for any other miscellaneous files
+  `resources` : This directory is for additional miscellaneous files
   and directories utilized by the App.
   ~~~~~
   ~~~
@@ -192,7 +226,11 @@
   Apps can be created via `rig --new-app`, or `rig --configure-app-output`.
   ~~~~~
   ~~~
-  Once created, they can be built for one or more domains.
+  Once created, an App can be built for a domain by executing the App's
+  Components.php with `php`. For example:
+  ~~~
+  `php ~/roady/Apps/HelloWorld/Components.php 'http://localhost:8080'`
+  ~~~~~
   ~~~~~
   ~~~
   Note: More information about Apps can be obtained via:
