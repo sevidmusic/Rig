@@ -13,7 +13,7 @@
   https://roadydemos.us-east-1.linodeobjects.com/getting-started-2021-08-31_02.11.21.webm
   ~~~~~
   ~~~
-  Note: roady requires `php >= 8.0.1`
+  Note: roady requires `php >= 8`
   ~~~~~
   ~~~
   Note: In the following examples roady is installed in the user's `home`
@@ -272,32 +272,26 @@
   to be served in response to requests to the root of any
   domain the HelloWorld App is built for:
   ~~~
-  ```
-  rig --configure-app-output \
+  ```rig --configure-app-output \
   --for-app HelloWorld \
   --name HelloWorld \
   --output '<p>Hello World</p>' \
-  --relative-urls '/'
-  ```
+  --relative-urls '/'```
   ~~~~~
   ~~~~~
   ~~~
   2. Build the HelloWorld App for the local domain `http://localhost:8080`:
   ~~~
-  ```
-  php ~/roady/Apps/HelloWorld/Components.php \
-  'http://localhost:8080'
-  ```
+  ```php ~/roady/Apps/HelloWorld/Components.php \
+  'http://localhost:8080'```
   ~~~~~
   ~~~~~
   ~~~
   3. Use `rig --start-server` to start a local development server on port `8080`:
   ~~~
-  ```
-  rig --start-server \
+  ```rig --start-server \
   --port 8080 \
-  --open-in-browser
-  ```
+  --open-in-browser```
   ~~~~~
   ~~~
   Note: The `--open-in-browser` flag should cause rig to open
