@@ -172,7 +172,7 @@
   The next step is to start developing roady Apps.
   ~~~~~
   ~~~
-  # A brief introduction to roady Apps
+  # A Brief Introduction To roady Apps
   ~~~~~
   ~~~
   roady Apps are responsible for implementing the features of a
@@ -185,11 +185,11 @@
   and resources required to implement the App's features.
   ~~~~~
   ~~~
-  A roady App has the following structure:
+  ### roady App Directory Structure
   ~~~~~
   ~~~
-  ~~~
-  `Components.php` : This file is used to build an App for a domain.
+  `Components.php`: This file is used to build an App for a domain.
+  ~~~~~
   ~~~
   Note: To build an App simply execute the relevant App's Components.php
   via `php`, for example:
@@ -201,33 +201,34 @@
   Note: The App must exist in roady's Apps directory to be built.
   ~~~~~
   ~~~~~
+  ~~~
+  `css`: This directory is for an App's css stylesheets.
   ~~~~~
   ~~~
-  `css` : This directory is for an App's css stylesheets.
-  ~~~~~
-  ~~~
-  `DynamicOutput` : This directory is for files that generate an App's
+  `DynamicOutput`: This directory is for files that generate an App's
   output.
   ~~~~~
   ~~~
-  `js` : This directory is for an App's javascript files.
+  `js`: This directory is for an App's javascript files.
   ~~~~~
   ~~~
-  `OutputComponents` : This directory is for files that configure an
+  `OutputComponents`: This directory is for files that configure an
   App's output.
   ~~~~~
   ~~~
-  `Requests` : This directory is for files that configure an
+  `Requests`: This directory is for files that configure an
   App's Requests.
   ~~~~~
   ~~~
-  `resources` : This directory is for additional miscellaneous files
+  `resources`: This directory is for additional miscellaneous files
   and directories utilized by the App.
   ~~~~~
   ~~~
-  `Responses` : This directory is for files that configure an
+  `Responses`: This directory is for files that configure an
   App's Responses.
   ~~~~~
+  ~~~
+  ### Creating roady Apps
   ~~~~~
   ~~~
   Apps can be created via `rig --new-app`, or `rig --configure-app-output`.
