@@ -10,8 +10,8 @@
   ~~~~~
   ~~~
   roady Apps may provide css stylesheets, utilize javascript, and
-  may configure output to be served in response to appropriate requests
-  to a website's domain.
+  may configure output to be served in response to appropriate 
+  requests to a website's domain.
   ~~~~~
   ~~~
   Multiple websites can run on a single installation of roady, each
