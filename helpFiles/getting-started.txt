@@ -6,11 +6,11 @@
   and how to build a HelloWorld App.
   ~~~~~
   ~~~
-  Note: The `Linux command line` is used heavily in the examples, 
-  and the `shell` used in the examples is `bash`.
+  Note: roady requires `php >= 8`
   ~~~~~
   ~~~
-  Note: roady requires `php >= 8`
+  Note: The `Linux command line` is used heavily in the examples, 
+  and the `shell` used in the examples is `bash`.
   ~~~~~
   ~~~
   Note: In the following examples roady is installed in the user's 
@@ -28,6 +28,14 @@
   1. Move into the directory where you want to install roady:
   ~~~
   ```cd ~/```
+  ~~~~~
+  ~~~
+  Note: `cd` is used to change the working directory of the
+  current shell execution environment.
+  More information about the `cd` command can be found online at:
+  ~~~
+  https://man7.org/linux/man-pages/man1/cd.1p.html
+  ~~~~~
   ~~~~~
   ~~~
   Note: `~/` is shorthand for the path to the current user's `home`
@@ -319,28 +327,34 @@
   to be served in response to requests to the root of any
   domain the HelloWorld App is built for:
   ~~~
-  ```rig --configure-app-output \
+  ```
+  rig --configure-app-output \
   --for-app HelloWorld \
   --name HelloWorld \
   --output '<p>Hello World</p>' \
-  --relative-urls '/'```
+  --relative-urls '/'
+  ```
   ~~~~~
   ~~~~~
   ~~~
   2. Build the HelloWorld App for the local domain 
   `http://localhost:8080`:
   ~~~
-  ```php ~/roady/Apps/HelloWorld/Components.php \
-  'http://localhost:8080'```
+  ```
+  php ~/roady/Apps/HelloWorld/Components.php \
+  'http://localhost:8080'
+  ```
   ~~~~~
   ~~~~~
   ~~~
   3. Use `rig --start-server` to start a local development server on 
   port `8080`: 
   ~~~
-  ```rig --start-server \
+  ```
+  rig --start-server \
   --port 8080 \
-  --open-in-browser```
+  --open-in-browser
+  ```
   ~~~~~
   ~~~
   Note: The `--open-in-browser` flag should cause rig to open
