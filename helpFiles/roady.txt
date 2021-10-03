@@ -31,8 +31,8 @@
   and setup roady, and how to create a Hello World App.
   ~~~~~
   ~~~
-  Note: The following example only demonstrates the necessary
-  commands to run at the command line, it does not provide 
+  Note: The following examples only demonstrate the necessary
+  commands to run at the command line, they do not provide 
   detailed information about the commands being executed.
   ~~~
   For a more detailed guide on getting started with roady visit:
@@ -96,7 +96,16 @@
   ~~~~~
   ~~~
   The output of the `HelloWorld` App should now be available at the
-  local domain: `http://localhost:8080`.
+  following local domains: 
+  ~~~
+  http://localhost:8080
+  ~~~~~
+  ~~~
+  http://localhost:8080/?request=HelloWorld
+  ~~~~~
+  ~~~
+  http://localhost:8080/index.php?request=HelloWorld
+  ~~~~~
   ~~~~~
   ~~~
   # A note from the developer:

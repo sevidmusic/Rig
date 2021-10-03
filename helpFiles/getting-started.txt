@@ -45,6 +45,13 @@
   https://git-scm.com
   ~~~~~
   ~~~~~
+  ~~~
+  Note: GitHub is an online development platform where source code can be 
+  hosted and distributed. For more information about GitHub visit:
+  ~~~
+  https://github.com/ 
+  ~~~~~
+  ~~~~~
   ~~~~~
   ~~~
   3. Move into roady's root directory:
@@ -327,22 +334,24 @@
   <div class="hw-container">
       <h1>Roady</h1>
       <p>
-          roady is a tool designed to aid in the development of websites.
+          roady is a tool designed to aid in the development of 
+          websites.
       </p>
       <p>
-          With roady, the features of a website are implemented by small niche
-          applications called Apps.
+          With roady, the features of a website are implemented 
+          by small niche applications called Apps.
       </p>
       <p>
-          roady Apps may provide css stylesheets, utilize javascript, and may
-          configure output to be served in response to appropriate requests to
-          a website's domain.
+          roady Apps may provide css stylesheets, utilize 
+          javascript, and may configure output to be served in 
+          response to appropriate requests to a website's 
+          domain.
       </p>
       <p>
-          Multiple websites can run on a single installation of roady, each
-          making use of one or more roady Apps.
-          roady is a unique tool, an ongoing experiment, developed out of a
-          passion for coding.
+          Multiple websites can run on a single installation of 
+          roady, each making use of one or more roady Apps. roady 
+          is a unique tool, an ongoing experiment, developed out 
+          of a passion for coding.
       </p>
   </div>
   ```
