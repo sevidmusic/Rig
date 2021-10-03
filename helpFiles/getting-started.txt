@@ -10,15 +10,16 @@
   and the `shell` used in the examples is `bash`.
   ~~~~~
   ~~~
-  https://roadydemos.us-east-1.linodeobjects.com/getting-started-2021-08-31_02.11.21.webm
-  ~~~~~
-  ~~~
   Note: roady requires `php >= 8`
   ~~~~~
   ~~~
   Note: In the following examples roady is installed in the user's 
   `home` directory. Make sure to adjust the paths used in the 
   following examples if you install roady at a different path.
+  ~~~~~
+  ~~~
+  ### Getting Started Video Tutorial
+  https://roadydemos.us-east-1.linodeobjects.com/getting-started-2021-08-31_02.11.21.webm
   ~~~~~
   ~~~
   # Installation & Setup
@@ -193,20 +194,55 @@
   and resources required to implement the App's features.
   ~~~~~
   ~~~
-  ### roady App Directory Structure
+  ### roady App Directory Overview
+  ~~~~~
+  ~~~
+  ```
+  Components.php      css         DynamicOutput    js                
+  OutputComponents    Requests    resources        Responses
+  ```
   ~~~~~
   ~~~
   `Components.php`: This file is used to build an App for a domain.
   ~~~~~
   ~~~
-  Note: To build an App simply execute the relevant App's 
-  Components.php via `php`, for example:
+  Note: Building an App for a domain makes the features provided by
+  the App available to the domain the App is built for. 
+
+  To build an App simply execute the relevant App's 
+  Components.php via `php` passing the appropriate domain as the
+  only argument, for example:
   ~~~
-  ```php ~/roady/Apps/HelloWorld/Components.php \
-  'http://localhost:8080'```
+  ```
+  php ~/roady/Apps/HelloWorld/Components.php \
+  'http://localhost:8080'
+  ```
   ~~~~~
   ~~~
   Note: The App must exist in roady's Apps directory to be built.
+  ~~~~~
+  ~~~
+  Note: Make sure to wrap the domain in single quotes.
+  ~~~~~
+  ~~~
+  Note: Do not include a trailing forward-slash at the end of the
+  domain:
+  ~~~
+  Wrong:
+  ```
+  php ~/roady/Apps/HelloWorld/Components.php \
+  'http://localhost:8080/'
+  ```
+  Right:
+  ```
+  php ~/roady/Apps/HelloWorld/Components.php \
+  'http://localhost:8080'
+  ```
+  ~~~~~
+  This is a bug that is being addressed. See issue #193:
+  ~~~
+  https://github.com/sevidmusic/Roady/issues/193
+  ~~~~~
   ~~~~~
   ~~~~~
   ~~~
