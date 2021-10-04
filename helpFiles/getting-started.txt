@@ -55,8 +55,9 @@
   ~~~~~
   ~~~~~
   ~~~
-  Note: GitHub is an online development platform where source code can be 
-  hosted and distributed. For more information about GitHub visit:
+  Note: GitHub is an online development platform where source code 
+  can be hosted and distributed. More information about GitHub 
+  can be found online at:
   ~~~
   https://github.com/ 
   ~~~~~
@@ -288,7 +289,7 @@
   ~~~~~
   ~~~
   Once created, an App can be built for a domain by executing the 
-  App's Components.php with `php`. For example:
+  App's Components.php via `php`. For example:
   ~~~
   `php ~/roady/Apps/HelloWorld/Components.php 'http://localhost:8080'`
   ~~~~~
@@ -367,7 +368,7 @@
   default browser, if it is not available on your system then the
   `--open-in-broswer` flag will not work. The `xdg-open` command is 
   not associated with roady or rig, more information about the 
-  `xdg-open` command can be found at:
+  `xdg-open` command can be found online at:
 
   https://linux.die.net/man/1/xdg-open
   ~~~~~
