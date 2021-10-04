@@ -12,7 +12,45 @@
   domain.
   ~~~~~
   ~~~
-  Unless you modify the generate Components.php file, or manually
+  Building an App for a domain makes the features provided by
+  the App available to the domain the App is built for. 
+  ~~~~~
+  ~~~
+  Unless you modify the generated Components.php file, or manually
   create your own, the Components.php file can be used to build
   an App for a domain by executing it with php.
+  ~~~~~
+  ~~~
+  To build an App simply execute the relevant App's 
+  Components.php via `php` passing the appropriate domain as the
+  only argument, for example:
+  ~~~
+  ```
+  php ~/roady/Apps/HelloWorld/Components.php \
+  'http://localhost:8080'
+  ```
+  ~~~~~
+  ~~~~~
+  ~~~
+  The App must exist in roady's Apps directory to be built.
+  ~~~~~
+  ~~~
+  Warning: Do not include a trailing forward-slash at the end of the
+  domain:
+  ~~~
+  Wrong:
+  ```
+  php ~/roady/Apps/HelloWorld/Components.php \
+  'http://localhost:8080/'
+  ```
+  Right:
+  ```
+  php ~/roady/Apps/HelloWorld/Components.php \
+  'http://localhost:8080'
+  ```
+  ~~~~~
+  This is a bug that is being addressed. See issue #193:
+  ~~~
+  https://github.com/sevidmusic/Roady/issues/193
+  ~~~~~
   ~~~~~

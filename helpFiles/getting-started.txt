@@ -206,6 +206,10 @@
   ### roady App Directory Overview
   ~~~~~
   ~~~
+  The following is an overview of the directory structure of a
+  roady App.
+  ~~~~~
+  ~~~
   ```
   Components.php      css         DynamicOutput    js                
   OutputComponents    Requests    resources        Responses
