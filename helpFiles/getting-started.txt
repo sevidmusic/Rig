@@ -200,7 +200,8 @@
   ~~~~~
   ~~~
   roady App's are just directories that contain the source code
-  and resources required to implement the App's features.
+  and resources required to implement the features provided by 
+  an App.
   ~~~~~
   ~~~
   ### roady App Directory Overview
@@ -220,41 +221,12 @@
   ~~~~~
   ~~~
   Note: Building an App for a domain makes the features provided by
-  the App available to the domain the App is built for. 
-
-  To build an App simply execute the relevant App's 
-  Components.php via `php` passing the appropriate domain as the
-  only argument, for example:
+  the App available to the domain the App is built for.
   ~~~
-  ```
-  php ~/roady/Apps/HelloWorld/Components.php \
-  'http://localhost:8080'
-  ```
-  ~~~~~
+  Note: More information about the Components.php file can be
+  obtained locally at the command line via:
   ~~~
-  Note: The App must exist in roady's Apps directory to be built.
-  ~~~~~
-  ~~~
-  Note: Make sure to wrap the domain in single quotes.
-  ~~~~~
-  ~~~
-  Note: Do not include a trailing forward-slash at the end of the
-  domain:
-  ~~~
-  Wrong:
-  ```
-  php ~/roady/Apps/HelloWorld/Components.php \
-  'http://localhost:8080/'
-  ```
-  Right:
-  ```
-  php ~/roady/Apps/HelloWorld/Components.php \
-  'http://localhost:8080'
-  ```
-  ~~~~~
-  This is a bug that is being addressed. See issue #193:
-  ~~~
-  https://github.com/sevidmusic/Roady/issues/193
+  `rig --help Components.php`. 
   ~~~~~
   ~~~~~
   ~~~~~
@@ -262,27 +234,76 @@
   `css`: This directory is for an App's css stylesheets.
   ~~~~~
   ~~~
+  Note: More information about defining css stylesheets for an App
+  can be obtained locally at the command line via:
+  ~~~
+  `rig --help css`. 
+  ~~~~~
+  ~~~~~
+  ~~~
   `DynamicOutput`: This directory is for files that generate an 
   App's output.
   ~~~~~
   ~~~
+  Note: More information about DynamicOutput can be
+  obtained locally at the command line via:
+  ~~~
+  `rig --help DynamicOutput`. 
+  ~~~~~
+  ~~~~~
+  ~~~
   `js`: This directory is for an App's javascript files.
+  ~~~~~
+  ~~~
+  Note: More information about utilizing javascript in an App can 
+  be obtained locally at the command line via:
+  ~~~
+  `rig --help js`. 
+  ~~~~~
   ~~~~~
   ~~~
   `OutputComponents`: This directory is for files that configure 
   an App's output.
   ~~~~~
   ~~~
+  Note: More information about OutputComponents can be
+  obtained locally at the command line via:
+  ~~~
+  `rig --help OutputComponents`. 
+  ~~~~~
+  ~~~~~
+  ~~~
   `Requests`: This directory is for files that configure an
   App's Requests.
+  ~~~~~
+  ~~~
+  Note: More information about Requests can be
+  obtained locally at the command line via:
+  ~~~
+  `rig --help Requests`. 
+  ~~~~~
   ~~~~~
   ~~~
   `resources`: This directory is for additional miscellaneous 
   files and directories utilized by the App.
   ~~~~~
   ~~~
+  Note: More information about the resources directory can be
+  obtained locally at the command line via:
+  ~~~
+  `rig --help resources`. 
+  ~~~~~
+  ~~~~~
+  ~~~
   `Responses`: This directory is for files that configure an
   App's Responses.
+  ~~~~~
+  ~~~
+  Note: More information about Responses can be
+  obtained locally at the command line via:
+  ~~~
+  `rig --help Responses`. 
+  ~~~~~
   ~~~~~
   ~~~
   ### Creating roady Apps
@@ -520,67 +541,5 @@
   # A Brief Introduction To App Packages
   ~~~~~
   ~~~
-  Apps may be developed, backed up, or shared as App Packages.
-  ~~~~~
-  ~~~
-  roady App Packages have the same structure as a roady App, except
-  an App Package defines all of an App's configurations in a
-  single file named `make.sh`, instead of in individual `.php`
-  files.
-  ~~~~~
-  ~~~
-  For example:
-  ~~~~~
-  ~~~
-  ### App Structure
-  ```
-  Components.php
-  css
-  DynamicOutput
-  js
-  OutputComponents
-  Requests
-  resources
-  Responses
-  ```
-  ### App Package Structure
-  ```
-  DynamicOutput
-  css
-  js
-  make.sh
-  resources
-  ```
-  ~~~~~
-  ~~~
-  Note: `make.sh` is a bash script that defines the appropriate
-  calls to rig to make the roady App Package into a roady
-  App.
-  ~~~~~
-  ~~~
-  Note: More information about App Packages can be obtained via:
-  ~~~
-  `rig --help AppPackages`
-  ~~~~~
-  ~~~~~
-  ~~~
-  # The App Packager
-  ~~~~~
-  ~~~
-  Note: In the following examples roady is assumed to be installed
-  in the user's `home` directory. Make sure to adjust the paths
-  used in the following examples if you installed roady at a
-  different path.
-  ~~~~~
-  ~~~
-  # Packaging Hello World
-  ~~~~~
-  ~~~
-  # Modifying Hello World's App Package
-  ~~~~~
-  ~~~
-  # Re-making Hello World
-  ~~~~~
-  ~~~
-  # Final Thoughts...
+  ...
   ~~~~~

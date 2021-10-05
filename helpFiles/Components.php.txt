@@ -2,10 +2,7 @@
   # Components.php
   ~~~~~
   ~~~
-  Every roady App must define a Components.php. Typically, it is not
-  necessary to create this file manually. If you use `rig --new-app`,
-  or `rig --configure-app-output` to create your App the Components.php
-  file will be created for you.
+  Every roady App must define a Components.php. 
   ~~~~~
   ~~~
   The Components.php file is responsible for building an App for a
@@ -16,9 +13,10 @@
   the App available to the domain the App is built for. 
   ~~~~~
   ~~~
-  Unless you modify the generated Components.php file, or manually
-  create your own, the Components.php file can be used to build
-  an App for a domain by executing it with php.
+  It is not necessary to create this file manually. Whenever
+  `rig --new-app`, or `rig --configure-app-output` is used to
+  create a new App rig will create a Components.php file for the
+  new App.
   ~~~~~
   ~~~
   To build an App simply execute the relevant App's 
@@ -30,12 +28,14 @@
   'http://localhost:8080'
   ```
   ~~~~~
-  ~~~~~
   ~~~
   The App must exist in roady's Apps directory to be built.
   ~~~~~
   ~~~
-  Warning: Do not include a trailing forward-slash at the end of the
+  Make sure to wrap the domain in single quotes.
+  ~~~~~
+  ~~~
+  Do not include a trailing forward-slash at the end of the
   domain:
   ~~~
   Wrong:
@@ -53,4 +53,12 @@
   ~~~
   https://github.com/sevidmusic/Roady/issues/193
   ~~~~~
+  ~~~~~
+  ~~~~~
+  ~~~
+  WARNING: With rare exception, there is no reason to edit an 
+  App's Components.php file, and it is usually best to let
+  rig manage this file since a corrupted Components.php will 
+  make an App un-buildable. Always use great care when modifying 
+  an App's Components.php.
   ~~~~~

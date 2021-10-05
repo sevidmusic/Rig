@@ -39,19 +39,16 @@
   ~~~
   https://roady.tech/index.php?request=getting-started
   ~~~~~
+  Or, use `rig --help getting-started` to view the getting started
+  documentation locally from the command line.
+  ~~~
+  Note: roady must be installed, and `rig` must be in your `$PATH` 
+  in order to use `rig`.
+  ~~~~~
   ~~~~~
   ~~~~~
   ~~~
   Note: The shell used in the examples is `bash`
-  ~~~~~
-  ~~~
-  Note: Once roady is installed, and the rig command line
-  utility is in your `$PATH`, then the getting started 
-  documentation will be accessible locally from the command 
-  line via:
-  ~~~
-  `rig --help getting-started`
-  ~~~~~
   ~~~~~
   ~~~
 
@@ -96,7 +93,7 @@
   ~~~~~
   ~~~
   The output of the `HelloWorld` App should now be available at the
-  following local domains: 
+  following local urls: 
   ~~~
   http://localhost:8080
   ~~~~~
