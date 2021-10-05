@@ -306,7 +306,7 @@
   ~~~~~
   ~~~~~
   ~~~
-  ### Creating roady Apps
+  # Creating roady Apps
   ~~~~~
   ~~~
   Apps can be created via `rig --new-app`, or 
@@ -340,7 +340,7 @@
   ~~~~~
   ~~~~~
   ~~~
-  # Hello World
+  ### Hello World
   ~~~~~
   ~~~
   The following example demonstrates how to use rig to begin
@@ -451,9 +451,15 @@
       </p>
       <p>
           Multiple websites can run on a single installation of 
-          roady, each making use of one or more roady Apps. roady 
-          is a unique tool, an ongoing experiment, developed out 
-          of a passion for coding.
+          roady, each making use of one or more roady Apps. 
+      </p>
+      <p>
+          For a guide on getting started with roady visit:
+      </p>
+      <p>
+          <a href="https://roady.tech/index.php?request=getting-started">
+              https://roady.tech/index.php?request=getting-started
+          </a>
       </p>
   </div>
   ```
@@ -509,10 +515,12 @@
   ```
   ~~~~~
   ~~~
-  Note: Apps can define stylesheets that are served in response to
-  specific Requests to the domains an App is built for, or can define
-  stylesheets that are served in response to all Requests to the
-  domains an App is built for.
+  Note: Apps can define stylesheets that are served in response 
+  to all requests to the domains an App is built for by including 
+  the string `global` in the stylesheets name. If the stylesheet's 
+  name does not contain the string `global` then the stylesheet 
+  will only be served in response to requests where the value of 
+  `$_GET['request']` matches the name of the stylesheet.
   ~~~
   Note: More information about using css stylesheets in roady Apps
   can be obtained via:
@@ -522,8 +530,14 @@
   ~~~~~
   ~~~~~
   ~~~
+  The HelloWorld App should now exist in roady's Apps directory, and
+  should be accessible from a web browser at the local domain:
+  ~~~
+  http://localhost:8080/
+  ~~~~~
+  ~~~~~
+  ~~~
   # A Brief Introduction To App Packages
   ~~~~~
   ~~~
-  ...
   ~~~~~
