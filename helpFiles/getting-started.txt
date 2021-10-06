@@ -530,10 +530,17 @@
   ~~~~~
   ~~~~~
   ~~~
-  The HelloWorld App should now exist in roady's Apps directory, and
-  should be accessible from a web browser at the local domain:
+  The HelloWorld App should now exist in roady's Apps directory, 
+  and it's output should be accessible from a web browser at the 
+  following local urls:
   ~~~
   http://localhost:8080/
+  ~~~~~
+  ~~~
+  http://localhost:8080/index.php?request=HelloWorld
+  ~~~~~
+  ~~~
+  http://localhost:8080?request=HelloWorld
   ~~~~~
   ~~~~~
   ~~~
