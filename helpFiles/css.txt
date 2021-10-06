@@ -88,3 +88,63 @@
   For more information about `rig --start-server` use
   `rig --help --start-server`.
   ~~~~~
+
+
+
+
+
+  ~~~
+  Note:
+  ~~~
+  Apps can define stylesheets that are served in response to
+  specific Requests to the domains an App is built for, or can define
+  stylesheets that are served in response to all Requests to the
+  domains an App is built for.
+  ~~~~~
+  ~~~
+  If the name of a stylesheet defined by an App contains the word
+  `global`, it will be served in response to all Requests to the
+  domains that the App is built for.
+  ~~~~~
+  ~~~
+  For instance, in the Hello World example a stylesheet named
+  `hw-global-styles.css` is defined by the HelloWorld App, and
+  the HelloWorld App is built for the domain http://localhost:8080,
+  so the `hw-global-styles.css` stylesheet will be served in response
+  to all Requests to the domain http://localhost:8080.
+  ~~~~~
+  ~~~
+  If the stylesheet's name does not contain the word `global`, then the
+  stylesheet will only be served in response to Requests whose name
+  matches the name of the stylesheet, excluding the `.css` extension.
+  ~~~~~
+  ~~~
+  Note: The name of the Request will correspond to the value of
+  `$_GET['request']`.
+  ~~~~~
+  ~~~
+  For instance, if the HelloWorld App also defined a stylesheet
+  named `homepage.css`, then the `homepage.css` stylesheet would
+  only be served in response to Requests that have the name
+  `homepage`. For example:
+  ~~~~~
+  ~~~
+  http://localhost:8080?request=homepage
+  ~~~~~
+  ~~~
+  http://localhost:8080/index.php?request=homepage
+  ~~~~~
+  ~~~
+  http://localhost:8080/index.php?foo=bar&request=homepage
+  ~~~~~
+  More information about using css stylesheets in roady Apps
+  can be obtained via:
+  ~~~
+  `rig --help css`
+  ~~~~~
+  More information about roady Apps can be obtained via:
+  ~~~
+  `rig --help Apps`
+  ~~~~~
+  ~~~~~
+  ~~~~~

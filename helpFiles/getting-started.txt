@@ -2,23 +2,24 @@
   # Getting Started
   ~~~~~
   ~~~
-  The following examples demonstrate how to install and setup roady, and
-  how to build a HelloWorld App.
-  ~~~~~
-  ~~~
-  Note: The `Linux command line` is used heavily in the examples. The
-  `shell` used in the examples is `bash`.
-  ~~~~~
-  ~~~
-  https://roadydemos.us-east-1.linodeobjects.com/getting-started-2021-08-31_02.11.21.webm
+  The following examples demonstrate how to install and setup roady, 
+  and how to build a HelloWorld App.
   ~~~~~
   ~~~
   Note: roady requires `php >= 8`
   ~~~~~
   ~~~
-  Note: In the following examples roady is installed in the user's `home`
-  directory. Make sure to adjust the paths used in the following examples
-  if you install roady at a different path.
+  Note: The `Linux command line` is used heavily in the examples, 
+  and the `shell` used in the examples is `bash`.
+  ~~~~~
+  ~~~
+  Note: In the following examples roady is installed in the user's 
+  `home` directory. Make sure to adjust the paths used in the 
+  following examples if you install roady at a different path.
+  ~~~~~
+  ~~~
+  ### Getting Started Video Tutorial
+  https://roadydemos.us-east-1.linodeobjects.com/getting-started-2021-08-31_02.11.21.webm
   ~~~~~
   ~~~
   # Installation & Setup
@@ -27,6 +28,14 @@
   1. Move into the directory where you want to install roady:
   ~~~
   ```cd ~/```
+  ~~~~~
+  ~~~
+  Note: `cd` is used to change the working directory of the
+  current shell execution environment.
+  More information about the `cd` command can be found online at:
+  ~~~
+  https://man7.org/linux/man-pages/man1/cd.1p.html
+  ~~~~~
   ~~~~~
   ~~~
   Note: `~/` is shorthand for the path to the current user's `home`
@@ -45,6 +54,14 @@
   https://git-scm.com
   ~~~~~
   ~~~~~
+  ~~~
+  Note: GitHub is an online development platform where source code 
+  can be hosted and distributed. More information about GitHub 
+  can be found online at:
+  ~~~
+  https://github.com/ 
+  ~~~~~
+  ~~~~~
   ~~~~~
   ~~~
   3. Move into roady's root directory:
@@ -58,19 +75,20 @@
   ```composer update```
   ~~~~~
   ~~~
-  Note: composer is a dependency manager for PHP, for more information
-  about composer visit:
+  Note: composer is a dependency manager for PHP, for more 
+  information about composer visit:
   ~~~
   https://getcomposer.org/
   ~~~~~
   ~~~~~
   ~~~
-  Note: Running `composer update` will install rig at the following path:
+  Note: Running `composer update` will install rig at the following 
+  path: 
   ~~~
   `~/roady/vendor/darling/rig`
   ~~~~~
-  rig is a command line utility designed to aid in the development
-  of roady Apps.
+  rig is a command line utility designed to aid in the 
+  development of roady Apps.
   ~~~~~
   ~~~
   Note: Running `composer update` will install the roadyAppPackages
@@ -101,11 +119,11 @@
   ```export PATH="${PATH}:${HOME}/roady/vendor/darling/rig/bin"```
   ~~~~~
   ~~~
-  Note: This will only add rig to your `$PATH` temporarily, to add it
-  permanently you will need to set your `$PATH` in the appropriate
-  configuration file for the shell you are using. For information
-  on setting your `$PATH` permanently, please consult the documentation
-  for the shell you are using.
+  Note: This will only add rig to your `$PATH` temporarily, to add 
+  it permanently you will need to set your `$PATH` in the 
+  appropriate configuration file for the shell you are using. For 
+  information on setting your `$PATH` permanently, please consult 
+  the documentation for the shell you are using.
   ~~~~~
   ~~~~~
   ~~~
@@ -120,9 +138,9 @@
   `rig --help`
   ~~~~~
   ~~~
-  Note: Additional documentation can be obtained by passing a topic
-  to `rig --help`. The following is a list of the possible help topics
-  available via `rig --help`:
+  Note: Additional documentation can be obtained by passing a 
+  topic to `rig --help`. The following is a list of the possible 
+  help topics available via `rig --help`:
   ~~~
   ```
   rig --help AppPackages
@@ -153,10 +171,10 @@
   ~~~~~
   ~~~~~
   ~~~
-  Note: `less` is not associated with roady or rig. The `less` command is used
-  in the example to make it easier to view the output of `rig --help`. More
-  information about the `less` command can be found online at:
-  ~~~
+  Note: `less` is not associated with roady or rig. The `less` 
+  command is used in the example to make it easier to view the 
+  output of `rig --help`. More information about the `less` command 
+  can be found online at: ~~~
   https://man7.org/linux/man-pages/man1/less.1.html
   ~~~~~
   ~~~~~
@@ -182,60 +200,121 @@
   ~~~~~
   ~~~
   roady App's are just directories that contain the source code
-  and resources required to implement the App's features.
+  and resources required to implement the features provided by 
+  an App.
   ~~~~~
   ~~~
-  ### roady App Directory Structure
+  ### roady App Directory Overview
+  ~~~~~
+  ~~~
+  The following is an overview of the directory structure of a
+  roady App.
+  ~~~~~
+  ~~~
+  ```
+  Components.php      css         DynamicOutput    js                
+  OutputComponents    Requests    resources        Responses
+  ```
   ~~~~~
   ~~~
   `Components.php`: This file is used to build an App for a domain.
   ~~~~~
   ~~~
-  Note: To build an App simply execute the relevant App's Components.php
-  via `php`, for example:
+  Note: Building an App for a domain makes the features provided by
+  the App available to the domain the App is built for.
   ~~~
-  ```php ~/roady/Apps/HelloWorld/Components.php \
-  'http://localhost:8080'```
+  Note: More information about the Components.php file can be
+  obtained locally at the command line via:
+  ~~~
+  `rig --help Components.php`. 
   ~~~~~
-  ~~~
-  Note: The App must exist in roady's Apps directory to be built.
   ~~~~~
   ~~~~~
   ~~~
   `css`: This directory is for an App's css stylesheets.
   ~~~~~
   ~~~
-  `DynamicOutput`: This directory is for files that generate an App's
-  output.
+  Note: More information about defining css stylesheets for an App
+  can be obtained locally at the command line via:
+  ~~~
+  `rig --help css`. 
+  ~~~~~
+  ~~~~~
+  ~~~
+  `DynamicOutput`: This directory is for files that generate an 
+  App's output.
+  ~~~~~
+  ~~~
+  Note: More information about DynamicOutput can be
+  obtained locally at the command line via:
+  ~~~
+  `rig --help DynamicOutput`. 
+  ~~~~~
   ~~~~~
   ~~~
   `js`: This directory is for an App's javascript files.
   ~~~~~
   ~~~
-  `OutputComponents`: This directory is for files that configure an
-  App's output.
+  Note: More information about utilizing javascript in an App can 
+  be obtained locally at the command line via:
+  ~~~
+  `rig --help js`. 
+  ~~~~~
+  ~~~~~
+  ~~~
+  `OutputComponents`: This directory is for files that configure 
+  an App's output.
+  ~~~~~
+  ~~~
+  Note: More information about OutputComponents can be
+  obtained locally at the command line via:
+  ~~~
+  `rig --help OutputComponents`. 
+  ~~~~~
   ~~~~~
   ~~~
   `Requests`: This directory is for files that configure an
   App's Requests.
   ~~~~~
   ~~~
-  `resources`: This directory is for additional miscellaneous files
-  and directories utilized by the App.
+  Note: More information about Requests can be
+  obtained locally at the command line via:
+  ~~~
+  `rig --help Requests`. 
+  ~~~~~
+  ~~~~~
+  ~~~
+  `resources`: This directory is for additional miscellaneous 
+  files and directories utilized by the App.
+  ~~~~~
+  ~~~
+  Note: More information about the resources directory can be
+  obtained locally at the command line via:
+  ~~~
+  `rig --help resources`. 
+  ~~~~~
   ~~~~~
   ~~~
   `Responses`: This directory is for files that configure an
   App's Responses.
   ~~~~~
   ~~~
-  ### Creating roady Apps
+  Note: More information about Responses can be
+  obtained locally at the command line via:
+  ~~~
+  `rig --help Responses`. 
+  ~~~~~
   ~~~~~
   ~~~
-  Apps can be created via `rig --new-app`, or `rig --configure-app-output`.
+  # Creating roady Apps
   ~~~~~
   ~~~
-  Once created, an App can be built for a domain by executing the App's
-  Components.php with `php`. For example:
+  Apps can be created via `rig --new-app`, or 
+  `rig --configure-app-output`.
+  ~~~~~
+  ~~~
+  Once created, an App can be built for a domain by executing the 
+  App's Components.php via `php`. For example:
   ~~~
   `php ~/roady/Apps/HelloWorld/Components.php 'http://localhost:8080'`
   ~~~~~
@@ -249,13 +328,19 @@
   ~~~
   `rig --help --new-app`
   ~~~~~
-  More information about `rig --configure-app-output` can be obtained via:
+  More information about `rig --configure-app-output` can be 
+  obtained via: 
   ~~~
   `rig --help --configure-app-output`
   ~~~~~
+  More information about the Components.php file can be obtained
+  via:
+  ~~~
+  `rig --help Components.php`
+  ~~~~~
   ~~~~~
   ~~~
-  # Hello World
+  ### Hello World
   ~~~~~
   ~~~
   The following example demonstrates how to use rig to begin
@@ -273,39 +358,68 @@
   to be served in response to requests to the root of any
   domain the HelloWorld App is built for:
   ~~~
-  ```rig --configure-app-output \
+  ```
+  rig --configure-app-output \
   --for-app HelloWorld \
   --name HelloWorld \
   --output '<p>Hello World</p>' \
-  --relative-urls '/'```
+  --relative-urls '/'
+  ```
+  ~~~~~
+  ~~~
+  Note: More information about `rig --configure-app-output` can
+  be obtained via:
+  ~~~
+  `rig --help --configure-app-output`
+  ~~~~~
   ~~~~~
   ~~~~~
   ~~~
-  2. Build the HelloWorld App for the local domain `http://localhost:8080`:
+  2. Build the HelloWorld App for the local domain 
+  `http://localhost:8080`:
   ~~~
-  ```php ~/roady/Apps/HelloWorld/Components.php \
-  'http://localhost:8080'```
+  ```
+  php ~/roady/Apps/HelloWorld/Components.php \
+  'http://localhost:8080'
+  ```
+  ~~~~~
+  ~~~
+  Note: More information about the Components.php file can be
+  obtained via:
+  ~~~
+  `rig --help Components.php`
   ~~~~~
   ~~~~~
+  ~~~~~
   ~~~
-  3. Use `rig --start-server` to start a local development server on port `8080`:
+  3. Use `rig --start-server` to start a local development server on 
+  port `8080`: 
   ~~~
-  ```rig --start-server \
+  ```
+  rig --start-server \
   --port 8080 \
-  --open-in-browser```
+  --open-in-browser
+  ```
+  ~~~~~
+  ~~~
+  Note: More information about the `rig --start-server` can be
+  obtained via:
+  ~~~
+  `rig --help --start-server`
+  ~~~~~
   ~~~~~
   ~~~
   Note: The `--open-in-browser` flag should cause rig to open
   http://localhost:8080 in a web browser. This flag relies on the
-  `xdg-open` command, and may not always work. If it fails, you can
-  still manually open http://localhost:8080 in a web browser.
+  `xdg-open` command, and may not always work. If it fails, you 
+  can still manually open http://localhost:8080 in a web browser.
   ~~~~~
   ~~~
-  Note: `xdg-open` is a command that will open a url in the user's default
-  browser, if it is not available on your system then the
-  `--open-in-broswer` flag will not work. The `xdg-open` command is not
-  associated with roady or rig, more information about the `xdg-open`
-  command can be found at:
+  Note: `xdg-open` is a command that will open a url in the user's 
+  default browser, if it is not available on your system then the
+  `--open-in-broswer` flag will not work. The `xdg-open` command is 
+  not associated with roady or rig, more information about the 
+  `xdg-open` command can be found online at:
 
   https://linux.die.net/man/1/xdg-open
   ~~~~~
@@ -322,22 +436,30 @@
   <div class="hw-container">
       <h1>Roady</h1>
       <p>
-          roady is a tool designed to aid in the development of websites.
+          roady is a tool designed to aid in the development of 
+          websites.
       </p>
       <p>
-          With roady, the features of a website are implemented by small niche
-          applications called Apps.
+          With roady, the features of a website are implemented 
+          by small niche applications called Apps.
       </p>
       <p>
-          roady Apps may provide css stylesheets, utilize javascript, and may
-          configure output to be served in response to appropriate requests to
-          a website's domain.
+          roady Apps may provide css stylesheets, utilize 
+          javascript, and may configure output to be served in 
+          response to appropriate requests to a website's 
+          domain.
       </p>
       <p>
-          Multiple websites can run on a single installation of roady, each
-          making use of one or more roady Apps.
-          roady is a unique tool, an ongoing experiment, developed out of a
-          passion for coding.
+          Multiple websites can run on a single installation of 
+          roady, each making use of one or more roady Apps. 
+      </p>
+      <p>
+          For a guide on getting started with roady visit:
+      </p>
+      <p>
+          <a href="https://roady.tech/index.php?request=getting-started">
+              https://roady.tech/index.php?request=getting-started
+          </a>
       </p>
   </div>
   ```
@@ -393,125 +515,29 @@
   ```
   ~~~~~
   ~~~
-  Note:
+  Note: Apps can define stylesheets that are served in response 
+  to all requests to the domains an App is built for by including 
+  the string `global` in the stylesheets name. If the stylesheet's 
+  name does not contain the string `global` then the stylesheet 
+  will only be served in response to requests where the value of 
+  `$_GET['request']` matches the name of the stylesheet.
   ~~~
-  Apps can define stylesheets that are served in response to
-  specific Requests to the domains an App is built for, or can define
-  stylesheets that are served in response to all Requests to the
-  domains an App is built for.
-  ~~~~~
-  ~~~
-  If the name of a stylesheet defined by an App contains the word
-  `global`, it will be served in response to all Requests to the
-  domains that the App is built for.
-  ~~~~~
-  ~~~
-  For instance, in the Hello World example a stylesheet named
-  `hw-global-styles.css` is defined by the HelloWorld App, and
-  the HelloWorld App is built for the domain http://localhost:8080,
-  so the `hw-global-styles.css` stylesheet will be served in response
-  to all Requests to the domain http://localhost:8080.
-  ~~~~~
-  ~~~
-  If the stylesheet's name does not contain the word `global`, then the
-  stylesheet will only be served in response to Requests whose name
-  matches the name of the stylesheet, excluding the `.css` extension.
-  ~~~~~
-  ~~~
-  Note: The name of the Request will correspond to the value of
-  `$_GET['request']`.
-  ~~~~~
-  ~~~
-  For instance, if the HelloWorld App also defined a stylesheet
-  named `homepage.css`, then the `homepage.css` stylesheet would
-  only be served in response to Requests that have the name
-  `homepage`. For example:
-  ~~~~~
-  ~~~
-  http://localhost:8080?request=homepage
-  ~~~~~
-  ~~~
-  http://localhost:8080/index.php?request=homepage
-  ~~~~~
-  ~~~
-  http://localhost:8080/index.php?foo=bar&request=homepage
-  ~~~~~
-  More information about using css stylesheets in roady Apps
+  Note: More information about using css stylesheets in roady Apps
   can be obtained via:
   ~~~
   `rig --help css`
   ~~~~~
-  More information about roady Apps can be obtained via:
-  ~~~
-  `rig --help Apps`
   ~~~~~
+  ~~~~~
+  ~~~
+  The HelloWorld App should now exist in roady's Apps directory, and
+  should be accessible from a web browser at the local domain:
+  ~~~
+  http://localhost:8080/
   ~~~~~
   ~~~~~
   ~~~
   # A Brief Introduction To App Packages
   ~~~~~
   ~~~
-  Apps may be developed, backed up, or shared as App Packages.
-  ~~~~~
-  ~~~
-  roady App Packages have the same structure as a roady App, except
-  an App Package defines all of an App's configurations in a
-  single file named `make.sh`, instead of in individual `.php`
-  files.
-  ~~~~~
-  ~~~
-  For example:
-  ~~~~~
-  ~~~
-  ### App Structure
-  ```
-  Components.php
-  css
-  DynamicOutput
-  js
-  OutputComponents
-  Requests
-  resources
-  Responses
-  ```
-  ### App Package Structure
-  ```
-  DynamicOutput
-  css
-  js
-  make.sh
-  resources
-  ```
-  ~~~~~
-  ~~~
-  Note: `make.sh` is a bash script that defines the appropriate
-  calls to rig to make the roady App Package into a roady
-  App.
-  ~~~~~
-  ~~~
-  Note: More information about App Packages can be obtained via:
-  ~~~
-  `rig --help AppPackages`
-  ~~~~~
-  ~~~~~
-  ~~~
-  # The App Packager
-  ~~~~~
-  ~~~
-  Note: In the following examples roady is assumed to be installed
-  in the user's `home` directory. Make sure to adjust the paths
-  used in the following examples if you installed roady at a
-  different path.
-  ~~~~~
-  ~~~
-  # Packaging Hello World
-  ~~~~~
-  ~~~
-  # Modifying Hello World's App Package
-  ~~~~~
-  ~~~
-  # Re-making Hello World
-  ~~~~~
-  ~~~
-  # Final Thoughts...
   ~~~~~
