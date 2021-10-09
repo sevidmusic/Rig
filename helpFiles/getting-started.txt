@@ -551,18 +551,21 @@
   ~~~~~
   ~~~
   roady App Packages can be thought of as blueprints for a roady
-  App. Rather than defining their Component configurations in 
+  App. 
+  ~~~~~
+  ~~~
+  Rather than defining their Component configurations in 
   individual `php` files, App Packages define their configuration
   via calls to rig that are defined in a file named `make.sh`.
   ~~~~~
   ~~~
-  This is particularly beneficial at the begining of the development
+  This is particularly beneficial at the beginning of the development
   of a roady App.
   ~~~~~
   ~~~
-  rig is likely to be used hevily at the begining of the development
+  rig is likely to be used heavily at the beginning of the development
   of a roady App. Instead of making individual calls to rig manually
-  at the command line, the neccesary calls to rig can be defined
-  in `make.sh`, and run all at once by makeing the App Package into
+  at the command line, the necessary calls to rig can be defined
+  in `make.sh`, and run all at once by making the App Package into
   an App via `rig --make-app-package`.
   ~~~~~
