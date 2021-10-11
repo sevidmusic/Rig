@@ -547,4 +547,231 @@
   # A Brief Introduction To App Packages
   ~~~~~
   ~~~
+  It is also possible to develop, and save Apps as App Packages.
+  ~~~~~
+  ~~~
+  roady App Packages can be thought of as blueprints for a roady
+  App. 
+  ~~~~~
+  ~~~
+  Rather than defining their Component configurations in 
+  individual `php` files, App Packages define their Component 
+  configuration via calls to rig that are defined in a file 
+  named `make.sh`.
+  ~~~~~
+  ~~~
+  This is particularly beneficial at the beginning of the development
+  of a roady App.
+  ~~~~~
+  ~~~
+  Instead of making individual calls to rig manually at the command 
+  line, the necessary calls to rig can be defined in `make.sh`, and 
+  run all at once by making the App Package into an App via 
+  `rig --make-app-package`.
+  ~~~~~
+  ~~~
+  # Hello World App Package
+  ~~~~~
+  ~~~
+  The following examples demonstrate how to develop a HelloWorld
+  App as an App Package, make it into an App, and then save it
+  by converting it back into an App Package.
+  ~~~~~
+  ~~~
+  Note: The following examples assume that roady is installed at
+  `~/roady`. If roady is installed at a different path make sure
+  to adjust the paths used in the examples appropriately.
+  ~~~~~
+  ~~~
+  Note: The following examples assume that rig is in your `$PATH`.
+  If it is not, you can temporarily add it to your path via:
+  ~~~
+  ```
+  export PATH="${PATH}:${HOME}/roady/vendor/darling/rig/bin"
+  ```
+  ~~~~~
+  ~~~~~
+  ~~~
+  # Create a HelloWorld App Package
+  ~~~~~
+  ~~~
+  ### 1. Move in the user's home directory:
+  ~~~~~
+  ~~~
+  ```
+  cd ~/
+  ```
+  ~~~~~
+  ~~~
+  ### 2. Create a new App Package via `rig --new-app-package`
+  ~~~~~
+  ~~~
+  ```
+  rig --new-app-package --name HelloWorld
+  ```
+  ~~~
+  Note: This will create the HelloWorld App Package at the
+  following path:
+  ~~~
+  `~/HelloWorld`
+  ~~~~~
+  ~~~~~
+  ~~~~~
+  ~~~
+  ### 3. Edit `make.sh` using a text editor or IDE.
+  ~~~~~
+  ~~~
+  ```
+  vim ~/HelloWorld/make.sh
+  ```
+  ~~~~~
+  ~~~
+  And revise `make.sh`'s content to be:
+  ~~~~~
+  ~~~
+  ```
+  #!/bin/bash
+  
+  set -o posix
+  
+  rig --new-app --name HelloWorld --domain 'http://localhost:8080'
+
+  rig --configure-app-output \
+  --for-app HelloWorld \
+  --name HelloWorld \
+  --output '<p>Hello World</p>' \
+  --relative-urls 'index.php' '/' \
+  --r-position 2
+
+  rig --configure-app-output \
+  --for-app HelloWorld \
+  --name HelloWorldMenu \
+  --output '<div><a href="index.php"></a></div>' \
+  --r-position 1 \
+  --global
+  ```
+  ~~~~~
+  ~~~
+  ### 4. Make the HelloWorld App Package into an App:
+  ~~~~~
+  ~~~
+  ```
+  rig --make-app-package --path ~/HelloWorld
+  ```
+  ~~~~~
+  ~~~
+  Note: The newly made HelloWorld App will be located at:
+  ~~~
+  `~/roady/Apps/HelloWorld`
+  ~~~~~
+  ~~~~~
+  ~~~
+  ### 5.Start a development server via `rig --start-server`:
+  ~~~~~
+  ~~~
+  ```
+  rig --start-server --port 8080 --open-in-browser
+  ```
+  ~~~
+  Note: If http://localhost:8080 does not open in a browser,
+  simply open a browser, and navigate to http://localhost:8080
+  manually.
+  ~~~~~
+  ~~~~~
+  ~~~
+  ### 6. Edit `~/roady/Apps/HelloWorld/DynamicOutput/HelloWorld.php`:
+  ~~~~~
+  ~~~
+  ```
+  vim ~/roady/Apps/HelloWorld/DynamicOutput/HelloWorld.php 
+  ```
+  ~~~~~
+  ~~~
+  Revising `HelloWorld.php`'s content to be:
+  ~~~~~
+  ~~~
+  ```
+  <div class="hw-container">
+      <h1>Roady</h1>
+      <p>
+          roady is a tool designed to aid in the development of 
+          websites.
+      </p>
+      <p>
+          With roady, the features of a website are implemented 
+          by small niche applications called Apps.
+      </p>
+      <p>
+          roady Apps may provide css stylesheets, utilize 
+          javascript, and may configure output to be served in 
+          response to appropriate requests to a website's 
+          domain.
+      </p>
+      <p>
+          Multiple websites can run on a single installation of 
+          roady, each making use of one or more roady Apps. 
+      </p>
+      <p>
+          For a guide on getting started with roady visit:
+      </p>
+      <p>
+          <a href="https://roady.tech/index.php?request=getting-started">
+              https://roady.tech/index.php?request=getting-started
+          </a>
+      </p>
+  </div>
+  ```
+  ~~~~~
+  ~~~
+  7. Create a stylesheet named `hw-global-styles.css` for the
+  HelloWorld App using a text editor or IDE:
+  ~~~
+  ```
+  vim ~/roady/Apps/HelloWorld/css/hw-global-styles.css
+  ```
+  ~~~~~
+  ~~~
+  Define the following styles in
+  `~/roady/Apps/HelloWorld/css/hw-global-styles.css`:
+  ~~~~~
+  ~~~
+  ```
+  body {
+      background: #140a09;
+      background-image: linear-gradient(45deg, #00bbff 25%, transparent 25%),
+                        linear-gradient(-45deg, #020203 25%, transparent 25%),
+                        linear-gradient(45deg, transparent 75%, #00bbff 75%),
+                        linear-gradient(-45deg, transparent 75%, #020203 75%);
+      background-size: 10rem 10rem;
+      background-position: 0 0, 0 10rem, 10rem -10rem, -10rem 0rem;
+      color: #00ffc3;
+      font-size: 1.2rem;
+      font-family: monospace;
+      padding: 0;
+      margin: 0;
+  }
+
+  .hw-container {
+      width: 80%;
+      background: #010103;
+      opacity: .92;
+      margin: 3rem auto;
+      padding: 3rem;
+      border: .2rem double white;
+  }
+
+  .hw-container h1 {
+      color: white;
+      text-shadow: -1px 1px #00ffc3;
+  }
+
+  .hw-container a, .hw-container a:link, .hw-container a:visited {
+      text-decoration: none;
+      color: white;
+  }
+
+  .hw-container a:hover, .hw-container a:active {
+      color: #00bbff;
+  }
+  ```
   ~~~~~
