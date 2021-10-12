@@ -873,7 +873,7 @@
   HelloWorld App.
   ~~~~~
   ~~~
-  WARNING: The App Packager will not work unless is built for the
+  WARNING: The App Packager will not work unless it is built for the
   same domain as the App that is to be packaged.
   ~~~~~
   ~~~
