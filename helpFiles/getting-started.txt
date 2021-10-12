@@ -675,7 +675,10 @@
   ```
   ~~~~~
   ~~~
-  ### 4. Make the HelloWorld App Package into an App:
+  # Make the HelloWorld App Package into an App:
+  ~~~~~
+  ~~~
+  ### 1. Use `rig --make-app-package` to make the App Package
   ~~~~~
   ~~~
   ```
@@ -689,7 +692,30 @@
   ~~~~~
   ~~~~~
   ~~~
-  ### 5.Start a development server via `rig --start-server`:
+  # Build the HelloWorld App and start a development server
+  ~~~~~
+  ~~~
+  ### 1. Build the HelloWorld App for http://localhost:8080
+  ~~~~~
+  ~~~
+  ```
+  php ~/roady/Apps/HelloWorld/Components.php 'http://localhost:8080'
+  ```
+  ~~~~~
+  ~~~
+  ### 2.Start a development server via `rig --start-server`:
+  ~~~~~
+  ~~~
+  Note: If a development server is already running for 
+  http://localhost:8080, then this step can be skipeed.
+  ~~~
+  Note: To view the currently active development servers use:
+  ~~~
+  ```
+  rig --view-active-servers
+  ```
+  ~~~~~
+  ~~~~~
   ~~~~~
   ~~~
   ```
@@ -702,7 +728,10 @@
   ~~~~~
   ~~~~~
   ~~~
-  ### 6. Edit `~/roady/Apps/HelloWorld/DynamicOutput/HelloWorld.php`:
+  # Modify the HelloWorld App 
+  ~~~~~
+  ~~~
+  ### 1. Edit `~/roady/Apps/HelloWorld/DynamicOutput/HelloWorld.php`:
   ~~~~~
   ~~~
   ```
@@ -746,8 +775,7 @@
   ```
   ~~~~~
   ~~~
-  7. Create a stylesheet named `hw-global-styles.css` for the
-  HelloWorld App using a text editor or IDE:
+  ### 2. Create a stylesheet named `hw-global-styles.css`
   ~~~
   ```
   vim ~/roady/Apps/HelloWorld/css/hw-global-styles.css
@@ -799,13 +827,20 @@
   ```
   ~~~~~
   ~~~
+  # Save the HelloWorld App as an App Package
+  ~~~~~
+  ~~~
   At this point, the HelloWorld App has been made from the HelloWorld
   App Package, built for the local domain http://localhost:8080, and 
   modified.
   ~~~~~
   ~~~
-  In order to save the HelloWorld App as an App Package with the new
-  changes reflected, the AppPackager App will be needed.
+  In order to save the modified HelloWorld App as an App Package 
+  with the modifications reflected, the AppPackager App will be 
+  needed.
+  ~~~~~
+  ~~~
+  # The AppPackager App
   ~~~~~
   ~~~
   The AppPackager App is provided as an App Package as part of the 
@@ -818,13 +853,19 @@
   `rig --make-app-package`:
   ~~~~~
   ~~~
+  ### Make the AppPackager App Package
+  ~~~~~
+  ~~~
   ```
   rig --make-app-package \
   --path ~/roady/vendor/darling/roady-app-packages/AppPackager
   ```
   ~~~~~
   ~~~
-  Then, the AppPackager needs to be built for the local domain
+  # Build the AppPackager App for http://localhost:8080
+  ~~~~~
+  ~~~
+  Next, the AppPackager needs to be built for the local domain
   http://localhost:8080 so that it can be used to package the
   HelloWorld App.
   ~~~~~
@@ -832,6 +873,9 @@
   ```
   php ~/roady/Apps/AppPackager/Components.php 'http://localhost:8080'
   ```
+  ~~~~~
+  ~~~
+  # Use the AppPackager to package the modified HelloWorld App
   ~~~~~
   ~~~
   The AppPackager should now be available locally. To use it,
@@ -843,4 +887,48 @@
   ~~~
   To save the HelloWorld App as an App Package, select it from the
   list of available App's, and click submit.
+  ~~~~~
+  ~~~
+  This will create a App Package for the HelloWorld App at the
+  following path:
+  ~~~
+  `~/roady/Apps/AppPackager/resources/AppPackages/HelloWorld`
+  ~~~~~
+  ~~~~~
+  ~~~
+  # Final Thoughts
+  ~~~~~
+  ~~~
+  A lot has been covered so far, but there is also a lot that has
+  not been covered. 
+  ~~~~~
+  ~~~
+  If roady is installed and rig is in your `$PATH`, the documentation
+  is always available locally via:
+  ~~~
+  `rig --help`
+  ~~~~~
+  ~~~~~
+  ~~~
+  The documentation is also always available online at:
+  ~~~
+  https://roady.tech
+  ~~~~~
+  ~~~~~
+  ~~~
+  If you are interested in diving deeper into developing with roady,
+  the next step is to read through more of the documentation, 
+  review the Apps included in the roadyAppPackages library, and of 
+  course, to experiment with roady and rig and try to 
+  develop your own roady Apps.
+  ~~~~~
+  ~~~
+  If you have any questions or feedback roady is on twitter
+  and reddit:
+  ~~~
+  https://twitter.com/RoadyRig
+  ~~~~~
+  ~~~
+  https://www.reddit.com/r/roady/
+  ~~~~~
   ~~~~~
