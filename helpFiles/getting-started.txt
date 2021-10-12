@@ -25,7 +25,7 @@
   # Installation & Setup
   ~~~~~
   ~~~
-  1. Move into the directory where you want to install roady:
+  ### 1. Move into the directory where you want to install roady:
   ~~~
   ```cd ~/```
   ~~~~~
@@ -43,7 +43,7 @@
   ~~~~~
   ~~~~~
   ~~~
-  2. Clone roady from https://github.com/sevidmusic/roady.git:
+  ### 2. Clone roady from https://github.com/sevidmusic/roady.git:
   ~~~
   ```git clone https://github.com/sevidmusic/roady.git```
   ~~~~~
@@ -64,13 +64,13 @@
   ~~~~~
   ~~~~~
   ~~~
-  3. Move into roady's root directory:
+  ### 3. Move into roady's root directory:
   ~~~
   ```cd ~/roady```
   ~~~~~
   ~~~~~
   ~~~
-  4. Update `composer`:
+  ### 4. Update `composer`:
   ~~~
   ```composer update```
   ~~~~~
@@ -114,7 +114,7 @@
   ~~~~~
   ~~~~~
   ~~~
-  5. Add rig to your path:
+  ### 5. Add rig to your `$PATH`:
   ~~~
   ```export PATH="${PATH}:${HOME}/roady/vendor/darling/rig/bin"```
   ~~~~~
@@ -127,7 +127,7 @@
   ~~~~~
   ~~~~~
   ~~~
-  6. Make sure rig is working:
+  ### 6. Make sure rig is working:
   ~~~
   ```rig --help | less -R```
   ~~~~~
@@ -217,7 +217,10 @@
   ```
   ~~~~~
   ~~~
-  `Components.php`: This file is used to build an App for a domain.
+  ### Components.php: 
+  ~~~
+  This file is used to build an App for a domain.
+  ~~~~~
   ~~~~~
   ~~~
   Note: Building an App for a domain makes the features provided by
@@ -231,7 +234,10 @@
   ~~~~~
   ~~~~~
   ~~~
-  `css`: This directory is for an App's css stylesheets.
+  ### css: 
+  ~~~
+  This directory is for an App's css stylesheets.
+  ~~~~~
   ~~~~~
   ~~~
   Note: More information about defining css stylesheets for an App
@@ -241,8 +247,11 @@
   ~~~~~
   ~~~~~
   ~~~
-  `DynamicOutput`: This directory is for files that generate an 
+  ### DynamicOutput: 
+  ~~~
+  This directory is for files that generate an 
   App's output.
+  ~~~~~
   ~~~~~
   ~~~
   Note: More information about DynamicOutput can be
@@ -252,7 +261,10 @@
   ~~~~~
   ~~~~~
   ~~~
-  `js`: This directory is for an App's javascript files.
+  ### js: 
+  ~~~
+  This directory is for an App's javascript files.
+  ~~~~~
   ~~~~~
   ~~~
   Note: More information about utilizing javascript in an App can 
@@ -262,8 +274,11 @@
   ~~~~~
   ~~~~~
   ~~~
-  `OutputComponents`: This directory is for files that configure 
+  ### OutputComponents: 
+  ~~~
+  This directory is for files that configure 
   an App's output.
+  ~~~~~
   ~~~~~
   ~~~
   Note: More information about OutputComponents can be
@@ -273,8 +288,11 @@
   ~~~~~
   ~~~~~
   ~~~
-  `Requests`: This directory is for files that configure an
+  ### Requests: 
+  ~~~
+  This directory is for files that configure an
   App's Requests.
+  ~~~~~
   ~~~~~
   ~~~
   Note: More information about Requests can be
@@ -284,8 +302,11 @@
   ~~~~~
   ~~~~~
   ~~~
-  `resources`: This directory is for additional miscellaneous 
+  ### `resources`: 
+  ~~~
+  This directory is for additional miscellaneous 
   files and directories utilized by the App.
+  ~~~~~
   ~~~~~
   ~~~
   Note: More information about the resources directory can be
@@ -295,8 +316,11 @@
   ~~~~~
   ~~~~~
   ~~~
-  `Responses`: This directory is for files that configure an
+  ### `Responses`: 
+  ~~~
+  This directory is for files that configure an
   App's Responses.
+  ~~~~~
   ~~~~~
   ~~~
   Note: More information about Responses can be
@@ -544,7 +568,7 @@
   ~~~~~
   ~~~~~
   ~~~
-  # A Brief Introduction To App Packages
+  # A Brief Introduction To roady App Packages
   ~~~~~
   ~~~
   It is also possible to develop, and save Apps as App Packages.
@@ -554,20 +578,19 @@
   App. 
   ~~~~~
   ~~~
-  Rather than defining their Component configurations in 
-  individual `php` files, App Packages define their Component 
-  configuration via calls to rig that are defined in a file 
-  named `make.sh`.
-  ~~~~~
-  ~~~
-  This is particularly beneficial at the beginning of the development
-  of a roady App.
+  rig is likely to be used frequently during the development of 
+  a roady App.
   ~~~~~
   ~~~
   Instead of making individual calls to rig manually at the command 
-  line, the necessary calls to rig can be defined in `make.sh`, and 
-  run all at once by making the App Package into an App via 
-  `rig --make-app-package`.
+  line, the necessary calls to rig can be defined together in 
+  `make.sh`, and run all at once by making the App Package into an 
+  App via `rig --make-app-package`.
+  ~~~~~
+  ~~~
+  Note: A hint, `make.sh` is just a bash script, so it is possible
+  to do more programmatically in `make.sh` than just defining
+  calls to rig.
   ~~~~~
   ~~~
   # Hello World App Package
@@ -652,7 +675,10 @@
   ```
   ~~~~~
   ~~~
-  ### 4. Make the HelloWorld App Package into an App:
+  # Make the HelloWorld App Package into an App:
+  ~~~~~
+  ~~~
+  ### 1. Use `rig --make-app-package` to make the App Package
   ~~~~~
   ~~~
   ```
@@ -666,7 +692,30 @@
   ~~~~~
   ~~~~~
   ~~~
-  ### 5.Start a development server via `rig --start-server`:
+  # Build the HelloWorld App and start a development server
+  ~~~~~
+  ~~~
+  ### 1. Build the HelloWorld App for http://localhost:8080
+  ~~~~~
+  ~~~
+  ```
+  php ~/roady/Apps/HelloWorld/Components.php 'http://localhost:8080'
+  ```
+  ~~~~~
+  ~~~
+  ### 2.Start a development server via `rig --start-server`:
+  ~~~~~
+  ~~~
+  Note: If a development server is already running for 
+  http://localhost:8080, then this step can be skipeed.
+  ~~~
+  Note: To view the currently active development servers use:
+  ~~~
+  ```
+  rig --view-active-servers
+  ```
+  ~~~~~
+  ~~~~~
   ~~~~~
   ~~~
   ```
@@ -679,7 +728,10 @@
   ~~~~~
   ~~~~~
   ~~~
-  ### 6. Edit `~/roady/Apps/HelloWorld/DynamicOutput/HelloWorld.php`:
+  # Modify the HelloWorld App 
+  ~~~~~
+  ~~~
+  ### 1. Edit `~/roady/Apps/HelloWorld/DynamicOutput/HelloWorld.php`:
   ~~~~~
   ~~~
   ```
@@ -723,8 +775,7 @@
   ```
   ~~~~~
   ~~~
-  7. Create a stylesheet named `hw-global-styles.css` for the
-  HelloWorld App using a text editor or IDE:
+  ### 2. Create a stylesheet named `hw-global-styles.css`
   ~~~
   ```
   vim ~/roady/Apps/HelloWorld/css/hw-global-styles.css
@@ -774,4 +825,110 @@
       color: #00bbff;
   }
   ```
+  ~~~~~
+  ~~~
+  # Save the HelloWorld App as an App Package
+  ~~~~~
+  ~~~
+  At this point, the HelloWorld App has been made from the HelloWorld
+  App Package, built for the local domain http://localhost:8080, and 
+  modified.
+  ~~~~~
+  ~~~
+  In order to save the modified HelloWorld App as an App Package 
+  with the modifications reflected, the AppPackager App will be 
+  needed.
+  ~~~~~
+  ~~~
+  # The AppPackager App
+  ~~~~~
+  ~~~
+  The AppPackager App is provided as an App Package as part of the 
+  roadyAppPackages library. This library will have been installed
+  in roady's vendor directory when composer update was run on 
+  installation.
+  ~~~~~
+  ~~~
+  To use the AppPackager, it first needs to be made via
+  `rig --make-app-package`:
+  ~~~~~
+  ~~~
+  ### Make the AppPackager App Package
+  ~~~~~
+  ~~~
+  ```
+  rig --make-app-package \
+  --path ~/roady/vendor/darling/roady-app-packages/AppPackager
+  ```
+  ~~~~~
+  ~~~
+  # Build the AppPackager App for http://localhost:8080
+  ~~~~~
+  ~~~
+  Next, the AppPackager needs to be built for the local domain
+  http://localhost:8080 so that it can be used to package the
+  HelloWorld App.
+  ~~~~~
+  ~~~
+  ```
+  php ~/roady/Apps/AppPackager/Components.php 'http://localhost:8080'
+  ```
+  ~~~~~
+  ~~~
+  # Use the AppPackager to package the modified HelloWorld App
+  ~~~~~
+  ~~~
+  The AppPackager should now be available locally. To use it,
+  navigate to the following url:
+  ~~~
+  http://localhost:8080/index.php?page=AppPackager
+  ~~~~~
+  ~~~~~
+  ~~~
+  To save the HelloWorld App as an App Package, select it from the
+  list of available App's, and click submit.
+  ~~~~~
+  ~~~
+  This will create a App Package for the HelloWorld App at the
+  following path:
+  ~~~
+  `~/roady/Apps/AppPackager/resources/AppPackages/HelloWorld`
+  ~~~~~
+  ~~~~~
+  ~~~
+  # Final Thoughts
+  ~~~~~
+  ~~~
+  A lot has been covered so far, but there is also a lot that has
+  not been covered. 
+  ~~~~~
+  ~~~
+  If roady is installed and rig is in your `$PATH`, the documentation
+  is always available locally via:
+  ~~~
+  `rig --help`
+  ~~~~~
+  ~~~~~
+  ~~~
+  The documentation is also always available online at:
+  ~~~
+  https://roady.tech
+  ~~~~~
+  ~~~~~
+  ~~~
+  If you are interested in diving deeper into developing with roady,
+  the next step is to read through more of the documentation, 
+  review the Apps included in the roadyAppPackages library, and of 
+  course, to experiment with roady and rig and try to 
+  develop your own roady Apps.
+  ~~~~~
+  ~~~
+  If you have any questions or feedback roady is on twitter
+  and reddit:
+  ~~~
+  https://twitter.com/RoadyRig
+  ~~~~~
+  ~~~
+  https://www.reddit.com/r/roady/
+  ~~~~~
   ~~~~~
