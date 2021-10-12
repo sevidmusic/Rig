@@ -544,7 +544,7 @@
   ~~~~~
   ~~~~~
   ~~~
-  # A Brief Introduction To App Packages
+  # A Brief Introduction To roady App Packages
   ~~~~~
   ~~~
   It is also possible to develop, and save Apps as App Packages.
@@ -556,18 +556,27 @@
   ~~~
   Rather than defining their Component configurations in 
   individual `php` files, App Packages define their Component 
-  configuration via calls to rig that are defined in a file 
+  configurations via calls to rig that are defined in a file 
   named `make.sh`.
   ~~~~~
   ~~~
-  This is particularly beneficial at the beginning of the development
-  of a roady App.
+  rig is likely to be used frequently during the development of 
+  a roady App.
   ~~~~~
   ~~~
   Instead of making individual calls to rig manually at the command 
-  line, the necessary calls to rig can be defined in `make.sh`, and 
-  run all at once by making the App Package into an App via 
-  `rig --make-app-package`.
+  line, the necessary calls to rig can be defined together in 
+  `make.sh`, and run all at once by making the App Package into an 
+  App via `rig --make-app-package`.
+  ~~~~~
+  ~~~
+  `make.sh` can provide a helpful perspective on the overall 
+  structure of an App, since all Component configurations are 
+  defined together instead of in individual files.
+  ~~~~~
+  ~~~
+  Note: A hint, `make.sh` is just a bash script, so it is possible
+  to do more than just make calls to rig.
   ~~~~~
   ~~~
   # Hello World App Package
@@ -774,4 +783,50 @@
       color: #00bbff;
   }
   ```
+  ~~~~~
+  ~~~
+  At this point, the HelloWorld App has been made from the HelloWorld
+  App Package, built for the local domain http://localhost:8080, and 
+  modified.
+  ~~~~~
+  ~~~
+  In order to save the HelloWorld App as an App Package with the new
+  changes reflected, the AppPackager App will be needed.
+  ~~~~~
+  ~~~
+  The AppPackager App is provided as an App Package as part of the 
+  roadyAppPackages library. This library will have been installed
+  in roady's vendor directory when composer update was run on 
+  installation.
+  ~~~~~
+  ~~~
+  To use the AppPackager, it first needs to be made via
+  `rig --make-app-package`:
+  ~~~~~
+  ~~~
+  ```
+  rig --make-app-package \
+  --path ~/roady/vendor/darling/roady-app-packages/AppPackager
+  ```
+  ~~~~~
+  ~~~
+  Then, the AppPackager needs to be built for the local domain
+  http://localhost:8080 so that it can be used to package the
+  HelloWorld App.
+  ~~~~~
+  ~~~
+  ```
+  php ~/roady/Apps/AppPackager/Components.php 'http://localhost:8080'
+  ```
+  ~~~~~
+  ~~~
+  The AppPackager should now be available locally. To use it,
+  navigate to the following url:
+  ~~~
+  http://localhost:8080/index.php?page=AppPackager
+  ~~~~~
+  ~~~~~
+  ~~~
+  To save the HelloWorld App as an App Package, select it from the
+  list of available App's, and click submit.
   ~~~~~
