@@ -706,6 +706,11 @@
   ### 2.Start a development server via `rig --start-server`:
   ~~~~~
   ~~~
+  ```
+  rig --start-server --port 8080 --open-in-browser
+  ```
+  ~~~~~
+  ~~~
   Note: If a development server is already running for 
   http://localhost:8080, then this step can be skipeed.
   ~~~
@@ -718,14 +723,9 @@
   ~~~~~
   ~~~~~
   ~~~
-  ```
-  rig --start-server --port 8080 --open-in-browser
-  ```
-  ~~~
-  Note: If http://localhost:8080 does not open in a browser,
-  simply open a browser, and navigate to http://localhost:8080
-  manually.
-  ~~~~~
+  Note: If http://localhost:8080 does not open in a browser 
+  automatically, simply open a browser and navigate to 
+  http://localhost:8080 manually.
   ~~~~~
   ~~~
   # Modify the HelloWorld App 
@@ -840,20 +840,23 @@
   needed.
   ~~~~~
   ~~~
-  # The AppPackager App
+  ### The AppPackager App
+  ~~~~~
+  ~~~
+  The AppPackager App is a roady App that can be used to convert
+  roady Apps into App Packages.
   ~~~~~
   ~~~
   The AppPackager App is provided as an App Package as part of the 
-  roadyAppPackages library. This library will have been installed
-  in roady's vendor directory when composer update was run on 
-  installation.
+  roadyAppPackages library. This library is installed in roady's 
+  vendor directory when composer update is run. 
   ~~~~~
   ~~~
   To use the AppPackager, it first needs to be made via
   `rig --make-app-package`:
   ~~~~~
   ~~~
-  ### Make the AppPackager App Package
+  ### 1. Make the AppPackager App Package
   ~~~~~
   ~~~
   ```
@@ -862,12 +865,16 @@
   ```
   ~~~~~
   ~~~
-  # Build the AppPackager App for http://localhost:8080
+  ### 2. Build the AppPackager App for http://localhost:8080
   ~~~~~
   ~~~
   Next, the AppPackager needs to be built for the local domain
   http://localhost:8080 so that it can be used to package the
   HelloWorld App.
+  ~~~~~
+  ~~~
+  WARNING: The App Packager will not work unless is built for the
+  same domain as the App that is to be packaged.
   ~~~~~
   ~~~
   ```
@@ -883,6 +890,10 @@
   ~~~
   http://localhost:8080/index.php?page=AppPackager
   ~~~~~
+  ~~~~~
+  ~~~
+  The AppPackager provides a select form that lists the App's that
+  are installed in roady's Apps directory.
   ~~~~~
   ~~~
   To save the HelloWorld App as an App Package, select it from the
@@ -903,6 +914,13 @@
   not been covered. 
   ~~~~~
   ~~~
+  If you are interested in diving deeper into developing with roady,
+  the next step is to read through more of the documentation, 
+  review the Apps included in the roadyAppPackages library, and of 
+  course, to experiment with roady and rig and try to 
+  develop your own roady Apps.
+  ~~~~~
+  ~~~
   If roady is installed and rig is in your `$PATH`, the documentation
   is always available locally via:
   ~~~
@@ -914,13 +932,6 @@
   ~~~
   https://roady.tech
   ~~~~~
-  ~~~~~
-  ~~~
-  If you are interested in diving deeper into developing with roady,
-  the next step is to read through more of the documentation, 
-  review the Apps included in the roadyAppPackages library, and of 
-  course, to experiment with roady and rig and try to 
-  develop your own roady Apps.
   ~~~~~
   ~~~
   If you have any questions or feedback roady is on twitter
