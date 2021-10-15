@@ -31,6 +31,9 @@
   and setup roady, and how to create a Hello World App.
   ~~~~~
   ~~~
+  Note: roady requires `php` >= `8.0`
+  ~~~~~
+  ~~~
   Note: The following examples only demonstrate the necessary
   commands to run at the command line, they do not provide 
   detailed information about the commands being executed.
