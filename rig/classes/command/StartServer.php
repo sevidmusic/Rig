@@ -40,7 +40,7 @@ class StartServer extends AbstractCommand implements Command
             ' >> ' . $serverLogPath .
             ' 2>> ' . $serverLogPath .
             (isset($flags['open-in-browser']) ? ' & xdg-open ' . $domain . ' &> /dev/null' : '') .
-            ' & disown'
+            ' &'
         );
     }
 
