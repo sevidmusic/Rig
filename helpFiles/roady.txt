@@ -24,6 +24,12 @@
   ~~~~~
   ~~~~~
   ~~~
+  # Quick Installation, Setup, & Hello World Video Tutorial
+  ~~~~~
+  ~~~
+  https://roadydemos.us-east-1.linodeobjects.com/QuickInstallSetupHelloWorld-2021-10-15_11.47.28.webm
+  ~~~~~
+  ~~~
   # Quick Installation, Setup, & Hello World Example
   ~~~~~
   ~~~
@@ -32,6 +38,9 @@
   ~~~~~
   ~~~
   Note: roady requires `php` >= `8.0`
+  ~~~~~
+  ~~~
+  Note: The shell used in the examples is `bash`
   ~~~~~
   ~~~
   Note: The following examples only demonstrate the necessary
@@ -51,10 +60,6 @@
   ~~~~~
   ~~~~~
   ~~~
-  Note: The shell used in the examples is `bash`
-  ~~~~~
-  ~~~
-
   ### 1. Install roady:
   ```
   cd ~/
