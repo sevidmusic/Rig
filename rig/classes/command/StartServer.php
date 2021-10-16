@@ -39,7 +39,7 @@ class StartServer extends AbstractCommand implements Command
             (isset($flags['php-ini'][0]) ? ' -c ' . escapeshellarg($flags['php-ini'][0]) : '') .
             ' >> ' . $serverLogPath .
             ' 2>> ' . $serverLogPath .
-            (isset($flags['open-in-browser']) ? ' & xdg-open ' . $domain . ' &> /dev/null' : '') .
+            (isset($flags['open-in-browser']) ? ' & nohup xdg-open ' . $domain . ' >/dev/null 2>&1' : '') .
             ' &'
         );
     }
