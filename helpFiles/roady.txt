@@ -27,7 +27,7 @@
   # Quick Installation, Setup, & Hello World Video Tutorial
   ~~~~~
   ~~~
-  https://roadydemos.us-east-1.linodeobjects.com/QuickInstallSetupHelloWorld-2021-10-15_11.47.28.webm
+  https://roadydemos.us-east-1.linodeobjects.com/QuickInstallSetupHelloWorldFinal.webm
   ~~~~~
   ~~~
   # Quick Installation, Setup, & Hello World Example
