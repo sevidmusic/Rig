@@ -19,7 +19,7 @@
   ~~~~~
   ~~~
   ### Getting Started Video Tutorial
-  https://roadydemos.us-east-1.linodeobjects.com/getting-started-2021-08-31_02.11.21.webm
+  https://roadydemos.us-east-1.linodeobjects.com/GettingStarted.webm
   ~~~~~
   ~~~
   # Installation & Setup
