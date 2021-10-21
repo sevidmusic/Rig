@@ -137,8 +137,8 @@ class NewAppPackage extends AbstractCommand implements Command
             throw new RuntimeException('  Please specify an alphanumeric name for the new App Package.');
         }
         if(!isset($flags['domain'][0])) {
-            $this->showMessage('  --domain was not specified, domain will be "http://localhost:8080/"');
-            $flags['domain'][0] = 'http://localhost:8080/';
+            $this->showMessage('  --domain was not specified, domain will be "http://localhost:8080"');
+            $flags['domain'][0] = 'http://localhost:8080';
         }
         if(!isset($flags['path'][0])) {
             $path = strval(realpath(strval(getcwd())));

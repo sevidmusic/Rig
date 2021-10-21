@@ -400,7 +400,7 @@ final class NewAppPackageTest extends TestCase
         );
     }
 
-    private function expectedMakeShFileContent(string $appPackageName, string $domain = 'http://localhost:8080/'): string {
+    private function expectedMakeShFileContent(string $appPackageName, string $domain = 'http://localhost:8080'): string {
         return str_replace(['_NAME_', '_DOMAIN_'], [$appPackageName, $domain], strval(file_get_contents($this->determineMakeShFileTemplatePath())));
     }
 
