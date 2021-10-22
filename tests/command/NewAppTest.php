@@ -147,7 +147,7 @@ final class NewAppTest extends TestCase
         $this->assertEquals(
             str_replace(
                 '_DOMAIN_',
-                'http://localhost:8080/',
+                'http://localhost:8080',
                 strval(file_get_contents($expectedComponentsPhpFileTemplatePath))
             ),
             file_get_contents($expectedcomponentsPhpFilePath)
@@ -166,7 +166,7 @@ final class NewAppTest extends TestCase
         $this->assertEquals(
             str_replace(
                 '_DOMAIN_',
-                'http://localhost:8080/',
+                'http://localhost:8080',
                 strval(file_get_contents($expectedComponentsPhpFileTemplatePath))
             ),
             file_get_contents($expectedcomponentsPhpFilePath)
@@ -185,7 +185,7 @@ final class NewAppTest extends TestCase
         $this->assertEquals(
             str_replace(
                 '_DOMAIN_',
-                'http://localhost:8080/',
+                'http://localhost:8080',
                 strval(file_get_contents($expectedComponentsPhpFileTemplatePath))
             ),
             file_get_contents($expectedcomponentsPhpFilePath)
