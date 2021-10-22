@@ -27,7 +27,7 @@ final class ViewActiveServersTest extends TestCase
             ' >> ' . $serverLogPath . # redirect sdout to server log
             ' 2>> ' . $serverLogPath . # redirect sderr to server log
             ' & sleep .09' . # give server a momement
-            ' & disown' # send all to bg and disown
+            ' & ' # send to bg
         );
     }
 
