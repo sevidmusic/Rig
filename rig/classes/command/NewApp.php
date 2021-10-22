@@ -72,7 +72,7 @@ class NewApp extends AbstractCommand implements Command
         if(isset($flags['domain']) && isset($flags['domain'][0]) && filter_var($flags['domain'][0], FILTER_VALIDATE_URL)) {
             return $flags['domain'][0];
         }
-        return 'http://localhost:8080/';
+        return 'http://localhost:8080';
     }
 
     /**
