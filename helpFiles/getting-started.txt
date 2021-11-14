@@ -582,10 +582,10 @@
   a roady App.
   ~~~~~
   ~~~
-  Instead of making individual calls to rig manually at the command 
-  line, the necessary calls to rig can be defined together in 
-  `make.sh`, and run all at once by making the App Package into an 
-  App via `rig --make-app-package`.
+  Instead of making individual calls to rig manually at the 
+  command line, the necessary calls to rig can be defined together 
+  in an App Package's `make.sh`, and run all at once by making the 
+  App Package into an App via `rig --make-app-package`. 
   ~~~~~
   ~~~
   Note: A hint, `make.sh` is just a bash script, so it is possible
