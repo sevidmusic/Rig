@@ -63,28 +63,41 @@
   ### make.sh
   ~~~~~
   ~~~
-  `make.sh` is a bash script where the calls to rig are defined
+  `make.sh` is a bash script that defines the calls to rig 
   that will be used to make the App Package into a roady App
   when `rig --make-app-package` is run. 
   ~~~~~ 
   ~~~
-  Note: `make.sh` must define at least one call to `rig --new-app`.
+  Note: `make.sh` must define at least one call to `rig --new-app`
+  that specifies a name that matches the name of the AppPackage.
   ~~~
   WARNING: The call to `rig --new-app` must be declared on 
   one line or rig will complain when `rig --make-app-package` 
-  is run.
+  is run. This only applies to the call to `rig --new-app`.
   ~~~~~
+  The following shows an incorrect, and a correct example of a
+  minimal `make.sh` defined by an App Package named HelloWorld:
   ~~~
-  For example:
-  ~~~
+  Incorrect:
   ```
   #!/bin/bash
   
   set -o posix
   
-  rig --new-app --name AppName --domain "http://localhost:8080"
+  rig --new-app \
+      --name SomeRandomName \
+      --domain "http://localhost:8080"
   ```
   ~~~~~
+  ~~~
+  Correct:
+  ```
+  #!/bin/bash
+  
+  set -o posix
+  
+  rig --new-app --name HelloWorld --domain "http://localhost:8080"
+  ```
   ~~~~~
   ~~~~~
   ~~~
