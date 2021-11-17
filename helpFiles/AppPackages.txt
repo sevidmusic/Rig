@@ -1,129 +1,481 @@
-  ### App Packages
-
   ~~~
-  roady Apps can be shared easily in the form of App Packages. You can create a
-  new App Package with `rig --new-app-package`.
+  # App Packages
   ~~~~~
-
   ~~~
-  App Packages can be made into roady Apps with `rig --make-app-package`.
+  It is possible to develop, and save, Apps as App Packages.
   ~~~~~
-
   ~~~
-  To convert an existing App into an App Package you will need the AppPackager
-  App.
+  roady App Packages can be thought of as blueprints 
+  for roady Apps. 
   ~~~~~
-
   ~~~
-  If you have already installed roady, the AppPackager's App Package will have
-  been installed as part of the roadyAppPackages library when `composer update`
-  was run.
+  rig is likely to be used frequently during the development of 
+  a roady App.
   ~~~~~
-
   ~~~
-  Note: For help installing roady and rig, use:
+  Instead of making individual calls to rig manually at the 
+  command line, the necessary calls to rig can be defined together 
+  in an App Package's `make.sh`, and run all at once by making 
+  the App Package into an App via `rig --make-app-package`.
   ~~~~~
-
-    ~~~
-    `rig --help getting-started`
-    ~~~~~
   ~~~
-  The AppPackager's App Package will be located at the following path
-  relative to roady's root directory:
+  An App Package can also provide css files, javascript files,
+  DynamicOutput files, or any other resources that will be used 
+  by the App that the App Package is a blueprint for.
   ~~~~~
-
-      ~~~
-      `./vendor/darling/roady-app-packages/AppPackager`
-      ~~~~~
-
   ~~~
-  To make the AppPackager App, move into roady's root directory and run:
+  An App Package has the following structure:
   ~~~~~
-
-    ~~~
-    `rig --make-app-package --path ./vendor/darling/roady-app-packages/AppPackager`
-    ~~~~~
-
   ~~~
-  To use the AppPackager App, you will need to build it for a domain. In this
-  example the AppPackager will be built for the local domain
-  http://localhost:8080, though it could be built for another domain.
+  ```
+  css
+  DynamicOutput
+  js
+  make.sh
+  resources
+  ```
   ~~~~~
-
   ~~~
-  To build the AppPackager App move into roadys root directory and run the
-  following:
+  # Overview:
   ~~~~~
-
-    ~~~
-    `php ./Apps/AppPackager/Components.php 'http://localhost:8080'`
-    ~~~~~
-
   ~~~
-  The next step is to build the App you want to package for the same domain.
+  ### css
   ~~~~~
-
-    ~~~
-    `php ./Apps/APPTOPACKAGE/Components.php 'http://localhost:8080'`
-    ~~~~~
-
   ~~~
-  Finally, if one is not already running, start a development server
-  at `localhost` on port `8080`
+  The `css` directory is where an App Package's stylesheets should 
+  be placed. 
   ~~~~~
-
-    ~~~
-    `rig --start-server --port 8080`
-    ~~~~~
-
   ~~~
-  Next, open a web browser and navigate to the following url:
+  ### DynamicOutput
   ~~~~~
-
-    ~~~
-    http://localhost:8080/index.php?page=AppPackager
-    ~~~~~
-
   ~~~
-  Using the provided select form, select the App you wish to package
-  and click submit.
+  The `DynamicOutput` directory is where an App Package's 
+  DynamicOutput files should be placed. 
   ~~~~~
-
   ~~~
-  The new App Package will be located in the AppPackager App's
-  `resources/AppPackages` directory which will be located at the
-  following path relative to roady's root directory:
+  ### js
   ~~~~~
-
   ~~~
-  `./Apps/AppPackager/resources/AppPackages/`
+  The `js` directory is where an App Package's javascript files 
+  should be placed. 
   ~~~~~
-
   ~~~
-  This App Package can be easily shared, and used to rebuild the original
-  app on any roady installation.
+  ### make.sh
   ~~~~~
-
   ~~~
-  Note: The functionality of the AppPackager App is going to be incorprated into
-  rig in the future so that the AppPackager App is not needed to package Apps.
-  See issue #120 at:
+  `make.sh` is a bash script that defines the calls to rig 
+  that will be used to make the App Package into a roady App
+  when `rig --make-app-package` is run. 
+  ~~~~~ 
+  ~~~
+  Note: `make.sh` must define at least one call to `rig --new-app`
+  that specifies a name that matches the name of the AppPackage.
+  ~~~
+  WARNING: The call to `rig --new-app` must be declared on 
+  one line or rig will complain when `rig --make-app-package` 
+  is run. This only applies to the call to `rig --new-app`.
   ~~~~~
-
-    ~~~
-    https://github.com/sevidmusic/rig/issues/120
-    ~~~~~
-
+  The following shows an incorrect, and a correct example of a
+  minimal `make.sh` defined by an App Package named HelloWorld:
   ~~~
-  Note: More documentation is being written on the topic of App Packages and
-  will be added to this documenation as soon as it is complete.
+  Incorrect:
+  ```
+  #!/bin/bash
+  
+  set -o posix
+  
+  rig --new-app \
+      --name SomeRandomName \
+      --domain "http://localhost:8080"
+  ```
   ~~~~~
-
-
   ~~~
-  Note: An App Package has the same structure as an App, but instead
-  of providing individual Component configuration files, and a
-  Components.php file, an App Package provides a bash script
-  named `make.sh` which defines the neccesary calls to rig
-  to make the roady App Package back into a roady App.
+  Correct:
+  ```
+  #!/bin/bash
+  
+  set -o posix
+  
+  rig --new-app --name HelloWorld --domain "http://localhost:8080"
+  ```
+  ~~~~~
+  ~~~~~
+  ~~~
+  ### resources
+  ~~~~~
+  ~~~
+  The `resources` directory is where any additional resources
+  provided by the App Package should be placed.
+  ~~~~~
+  ~~~
+  # Hello World App Package
+  ~~~~~
+  ~~~
+  The following examples demonstrate how to develop a HelloWorld
+  App as an App Package, make it into an App, modify it, and then 
+  save it by converting it back into an App Package.
+  ~~~~~
+  ~~~
+  Note: The following examples assume that roady is installed at
+  `~/roady`. If roady is installed at a different path make sure
+  to adjust the paths used in the examples appropriately.
+  ~~~~~
+  ~~~
+  Note: The following examples assume that rig is in your `$PATH`.
+  If it is not, you can temporarily add it to your path via:
+  ~~~
+  ```
+  export PATH="${PATH}:${HOME}/roady/vendor/darling/rig/bin"
+  ```
+  ~~~~~
+  ~~~~~
+  ~~~
+  # Create a HelloWorld App Package
+  ~~~~~
+  ~~~
+  ### 1. Move in the user's home directory:
+  ~~~~~
+  ~~~
+  ```
+  cd ~/
+  ```
+  ~~~~~
+  ~~~
+  ### 2. Create a new App Package via `rig --new-app-package`:
+  ~~~~~
+  ~~~
+  ```
+  rig --new-app-package --name HelloWorld
+  ```
+  ~~~~~
+  ~~~
+  Note: The HelloWorld App Package should now exist at the
+  following path:
+  ~~~
+  `~/HelloWorld`
+  ~~~~~
+  ~~~~~
+  ~~~
+  ### 3. Edit `make.sh` using a text editor or IDE:
+  ~~~~~
+  ~~~
+  ```
+  vim ~/HelloWorld/make.sh
+  ```
+  ~~~~~
+  ~~~
+  And revise `make.sh`'s content to be:
+  ~~~~~
+  ~~~
+  ```
+  #!/bin/bash
+  
+  set -o posix
+  
+  rig --new-app --name HelloWorld --domain 'http://localhost:8080'
+
+  rig --configure-app-output \
+      --for-app HelloWorld \
+      --name HelloWorld \
+      --output '<p>Hello World</p>' \
+      --relative-urls 'index.php' '/' 
+
+  ```
+  ~~~~~
+  ~~~
+  ### 4. Create a global stylesheet for the HelloWorld App Package:
+  ~~~~~
+  ~~~
+  ```
+  vim ~/HelloWorld/css/hw-global-styles.css
+  ```
+  ~~~~~
+  ~~~
+  Define the following styles in `hw-global-styles.css`:
+  ~~~~~
+  ~~~
+  ```
+  body {
+      background: black;
+      color: #030302;
+      font-size: 4.2rem;
+      font-family: monospace;
+      padding: 0;
+      margin: 0;
+      font-family: monospace;
+  }
+  
+  p {
+      text-align: center;
+      text-shadow: -2px 1px #2f0b02,
+                   -3px 2px #77dffa,
+                   -4px 3px #02262f,
+                   -5px 4px #22022f,
+                   -6px 5px #fa9277,
+                   -7px 6px white;
+  }
+  ```
+  ~~~~~
+  ~~~
+  Note: The `~/HelloWorld/css/hw-global-styles.css` stylesheet will
+  be copied to the HelloWorld App's css directory when the 
+  HelloWorld App Package is made into the HelloWorld app via 
+  `rig --make-app-package`.  
+  ~~~~~ 
+  ~~~
+  # Make the HelloWorld App Package into an App:
+  ~~~~~
+  ~~~
+  ### 1. Make the App Package via `rig --make-app-package`:
+  ~~~~~
+  ~~~
+  ```
+  rig --make-app-package \
+      --path ~/HelloWorld
+  ```
+  ~~~~~
+  ~~~
+  Note: The newly made HelloWorld App will be located at:
+  ~~~
+  `~/roady/Apps/HelloWorld`
+  ~~~~~
+  ~~~~~
+  ~~~
+  # Build the HelloWorld App and start a development server
+  ~~~~~
+  ~~~
+  ### 1. Build the HelloWorld App for 'http://localhost:8080':
+  ~~~~~
+  ~~~
+  ```
+  php ~/roady/Apps/HelloWorld/Components.php \
+      'http://localhost:8080'
+  ```
+  ~~~~~
+  ~~~
+  ### 2.Start a development server via `rig --start-server`:
+  ~~~~~
+  ~~~
+  ```
+  rig --start-server \
+      --port 8080 \
+      --open-in-browser
+  ```
+  ~~~~~
+  ~~~
+  Note: If a development server is already running for 
+  http://localhost:8080, then this step can be skipped.
+  ~~~
+  Note: To view the currently active development servers use:
+  ~~~
+  ```
+  rig --view-active-servers
+  ```
+  ~~~~~
+  ~~~~~
+  ~~~~~
+  ~~~
+  Note: If http://localhost:8080 does not open in a 
+  browser automatically, then open a browser and navigate 
+  to http://localhost:8080 manually. 
+  ~~~~~  
+  ~~~
+  # Modify the HelloWorld App 
+  ~~~~~
+  ~~~
+  ### 1. Edit `~/roady/Apps/HelloWorld/DynamicOutput/HelloWorld.php`:
+  ~~~~~
+  ~~~
+  ```
+  vim ~/roady/Apps/HelloWorld/DynamicOutput/HelloWorld.php 
+  ```
+  ~~~~~
+  ~~~
+  Revising `HelloWorld.php`'s content to be:
+  ~~~~~
+  ~~~
+  ```
+  <div class="hw-container">
+      <h1>Roady</h1>
+      <p>
+          roady is a tool designed to aid in the development of 
+          websites.
+      </p>
+      <p>
+          With roady, the features of a website are implemented 
+          by small niche applications called Apps.
+      </p>
+      <p>
+          roady Apps may provide css stylesheets, utilize 
+          javascript, and may configure output to be served in 
+          response to appropriate requests to a website's 
+          domain.
+      </p>
+      <p>
+          Multiple websites can run on a single installation of 
+          roady, each making use of one or more roady Apps. 
+      </p>
+      <p>
+          For a guide on getting started with roady visit:
+      </p>
+      <p>
+          <a href="https://roady.tech/index.php?request=getting-started">
+              https://roady.tech/index.php?request=getting-started
+          </a>
+      </p>
+  </div>
+  ```
+  ~~~~~
+  ~~~
+  ### 2. Edit `~/roady/Apps/HelloWorld/css/hw-global-styles.css`:
+  ~~~~~
+  ~~~
+  ```
+  vim ~/roady/Apps/HelloWorld/css/hw-global-styles.css
+  ```
+  ~~~~~
+  ~~~
+  Revising `hw-global-styles.css`'s content to be:
+  ~~~~~
+  ~~~
+  ```
+  body {
+      background: #140a09;
+      background-image: linear-gradient(
+                            45deg, 
+                            #00bbff 25%, 
+                            transparent 25%
+                        ),
+                        linear-gradient(
+                            -45deg, 
+                            #020203 25%, 
+                            transparent 25%
+                        ),
+                        linear-gradient(
+                            45deg, 
+                            transparent 75%, 
+                            #00bbff 75%
+                        ),
+                        linear-gradient(
+                            -45deg, 
+                            transparent 75%, 
+                            #020203 75%
+                        );
+      background-size: 10rem 10rem;
+      background-position: 0 0, 0 10rem, 10rem -10rem, -10rem 0rem;
+      color: #00ffc3;
+      font-size: 1.2rem;
+      font-family: monospace;
+      padding: 0;
+      margin: 0;
+  }
+
+  .hw-container {
+      width: 80%;
+      background: #010103;
+      opacity: .92;
+      margin: 3rem auto;
+      padding: 3rem;
+      border: .2rem double white;
+  }
+
+  .hw-container h1 {
+      color: white;
+      text-shadow: -1px 1px #00ffc3;
+  }
+
+  .hw-container a, .hw-container a:link, .hw-container a:visited {
+      text-decoration: none;
+      color: white;
+  }
+
+  .hw-container a:hover, .hw-container a:active {
+      color: #00bbff;
+  }
+  ```
+  ~~~~~
+  ~~~
+  Open http://localhost:8080 in a web browser to view the modified
+  HelloWorld App.
+  ~~~~~
+  ~~~
+  # Save the HelloWorld App as an App Package
+  ~~~~~
+  ~~~
+  At this point, the HelloWorld App has been made from the 
+  HelloWorld App Package, built for the local domain 
+  http://localhost:8080, and modified.
+  ~~~~~
+  ~~~
+  In order to save the modified HelloWorld App as an App Package 
+  with the modifications reflected, the AppPackager App will be 
+  needed.
+  ~~~~~
+  ~~~
+  ### The AppPackager App
+  ~~~~~
+  ~~~
+  The AppPackager App is a roady App that can be used to convert
+  roady Apps into App Packages.
+  ~~~~~
+  ~~~
+  The AppPackager App is provided as an App Package as part of the 
+  roadyAppPackages library. This library is installed in roady's 
+  vendor directory when composer update is run. 
+  ~~~~~
+  ~~~
+  To use the AppPackager, it first needs to be made via
+  `rig --make-app-package`:
+  ~~~~~
+  ~~~
+  ### 1. Make the AppPackager App Package into the AppPackager App:
+  ~~~~~
+  ~~~
+  ```
+  rig --make-app-package \
+      --path ~/roady/vendor/darling/roady-app-packages/AppPackager
+  ```
+  ~~~~~
+  ~~~
+  ### 2. Build the AppPackager App for 'http://localhost:8080':
+  ~~~~~
+  ~~~
+  ```
+  php ~/roady/Apps/AppPackager/Components.php \
+      'http://localhost:8080'
+  ```
+  ~~~~~
+  ~~~
+  Note: The AppPackager needs to be built for the local domain
+  http://localhost:8080 so that it can be used to convert the 
+  HelloWorld App into an App Package.
+  ~~~
+  WARNING: The App Packager will not work unless it is built for 
+  the same domain as the App to convert into an App Package.
+  ~~~~~
+  ~~~~~
+  ~~~
+  # Use the AppPackager to save the modified HelloWorld App
+  ~~~~~
+  ~~~
+  The AppPackager should now be available locally. To use it,
+  navigate to the following url:
+  ~~~
+  http://localhost:8080/index.php?page=AppPackager
+  ~~~~~
+  ~~~~~
+  ~~~
+  The AppPackager provides a select form that lists the App's that
+  are installed in roady's Apps directory.
+  ~~~~~
+  ~~~
+  To save the HelloWorld App as an App Package, select it from the
+  list of available App's, and click submit.
+  ~~~~~
+  ~~~
+  This will create a App Package for the HelloWorld App at the
+  following path:
+  ~~~
+  `~/roady/Apps/AppPackager/resources/AppPackages/HelloWorld`
+  ~~~~~
   ~~~~~

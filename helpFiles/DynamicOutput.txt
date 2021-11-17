@@ -13,4 +13,3 @@
   php files will be interpreted as php, all other files will
   be interpreted as plain text.
   ~~~~~
-
