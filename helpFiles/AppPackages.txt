@@ -398,6 +398,10 @@
   ```
   ~~~~~
   ~~~
+  Open http://localhost:8080 in a web browser to view the modified
+  HelloWorld App.
+  ~~~~~
+  ~~~
   # Save the HelloWorld App as an App Package
   ~~~~~
   ~~~
@@ -427,7 +431,7 @@
   `rig --make-app-package`:
   ~~~~~
   ~~~
-  ### 1. Make the AppPackager App Package:
+  ### 1. Make the AppPackager App Package into the AppPackager App:
   ~~~~~
   ~~~
   ```
@@ -439,19 +443,19 @@
   ### 2. Build the AppPackager App for 'http://localhost:8080':
   ~~~~~
   ~~~
-  Next, the AppPackager needs to be built for the local domain
-  http://localhost:8080 so that it can be used to convert the 
-  HelloWorld App into an App Package.
-  ~~~~~
-  ~~~
-  WARNING: The App Packager will not work unless it is built for 
-  the same domain as the App to convert into an App Package.
-  ~~~~~
-  ~~~
   ```
   php ~/roady/Apps/AppPackager/Components.php \
       'http://localhost:8080'
   ```
+  ~~~~~
+  ~~~
+  Note: The AppPackager needs to be built for the local domain
+  http://localhost:8080 so that it can be used to convert the 
+  HelloWorld App into an App Package.
+  ~~~
+  WARNING: The App Packager will not work unless it is built for 
+  the same domain as the App to convert into an App Package.
+  ~~~~~
   ~~~~~
   ~~~
   # Use the AppPackager to save the modified HelloWorld App
