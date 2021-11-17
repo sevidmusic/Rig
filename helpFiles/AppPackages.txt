@@ -5,8 +5,8 @@
   It is possible to develop, and save, Apps as App Packages.
   ~~~~~
   ~~~
-  roady App Packages can be thought of as blueprints for a roady
-  App. 
+  roady App Packages can be thought of as blueprints 
+  for roady Apps. 
   ~~~~~
   ~~~
   rig is likely to be used frequently during the development of 
