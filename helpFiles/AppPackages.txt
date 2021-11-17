@@ -49,8 +49,8 @@
   ### DynamicOutput
   ~~~~~
   ~~~
-  The `DynamicOutput` directory is where an App Package's Dynamic 
-  Output files should be placed. 
+  The `DynamicOutput` directory is where an App Package's 
+  DynamicOutput files should be placed. 
   ~~~~~
   ~~~
   ### js
@@ -191,17 +191,16 @@
       margin: 0;
       font-family: monospace;
   }
-
+  
   p {
-      width: 70%;
-      margin: 3rem auto;
-      text-shadow: 2px 2px 3px #091d1d,
-                   3px 3px 4px #b9ffcc,
-                   4px 4px 6px #09131d,
-                   6px 8px 9px #1d1309,
-                   6px 8px 9px white;
-}
-
+      text-align: center;
+      text-shadow: -2px 1px #2f0b02,
+                   -3px 2px #77dffa,
+                   -4px 3px #02262f,
+                   -5px 4px #22022f,
+                   -6px 5px #fa9277,
+                   -7px 6px white;
+  }
   ```
   ~~~~~
   ~~~
