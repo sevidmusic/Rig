@@ -70,6 +70,11 @@
   ~~~
   Note: `make.sh` must define at least one call to `rig --new-app`.
   ~~~
+  WARNING: The call to `rig --new-app` must be declared on 
+  one line or rig will complain when `rig --make-app-package` 
+  is run.
+  ~~~~~
+  ~~~
   For example:
   ~~~
   ```
@@ -77,9 +82,7 @@
   
   set -o posix
   
-  rig --new-app \
-      --name AppName \
-      --domain "http://localhost:8080"
+  rig --new-app --name AppName --domain "http://localhost:8080"
   ```
   ~~~~~
   ~~~~~
@@ -156,24 +159,14 @@
   
   set -o posix
   
-  rig --new-app \
-      --name HelloWorld \
-      --domain 'http://localhost:8080'
+  rig --new-app --name HelloWorld --domain 'http://localhost:8080'
 
   rig --configure-app-output \
       --for-app HelloWorld \
       --name HelloWorld \
       --output '<p>Hello World</p>' \
-      --relative-urls 'index.php' '/' \
-      --r-position 2
+      --relative-urls 'index.php' '/' 
 
-  rig --configure-app-output \
-      --for-app HelloWorld \
-      --name HelloWorldMenu \
-      --output '<div><a href="index.php">Home</a></div>' \
-      --r-position 1 \
-      --global \
-      --static
   ```
   ~~~~~
   ~~~
@@ -191,32 +184,24 @@
   ```
   body {
       background: black;
-      color: white;
-      font-size: 3.2rem;
+      color: #030302;
+      font-size: 4.2rem;
       font-family: monospace;
       padding: 0;
       margin: 0;
+      font-family: monospace;
   }
 
   p {
-    width: 70%;
-    text-align; center;
-    margin: 0 auto;
-    padding: 5rem;
-  }
+      width: 70%;
+      margin: 3rem auto;
+      text-shadow: 2px 2px 3px #091d1d,
+                   3px 3px 4px #b9ffcc,
+                   4px 4px 6px #09131d,
+                   6px 8px 9px #1d1309,
+                   6px 8px 9px white;
+}
 
-  a, a:link, a:visited {
-    text-decoration: none;
-    color: aqua;
-  }
-
-  a:hover {
-    color: orange;
-  }
-
-  a:active {
-    color: limegreen;
-  }
   ```
   ~~~~~
   ~~~
