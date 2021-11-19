@@ -40,7 +40,8 @@
   Note: roady requires `php` >= `8.0`
   ~~~~~
   ~~~
-  Note: The shell used in the examples is `bash`
+  Note: The `Linux command line` is used heavily in the examples, 
+  and the `shell` used in the examples is `bash`.
   ~~~~~
   ~~~
   Note: The following examples are brief. For a more detailed 
