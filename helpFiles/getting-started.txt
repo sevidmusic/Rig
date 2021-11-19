@@ -45,11 +45,11 @@
   ~~~~~
   ~~~~~
   ~~~
-  Note: `~/` is shorthand for the path to the current user's `home`
-  directory.
+  Note: `~/` is shorthand for the path to the current user's 
+  `home` directory.
   ~~~~~
   ~~~
-  ### 2. Clone roady from https://github.com/sevidmusic/roady.git:
+  ### 2. Clone roady from GitHub:
   ~~~~~
   ~~~
   ```
@@ -64,9 +64,9 @@
   ~~~~~
   ~~~~~
   ~~~
-  Note: GitHub is an online development platform where source code 
-  can be hosted and distributed. More information about GitHub 
-  can be found online at:
+  Note: GitHub is an online development platform where source 
+  code can be hosted and distributed. More information about 
+  GitHub can be found online at:
   ~~~
   https://github.com/ 
   ~~~~~
@@ -83,7 +83,9 @@
   ### 4. Update `composer`:
   ~~~~~
   ~~~
-  ```composer update```
+  ```
+  composer update
+  ```
   ~~~~~
   ~~~
   Note: composer is a dependency manager for PHP, for more 
@@ -93,8 +95,8 @@
   ~~~~~
   ~~~~~
   ~~~
-  Note: Running `composer update` will install rig at the following 
-  path: 
+  Note: Running `composer update` will install rig at the 
+  following path: 
   ~~~
   `~/roady/vendor/darling/rig`
   ~~~~~
@@ -102,45 +104,53 @@
   development of roady Apps.
   ~~~~~
   ~~~
-  Note: Running `composer update` will install the roadyAppPackages
-  library at the following path:
+  Note: Running `composer update` will install the 
+  roadyAppPackages library at the following path:
   ~~~
   `~/roady/vendor/darling/roady-app-packages`
   ~~~~~
-  The roadyAppPackages library is a collection of roady App Packages
-  that can be made into roady Apps via:
+  The roadyAppPackages library is a collection of roady App 
+  Packages that can be made into roady Apps via:
   ~~~
   `rig --make-app-package`.
   ~~~~~
-  Once roady is installed and setup, more information about
+  ~~~
+  Note: Once roady is installed and setup, more information about
   `rig --make-app-package` can be obtained via:
   ~~~
   `rig --help --make-app-package`
   ~~~~~
-  Once roady is installed and setup, more information about
+  ~~~~~
+  ~~~
+  Note: Once roady is installed and setup, more information about
   App Packages can be obtained via:
   ~~~
   `rig --help AppPackages`
+  ~~~~~
   ~~~~~
   ~~~~~
   ~~~
   ### 5. Add rig to your `$PATH`:
   ~~~~~
   ~~~
-  ```export PATH="${PATH}:${HOME}/roady/vendor/darling/rig/bin"```
+  ```
+  export PATH="${PATH}:${HOME}/roady/vendor/darling/rig/bin"
+  ```
   ~~~~~
   ~~~
-  Note: This will only add rig to your `$PATH` temporarily, to add 
-  it permanently you will need to set your `$PATH` in the 
-  appropriate configuration file for the shell you are using. For 
-  information on setting your `$PATH` permanently, please consult 
-  the documentation for the shell you are using.
+  Note: This will only add rig to your `$PATH` temporarily, to 
+  add it permanently you will need to set your `$PATH` in the 
+  appropriate configuration file for the shell you are using. 
+  For information on setting your `$PATH` permanently, please 
+  consult the documentation for the shell you are using.
   ~~~~~
   ~~~
   ### 6. Make sure rig is working:
   ~~~~~
   ~~~
-  ```rig --help | less -R```
+  ```
+  rig --help | less -R
+  ```
   ~~~~~
   ~~~
   Note: The documentation can always be obtained locally via
@@ -156,38 +166,54 @@
   ```
   rig --help AppPackages
   rig --help Apps
+  rig --help Components.php
+  rig --help DynamicOutput
   rig --help DynamicOutputComponents
   rig --help GlobalResponses
   rig --help OutputComponents
   rig --help Requests
   rig --help Responses
+  rig --help assign-to-response
+  rig --help configure-app-output
+  rig --help css
+  rig --help debug
   rig --help getting-started
-  rig --help roady
-  rig --help --assign-to-response
-  rig --help --configure-app-output
-  rig --help --debug
-  rig --help --make-app-package
-  rig --help --new-app
-  rig --help --new-app-package
-  rig --help --new-dynamic-output-component
-  rig --help --new-global-response
-  rig --help --new-output-component
-  rig --help --new-request
-  rig --help --new-response
-  rig --help --start-server
-  rig --help --view-active-servers
+  rig --help help
+  rig --help js
+  rig --help make-app-package
+  rig --help new-app
+  rig --help new-app-package
+  rig --help new-dynamic-output-component
+  rig --help new-global-response
+  rig --help new-output-component
+  rig --help new-request
+  rig --help new-response
   rig --help path-to-apps-directory
+  rig --help resources
+  rig --help roady
+  rig --help start-server
+  rig --help view-active-servers
   ```
   ~~~~~
   ~~~~~
   ~~~~~
   ~~~
+  Note: Piping the output of `rig --help` to `less -R` will make 
+  it easier to view the documentation at the command line. 
+  For example:
+  ~~~
+  ```
+  rig --help getting-started | less -R
+  ```
+  ~~~~~
+  ~~~
   Note: `less` is not associated with roady or rig. The `less` 
   command is used in the example to make it easier to view the 
-  output of `rig --help`. More information about the `less` command 
-  can be found online at: 
+  output of `rig --help`. More information about the `less` 
+  command can be found online at: 
   ~~~
   https://man7.org/linux/man-pages/man1/less.1.html
+  ~~~~~
   ~~~~~
   ~~~~~
   ~~~
@@ -196,6 +222,20 @@
   ~~~
   roady should now be installed at the path `~/roady`, and rig
   should now be in your `$PATH`.
+  ~~~~~
+  ~~~
+  The following is a summary of commands used to install and 
+  setup roady:
+  ~~~~~
+  ~~~
+  ```
+  cd ~/
+  git clone https://github.com/sevidmusic/roady.git
+  cd ~/roady
+  composer update
+  export PATH="${PATH}:${HOME}/roady/vendor/darling/rig/bin"
+  rig --help | less -R
+  ```
   ~~~~~
   ~~~
   The next step is to start developing roady Apps.
