@@ -2,23 +2,27 @@
   # Getting Started
   ~~~~~
   ~~~
-  The following examples demonstrate how to install and setup roady, 
-  and how to build a HelloWorld App.
+  The following examples demonstrate how to install and setup 
+  roady, and provide a brief introduction to roady Apps and 
+  App Packages. 
   ~~~~~
   ~~~
   Note: roady requires `php >= 8`
   ~~~~~
   ~~~
-  Note: The `Linux command line` is used heavily in the examples, 
+  Note: The `Linux command line` is used heavily in the examples,
   and the `shell` used in the examples is `bash`.
   ~~~~~
   ~~~
-  Note: In the following examples roady is installed in the user's 
-  `home` directory. Make sure to adjust the paths used in the 
-  following examples if you install roady at a different path.
+  Note: In the following examples roady is installed in the 
+  user's `home` directory. Make sure to adjust the paths used 
+  in the following examples if you install roady at a different 
+  path.
   ~~~~~
   ~~~
-  ### Getting Started Video Tutorial
+  ### Getting Started Video 
+  ~~~~~
+  ~~~
   https://roadydemos.us-east-1.linodeobjects.com/GettingStarted.webm
   ~~~~~
   ~~~
@@ -26,13 +30,16 @@
   ~~~~~
   ~~~
   ### 1. Move into the directory where you want to install roady:
+  ~~~~~
   ~~~
-  ```cd ~/```
+  ```
+  cd ~/
+  ```
   ~~~~~
   ~~~
   Note: `cd` is used to change the working directory of the
-  current shell execution environment.
-  More information about the `cd` command can be found online at:
+  current shell execution environment. More information about 
+  the `cd` command can be found online at:
   ~~~
   https://man7.org/linux/man-pages/man1/cd.1p.html
   ~~~~~
@@ -41,11 +48,13 @@
   Note: `~/` is shorthand for the path to the current user's `home`
   directory.
   ~~~~~
-  ~~~~~
   ~~~
   ### 2. Clone roady from https://github.com/sevidmusic/roady.git:
+  ~~~~~
   ~~~
-  ```git clone https://github.com/sevidmusic/roady.git```
+  ```
+  git clone https://github.com/sevidmusic/roady.git
+  ```
   ~~~~~
   ~~~
   Note: git is a version control system, for more information
@@ -62,15 +71,17 @@
   https://github.com/ 
   ~~~~~
   ~~~~~
-  ~~~~~
   ~~~
   ### 3. Move into roady's root directory:
-  ~~~
-  ```cd ~/roady```
   ~~~~~
+  ~~~
+  ```
+  cd ~/roady
+  ```
   ~~~~~
   ~~~
   ### 4. Update `composer`:
+  ~~~~~
   ~~~
   ```composer update```
   ~~~~~
@@ -112,9 +123,9 @@
   `rig --help AppPackages`
   ~~~~~
   ~~~~~
-  ~~~~~
   ~~~
   ### 5. Add rig to your `$PATH`:
+  ~~~~~
   ~~~
   ```export PATH="${PATH}:${HOME}/roady/vendor/darling/rig/bin"```
   ~~~~~
@@ -125,9 +136,9 @@
   information on setting your `$PATH` permanently, please consult 
   the documentation for the shell you are using.
   ~~~~~
-  ~~~~~
   ~~~
   ### 6. Make sure rig is working:
+  ~~~~~
   ~~~
   ```rig --help | less -R```
   ~~~~~
@@ -174,9 +185,9 @@
   Note: `less` is not associated with roady or rig. The `less` 
   command is used in the example to make it easier to view the 
   output of `rig --help`. More information about the `less` command 
-  can be found online at: ~~~
+  can be found online at: 
+  ~~~
   https://man7.org/linux/man-pages/man1/less.1.html
-  ~~~~~
   ~~~~~
   ~~~~~
   ~~~
@@ -218,9 +229,9 @@
   ~~~~~
   ~~~
   ### Components.php: 
+  ~~~~~
   ~~~
   This file is used to build an App for a domain.
-  ~~~~~
   ~~~~~
   ~~~
   Note: Building an App for a domain makes the features provided by
@@ -235,9 +246,9 @@
   ~~~~~
   ~~~
   ### css: 
+  ~~~~~
   ~~~
   This directory is for an App's css stylesheets.
-  ~~~~~
   ~~~~~
   ~~~
   Note: More information about defining css stylesheets for an App
@@ -248,10 +259,10 @@
   ~~~~~
   ~~~
   ### DynamicOutput: 
+  ~~~~~
   ~~~
   This directory is for files that generate an 
   App's output.
-  ~~~~~
   ~~~~~
   ~~~
   Note: More information about DynamicOutput can be
@@ -262,9 +273,9 @@
   ~~~~~
   ~~~
   ### js: 
+  ~~~~~
   ~~~
   This directory is for an App's javascript files.
-  ~~~~~
   ~~~~~
   ~~~
   Note: More information about utilizing javascript in an App can 
@@ -275,10 +286,10 @@
   ~~~~~
   ~~~
   ### OutputComponents: 
+  ~~~~~
   ~~~
   This directory is for files that configure 
   an App's output.
-  ~~~~~
   ~~~~~
   ~~~
   Note: More information about OutputComponents can be
@@ -289,10 +300,10 @@
   ~~~~~
   ~~~
   ### Requests: 
+  ~~~~~
   ~~~
   This directory is for files that configure an
   App's Requests.
-  ~~~~~
   ~~~~~
   ~~~
   Note: More information about Requests can be
@@ -303,10 +314,10 @@
   ~~~~~
   ~~~
   ### `resources`: 
+  ~~~~~
   ~~~
   This directory is for additional miscellaneous 
   files and directories utilized by the App.
-  ~~~~~
   ~~~~~
   ~~~
   Note: More information about the resources directory can be
@@ -317,10 +328,10 @@
   ~~~~~
   ~~~
   ### `Responses`: 
+  ~~~~~
   ~~~
   This directory is for files that configure an
   App's Responses.
-  ~~~~~
   ~~~~~
   ~~~
   Note: More information about Responses can be
