@@ -224,8 +224,8 @@
   should now be in your `$PATH`.
   ~~~~~
   ~~~
-  The following is a summary of commands used to install and 
-  setup roady:
+  The following is a summary of the commands that were used to 
+  install and setup roady: 
   ~~~~~
   ~~~
   ```
@@ -238,16 +238,13 @@
   ```
   ~~~~~
   ~~~
-  The next step is to start developing roady Apps.
-  ~~~~~
-  ~~~
   # A Brief Introduction To roady Apps
   ~~~~~
   ~~~
-  roady Apps are responsible for implementing the features of a
-  website. An App may provide css stylesheets, utilize javascript,
-  or configure output to be served in response to appropriate
-  requests to any domains the App is built for.
+  roady Apps are responsible for implementing the features 
+  of a website. An App may provide css stylesheets, utilize 
+  javascript, or configure output to be served in response 
+  to appropriate requests to any domains the App is built for.
   ~~~~~
   ~~~
   roady App's are just directories that contain the source code
@@ -258,12 +255,8 @@
   ### roady App Directory Overview
   ~~~~~
   ~~~
-  The following is an overview of the directory structure of a
-  roady App.
-  ~~~~~
-  ~~~
   ```
-  Components.php      css         DynamicOutput    js                
+  Components.php      css         DynamicOutput    js
   OutputComponents    Requests    resources        Responses
   ```
   ~~~~~
@@ -274,8 +267,8 @@
   This file is used to build an App for a domain.
   ~~~~~
   ~~~
-  Note: Building an App for a domain makes the features provided by
-  the App available to the domain the App is built for.
+  Note: Building an App for a domain makes the features provided
+  by the App available to the domain the App is built for.
   ~~~
   Note: More information about the Components.php file can be
   obtained locally at the command line via:
@@ -291,8 +284,8 @@
   This directory is for an App's css stylesheets.
   ~~~~~
   ~~~
-  Note: More information about defining css stylesheets for an App
-  can be obtained locally at the command line via:
+  Note: More information about defining css stylesheets for an 
+  App can be obtained locally at the command line via:
   ~~~
   `rig --help css`. 
   ~~~~~
@@ -318,12 +311,11 @@
   This directory is for an App's javascript files.
   ~~~~~
   ~~~
-  Note: More information about utilizing javascript in an App can 
-  be obtained locally at the command line via:
+  Note: More information about utilizing javascript in an App 
+  can be obtained locally at the command line via:
   ~~~
   `rig --help js`. 
-  ~~~~~
-  ~~~~~
+  ~~~~~ ~~~~~
   ~~~
   ### OutputComponents: 
   ~~~~~
@@ -388,10 +380,13 @@
   `rig --configure-app-output`.
   ~~~~~
   ~~~
-  Once created, an App can be built for a domain by executing the 
-  App's Components.php via `php`. For example:
+  Once created, an App can be built for a domain by executing 
+  the App's Components.php via `php`. For example:
   ~~~
-  `php ~/roady/Apps/HelloWorld/Components.php 'http://localhost:8080'`
+  ```
+  php ~/roady/Apps/HelloWorld/Components.php \
+      'http://localhost:8080'
+  ```
   ~~~~~
   ~~~~~
   ~~~
@@ -422,10 +417,10 @@
   developing a roady App named HelloWorld.
   ~~~~~
   ~~~
-  Note: In the following examples roady is assumed to be installed
-  in the user's `home` directory. Make sure to adjust the paths
-  used in the following examples if you installed roady at a
-  different path.
+  Note: In the following examples roady is assumed to be 
+  installed in the user's `home` directory. Make sure to 
+  adjust the paths used in the following examples if you 
+  installed roady at a different path.
   ~~~~~
   ~~~
   1. Use `rig --configure-app-output` to create an App named
