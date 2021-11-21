@@ -754,8 +754,9 @@
   to adjust the paths used in the examples appropriately.
   ~~~~~
   ~~~
-  Note: The following examples assume that rig is in your `$PATH`.
-  If it is not, you can temporarily add it to your path via:
+  Note: The following examples assume that rig is in your 
+  `$PATH`. If it is not, you can temporarily add it to 
+  your path via:
   ~~~
   ```
   export PATH="${PATH}:${HOME}/roady/vendor/darling/rig/bin"
@@ -816,7 +817,7 @@
   ```
   ~~~~~
   ~~~
-  ### 4. Create a global stylesheet for the HelloWorld App Package:
+  ### 4. Create a global stylesheet:
   ~~~~~
   ~~~
   ```
@@ -850,8 +851,8 @@
   ```
   ~~~~~
   ~~~
-  Note: The `~/HelloWorld/css/hw-global-styles.css` stylesheet will
-  be copied to the HelloWorld App's css directory when the
+  Note: The `~/HelloWorld/css/hw-global-styles.css` stylesheet 
+  will be copied to the HelloWorld App's css directory when the
   HelloWorld App Package is made into the HelloWorld app via
   `rig --make-app-package`. 
   ~~~~~
@@ -1017,7 +1018,9 @@
       text-shadow: -1px 1px #00ffc3;
   }
 
-  .hw-container a, .hw-container a:link, .hw-container a:visited {
+  .hw-container a, 
+  .hw-container a:link, 
+  .hw-container a:visited {
       text-decoration: none;
       color: white;
   }
@@ -1028,8 +1031,8 @@
   ```
   ~~~~~
   ~~~
-  Open http://localhost:8080 in a web browser to view the modified
-  HelloWorld App.
+  Open http://localhost:8080 in a web browser to view the 
+  modified HelloWorld App.
   ~~~~~
   ~~~
   # Save the HelloWorld App as an App Package
@@ -1052,16 +1055,16 @@
   roady Apps into App Packages.
   ~~~~~
   ~~~
-  The AppPackager App is provided as an App Package as part of the
-  roadyAppPackages library. This library is installed in roady's
-  vendor directory when composer update is run.
+  The AppPackager App is provided as an App Package as part of 
+  the roadyAppPackages library. This library is installed in 
+  roady's vendor directory when composer update is run.
   ~~~~~
   ~~~
   To use the AppPackager, it first needs to be made via
   `rig --make-app-package`:
   ~~~~~
   ~~~
-  ### 1. Make the AppPackager App Package into the AppPackager App:
+  ### 1. Make the AppPackager App Package:
   ~~~~~
   ~~~
   ```
@@ -1098,12 +1101,12 @@
   ~~~~~
   ~~~~~
   ~~~
-  The AppPackager provides a select form that lists the App's that
-  are installed in roady's Apps directory.
+  The AppPackager provides a select form that lists the App's 
+  that are installed in roady's Apps directory.
   ~~~~~
   ~~~
-  To save the HelloWorld App as an App Package, select it from the
-  list of available App's, and click submit.
+  To save the HelloWorld App as an App Package, select it from 
+  the list of available App's, and click submit.
   ~~~~~
   ~~~
   This will create a App Package for the HelloWorld App at the
@@ -1125,8 +1128,8 @@
   library, and to begin developing roady Apps.
   ~~~~~
   ~~~
-  If roady is installed and rig is in your `$PATH`, the documentation
-  is always available locally via:
+  If roady is installed and rig is in your `$PATH`, the 
+  documentation is always available locally via:
   ~~~
   `rig --help`
   ~~~~~
