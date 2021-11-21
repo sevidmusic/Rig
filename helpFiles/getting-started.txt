@@ -674,8 +674,8 @@
   ### css
   ~~~~~
   ~~~
-  The `css` directory is where an App Package's stylesheets should
-  be placed.
+  The `css` directory is where an App Package's stylesheets 
+  should be placed.
   ~~~~~
   ~~~
   ### DynamicOutput
@@ -700,8 +700,9 @@
   when `rig --make-app-package` is run.
   ~~~~~
   ~~~
-  Note: `make.sh` must define at least one call to `rig --new-app`
-  that specifies a name that matches the name of the AppPackage.
+  Note: `make.sh` must define at least one call to 
+  `rig --new-app` that specifies a name that matches 
+  the name of the AppPackage.
   ~~~
   WARNING: The call to `rig --new-app` must be declared on
   one line or rig will complain when `rig --make-app-package`
