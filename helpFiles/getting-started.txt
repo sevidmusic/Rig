@@ -112,7 +112,7 @@
   The roadyAppPackages library is a collection of roady App 
   Packages that can be made into roady Apps via:
   ~~~
-  `rig --make-app-package`.
+  `rig --make-app-package`
   ~~~~~
   ~~~
   Note: Once roady is installed and setup, more information about
@@ -462,8 +462,8 @@
   ~~~~~
   ~~~~~
   ~~~
-  3. Use `rig --start-server` to start a local development server on 
-  port `8080`: 
+  3. Use `rig --start-server` to start a local development 
+  server on port `8080`: 
   ~~~
   ```
   rig --start-server \
@@ -485,21 +485,24 @@
   can still manually open http://localhost:8080 in a web browser.
   ~~~~~
   ~~~
-  Note: `xdg-open` is a command that will open a url in the user's 
-  default browser, if it is not available on your system then the
-  `--open-in-broswer` flag will not work. The `xdg-open` command is 
-  not associated with roady or rig, more information about the 
-  `xdg-open` command can be found online at:
+  Note: `xdg-open` is a command that will open a url in the 
+  user's default browser, if it is not available on your system 
+  then the `--open-in-broswer` flag will not work. The `xdg-open`
+  command is not associated with roady or rig, more information 
+  about the `xdg-open` command can be found online at:
 
   https://linux.die.net/man/1/xdg-open
   ~~~~~
   ~~~~~
   ~~~
   4. Use a text editor or IDE to edit HelloWorld's output:
-  ~~~```vim ~/roady/Apps/HelloWorld/DynamicOutput/HelloWorld.php```~~~~~
   ~~~
-  And revise `~/roady/Apps/HelloWorld/DynamicOutput/HelloWorld.php`'s
-  content to be:
+  ```
+  vim ~/roady/Apps/HelloWorld/DynamicOutput/HelloWorld.php
+  ```
+  ~~~~~
+  ~~~
+  And revise `HelloWorld.php`'s content to be:
   ~~~~~
   ~~~
   ```
@@ -547,12 +550,17 @@
   ```
   body {
       background: #140a09;
-      background-image: linear-gradient(45deg, #00bbff 25%, transparent 25%),
-                        linear-gradient(-45deg, #020203 25%, transparent 25%),
-                        linear-gradient(45deg, transparent 75%, #00bbff 75%),
-                        linear-gradient(-45deg, transparent 75%, #020203 75%);
+      background-image: 
+          linear-gradient(45deg, #00bbff 25%, transparent 25%),
+          linear-gradient(-45deg, #020203 25%, transparent 25%),
+          linear-gradient(45deg, transparent 75%, #00bbff 75%),
+          linear-gradient(-45deg, transparent 75%, #020203 75%);
       background-size: 10rem 10rem;
-      background-position: 0 0, 0 10rem, 10rem -10rem, -10rem 0rem;
+      background-position: 
+          0 0, 
+          0 10rem, 
+          10rem -10rem, 
+          -10rem 0rem;
       color: #00ffc3;
       font-size: 1.2rem;
       font-family: monospace;
@@ -574,34 +582,38 @@
       text-shadow: -1px 1px #00ffc3;
   }
 
-  .hw-container a, .hw-container a:link, .hw-container a:visited {
+  .hw-container a, 
+  .hw-container a:link, 
+  .hw-container a:visited {
       text-decoration: none;
       color: white;
   }
 
-  .hw-container a:hover, .hw-container a:active {
+  .hw-container a:hover, 
+  .hw-container a:active {
       color: #00bbff;
   }
   ```
   ~~~~~
   ~~~
-  Note: Apps can define stylesheets that are served in response 
-  to all requests to the domains an App is built for by including 
-  the string `global` in the stylesheets name. If the stylesheet's 
-  name does not contain the string `global` then the stylesheet 
-  will only be served in response to requests where the value of 
-  `$_GET['request']` matches the name of the stylesheet.
+  Note: Apps can define stylesheets that are served in 
+  response to all requests to the domains an App is built 
+  for by including the string `global` in the stylesheets 
+  name. If the stylesheet's name does not contain the string 
+  `global` then the stylesheet will only be served in response 
+  to requests where the value of `$_GET['request']` matches the 
+  name of the stylesheet.
   ~~~
-  Note: More information about using css stylesheets in roady Apps
-  can be obtained via:
+  Note: More information about using css stylesheets in roady 
+  Apps can be obtained via:
   ~~~
   `rig --help css`
   ~~~~~
   ~~~~~
   ~~~~~
   ~~~
-  The HelloWorld App should now exist in roady's Apps directory, 
-  and it's output should be accessible from a web browser at the 
+  The HelloWorld App should now exist in roady's Apps directory,
+  and it's output should be accessible from a web browser at the
   following local urls:
   ~~~
   http://localhost:8080/
