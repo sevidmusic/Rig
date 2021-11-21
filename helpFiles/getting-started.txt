@@ -486,10 +486,10 @@
   ~~~~~
   ~~~
   Note: `xdg-open` is a command that will open a url in the
-  user's default browser, if `xdg-open` is not available on 
-  your system then the `--open-in-broswer` flag will not work. 
-  The `xdg-open` command is not associated with roady or rig, 
-  more information about the `xdg-open` command can be found 
+  user's default browser, if `xdg-open` is not available on
+  your system then the `--open-in-broswer` flag will not work.
+  The `xdg-open` command is not associated with roady or rig,
+  more information about the `xdg-open` command can be found
   online at:
   ~~~
   https://linux.die.net/man/1/xdg-open
@@ -632,7 +632,35 @@
   ~~~~~
   ~~~~~
   ~~~
-  # A Brief Introduction To roady App Packages
+  ### HelloWorld App command summary:
+  ~~~~~
+  ~~~
+  The following is a summary of the commands used in the examples
+  above to create a HelloWorld App, build it for a domain, start
+  a development server, and modify HelloWorld's source code:
+  ~~~~~
+  ~~~
+  ```
+  rig --configure-app-output \
+      --for-app HelloWorld \
+      --name HelloWorld \
+      --output '<p>Hello World</p>' \
+      --relative-urls '/'
+
+  php ~/roady/Apps/HelloWorld/Components.php \
+      'http://localhost:8080'
+
+  rig --start-server \
+      --port 8080 \
+      --open-in-browser
+
+  vim ~/roady/Apps/HelloWorld/DynamicOutput/HelloWorld.php
+
+  vim ~/roady/Apps/HelloWorld/css/hw-global-styles.css
+  ```
+  ~~~~~
+  ~~~
+  # App Packages
   ~~~~~
   ~~~
   It is possible to develop, and save, Apps as App Packages.
@@ -646,11 +674,10 @@
   a roady App.
   ~~~~~
   ~~~
-  Instead of making individual calls to rig manually at 
-  the command line, the necessary calls to rig can be 
-  defined together in an App Package's `make.sh`, and 
-  run all at once by making the App Package into an App 
-  via `rig --make-app-package`.
+  Instead of making individual calls to rig manually at the
+  command line, the necessary calls to rig can be defined together
+  in an App Package's `make.sh`, and run all at once by making
+  the App Package into an App via `rig --make-app-package`.
   ~~~~~
   ~~~
   An App Package can also provide css files, javascript files,
@@ -676,8 +703,8 @@
   ### css
   ~~~~~
   ~~~
-  The `css` directory is where an App Package's stylesheets 
-  should be placed.
+  The `css` directory is where an App Package's stylesheets should
+  be placed.
   ~~~~~
   ~~~
   ### DynamicOutput
@@ -702,9 +729,8 @@
   when `rig --make-app-package` is run.
   ~~~~~
   ~~~
-  Note: `make.sh` must define at least one call to 
-  `rig --new-app` that specifies a name that matches 
-  the name of the AppPackage.
+  Note: `make.sh` must define at least one call to `rig --new-app`
+  that specifies a name that matches the name of the AppPackage.
   ~~~
   WARNING: The call to `rig --new-app` must be declared on
   one line or rig will complain when `rig --make-app-package`
@@ -756,9 +782,8 @@
   to adjust the paths used in the examples appropriately.
   ~~~~~
   ~~~
-  Note: The following examples assume that rig is in your 
-  `$PATH`. If it is not, you can temporarily add it to 
-  your path via:
+  Note: The following examples assume that rig is in your `$PATH`.
+  If it is not, you can temporarily add it to your path via:
   ~~~
   ```
   export PATH="${PATH}:${HOME}/roady/vendor/darling/rig/bin"
@@ -819,7 +844,7 @@
   ```
   ~~~~~
   ~~~
-  ### 4. Create a global stylesheet:
+  ### 4. Create a global stylesheet for the HelloWorld App Package:
   ~~~~~
   ~~~
   ```
@@ -853,8 +878,8 @@
   ```
   ~~~~~
   ~~~
-  Note: The `~/HelloWorld/css/hw-global-styles.css` stylesheet 
-  will be copied to the HelloWorld App's css directory when the
+  Note: The `~/HelloWorld/css/hw-global-styles.css` stylesheet will
+  be copied to the HelloWorld App's css directory when the
   HelloWorld App Package is made into the HelloWorld app via
   `rig --make-app-package`. 
   ~~~~~
@@ -1020,9 +1045,7 @@
       text-shadow: -1px 1px #00ffc3;
   }
 
-  .hw-container a, 
-  .hw-container a:link, 
-  .hw-container a:visited {
+  .hw-container a, .hw-container a:link, .hw-container a:visited {
       text-decoration: none;
       color: white;
   }
@@ -1033,8 +1056,8 @@
   ```
   ~~~~~
   ~~~
-  Open http://localhost:8080 in a web browser to view the 
-  modified HelloWorld App.
+  Open http://localhost:8080 in a web browser to view the modified
+  HelloWorld App.
   ~~~~~
   ~~~
   # Save the HelloWorld App as an App Package
@@ -1057,16 +1080,16 @@
   roady Apps into App Packages.
   ~~~~~
   ~~~
-  The AppPackager App is provided as an App Package as part of 
-  the roadyAppPackages library. This library is installed in 
-  roady's vendor directory when composer update is run.
+  The AppPackager App is provided as an App Package as part of the
+  roadyAppPackages library. This library is installed in roady's
+  vendor directory when composer update is run.
   ~~~~~
   ~~~
   To use the AppPackager, it first needs to be made via
   `rig --make-app-package`:
   ~~~~~
   ~~~
-  ### 1. Make the AppPackager App Package:
+  ### 1. Make the AppPackager App Package into the AppPackager App:
   ~~~~~
   ~~~
   ```
@@ -1103,12 +1126,12 @@
   ~~~~~
   ~~~~~
   ~~~
-  The AppPackager provides a select form that lists the App's 
-  that are installed in roady's Apps directory.
+  The AppPackager provides a select form that lists the App's that
+  are installed in roady's Apps directory.
   ~~~~~
   ~~~
-  To save the HelloWorld App as an App Package, select it from 
-  the list of available App's, and click submit.
+  To save the HelloWorld App as an App Package, select it from the
+  list of available App's, and click submit.
   ~~~~~
   ~~~
   This will create a App Package for the HelloWorld App at the
@@ -1130,7 +1153,7 @@
   library, and to begin developing roady Apps.
   ~~~~~
   ~~~
-  If roady is installed and rig is in your `$PATH`, the 
+  If roady is installed and rig is in your `$PATH`, the
   documentation is always available locally via:
   ~~~
   `rig --help`
