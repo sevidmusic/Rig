@@ -271,7 +271,7 @@
   by the App available to the domain the App is built for.
   ~~~
   Note: More information about the Components.php file can be
-  obtained locally at the command line via:
+  obtained via:
   ~~~
   `rig --help Components.php`.
   ~~~~~
@@ -285,7 +285,7 @@
   ~~~~~
   ~~~
   Note: More information about defining css stylesheets for an
-  App can be obtained locally at the command line via:
+  App can be obtained via:
   ~~~
   `rig --help css`.
   ~~~~~
@@ -299,7 +299,7 @@
   ~~~~~
   ~~~
   Note: More information about DynamicOutput can be
-  obtained locally at the command line via:
+  obtained via:
   ~~~
   `rig --help DynamicOutput`.
   ~~~~~
@@ -312,7 +312,7 @@
   ~~~~~
   ~~~
   Note: More information about utilizing javascript in an App
-  can be obtained locally at the command line via:
+  can be obtained via:
   ~~~
   `rig --help js`.
   ~~~~~ ~~~~~
@@ -325,7 +325,7 @@
   ~~~~~
   ~~~
   Note: More information about OutputComponents can be
-  obtained locally at the command line via:
+  obtained via:
   ~~~
   `rig --help OutputComponents`.
   ~~~~~
@@ -339,7 +339,7 @@
   ~~~~~
   ~~~
   Note: More information about Requests can be
-  obtained locally at the command line via:
+  obtained via:
   ~~~
   `rig --help Requests`.
   ~~~~~
@@ -353,7 +353,7 @@
   ~~~~~
   ~~~
   Note: More information about the resources directory can be
-  obtained locally at the command line via:
+  obtained via:
   ~~~
   `rig --help resources`.
   ~~~~~
@@ -367,7 +367,7 @@
   ~~~~~
   ~~~
   Note: More information about Responses can be
-  obtained locally at the command line via:
+  obtained via:
   ~~~
   `rig --help Responses`.
   ~~~~~
@@ -430,10 +430,10 @@
   ~~~
   ```
   rig --configure-app-output \
-  --for-app HelloWorld \
-  --name HelloWorld \
-  --output '<p>Hello World</p>' \
-  --relative-urls '/'
+      --for-app HelloWorld \
+      --name HelloWorld \
+      --output '<p>Hello World</p>' \
+      --relative-urls '/'
   ```
   ~~~~~
   ~~~
@@ -450,7 +450,7 @@
   ~~~
   ```
   php ~/roady/Apps/HelloWorld/Components.php \
-  'http://localhost:8080'
+      'http://localhost:8080'
   ```
   ~~~~~
   ~~~
@@ -467,8 +467,8 @@
   ~~~
   ```
   rig --start-server \
-  --port 8080 \
-  --open-in-browser
+      --port 8080 \
+      --open-in-browser
   ```
   ~~~~~
   ~~~
@@ -486,12 +486,14 @@
   ~~~~~
   ~~~
   Note: `xdg-open` is a command that will open a url in the
-  user's default browser, if it is not available on your system
-  then the `--open-in-broswer` flag will not work. The `xdg-open`
-  command is not associated with roady or rig, more information
-  about the `xdg-open` command can be found online at:
-
+  user's default browser, if `xdg-open` is not available on 
+  your system then the `--open-in-broswer` flag will not work. 
+  The `xdg-open` command is not associated with roady or rig, 
+  more information about the `xdg-open` command can be found 
+  online at:
+  ~~~
   https://linux.die.net/man/1/xdg-open
+  ~~~~~
   ~~~~~
   ~~~~~
   ~~~
