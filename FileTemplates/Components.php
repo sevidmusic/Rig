@@ -5,41 +5,54 @@
  *
  * This file is used to configure an AppBuilder for the App.
  *
- * The AppBuilder is responsible for building the App for a domian when the this
- * file is executed via php.
+ * An AppBuilder is responsible for building an App for a domain
+ * when an App's Components.php is executed via php.
  *
  *     For example:
  *
  *     php Apps/APPNAME/Components.php
  *
- * Unless you modify this file's logic, the domain the App is built for will be
- * determined as follows:
+ * Unless you modify this file, the domain the App is built for 
+ * will be determined as follows:
  *
- *     1. If a domain is specified via $argv[1] the App will be built
- *        for that domain.
+ *     1. If a domain is specified via $argv[1] the App will be 
+ *        built for that domain.
  *
  *        For example:
  *
- *            php Apps/APPNAME/Components.php 'https://specified.domain'
+ *            php Apps/APPNAME/Components.php \
+ *                'https://roady.tech'
  *
  *        Would build the App for the domain:
  *
- *            https://specified.domain
+ *            https://roady.tech
  *
- *     2. If a domain is not specified via $argv[1] then the App will be built
- *        for the hard coded domain passed as the $domain parameter to this
- *        files call to the AppBuilder::getAppsAppComponentsFactory() method:
+ *     2. If a domain is not specified via $argv[1], then 
+ *        the App will be built for the hard coded domain 
+ *        supplied as the $domain parameter to this files 
+ *        call to the AppBuilder::getAppsAppComponentsFactory() 
+ *        method.
  *
- *            AppBuilder::buildApp(
- *                AppBuilder::getAppsAppComponentsFactory($appName, $domain)
- *                                                                     ^
- *            );
- *
- *     3. If a domain is not specified via $argv[1], and the hard-coded default
- *        domain is either not defined, or defined as an empty string, then the
- *        App will be built for the domain:
+ *     3. If a domain is not specified via $argv[1], and the 
+ *        hard-coded default $domain is empty, then the App 
+ *        will be built for the domain:
  *
  *            http://localhost:8080
+ *
+ * WARNING: There is a bug that causes build issues if the 
+ * domain supplied to Components.php contains an ending
+ * forward slash.
+ *
+ * For example, the following hypothetical examples may fail to 
+ * build the App:
+ *
+ *    php Apps/APPNAME/Components.php 
+ *        'https://domain.with.ending.forward.slash/'
+ *
+ *    php Apps/APPNAME/Components.php 
+ *        'http://localhost:8989/'
+ *
+ * @see https://github.com/sevidmusic/roady/issues/193
  */
 
 use roady\classes\utility\AppBuilder;
@@ -50,7 +63,9 @@ require(
     strval(
         realpath(
             str_replace(
-                'Apps' . DIRECTORY_SEPARATOR . strval(basename(__DIR__)),
+                'Apps' . DIRECTORY_SEPARATOR . strval(
+                    basename(__DIR__)
+                ),
                 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php',
                 __DIR__
             )
@@ -61,31 +76,43 @@ require(
 AppBuilder::buildApp(
     AppBuilder::getAppsAppComponentsFactory(
         /**
-         * @param string $appName
-         * Configure the App's name. The App's name should match the App's
-         * directory's name.
+         * @param string $appName The App's name should match the 
+         *                        App's directory name.
+         *
+         * WARNING: If you modify this file, it is 
+         * recommended that escapeshellarg() is still
+         * used to filter the value supplied to $appName
+         * parameter.
          */
-        strval(basename(__DIR__)),
+        escapeshellarg(strval(basename(__DIR__))),
         (
             /**
-             * @param string $domain
-             * Configure the domain to build the App for.
-             * App will be built for Domain specified via $argv[1] if provided.
+             * @param string $domain The domain to build the App 
+             *                       for.
+             *                       
+             *                       The App will be built for 
+             *                       the Domain specified via 
+             *                       $argv[1] if $argv[1] is 
+             *                       supplied.
              *
-             * If $argv[1] is not provided, and the
-             * AppBuilder::getAppsAppComponentsFactory() method's $domain
-             * parameter is set, the App will be built for the domain passed
-             * to the $domain parameter.
+             *                       If $argv[1] is not supplied, 
+             *                       and the $domain parameter is 
+             *                       hard coded, the App will be
+             *                       built for the hard coded
+             *                       domain. 
              *
-             * Note: If $argv[1] is not specified, and the $domain parameter
-             * is an empty string, then the AppBuilder will build the App for the
-             * domain:
+             *                       If $argv[1] is not specified,
+             *                       and the hard coded $domain 
+             *                       parameter is empty, then the 
+             *                       AppBuilder will build the 
+             *                       App for the domain:
              *
-             *     http://localhost:8080
+             *                       http://localhost:8080
              *
-             * WARNING: If you modify this file, it is recomeneded that you
-             *          still pass the value you use for the $domain parameter to
-             *          escapeshellarg().
+             * WARNING: If you modify this file, it is 
+             * recommended that escapeshellarg() is still
+             * used to filter the value supplied to $domain
+             * parameter.
              */
             escapeshellarg($argv[1] ?? '_DOMAIN_')
         )

@@ -2,9 +2,9 @@
   # Getting Started
   ~~~~~
   ~~~
-  The following examples demonstrate how to install and setup
-  roady, and provide a brief introduction to roady Apps and
-  App Packages.
+  The following examples demonstrate how to install and 
+  setup roady, and provide a introduction to roady Apps 
+  and App Packages.
   ~~~~~
   ~~~
   Note: roady requires `php >= 8`
@@ -207,10 +207,8 @@
   ```
   ~~~~~
   ~~~
-  Note: `less` is not associated with roady or rig. The `less`
-  command is used in the example to make it easier to view the
-  output of `rig --help`. More information about the `less`
-  command can be found online at:
+  Note: `less` is not associated with roady or rig. More 
+  information about the `less` command can be found online at:
   ~~~
   https://man7.org/linux/man-pages/man1/less.1.html
   ~~~~~
@@ -238,7 +236,7 @@
   ```
   ~~~~~
   ~~~
-  # A Brief Introduction To roady Apps
+  # Introduction To roady Apps
   ~~~~~
   ~~~
   roady Apps are responsible for implementing the features
