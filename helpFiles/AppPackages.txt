@@ -14,9 +14,10 @@
   ~~~~~
   ~~~
   Instead of making individual calls to rig manually at the
-  command line, the necessary calls to rig can be defined together
-  in an App Package's `make.sh`, and run all at once by making
-  the App Package into an App via `rig --make-app-package`.
+  command line, the necessary calls to rig can be defined 
+  together in an App Package's `make.sh`, and run all at 
+  once by making the App Package into an App via
+  `rig --make-app-package`.
   ~~~~~
   ~~~
   An App Package can also provide css files, javascript files,
