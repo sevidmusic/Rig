@@ -91,7 +91,7 @@ AppBuilder::buildApp(
              *                       for.
              *                       
              *                       The App will be built for 
-             *                       the Domain specified via 
+             *                       the domain specified via 
              *                       $argv[1] if $argv[1] is 
              *                       supplied.
              *
