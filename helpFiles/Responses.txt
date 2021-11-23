@@ -211,3 +211,15 @@
   that can be used to serve output in response to all requests to
   a domain.
   ~~~~~
+  ~~~
+  ### Example: Create an App, a Response, and a GlobalResponse
+  ~~~~~
+  ~~~
+  ```
+  rig --new-app --name Foo
+
+  rig --new-response \
+      --for-app Foo \
+      --name Bar 
+  ```
+  ~~~~~
