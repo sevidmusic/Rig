@@ -6,10 +6,10 @@
   in the App's `DynamicOutput` directory.
   ~~~~~
   ~~~
-  These files can be php files, html files, plaintext files, or
+  These files can be php files, html files, plain text files, or
   any other type of file.
   ~~~~~
   ~~~
-  php files will be interpreted as php, all other files will
-  be interpreted as plain text.
+  Note: php files will be interpreted as executable php code, all 
+  other files will be interpreted as plain text.
   ~~~~~

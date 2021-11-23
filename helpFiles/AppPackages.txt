@@ -5,22 +5,23 @@
   It is possible to develop, and save, Apps as App Packages.
   ~~~~~
   ~~~
-  roady App Packages can be thought of as blueprints 
-  for roady Apps. 
+  roady App Packages can be thought of as blueprints
+  for roady Apps.
   ~~~~~
   ~~~
-  rig is likely to be used frequently during the development of 
+  rig is likely to be used frequently during the development of
   a roady App.
   ~~~~~
   ~~~
-  Instead of making individual calls to rig manually at the 
-  command line, the necessary calls to rig can be defined together 
-  in an App Package's `make.sh`, and run all at once by making 
-  the App Package into an App via `rig --make-app-package`.
+  Instead of making individual calls to rig manually at the
+  command line, the necessary calls to rig can be defined 
+  together in an App Package's `make.sh`, and run all at 
+  once by making the App Package into an App via
+  `rig --make-app-package`.
   ~~~~~
   ~~~
-  An App Package can also provide css files, javascript files,
-  DynamicOutput files, or any other resources that will be used 
+  An App Package may also provide css files, javascript files,
+  DynamicOutput files, or any other resources that will be used
   by the App that the App Package is a blueprint for.
   ~~~~~
   ~~~
@@ -42,37 +43,38 @@
   ### css
   ~~~~~
   ~~~
-  The `css` directory is where an App Package's stylesheets should 
-  be placed. 
+  The `css` directory is where an App Package's stylesheets 
+  should be placed.
   ~~~~~
   ~~~
   ### DynamicOutput
   ~~~~~
   ~~~
-  The `DynamicOutput` directory is where an App Package's 
-  DynamicOutput files should be placed. 
+  The `DynamicOutput` directory is where an App Package's
+  DynamicOutput files should be placed.
   ~~~~~
   ~~~
   ### js
   ~~~~~
   ~~~
-  The `js` directory is where an App Package's javascript files 
-  should be placed. 
+  The `js` directory is where an App Package's javascript files
+  should be placed.
   ~~~~~
   ~~~
   ### make.sh
   ~~~~~
   ~~~
-  `make.sh` is a bash script that defines the calls to rig 
+  `make.sh` is a bash script that defines the calls to rig
   that will be used to make the App Package into a roady App
-  when `rig --make-app-package` is run. 
-  ~~~~~ 
+  when `rig --make-app-package` is run.
+  ~~~~~
   ~~~
-  Note: `make.sh` must define at least one call to `rig --new-app`
-  that specifies a name that matches the name of the AppPackage.
+  Note: `make.sh` must define at least one call to 
+  `rig --new-app` that specifies a name that matches 
+  the name of the AppPackage.
   ~~~
-  WARNING: The call to `rig --new-app` must be declared on 
-  one line or rig will complain when `rig --make-app-package` 
+  WARNING: The call to `rig --new-app` must be declared on
+  one line or rig will complain when `rig --make-app-package`
   is run. This only applies to the call to `rig --new-app`.
   ~~~~~
   The following shows an incorrect, and a correct example of a
@@ -81,9 +83,9 @@
   Incorrect:
   ```
   #!/bin/bash
-  
+ 
   set -o posix
-  
+ 
   rig --new-app \
       --name SomeRandomName \
       --domain "http://localhost:8080"
@@ -93,9 +95,9 @@
   Correct:
   ```
   #!/bin/bash
-  
+ 
   set -o posix
-  
+ 
   rig --new-app --name HelloWorld --domain "http://localhost:8080"
   ```
   ~~~~~
@@ -112,7 +114,7 @@
   ~~~~~
   ~~~
   The following examples demonstrate how to develop a HelloWorld
-  App as an App Package, make it into an App, modify it, and then 
+  App as an App Package, make it into an App, modify it, and then
   save it by converting it back into an App Package.
   ~~~~~
   ~~~
@@ -121,8 +123,9 @@
   to adjust the paths used in the examples appropriately.
   ~~~~~
   ~~~
-  Note: The following examples assume that rig is in your `$PATH`.
-  If it is not, you can temporarily add it to your path via:
+  Note: The following examples assume that rig is in your 
+  `$PATH`. If it is not, you can temporarily add it to your 
+  path via:
   ~~~
   ```
   export PATH="${PATH}:${HOME}/roady/vendor/darling/rig/bin"
@@ -169,16 +172,16 @@
   ~~~
   ```
   #!/bin/bash
-  
+ 
   set -o posix
-  
+ 
   rig --new-app --name HelloWorld --domain 'http://localhost:8080'
 
   rig --configure-app-output \
       --for-app HelloWorld \
       --name HelloWorld \
       --output '<p>Hello World</p>' \
-      --relative-urls 'index.php' '/' 
+      --relative-urls 'index.php' '/'
 
   ```
   ~~~~~
@@ -204,7 +207,7 @@
       margin: 0;
       font-family: monospace;
   }
-  
+ 
   p {
       text-align: center;
       text-shadow: -2px 1px #2f0b02,
@@ -218,10 +221,10 @@
   ~~~~~
   ~~~
   Note: The `~/HelloWorld/css/hw-global-styles.css` stylesheet will
-  be copied to the HelloWorld App's css directory when the 
-  HelloWorld App Package is made into the HelloWorld app via 
-  `rig --make-app-package`.  
-  ~~~~~ 
+  be copied to the HelloWorld App's css directory when the
+  HelloWorld App Package is made into the HelloWorld app via
+  `rig --make-app-package`. 
+  ~~~~~
   ~~~
   # Make the HelloWorld App Package into an App:
   ~~~~~
@@ -263,7 +266,7 @@
   ```
   ~~~~~
   ~~~
-  Note: If a development server is already running for 
+  Note: If a development server is already running for
   http://localhost:8080, then this step can be skipped.
   ~~~
   Note: To view the currently active development servers use:
@@ -275,19 +278,19 @@
   ~~~~~
   ~~~~~
   ~~~
-  Note: If http://localhost:8080 does not open in a 
-  browser automatically, then open a browser and navigate 
-  to http://localhost:8080 manually. 
-  ~~~~~  
+  Note: If http://localhost:8080 does not open in a
+  browser automatically, then open a browser and navigate
+  to http://localhost:8080 manually.
+  ~~~~~ 
   ~~~
-  # Modify the HelloWorld App 
+  # Modify the HelloWorld App
   ~~~~~
   ~~~
   ### 1. Edit `~/roady/Apps/HelloWorld/DynamicOutput/HelloWorld.php`:
   ~~~~~
   ~~~
   ```
-  vim ~/roady/Apps/HelloWorld/DynamicOutput/HelloWorld.php 
+  vim ~/roady/Apps/HelloWorld/DynamicOutput/HelloWorld.php
   ```
   ~~~~~
   ~~~
@@ -298,22 +301,22 @@
   <div class="hw-container">
       <h1>Roady</h1>
       <p>
-          roady is a tool designed to aid in the development of 
+          roady is a tool designed to aid in the development of
           websites.
       </p>
       <p>
-          With roady, the features of a website are implemented 
+          With roady, the features of a website are implemented
           by small niche applications called Apps.
       </p>
       <p>
-          roady Apps may provide css stylesheets, utilize 
-          javascript, and may configure output to be served in 
-          response to appropriate requests to a website's 
+          roady Apps may provide css stylesheets, utilize
+          javascript, and may configure output to be served in
+          response to appropriate requests to a website's
           domain.
       </p>
       <p>
-          Multiple websites can run on a single installation of 
-          roady, each making use of one or more roady Apps. 
+          Multiple websites can run on a single installation of
+          roady, each making use of one or more roady Apps.
       </p>
       <p>
           For a guide on getting started with roady visit:
@@ -342,27 +345,30 @@
   body {
       background: #140a09;
       background-image: linear-gradient(
-                            45deg, 
-                            #00bbff 25%, 
+                            45deg,
+                            #00bbff 25%,
                             transparent 25%
                         ),
                         linear-gradient(
-                            -45deg, 
-                            #020203 25%, 
+                            -45deg,
+                            #020203 25%,
                             transparent 25%
                         ),
                         linear-gradient(
-                            45deg, 
-                            transparent 75%, 
+                            45deg,
+                            transparent 75%,
                             #00bbff 75%
                         ),
                         linear-gradient(
-                            -45deg, 
-                            transparent 75%, 
+                            -45deg,
+                            transparent 75%,
                             #020203 75%
                         );
       background-size: 10rem 10rem;
-      background-position: 0 0, 0 10rem, 10rem -10rem, -10rem 0rem;
+      background-position: 0 0, 
+                           0 10rem, 
+                           10rem -10rem, 
+                           -10rem 0rem;
       color: #00ffc3;
       font-size: 1.2rem;
       font-family: monospace;
@@ -395,20 +401,20 @@
   ```
   ~~~~~
   ~~~
-  Open http://localhost:8080 in a web browser to view the modified
-  HelloWorld App.
+  Open http://localhost:8080 in a web browser to view the 
+  modified HelloWorld App.
   ~~~~~
   ~~~
   # Save the HelloWorld App as an App Package
   ~~~~~
   ~~~
-  At this point, the HelloWorld App has been made from the 
-  HelloWorld App Package, built for the local domain 
+  At this point, the HelloWorld App has been made from the
+  HelloWorld App Package, built for the local domain
   http://localhost:8080, and modified.
   ~~~~~
   ~~~
-  In order to save the modified HelloWorld App as an App Package 
-  with the modifications reflected, the AppPackager App will be 
+  In order to save the modified HelloWorld App as an App Package
+  with the modifications reflected, the AppPackager App will be
   needed.
   ~~~~~
   ~~~
@@ -419,9 +425,9 @@
   roady Apps into App Packages.
   ~~~~~
   ~~~
-  The AppPackager App is provided as an App Package as part of the 
-  roadyAppPackages library. This library is installed in roady's 
-  vendor directory when composer update is run. 
+  The AppPackager App is provided as an App Package as part of 
+  the roadyAppPackages library. This library is installed in 
+  roady's vendor directory when composer update is run.
   ~~~~~
   ~~~
   To use the AppPackager, it first needs to be made via
@@ -447,10 +453,10 @@
   ~~~~~
   ~~~
   Note: The AppPackager needs to be built for the local domain
-  http://localhost:8080 so that it can be used to convert the 
+  http://localhost:8080 so that it can be used to convert the
   HelloWorld App into an App Package.
   ~~~
-  WARNING: The App Packager will not work unless it is built for 
+  WARNING: The App Packager will not work unless it is built for
   the same domain as the App to convert into an App Package.
   ~~~~~
   ~~~~~

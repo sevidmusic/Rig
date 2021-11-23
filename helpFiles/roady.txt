@@ -24,7 +24,7 @@
   ~~~~~
   ~~~~~
   ~~~
-  # Quick Installation, Setup, & Hello World Video Tutorial
+  # Quick Installation, Setup, & Hello World Video 
   ~~~~~
   ~~~
   https://roadydemos.us-east-1.linodeobjects.com/QuickInstallSetupHelloWorldFinal.webm
@@ -40,22 +40,20 @@
   Note: roady requires `php` >= `8.0`
   ~~~~~
   ~~~
-  Note: The shell used in the examples is `bash`
+  Note: The `Linux command line` is used heavily in the examples, 
+  and the `shell` used in the examples is `bash`.
   ~~~~~
   ~~~
-  Note: The following examples only demonstrate the necessary
-  commands to run at the command line, they do not provide 
-  detailed information about the commands being executed.
-  ~~~
-  For a more detailed guide on getting started with roady visit:
+  Note: The following examples are brief. For a more detailed 
+  guide on getting started with roady visit:
   ~~~
   https://roady.tech/index.php?request=getting-started
   ~~~~~
-  Or, use `rig --help getting-started` to view the getting started
-  documentation locally from the command line.
   ~~~
-  Note: roady must be installed, and `rig` must be in your `$PATH` 
-  in order to use `rig`.
+  Note: If roady is installed, and `rig` is in your `$PATH`, then
+  the getting started documentation can be accessed locally via:
+  ~~~
+  `rig --help getting-started`
   ~~~~~
   ~~~~~
   ~~~~~
@@ -100,8 +98,8 @@
   ```
   ~~~~~
   ~~~
-  The output of the `HelloWorld` App should now be available at the
-  following local urls: 
+  The output of the `HelloWorld` App should now be available at 
+  the following local urls: 
   ~~~
   http://localhost:8080
   ~~~~~
@@ -111,6 +109,30 @@
   ~~~
   http://localhost:8080/index.php?request=HelloWorld
   ~~~~~
+  ~~~~~
+  ~~~
+  ### Install, setup, and Hello World command summary:
+  ~~~~~
+  ~~~
+  The following is a summary of the commands used in the examples
+  above to install and setup roady, and create a HelloWorld app:
+  ~~~~~
+  ~~~
+  ```
+  cd ~/
+  git clone https://github.com/sevidmusic/roady.git
+  cd ~/roady
+  composer update
+  export PATH="${PATH}:${HOME}/roady/vendor/darling/rig/bin"
+  rig --configure-app-output \
+      --for-app HelloWorld \
+      --name HelloWorld \
+      --output 'Hello World' \
+      --relative-urls '/'
+  php ~/roady/Apps/HelloWorld/Components.php \
+      'http://localhost:8080'
+  rig --start-server --open-in-browser
+  ```
   ~~~~~
   ~~~
   # A note from the developer:

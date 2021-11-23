@@ -1,484 +1,422 @@
   ~~~
-  # Apps:
+  # Apps
   ~~~~~
   ~~~
-  Apps implement specific features, and can be used by one or
-  more websites running on a single installation of roady.
+  roady Apps are responsible for implementing the features
+  of a website. An App may provide css stylesheets, utilize
+  javascript, or configure output to be served in response
+  to appropriate requests to any domains the App is built for.
   ~~~~~
   ~~~
-  An App can provide stylesheets, scripts, and can configure
-  output to be served in Response to appropriate Requests to
-  any domains the App is built for.
+  roady App's are just directories that contain the source code
+  and resources required to implement the features provided by
+  an App.
   ~~~~~
   ~~~
-  Apps should be self contained, and should not depend on other Apps.
+  ### roady App Directory Overview
   ~~~~~
   ~~~
-  # For Example:
+  ```
+  Components.php      css         DynamicOutput    js
+  OutputComponents    Requests    resources        Responses
+  ```
   ~~~~~
   ~~~
-  Note: The following examples assume roady is installed at
-  `~/roady`, and that rig is in your `$PATH`. If you need
-  help getting-started use `rig --help getting-started` or
-  view the documentation online at:
+  ### Components.php:
+  ~~~~~
   ~~~
-  https://roady.tech?request=getting-started
+  This file is used to build an App for a domain.
+  ~~~~~
+  ~~~
+  Note: Building an App for a domain makes the features provided
+  by the App available to the domain the App is built for.
+  ~~~
+  Note: More information about the Components.php file can be
+  obtained via:
+  ~~~
+  `rig --help Components.php`.
+  ~~~~~
+  ~~~~~
+  ~~~~~
+  ~~~
+  ### css:
+  ~~~~~
+  ~~~
+  This directory is for an App's css stylesheets.
+  ~~~~~
+  ~~~
+  Note: More information about defining css stylesheets for an
+  App can be obtained via:
+  ~~~
+  `rig --help css`.
+  ~~~~~
+  ~~~~~
+  ~~~
+  ### DynamicOutput:
+  ~~~~~
+  ~~~
+  This directory is for files that generate an
+  App's output.
+  ~~~~~
+  ~~~
+  Note: More information about DynamicOutput can be
+  obtained via:
+  ~~~
+  `rig --help DynamicOutput`.
+  ~~~~~
+  ~~~~~
+  ~~~
+  ### js:
+  ~~~~~
+  ~~~
+  This directory is for an App's javascript files.
+  ~~~~~
+  ~~~
+  Note: More information about utilizing javascript in an App
+  can be obtained via:
+  ~~~
+  `rig --help js`.
+  ~~~~~ ~~~~~
+  ~~~
+  ### OutputComponents:
+  ~~~~~
+  ~~~
+  This directory is for files that configure
+  an App's output.
+  ~~~~~
+  ~~~
+  Note: More information about OutputComponents can be
+  obtained via:
+  ~~~
+  `rig --help OutputComponents`.
+  ~~~~~
+  ~~~~~
+  ~~~
+  ### Requests:
+  ~~~~~
+  ~~~
+  This directory is for files that configure an
+  App's Requests.
+  ~~~~~
+  ~~~
+  Note: More information about Requests can be
+  obtained via:
+  ~~~
+  `rig --help Requests`.
+  ~~~~~
+  ~~~~~
+  ~~~
+  ### `resources`:
+  ~~~~~
+  ~~~
+  This directory is for additional miscellaneous
+  files and directories utilized by the App.
+  ~~~~~
+  ~~~
+  Note: More information about the resources directory can be
+  obtained via:
+  ~~~
+  `rig --help resources`.
+  ~~~~~
+  ~~~~~
+  ~~~
+  ### `Responses`:
+  ~~~~~
+  ~~~
+  This directory is for files that configure an
+  App's Responses.
+  ~~~~~
+  ~~~
+  Note: More information about Responses can be
+  obtained via:
+  ~~~
+  `rig --help Responses`.
+  ~~~~~
+  ~~~~~
+  ~~~
+  # Creating roady Apps
+  ~~~~~
+  ~~~
+  Apps can be created via `rig --new-app`, or
+  `rig --configure-app-output`.
+  ~~~~~
+  ~~~
+  Once created, an App can be built for a domain by executing
+  the App's Components.php via `php`. For example:
+  ~~~
+  ```
+  php ~/roady/Apps/HelloWorld/Components.php \
+      'http://localhost:8080'
+  ```
+  ~~~~~
+  ~~~~~
+  ~~~
+  Note: More information about Apps can be obtained via:
+  ~~~
+  `rig --help Apps`
+  ~~~~~
+  More information about `rig --new-app` can be obtained via:
+  ~~~
+  `rig --help --new-app`
+  ~~~~~
+  More information about `rig --configure-app-output` can be
+  obtained via:
+  ~~~
+  `rig --help --configure-app-output`
+  ~~~~~
+  More information about the Components.php file can be obtained
+  via:
+  ~~~
+  `rig --help Components.php`
   ~~~~~
   ~~~~~
   ~~~
   ### Hello World
   ~~~~~
   ~~~
-  1. Use `rig --configure-app-output` to create a HelloWorld App
-  and configure the output `<p>Hello World</p>` to be served
-  globally:
+  The following example demonstrates how to use rig to begin
+  developing a roady App named HelloWorld.
   ~~~~~
   ~~~
-  ```rig --configure-app-output \
-  --for-app HelloWorld \
-  --name HelloWorld \
-  --output '<p>Hello World</p>' \
-  --global```
+  Note: In the following examples roady is assumed to be
+  installed in the user's `home` directory. Make sure to
+  adjust the paths used in the following examples if you
+  installed roady at a different path.
   ~~~~~
   ~~~
-  Warning: An App named HelloWorld must not already exist or else
-  the example above will fail.
-  ~~~~~
-  ~~~
-  2. Build the HelloWorld App for the local domain:
-  http://localhost:8080
-  ~~~~~
-  ~~~
-  ```php ~/roady/Apps/HelloWorld/Components.php \
-  'http://localhost:8080'```
-  ~~~~~
-  ~~~
-  3. Start a local development server on port 8080 so
-  http://localhost:8080 is accessible locally:
-  ~~~~~
-  ~~~
-  ```rig --start-server --port 8080```
-  ~~~~~
-  ~~~
-  4. Visit http://localhost:8080 in a web browser.
-  ~~~~~
-  ~~~
-  ### RoadyAndRigDocs
-  ~~~~~
-  ~~~
-  An Apps purpose should be focused. The online documentation
-  on https://roady.tech is generated by an App named RoadyAndRigDocs
-  which formats and styles the help files provided by rig so they can
-  be served in Response to appropriate Requests to any domains the
-  RoadyAndRigDocs App is built for.
-  ~~~~~
-  ~~~
-  The RoadyAndRigDocs App does not depend on any other Apps, and
-  can be used alone, or in conjunction with other Apps.
-  ~~~~~
-  ~~~
-  Note: The RoadyAndRigDocs App is part of the roadyAppPackages
-  library which is installed in roady's vendor directory when
-  `composer update` is run, and is available on github:
-  https://github.com/sevidmusic/roadyAppPackages
-  ~~~~~
-  ~~~
-  Note: Any of the App Packages included in the roadyAppPackages
-  library can be made into roady Apps via `rig --make-app-package`.
-  For example, if roady is installed at `~/roady`, then to make
-  the RoadyAndRigDocs App Package from the roadyAppPackages library
-  into a roady App, and build it to run on the local domain
-  http://localhost:8080 you would:
-  ~~~~~
+  1. Use `rig --configure-app-output` to create an App named
+  HelloWorld, and configure the output `<p>Hello World</p>`
+  to be served in response to requests to the root of any
+  domain the HelloWorld App is built for:
   ~~~
   ```
-  rig --make-app-package \
-  --path ~/roady/vendor/darling/roady-app-packages/RoadyAndRigDocs
-  php ~/roady/Apps/RoadyAndRigDocs/Components.php \
-  'http://localhost:8080'
-  rig --start-server --port 8080
+  rig --configure-app-output \
+      --for-app HelloWorld \
+      --name HelloWorld \
+      --output '<p>Hello World</p>' \
+      --relative-urls '/'
   ```
   ~~~~~
   ~~~
-  Note: For more information about `rig --make-app-package` use:
-  `rig --help --make-app-package`
+  Note: More information about `rig --configure-app-output` can
+  be obtained via:
+  ~~~
+  `rig --help --configure-app-output`
+  ~~~~~
+  ~~~~~
   ~~~~~
   ~~~
-  #  roady's Apps directory:
-  ~~~~~
-  ~~~
-  Apps must be placed in roady's Apps directory for them to be
-  available for use. roady's Apps directory will be located in
-  roady's root directory.
-  ~~~~~
-  ~~~
-  For example, if roady is installed at the path `~/roady`, then
-  the Apps directory will be located at the following path:
-  ~~~~~
-  ~~~
-  `~/roady/Apps`
-  ~~~~~
-  ~~~
-  # App Structure:
-  ~~~~~
-  ~~~
-  An App has the following structure:
-  ~~~~~
+  2. Build the HelloWorld App for the local domain
+  `http://localhost:8080`:
   ~~~
   ```
-  Components.php
-  css
-  js
-  DynamicOutput
-  OutputComponents
-  Requests
-  Responses
-  resources
+  php ~/roady/Apps/HelloWorld/Components.php \
+      'http://localhost:8080'
   ```
   ~~~~~
   ~~~
-  # Overview:
+  Note: More information about the Components.php file can be
+  obtained via:
+  ~~~
+  `rig --help Components.php`
+  ~~~~~
+  ~~~~~
   ~~~~~
   ~~~
-  ### Components.php
-  ~~~~~
-  ~~~
-  The `Components.php` file is used to build an App for a specific
-  domain.
-  ~~~~~
-  ~~~
-  For example, if roady is installed at `~/roady`, then to create an 
-  App named `Foo` and build it for the domain https://localhost:8080 
-  run: 
-  ~~~~~
+  3. Use `rig --start-server` to start a local development
+  server on port `8080`:
   ~~~
   ```
-  rig --new-app --name Foo
-  php ~/roady/Apps/Foo/Components.php 'https://localhost:8080'
+  rig --start-server \
+      --port 8080 \
+      --open-in-browser
   ```
   ~~~~~
   ~~~
-  Note: Foo's Components.php will be generated when `rig --new-app`
-  is run.
-  ~~~~~
-  ~~~
-  Warning: If an App does not configure any output, then you will
-  not see any output from the App even if you successfully build
-  it for one or more domains.
-  ~~~~~
-  ~~~
-  The easiest way to configure output for an App is to use
-  `rig --configure-app-output`.
-  ~~~~~
-  ~~~
-  For more information about `rig --configure-app-output` use:
-  ~~~~~
-  ~~~
-  ```rig --help --configure-app-output```
-  ~~~~~
-  ~~~
-  ### css
-  ~~~~~
-  ~~~
-  The `css` directory is where an Apps stylesheets should be placed.
-  ~~~~~
-  ~~~
-  Apps can define stylesheets that are loaded in response to
-  specific Requests to the domains an App is built for, or can
-  define stylesheets that are loaded in response to all Requests to
-  the domains an App is built for.
-  ~~~~~
-  ~~~
-  If the name of a stylesheet defined by an App contains the word
-  `global`, it will be loaded in response to all Requests to the
-  domains that the App is built for.
-  ~~~~~
-  ~~~
-  If the stylesheet's name does not contain the word `global`, then 
-  the stylesheet will only be loaded in response to Requests whose 
-  name matches the name of the stylesheet, excluding the `.css` 
-  extension. 
-  ~~~~~
-  ~~~
-  For instance, if a stylesheet named `global-styles.css`
-  is defined by an App named HelloWorld, and the HelloWorld App is
-  built for the domain http://localhost:8080, then `global-styles.
-  css` will be loaded in response to all Requests to the domain
-  http://localhost:8080.
-  ~~~~~
-  ~~~
-  If the HelloWorld App also defined a stylesheet named 
-  `homepage.css`, then `homepage.css` would only be loaded in 
-  response to Requests that have the name `homepage`:
-  ~~~~~
-  ~~~
-  For Example:
-  ~~~~~
-      ~~~
-      http://localhost:8080?request=homepage
-      ~~~~~
-      ~~~
-      http://localhost:8080/index.php?request=homepage
-      ~~~~~
-  ~~~
-  Note: The name of the Request will correspond to the value of
-  `$_GET['request']`.
-  ~~~~~
-  ~~~
-  ### js
-  ~~~~~
-  ~~~
-  The `js` directory is where an Apps scripts should be placed.
-  ~~~~~
-  ~~~
-  Note: There are plans to implement similar functionality
-  for loading App javascript files as is currently used to
-  load App css files. See issue #234:
-  ~~~~~
-  ~~~
-  https://github.com/sevidmusic/Roady/issues/234
-  ~~~~~
-  ~~~
-  ### DynamicOutput
-  ~~~~~
-  ~~~
-  The `DynamicOutput` directory is where an Apps Dynamic Output
-  files should be placed. These files are used to generate output
-  for DynamicOutputComponents.
-  ~~~~~
-  ~~~
-  Dynamic output files can be `.php` files, `.html` files, plain text
-  files, or any other type of file.
-  ~~~~~
-  ~~~
-  Note: `.php` files will be interpreted as php, all other file
-  types will be interpreted as plain text.
-  ~~~~~
-  ~~~
-  Note: Typically, you do not need to create these files manually,
-  if you use `rig --new-dynamic-output-component` or
-  `rig --configure-app-output` then an appropriate DynamicOutput
-  file will be generated for you.
-  ~~~~~
-  ~~~
-  For more information about `rig --new-dynamic-output-component` 
-  use: 
-  ~~~~~
-  ~~~
-  ```rig --help --new-dynamic-output-component```
-  ~~~~~
-  ~~~
-  For more information about `rig --configure-app-output` use:
-  ~~~~~
-  ~~~
-  ```rig --help --configure-app-output```
-  ~~~~~
-  ~~~
-  ### OutputComponents
-  ~~~~~
-  ~~~
-  The `OutputComponents` directory is where an Apps OutputComponent
-  and DynamicOutputComponent configuration files should be placed.
-  ~~~~~
-  ~~~
-  Typically, you do not need to create these files manually. You
-  can use either the `rig --new-dynamic-output-component`,
-  `rig --new-output-component`, or `rig --configure-app-output`,
-  command to configure a new DynamicOutputComponent or
-  OutputComponent for an App.
-  ~~~~~
-  ~~~
-  For more information about `rig --new-dynamic-output-component` 
-  use: 
-  ~~~~~
-  ~~~
-  ```rig --help --new-dynamic-output-component```
-  ~~~~~
-  ~~~
-  For more information about `rig --new-output-component` use:
-  ~~~~~
-  ~~~
-  ```rig --help --new-output-component```
-  ~~~~~
+  Note: More information about the `rig --start-server` can be
+  obtained via:
   ~~~
-  For more information about `rig --configure-app-output` use:
+  `rig --help --start-server`
   ~~~~~
-  ~~~
-  ```rig --help --configure-app-output```
-  ~~~~~
-  ~~~
-  ### Requests
-  ~~~~~
-  ~~~
-  The `Requests` directory is where an Apps Request configuration
-  files should be placed.
-  ~~~~~
-  ~~~
-  Typically, you do not need to create these files manually. You
-  can use the `rig --new-request` command to configure a new Request
-  for an App.
-  ~~~~~
-  ~~~
-  Note: When the `rig --configure-app-output` command is used, one
-  or more appropriate Requests will be configured for the output.
-  ~~~~~
-  ~~~
-  For more information about `rig --new-request` use:
-  ~~~~~
-  ~~~
-  ```rig --help --new-request```
-  ~~~~~
-  ~~~
-  For more information about `rig --configure-app-output` use:
-  ~~~~~
-  ~~~
-  ```rig --help --configure-app-output```
-  ~~~~~
-  ~~~
-  ### Responses
-  ~~~~~
-  ~~~
-  The `Responses` directory is where an Apps Response and
-  GlobalResponse configuration files should be placed.
-  ~~~~~
-  ~~~
-  Typically, you do not need to create these files manually. You
-  can use the `rig --new-response`, or `rig --new-global-response`
-  command to configure a new Response for an App.
-  ~~~~~
-  ~~~
-  Note: When the `rig --configure-app-output` command is used,
-  an appropriate Response or GlobalResponse will be configured
-  for the output.
-  ~~~~~
-  ~~~
-  For more information about `rig --new-response` use:
-  ~~~~~
-  ~~~
-  ```rig --help --new-response```
-  ~~~~~
-  ~~~
-  For more information about `rig --new-global-response` use:
-  ~~~~~
-  ~~~
-  ```rig --help --new-global-response```
   ~~~~~
   ~~~
-  For more information about `rig --configure-app-output` use:
+  Note: The `--open-in-browser` flag should cause rig to open
+  http://localhost:8080 in a web browser. This flag relies on the
+  `xdg-open` command, and may not always work. If it fails, you
+  can still manually open http://localhost:8080 in a web browser.
   ~~~~~
   ~~~
-  ```rig --help --configure-app-output```
-  ~~~~~
-  ~~~
-  ### resources
-  ~~~~~
-  ~~~
-  The `resources` directory is where any additional resources
-  provided by, or required by the App should be placed.
-  ~~~~~
-  ~~~
-  # Creating Apps:
-  ~~~~~
-  ~~~
-  New App's can be created with either `rig --new-app` or
-  `rig --configure-app-output`,
-  ~~~~~
-  ~~~
-  For more information about `rig --new-app` use:
-  ~~~~~
-  ~~~
-  ```rig --help --new-app```
-  ~~~~~
-  ~~~
-  For more information about `rig --configure-app-output` use:
-  ~~~~~
-  ~~~
-  ```rig --help --configure-app-output```
-  ~~~~~
+  Note: `xdg-open` is a command that will open a url in the
+  user's default browser, if `xdg-open` is not available on
+  your system then the `--open-in-broswer` flag will not work.
+  The `xdg-open` command is not associated with roady or rig,
+  more information about the `xdg-open` command can be found
+  online at:
   ~~~
-  # Building Apps for a Domain:
+  https://linux.die.net/man/1/xdg-open
   ~~~~~
-  ~~~
-  Apps can be built for a domain by passing the desired
-  domain to the relevant App's Components.php file.
-  ~~~~~
-  ~~~
-  For example, if an App existed at:
-  ~~~~~
-  ~~~
-  `~/roady/Apps/Foo`
-  ~~~~~
-  ~~~
-  It could be built for the domain http://localhost:8080 via:
-  ~~~~~
-  ~~~
-  ```php ~/roady/Apps/Foo/Components.php 'http://localhost:8080'```
-  ~~~~~
-  ~~~
-  Note: It is best to wrap the domain in single quotes.
-  ~~~~~
-  ~~~
-  Warning: Do not include a trailing foward-slash in the domain.
-  This is bug, it will be resolved. See issue #193:
-  ~~~~~
-  ~~~
-  https://github.com/sevidmusic/Roady/issues/193
   ~~~~~
-  ~~~
-  Until issue #193 is resolved, the following examples show the
-  incorrect, and correct ways to build an App:
   ~~~~~
   ~~~
-  Incorrect:
-  ~~~~~
+  4. Use a text editor or IDE to edit HelloWorld's output:
   ~~~
   ```
-  php ~/roady/Apps/Foo/Components.php 'https://localhost:8080/'
+  vim ~/roady/Apps/HelloWorld/DynamicOutput/HelloWorld.php
   ```
   ~~~~~
   ~~~
-  Correct:
+  And revise `HelloWorld.php`'s content to be:
   ~~~~~
   ~~~
   ```
-  php ~/roady/Apps/Foo/Components.php 'https://localhost:8080'
+  <div class="hw-container">
+      <h1>Roady</h1>
+      <p>
+          roady is a tool designed to aid in the development of
+          websites.
+      </p>
+      <p>
+          With roady, the features of a website are implemented
+          by small niche applications called Apps.
+      </p>
+      <p>
+          roady Apps may provide css stylesheets, utilize
+          javascript, and may configure output to be served in
+          response to appropriate requests to a website's
+          domain.
+      </p>
+      <p>
+          Multiple websites can run on a single installation of
+          roady, each making use of one or more roady Apps.
+      </p>
+      <p>
+          For a guide on getting started with roady visit:
+      </p>
+      <p>
+          <a href="https://roady.tech/index.php?request=getting-started">
+              https://roady.tech/index.php?request=getting-started
+          </a>
+      </p>
+  </div>
+  ```
+  ~~~~~
+  ~~~~~
+  ~~~
+  5. Create a stylesheet named `hw-global-styles.css` for the
+  HelloWorld App using a text editor or IDE:
+  ~~~
+  ```
+  vim ~/roady/Apps/HelloWorld/css/hw-global-styles.css
   ```
   ~~~~~
   ~~~
-  It is possible to build the same App for multiple domains, making
-  it available to multiple websites running on a single installation
-  of roady.
-  ~~~~~
-  ~~~
-  For example, if roady is installed at the path `~/roady`, then
-  to build an existing App named Foo for the domains
-  https://localhost:8080, https://localhost:8947, and
-  https://localhost:8017 you would execute:
+  Define the following styles in
+  `~/roady/Apps/HelloWorld/css/hw-global-styles.css`:
   ~~~~~
   ~~~
   ```
-  php ~/roady/Apps/Foo/Components.php 'https://localhost:8080'
-  php ~/roady/Apps/Foo/Components.php 'https://localhost:8947'
-  php ~/roady/Apps/Foo/Components.php 'https://localhost:8017'
+  body {
+      background: #140a09;
+      background-image:
+          linear-gradient(45deg, #00bbff 25%, transparent 25%),
+          linear-gradient(-45deg, #020203 25%, transparent 25%),
+          linear-gradient(45deg, transparent 75%, #00bbff 75%),
+          linear-gradient(-45deg, transparent 75%, #020203 75%);
+      background-size: 10rem 10rem;
+      background-position:
+          0 0,
+          0 10rem,
+          10rem -10rem,
+          -10rem 0rem;
+      color: #00ffc3;
+      font-size: 1.2rem;
+      font-family: monospace;
+      padding: 0;
+      margin: 0;
+  }
+
+  .hw-container {
+      width: 80%;
+      background: #010103;
+      opacity: .92;
+      margin: 3rem auto;
+      padding: 3rem;
+      border: .2rem double white;
+  }
+
+  .hw-container h1 {
+      color: white;
+      text-shadow: -1px 1px #00ffc3;
+  }
+
+  .hw-container a,
+  .hw-container a:link,
+  .hw-container a:visited {
+      text-decoration: none;
+      color: white;
+  }
+
+  .hw-container a:hover,
+  .hw-container a:active {
+      color: #00bbff;
+  }
   ```
   ~~~~~
   ~~~
-  Once built, the Apps will be available on the domains they
-  were built for.
+  Note: Apps can define stylesheets that are served in
+  response to all requests to the domains an App is built
+  for by including the string `global` in the stylesheets
+  name. If the stylesheet's name does not contain the string
+  `global` then the stylesheet will only be served in response
+  to requests where the value of `$_GET['request']` matches the
+  name of the stylesheet.
+  ~~~
+  Note: More information about using css stylesheets in roady
+  Apps can be obtained via:
+  ~~~
+  `rig --help css`
+  ~~~~~
+  ~~~~~
   ~~~~~
   ~~~
-  Note: If you are developing locally, you can use 
-  `rig --start-server` to start a development server 
-  to run your Apps.  
+  The HelloWorld App should now exist in roady's Apps directory,
+  and it's output should be accessible from a web browser at the
+  following local urls:
+  ~~~
+  http://localhost:8080/
   ~~~~~
   ~~~
-  Note: To build Apps for production domains the process is the same,
-  but your domain and your server must be setup properly. Hosting, 
-  and server setup are beyond the scope of this documentation.
+  http://localhost:8080/index.php?request=HelloWorld
   ~~~~~
   ~~~
-  For a good example on getting started developing roady Apps use:
+  http://localhost:8080?request=HelloWorld
+  ~~~~~
   ~~~~~
   ~~~
-  ```rig --help getting-started```
+  ### HelloWorld App command summary:
+  ~~~~~
+  ~~~
+  The following is a summary of the commands used in the examples
+  above to create a HelloWorld App, build it for a domain, start
+  a development server, and modify HelloWorld's source code:
+  ~~~~~
+  ~~~
+  ```
+  rig --configure-app-output \
+      --for-app HelloWorld \
+      --name HelloWorld \
+      --output '<p>Hello World</p>' \
+      --relative-urls '/'
+
+  php ~/roady/Apps/HelloWorld/Components.php \
+      'http://localhost:8080'
+
+  rig --start-server \
+      --port 8080 \
+      --open-in-browser
+
+  vim ~/roady/Apps/HelloWorld/DynamicOutput/HelloWorld.php
+
+  vim ~/roady/Apps/HelloWorld/css/hw-global-styles.css
+  ```
   ~~~~~
