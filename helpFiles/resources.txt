@@ -1,3 +1,11 @@
+~~~
+# resources directory
+~~~~~
+~~~
 An App's resources directory is for any miscellaneous files
 or directories used to implement the features the App provides.
+~~~~~
+~~~
+These may be images, text files, additional source code, etc.
+~~~~~
 
