@@ -37,11 +37,11 @@
   path is used.
   ~~~~~
   ~~~
-  Note: The `--debug` flag can be used to view the value
-  assigned to the `--path-to-apps-directory` flag by rig.
-  For example, the following will show the help documentation
-  followed by the debug output, which will include the path
-  rig assigned to the `--path-to-apps-directory` flag.
+  Note: The `--debug` flag can be used to view the value assigned 
+  to the `--path-to-apps-directory` flag by rig. For example, the 
+  following call to rig will output the help documentation followed 
+  by the debug output. The debug output will include the path rig 
+  assigned to the `--path-to-apps-directory` flag.
   ~~~
   ```
   rig --help --debug flags
@@ -207,6 +207,12 @@
                         ~~~~~
                         ~~~
                         `Spaces`
+                        ~~~~~
+                        ~~~
+                        WARNING: It is also possible that rig 
+                        will refuse to configure the output if 
+                        a `--name` that contains spaces is 
+                        specified. 
                         ~~~~~
   ~~~```--output```~~~~~
                         ~~~
