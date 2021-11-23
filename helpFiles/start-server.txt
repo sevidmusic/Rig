@@ -1,64 +1,55 @@
+  ~~~
   ```
   rig --start-server [--ini-file] [--port] [--root-directory]
        [--open-in-browser]
   ```
-
+  ~~~~~
+  ~~~
   ### Description:
-
+  ~~~~~
   ~~~
   Start a php built in server instance at http://localhost:[--port]
   ~~~~~
-
   ~~~
   WARNING: Do not use php's built in server in production, it is meant for
   development only. For more information view the documentation at:
   ~~~~~
-
-           ~~~
-           https://www.php.net/manual/en/features.commandline.webserver.php
-           ~~~~~
-
+  ~~~
+  https://www.php.net/manual/en/features.commandline.webserver.php
+  ~~~~~
   ~~~
   Once a sever is started, it can be used to run one or more roady Apps locally
   by building the desired Apps for a domain that corresponds to the running
   development server instance's url.
   ~~~~~
-
   ~~~
   For example, to run an existing App named Foo locally on http://localhost:8080:
   ~~~~~
-
-      ~~~
-      1. Build the App for the domain 'http://localhost:8080'
-      ~~~~~
-
-          ~~~
-          `php /path/to/roady/Apps/Foo/Components.php 'http://localhost:8080'`
-          ~~~~~
-
-      ~~~
-      2. Start a local development server on port 8080
-      ~~~~~
-
-          ~~~
-          `rig --start-server --port 8080`
-          ~~~~~
-
-      ~~~
-      Note: The Foo App is now running on 'http://localhost:8080' and can be
-      accessed via a web browser.
-      ~~~~~
-
+  ~~~
+  1. Build the App for the domain 'http://localhost:8080'
+  ~~~~~
+  ~~~
+  `php /path/to/roady/Apps/Foo/Components.php 'http://localhost:8080'`
+  ~~~~~
+  ~~~
+  2. Start a local development server on port 8080
+  ~~~~~
+  ~~~
+  `rig --start-server --port 8080`
+  ~~~~~
+  ~~~
+  Note: The Foo App is now running on 'http://localhost:8080' and can be
+  accessed via a web browser.
+  ~~~~~
   ~~~
   To get a list of active development servers use:
   ~~~~~
-
-      ~~~
-      `rig --view-active-servers`
-      ~~~~~
-
+  ~~~
+  `rig --view-active-servers`
+  ~~~~~
+  ~~~
   ### Flags:
-
+  ~~~~~
   ~~~```[--ini-file]```~~~~~          ~~~Path to the php.ini file to use to configure php for the
                         development server instance. This flag is optional, and
                         does not have a default value.~~~~~
