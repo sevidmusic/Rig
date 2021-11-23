@@ -9,21 +9,18 @@
   ### Description:
   ~~~~~
   ~~~
-  Configure output for an App to be served in response to specific 
-  requests to any domains the App is built for.
+  Configure output for an App to be served in response to 
+  appropriate requests to any domains the App is built for.
   ~~~~~
   ~~~
   Note: If the App does not already exist it will be created.
-  ~~~~~
-  ~~~
-  The App's root directory will be be located, or will be
-  created, at the path that corresponds to the path assigned 
-  to the `--path-to-apps-directory` flag.
-  ~~~~~
+  The App's root directory is expected to be located, or will be 
+  created, at the path that corresponds to the path assigned to 
+  the `--path-to-apps-directory` flag.
   ~~~
   Note: It is unnecessary to specify the `--path-to-apps-directory` 
   flag's value, rig will determine an appropriate path at runtime 
-  if the `--path-to-apps-directory` flag is not specified.
+  as long as the `--path-to-apps-directory` flag is not specified.
   ~~~
   Note: It is best to let rig determine the value of the
   `--path-to-apps-directory` flag to insure an appropriate 
@@ -36,13 +33,14 @@
   ~~~
   `https://github.com/sevidmusic/rig/issues/100`
   ~~~~~
-  For more information about the `--path-to-apps-directory`
-  flag use:
+  ~~~~~
+  ~~~~~
+  More information about the `--path-to-apps-directory`
+  can be obtained via:
   ~~~
   ```
   rig --help path-to-apps-directory
   ```
-  ~~~~~
   ~~~~~
   ~~~~~
   ~~~~~
@@ -55,12 +53,12 @@
                         output for.
                         ~~~~~
                         ~~~
-                        WARNING: The specified App name must be
+                        Note: The specified App name must be
                         alphanumeric or rig will refuse to
                         configure the output.
                         ~~~~~
                         ~~~
-                        WARNING: If the specified App name contains
+                        Note: If the specified App name contains
                         spaces, only the alphanumeric characters up
                         to the first space will be used.
                         ~~~~~
@@ -133,11 +131,11 @@
                             --dynamic-output-components Bar \
                             --requests Bar```
                         ~~~
-                        WARNING: The specified --name must be unique or rig will
+                        Note: The specified --name must be unique or rig will
                         refuse to configure the output.
                         ~~~~~
                         ~~~
-                        WARNING: The names rig derives from the specified --name
+                        Note: The names rig derives from the specified --name
                         must also be unique. If any of the names that rig derives
                         from the specified --name to assign to the Components
                         configured for the output would conflict with the name of
@@ -145,11 +143,11 @@
                         output.
                         ~~~~~
                         ~~~
-                        WARNING: The specified name must be alphanumeric or rig
+                        Note: The specified name must be alphanumeric or rig
                         will refuse to configure the output.
                         ~~~~~
                         ~~~
-                        WARNING: If the specified name contains spaces, only the
+                        Note: If the specified name contains spaces, only the
                         alphanumeric characters up to the first space will be
                         used.~~~~~
                         ~~~
@@ -251,7 +249,7 @@
                                 0
                             );```
                         ~~~
-                        WARNING: This flag will be ignored if specified in
+                        Note: This flag will be ignored if specified in
                         conjunction with the `--output-source-file` flag.
                         ~~~~~
   ~~~```--output-source-file```~~~~~ 
