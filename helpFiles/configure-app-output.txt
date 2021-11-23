@@ -795,6 +795,7 @@
       --output '<p>Hello World</p>' \
       --relative-urls '/' 'index.php' 'index.php?request=BarBaz' \
       --static
+
   rig --configure-app-output \
       --for-app Foo \
       --name Biz \
