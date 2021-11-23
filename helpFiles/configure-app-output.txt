@@ -23,6 +23,7 @@
   Note: It is unnecessary to specify the `--path-to-apps-directory`
   flag's value, rig will determine an appropriate path at runtime
   as long as the `--path-to-apps-directory` flag is not specified.
+  ~~~
   WARNING: Using the `--path-to-apps-directory` flag in conjunction
   with the `--configure-app-output` flag does not work as expected
   at the moment. This is a bug, and it is being addressed. See
@@ -30,9 +31,11 @@
   ~~~
   `https://github.com/sevidmusic/rig/issues/100`
   ~~~~~
+  ~~~~~
   It is best to let rig determine the value of the
   `--path-to-apps-directory` flag to insure an appropriate
   path is used.
+  ~~~~~
   ~~~
   Note: The `--debug` flag can be used to view the value
   assigned to the `--path-to-apps-directory` flag by rig.
@@ -50,7 +53,6 @@
   --debug  :  flags
   --path-to-apps-directory  :  /path/set/by/rig
   ```
-  ~~~~~
   ~~~~~
   More information about the `--path-to-apps-directory`
   flag can be obtained via:
@@ -780,7 +782,7 @@
   ~~~
   ### Examples:
   ~~~~~
-  ~~~~~
+  ~~~
   ```
   rig --configure-app-output \
       --for-app Foo \
