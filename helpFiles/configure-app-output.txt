@@ -14,7 +14,9 @@
   ~~~~~
   ~~~
   Note: If the App does not already exist it will be created.
-  The App's root directory is expected to be located, or will be 
+  ~~~~~
+  ~~~
+  Note: The App's root directory is expected to be located, or will be 
   created, at the path that corresponds to the path assigned to 
   the `--path-to-apps-directory` flag.
   ~~~
@@ -28,9 +30,21 @@
   ~~~
   `https://github.com/sevidmusic/rig/issues/100`
   ~~~~~
-  Note: It is best to let rig determine the value of the
+  It is best to let rig determine the value of the
   `--path-to-apps-directory` flag to insure an appropriate 
   path is used. 
+  ~~~
+  Note: The `--debug` flag can be used to view the value
+  assigned to the `--path-to-apps-directory` flag by rig.
+  For example, the following will show the help documentation
+  followed by the debug output, which will include the path
+  rig assigned to the `--path-to-apps-directory` flag.
+  ~~~
+  ```
+  rig --help --debug flags
+  ```
+  ~~~~~
+  ~~~~~
   ~~~~~
   More information about the `--path-to-apps-directory`
   flag can be obtained via:
