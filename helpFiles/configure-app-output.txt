@@ -1,8 +1,8 @@
   ~~~
   ```
   rig --configure-app-output --for-app --name --output
-      --output-source-file [--global] [--output-position]
-      [--relative-urls] [--response-position] [--static]
+      --output-source-file [--global] [--o-position]
+      [--relative-urls] [--r-position] [--static]
   ```
   ~~~~~
   ~~~
@@ -531,7 +531,7 @@
                         response to all requests to any domain
                         the App is built for.
                         ~~~~~
-  ~~~```[--output-position]```~~~~~
+  ~~~```[--o-position]```~~~~~
                         ~~~
                         The position to assign to the
                         DynamicOutputComponent or OutputComponent
@@ -665,7 +665,7 @@
                         response to all requests to any domain the
                         App is built for.
                         ~~~~~
-  ~~~```[--response-position]```~~~~~
+  ~~~```[--r-position]```~~~~~
                         ~~~
                         The position to assign to the Response or
                         GlobalResponse that will be configured for
@@ -820,7 +820,7 @@
       --name Biz \
       --output-source-file /path/to/output/source/file \
       --global \
-      --response-position 3 \
-      --output-position 1
+      --r-position 3 \
+      --o-position 1
   ```
   ~~~~~
