@@ -9,8 +9,8 @@
   ### Description:
   ~~~~~
   ~~~
-  Configure output for an App to be served in response to
-  specific requests. 
+  Configure output for an App to be served in response to specific 
+  requests to any domains the App is built for.
   ~~~~~
   ~~~
   Note: If the App does not already exist it will be created.
@@ -21,20 +21,18 @@
   to the `--path-to-apps-directory` flag.
   ~~~~~
   ~~~
-  Note: It is not necessary to explicitly set the
-  `--path-to-apps-directory` flag's value. The 
-  `--path-to-apps-directory` flag's assigned value will 
-  be determined by rig at runtime unless it is set explicitly.
+  Note: It is unnecessary to specify the `--path-to-apps-directory` 
+  flag's value, rig will determine an appropriate path at runtime 
+  if the `--path-to-apps-directory` flag is not specified.
   ~~~
-  WARNING: It is best to let rig determine the 
-  `--path-to-apps-directory` flag's value to 
-  insure an appropriate path is used. 
-  ~~~~~
+  Note: It is best to let rig determine the value of the
+  `--path-to-apps-directory` flag to insure an appropriate 
+  path is used. 
   ~~~
-  WARNING: Explicitly setting the `--path-to-apps-directory` 
-  flag causes issues when used in conjunction with the
-  `--configure-app-output` flag. This is a bug, and 
-  it is being addressed. See issue #100:
+  WARNING: Using the `--path-to-apps-directory` flag 
+  in conjunction with the `--configure-app-output` flag
+  does not work as expected. This is a bug, and it is 
+  being addressed. See issue #100:
   ~~~
   `https://github.com/sevidmusic/rig/issues/100`
   ~~~~~
@@ -44,6 +42,7 @@
   ```
   rig --help path-to-apps-directory
   ```
+  ~~~~~
   ~~~~~
   ~~~~~
   ~~~~~
