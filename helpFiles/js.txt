@@ -2,26 +2,24 @@
   # Javascript
   ~~~~~
   ~~~
-  Scripts must be provided by roady App to be served by a website
-  running on roady.
+  Javascript files must be provided by roady App to be utilized 
+  by a website running on roady.
   ~~~~~
   ~~~
-  An App's scripts must be located in the App's `js` directory.
+  An App's javascript files must be located in the App's `js` 
+  directory.
   ~~~~~
   ~~~
-  Warning: At the moment, scripts must be served via an OutputComponent or
-  DynamicOutputComponent that generates the html for the
-  `<script>` tags to load the appropriate scripts.
+  Note: At the moment, javascript files must be served via an 
+  OutputComponent or DynamicOutputComponent that generates 
+  the html for the `<script>` tags to load the appropriate 
+  javascript files.
   ~~~~~
   ~~~
-  However, this will not be the case for long, in future versions of roady
-  scripts will be loaded the same way as stylesheets are currently loaded.
+  In future versions of roady javascript files will be loaded 
+  the same way as stylesheets are currently loaded. 
   See issue #234:
-
-  https://github.com/sevidmusic/Roady/issues/234
   ~~~~~
   ~~~
-  Issue #234 will be resolved in the next few weeks, so for now this
-  section of the documentation will remain incomplete since the
-  steps to load javscript files are about to change.
+  https://github.com/sevidmusic/Roady/issues/234
   ~~~~~
