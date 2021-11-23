@@ -70,7 +70,12 @@
   ~~~~~
   ~~~
   Note: More information about `rig --new-request` can
-  be obtained via `rig --help --new-request`.
+  be obtained via: 
+  ~~~
+  ```
+  rig --help --new-request
+  ```
+  ~~~~~
   ~~~~~
   ~~~
   A Request can be assigned to a Response or GlobalResponse. 
@@ -88,7 +93,12 @@
   ~~~~~
   ~~~
   Note: More information about `rig --assign-to-response` can
-  be obtained via `rig --help --assign-to-response`.
+  be obtained via:
+  ~~~
+  ```
+  rig --help --assign-to-response
+  ```
+  ~~~~~
   ~~~~~
   ~~~
   Note: It is not necessary to assign Requests to GlobalResponses
@@ -99,13 +109,16 @@
   ~~~~~
   ~~~
   ```
-  rig --new-app --name Foo
+  rig --new-app \
+      --name Foo
 
-  rig --new-response --for-app Foo --name Baz
+  rig --new-response \
+      --for-app Foo \
+      --name Baz
 
-  rig --new-request 
-      --for-app Foo 
-      --name Bar 
+  rig --new-request \
+      --for-app Foo \
+      --name Bar \
       --relative-url 'index.php'
 
   rig --assign-to-response \
