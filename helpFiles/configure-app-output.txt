@@ -9,7 +9,7 @@
   ### Description:
   ~~~~~
   ~~~
-  Configure output for an App to be served in response to 
+  Configure output for an App to be served in response to
   appropriate requests to any domains the App is built for.
   ~~~~~
   ~~~
@@ -31,8 +31,8 @@
   `https://github.com/sevidmusic/rig/issues/100`
   ~~~~~
   It is best to let rig determine the value of the
-  `--path-to-apps-directory` flag to insure an appropriate 
-  path is used. 
+  `--path-to-apps-directory` flag to insure an appropriate
+  path is used.
   ~~~
   Note: The `--debug` flag can be used to view the value
   assigned to the `--path-to-apps-directory` flag by rig.
@@ -63,7 +63,7 @@
   ~~~
   ### Flags:
   ~~~~~
-  ~~~```--for-app```~~~~~            
+  ~~~```--for-app```~~~~~
                         ~~~
                         The name of the App to configure the
                         output for.
@@ -95,7 +95,7 @@
                         ~~~
                         `Spaces`
                         ~~~~~
-  ~~~```--name```~~~~~               
+  ~~~```--name```~~~~~
                         ~~~
                         The name used to determine the names to
                         assign to the components that will be
@@ -116,8 +116,8 @@
                         that all are assigned the specified --name.
                         ~~~~~
                         ~~~
-                        For example, if the Foo App does not exist, then the
-                        following:
+                        For example, if the Foo App does not exist,
+                        then the following:
                         ~~~~~
                             ```rig --configure-app-output \
                             --for-app Foo \
@@ -179,7 +179,7 @@
                         ~~~
                             `Spaces`
                         ~~~~~
-  ~~~```--output```~~~~~             
+  ~~~```--output```~~~~~
                         ~~~
                         The output to assign. This flag is required unless the
                         `--output-source-file` flag is specified.~~~~~
@@ -268,7 +268,7 @@
                         Note: This flag will be ignored if specified in
                         conjunction with the `--output-source-file` flag.
                         ~~~~~
-  ~~~```--output-source-file```~~~~~ 
+  ~~~```--output-source-file```~~~~~
                         ~~~
                         The path to the file whose contents will be assigned as
                         the output. This flag is required unless the --output
@@ -382,7 +382,7 @@
                         WARNING: If both the `--output` and `--output-source-file`
                         flags are specified, the `--output` flag will be ignored.
                         ~~~~~
-  ~~~```[--global]```~~~~~           
+  ~~~```[--global]```~~~~~
                         ~~~
                         If specified, the output will served in response to all
                         requests to any domain the App is built for. This causes
@@ -433,7 +433,7 @@
                         will be served in response to all requests to any domain
                         the App is built for.
                         ~~~~~
-  ~~~```[--output-position]```~~~~~  
+  ~~~```[--output-position]```~~~~~
                         ~~~
                         The position to assign to the DynamicOutputComponent or
                         OutputComponent that will be configured for the output.~~~~~
@@ -442,7 +442,7 @@
                         other output that is being served by the same Response
                         or GlobalResponse.
                         ~~~~~
-  ~~~```[--relative-urls]```~~~~~    
+  ~~~```[--relative-urls]```~~~~~
                         ~~~
                         The relative urls the output should be served in response
                         to. These urls are defined in relation to a domain.~~~~~
@@ -544,7 +544,7 @@
                         used to sort the Response or GlobalResponse configured
                         for the output relative to other Responses and
                         GlobalResponses that respond to the same request.~~~~~
-  ~~~```[--static]```~~~~~           
+  ~~~```[--static]```~~~~~
                         ~~~
                         If specified, an OutputComponent will be configured for
                         the output instead of a DynamicOutputComponent.~~~~~
