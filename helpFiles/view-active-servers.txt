@@ -12,8 +12,8 @@
   ~~~~~
   ~~~
   ### Example:
-    ```
-    rig --view-active-servers
-    ```
+  ```
+  rig --view-active-servers
+  ```
   ~~~~~
 
