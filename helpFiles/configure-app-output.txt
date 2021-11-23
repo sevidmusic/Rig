@@ -16,8 +16,8 @@
   Note: If the App does not already exist it will be created.
   ~~~~~
   ~~~
-  Note: The App's root directory is expected to be located, or will be 
-  created, at the path that corresponds to the path assigned to 
+  Note: The App's root directory is expected to be located, or will
+  be created, at the path that corresponds to the path assigned to
   the `--path-to-apps-directory` flag.
   ~~~
   Note: It is unnecessary to specify the `--path-to-apps-directory`
@@ -48,7 +48,7 @@
   ```
   --help  :
   --debug  :  flags
-  --path-to-apps-directory  :  /home/user/roady/Apps
+  --path-to-apps-directory  :  /path/set/by/rig
   ```
   ~~~~~
   ~~~~~
