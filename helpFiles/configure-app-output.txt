@@ -97,6 +97,19 @@
                         ~~~
                         `Spaces`
                         ~~~~~
+                        ~~~
+                        WARNING: There is a bug that in fact does
+                        allow an App name to be specified that 
+                        contains non-alphanumeric characters.
+                        See issue #180:
+                        ~~~
+                        https://github.com/sevidmusic/rig/issues/180
+                        ~~~~~
+                        This bug will be addressed as soon as 
+                        possible. For now, make sure to be 
+                        careful to only use alpha-numeric 
+                        characters in names. 
+                        ~~~~~
   ~~~```--name```~~~~~
                         ~~~
                         The name used to determine the names to
