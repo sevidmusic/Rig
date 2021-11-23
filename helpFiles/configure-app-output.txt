@@ -44,6 +44,12 @@
   rig --help --debug flags
   ```
   ~~~~~
+  The debug output will resemble:
+  ```
+  --help  :
+  --debug  :  flags
+  --path-to-apps-directory  :  /home/user/roady/Apps
+  ```
   ~~~~~
   ~~~~~
   More information about the `--path-to-apps-directory`
