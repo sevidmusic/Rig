@@ -10,15 +10,16 @@
   Configure a new Request for the specified App.
   ~~~~~
   ~~~
-  The purpose of a Request is to represent a specific request to a domain.
+  The purpose of a Request is to represent a specific request 
+  to a domain.
   ~~~~~
   ~~~
-  Requests are defined using relative urls. This allows them to be domain
-  agnostic.
+  Requests are defined using relative urls. This allows them to 
+  be domain agnostic.
   ~~~~~
   ~~~
-  For example, the following would define a request that represents a request
-  to index.php:
+  For example, the following would define a request that 
+  represents a request to index.php:
   ~~~~~
   ~~~
   ```
@@ -29,9 +30,10 @@
   ```
   ~~~~~
   ~~~
-  If the Foo App was built for the domain, http://localhost:8080, then the Bar
-  Request configured in the previous example would represent the following
-  request to the domain http://localhost:8080:
+  If the Foo App was built for the domain, http://localhost:8080, 
+  then the Bar Request configured in the previous example 
+  would represent the following request to the domain 
+  http://localhost:8080:
   ~~~~~
   ~~~
   http://localhost:8080/index.php
@@ -44,25 +46,27 @@
                  The name of the App to configure the Request for.
                  ~~~~~
                  ~~~
-                 WARNING: The specified App must exist, if it does not, the new
-                 Request will not be configured.
+                 WARNING: The specified App must exist, if it 
+                 does not, the new Request will not be configured.
                  ~~~~~
   ~~~```--name```~~~~~         
                  ~~~
                  A name to assign to the new Request.
                  ~~~~~
                  ~~~
-                 WARNING: The name must be unique, if a Request already
-                 exists with the same name the new Request will not be
-                 configured.
+                 WARNING: The name must be unique, if a Request 
+                 already exists with the same name the new 
+                 Request will not be configured.
                  ~~~~~
                  ~~~
-                 WARNING: The specified name must be alphanumeric or rig will
-                 refuse to configure the Request.
+                 WARNING: The specified name must be 
+                 alphanumeric or rig will refuse to configure 
+                 the Request. 
                  ~~~~~
                  ~~~
-                 WARNING: If the specified name contains spaces, only the
-                 alphanumeric characters up to the first space will be used.
+                 WARNING: If the specified name contains spaces, 
+                 only the alphanumeric characters up to the 
+                 first space will be used. 
                  ~~~~~
                  ~~~
                  For example:
@@ -79,32 +83,57 @@
                  ~~~~~
   ~~~```--relative-url```~~~~~ 
                  ~~~
-                 A relative url to assign to the new Request. This relative url
-                 will correspond to a complete url when an App is built for a domain.
-                 By default, the relative url '/' is assigned which will correspond
-                 to the domain's root url.
+                 A relative url to assign to the new Request. 
+                 This relative url will correspond to a 
+                 complete url when an App is built for a domain
+                 . By default, the relative url '/' is assigned 
+                 which will correspond to the domain's root url. 
                  ~~~~~
                  ~~~
                  For example:
                  ~~~~~
                  ~~~
-                 `?request=Foo` corresponds to `http://{domain}/?request=Foo`
+                 ```
+                 ?request=Foo
+                 ```
+                 ~~~~~
+                 ~~~
+                 corresponds to 
+                 ~~~~~
+                 ~~~
+                 ```
+                 http://{domain}/?request=Foo
+                 ```
                  ~~~~~
                  ~~~
                  Defaults to relative root url:
                  ~~~~~
                  ~~~
-                 `/` the default corresponds to `http://{domain}/`
+                 `/`
+                 ~~~~~
+                 ~~~
+                 The default corresponds to:
+                 ~~~~~
+                 ~~~
+                 `http://{domain}/`
                  ~~~~~
   ~~~
   ### Examples:
   ~~~~~
   ~~~
   ```
-  rig --new-request --for-app Foo --name Bar
+  rig --new-request \
+      --for-app Foo \
+      --name Bar
 
-  rig --new-request --for-app Foo --name Baz --relative-url "?request=Baz"
+  rig --new-request \
+      --for-app Foo \
+      --name Baz \
+      --relative-url "?request=Baz"
 
-  rig --new-request --for-app Foo --name Bin --relative-url "?Foo=bar&baz=biz"
+  rig --new-request \
+      --for-app Foo \
+      --name Bin \
+      --relative-url "?Foo=bar&baz=biz"
   ```
   ~~~~~
