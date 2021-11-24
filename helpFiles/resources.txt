@@ -3,7 +3,7 @@
   ~~~~~
   ~~~
   An App's resources directory is for any miscellaneous files
-  or directories used to implement the features the App provides.
+  or directories used by the App.
   ~~~~~
   ~~~
   These may be images, text files, additional source code, etc.
