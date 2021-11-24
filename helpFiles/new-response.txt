@@ -10,8 +10,8 @@
   Configure a new Response for the specified App.
   ~~~~~
   ~~~
-  The purpose of a Response is to serve output in response to appropriate
-  requests to any domains that the App is built for.
+  The purpose of a Response is to serve output in response to 
+  appropriate requests to any domains that the App is built for.
   ~~~~~
   ~~~
   For example, the following:
@@ -46,21 +46,27 @@
   Would configure the output:
   ~~~~~
   ~~~
-  `Hello World`
+  ```
+  Hello World
+  ```
   ~~~~~
   ~~~
-  To be served in response to requests to the following url relative to any
-  domain the Foo App is built for:
+  To be served in response to requests to the following url 
+  relative to any domain the Foo App is built for:
   ~~~~~
   ~~~
-  `index.php?foo=bar&baz=bazzer`
+  ```
+  index.php?foo=bar&baz=bazzer
+  ```
   ~~~~~
   ~~~
-  And, in the context of this example, will result in creation of a Response
-  configuration file at the following path:
+  And, in the context of this example, will result in creation 
+  of a Response configuration file at the following path:
   ~~~~~
   ~~~
-  `/path/to/roady/Apps/Foo/Responses/BarResponse.php`
+  ```
+  /path/to/roady/Apps/Foo/Responses/BarResponse.php
+  ```
   ~~~~~
   ~~~
   Whose contents will be:
@@ -97,107 +103,109 @@
   ~~~~~
   ~~~
   Note: The paths used in these examples are for example only.
-  Make sure to adjust the paths used in these examples appropriately based on
-  where roady and rig are actually installed.
+  Make sure to adjust the paths used in these examples 
+  appropriately based on where roady and rig are actually 
+  installed. 
   ~~~~~
   ~~~
   Assuming the --path-to-apps-directory is assigned the path:
   ~~~~~
   ~~~
-  `/path/to/roady/Apps`
+  ```
+  /path/to/roady/Apps
+  ```
   ~~~~~
   ~~~
-  Then building the Foo App for the domain https://localhost:8080:
+  Then building the Foo App for the domain `https://localhost:8080`:
   ~~~~~
   ~~~
-  `php /path/to/roady/Apps/Foo/Components.php 'http://localhost:8080'`
+  ```
+  php /path/to/roady/Apps/Foo/Components.php \
+      'http://localhost:8080'
+  ```
   ~~~~~
   ~~~
-  Will make the output "Hello World" available in response to the following
-  request to the domain http://localhost:8080:
+  Will make the output "Hello World" available in response to 
+  the following request to the domain http://localhost:8080:
   ~~~~~
   ~~~
   http://localhost:8080/index.php?foo=bar&baz=bazzer
   ~~~~~
   ~~~
-  Note: Responses can be assigned any number of DynamicOutputComponents,
-  OutputComponents, and Requests, as long as the respective Response,
-  DynamicOutputComponents, OutputComponents, and Requests are all defined by
-  the same App.
+  Note: Responses can be assigned any number of 
+  DynamicOutputComponents, OutputComponents, and Requests, as 
+  long as the respective Response, DynamicOutputComponents, 
+  OutputComponents, and Requests are all defined by the same App.
   ~~~~~
   ~~~
-  Hint: You can use rig --start-server to start a local development server to run
-  your roady Apps locally. For more information about the --start-server flag
-  use:
+  Hint: You can use rig --start-server to start a local 
+  development server to run your roady Apps locally. For more 
+  information about the --start-server flag use:
   ~~~~~
   ~~~
-  `rig --help start-server`
+  ```
+  rig --help start-server
+  ```
   ~~~~~
   ~~~
   ### Flags:
   ~~~~~
   ~~~```--for-app```~~~~~    
                ~~~
-               The name of the App to configure the Response for.~~~~~
-
-               ~~~
-               WARNING: The specified App must exist, if it does not, the new
-               Response will not be configured.
+               The name of the App to configure the Response for.
                ~~~~~
-
+               ~~~
+               WARNING: The specified App must exist, if it 
+               does not, the new Response will not be configured.
+               ~~~~~
   ~~~```--name```~~~~~       
                ~~~
-               A name to assign to the new Response.~~~~~
-
-               ~~~
-               WARNING: The name must be unique, if a Response already
-               exists with the same name the new Response will not be
-               configured.
+               A name to assign to the new Response.
                ~~~~~
-
                ~~~
-               WARNING: The specified name must be alphanumeric or rig will
-               refuse to configure the Response.
+               WARNING: The name must be unique, if a Response 
+               already exists with the same name the new 
+               Response will not be configured.
                ~~~~~
-
                ~~~
-               WARNING: If the specified name contains spaces, only the
-               alphanumeric characters up to the first space will be used.
+               WARNING: The specified name must be alphanumeric 
+               or rig will refuse to configure the Response.
                ~~~~~
-
+               ~~~
+               WARNING: If the specified name contains spaces, 
+               only the alphanumeric characters up to the first 
+               space will be used. 
+               ~~~~~
                ~~~
                For example:
                ~~~~~
-
-                   ```
-                   rig --new-response \
+               ~~~
+               ```
+               rig --new-response \
                    --for-app Foo \
                    --name 'Spaces In Alphanumeric Name'
-                   ```
-
-               ~~~
-               Would result in the assigned name:
+               ```
                ~~~~~
-
-                   ~~~
-                   `Spaces`
-                   ~~~~~
-
+               ~~~
+               Would result in the assigned name: `Spaces`
+               ~~~~~
   ~~~```[--position]```~~~~~ 
                ~~~
-               The position to assign to the Response. This position is used to
-               sort the Response relative to other Responses and GlobalResponses
-               that respond to the same Requests.~~~~~
-
+               The position to assign to the Response. This 
+               position is used to sort the Response relative 
+               to other Responses and GlobalResponses that 
+               respond to the same Requests. 
+               ~~~~~
                ~~~
                Defaults to: `0`
                ~~~~~
-
+  ~~~
   ### Examples:
-
+  ~~~~~
+  ~~~
   ```
   rig --new-response --for-app Foo --name Bar
-  ```
-  ```
+
   rig --new-response --for-app Foo --name Baz --position 3.5
   ```
+  ~~~~~

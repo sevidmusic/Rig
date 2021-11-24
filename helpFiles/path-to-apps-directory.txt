@@ -32,17 +32,14 @@
   ```
   ~~~~~
   ~~~
-  WARNING: Unless you really need to, it is best to let rig 
-  manage the --path-to-apps-directory flag's value to insure an 
-  appropriate path is used. 
+  WARNING: It is best to let rig determine the 
+  --path-to-apps-directory flag's value to insure 
+  an appropriate path is used. 
   ~~~~~
   ~~~
-  WARNING: This flag causes issues when used in conjunction with 
-  the --configure-app-output flag. This is a bug, and it is being 
-  addressed. 
-  ~~~~~
-  ~~~
-  See issue #100:
+  WARNING: Using the --path-to-apps-directory flag in conjunction 
+  wtih the --configure-app-output flag does work properly at the
+  moment. This bug is being addressed. See issue #100:
   ~~~~~
   ~~~
   ```

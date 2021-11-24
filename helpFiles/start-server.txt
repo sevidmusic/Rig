@@ -56,7 +56,9 @@
   To get a list of active development servers use:
   ~~~~~
   ~~~
-  `rig --view-active-servers`
+  ```
+  rig --view-active-servers
+  ```
   ~~~~~
   ~~~
   ### Flags:

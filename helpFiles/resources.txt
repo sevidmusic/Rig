@@ -1,10 +1,12 @@
   ~~~
-  # resources directory
+  # resources 
   ~~~~~
   ~~~
-  An App's resources directory is for any miscellaneous files
+  An App's `resources` directory is for any miscellaneous files
   or directories used by the App.
   ~~~~~
   ~~~
-  These may be images, text files, additional source code, etc.
+  For example, images used by an App could be placed in the 
+  App's `resources` directory, or a sub-directory of the App's
+  `resources` directory.
   ~~~~~
