@@ -221,13 +221,12 @@
                         Will result in the derived name: `Spaces`
                         ~~~~~
                         ~~~
-                        WARNING: It is also possible that rig
-                        will refuse to configure the output if
-                        a `--name` that contains spaces is
-                        specified that is surrounded by quotes.
+                        WARNING: rig will refuse to configure the 
+                        output if the specified `--name` that 
+                        contains spaces is surrounded by quotes.
                         ~~~~~
                         ~~~
-                        For example:
+                        The following examples will not work:
                         ~~~~~
                         ~~~
                         ```
