@@ -118,7 +118,7 @@
   ~~~```--name```~~~~~
                         ~~~
                         The name used to determine the names to
-                        assign to the components that will be
+                        assign to the Components that will be
                         configured for the output.
                         ~~~~~
                         ~~~
@@ -213,7 +213,7 @@
                         ```
                         rig --configure-app-output \
                             --for-app Foo \
-                            --name 'Spaces In Alphanumeric Name' \
+                            --name Spaces In Alphanumeric Name \
                             --output Baz
                         ```
                         ~~~~~
@@ -224,7 +224,24 @@
                         WARNING: It is also possible that rig
                         will refuse to configure the output if
                         a `--name` that contains spaces is
-                        specified.
+                        specified that is surrounded by quotes.
+                        ~~~~~
+                        ~~~
+                        For example:
+                        ~~~~~
+                        ~~~
+                        ```
+                        rig --configure-app-output \
+                            --for-app Bar \
+                            --name 'Spaces In Alphanumeric Name' \
+                            --output Foo
+
+
+                        rig --configure-app-output \
+                            --for-app Bazzer \
+                            --name "Spaces In Alphanumeric Name" \
+                            --output FooBarBaz
+                        ```
                         ~~~~~
   ~~~```--output```~~~~~
                         ~~~
