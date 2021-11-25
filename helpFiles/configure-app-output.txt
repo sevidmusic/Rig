@@ -161,7 +161,7 @@
                         rig --new-dynamic-output-component \
                             --for-app Foo \
                             --name Bar \
-                            --output Baz \
+                            --initial-output Baz \
                             --container FooDynamicOutput
 
                         rig --new-request \
