@@ -34,7 +34,7 @@
   ```
   rig --help --debug flags options
 
-  rig --help --start-server --debug flags
+  rig --new-app --name Foo --debug flags
 
   rig --start-server --debug options
   ```
