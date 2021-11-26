@@ -788,7 +788,9 @@
                         relative to the App's root directory:
                         ~~~~~
                         ~~~
-                        `./DynamicOutput`
+                        ```
+                        ./DynamicOutput
+                        ```
                         ~~~~~
                         ~~~
                         For example, if the `--static` flag is not
@@ -913,8 +915,8 @@
   rig --configure-app-output \
       --for-app Foo \
       --name Bar \
-      --output '<p>Hello World</p
-      >'
+      --output '<p>Hello World</p>'
+
  rig --configure-app-output \
       --for-app Foo \
       --name Baz \
