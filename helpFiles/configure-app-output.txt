@@ -91,7 +91,7 @@
                         ~~~
                         ```
                         rig --configure-app-output \
-                            --for-app 'Spaces In Name' \
+                            --for-app Spaces In Name \
                             --name Bar \
                             --output Baz
                         ```
@@ -105,11 +105,24 @@
                         ~~~
                         WARNING: There is a bug that in fact does
                         allow an App name to be specified that
-                        contains non-alphanumeric characters.
+                        contains spaces. This happens if the
+                        name is enclosed in quotes, for example:
+                        ~~~~~
+                        ~~~
+                        ```
+                        rig --configure-app-output \
+                            --for-app 'Spaces In Name' \
+                            --name Bar \
+                            --output Baz
+                        ```
+                        ~~~~~
+                        ~~~
                         See issue #180:
+                        ~~~~~
                         ~~~
                         https://github.com/sevidmusic/rig/issues/180
                         ~~~~~
+                        ~~~
                         This bug will be addressed as soon as
                         possible. For now, make sure to be
                         careful to only use alpha-numeric
@@ -277,7 +290,12 @@
                         ```
                         ~~~~~
                         ~~~
-                        Whose contents will be: `Baz`
+                        Whose contents will be: 
+                        ~~~~~
+                        ~~~
+                        ```
+                        Baz
+                        ```
                         ~~~~~
                         ~~~
                         Additionally, if the `--static` flag is
