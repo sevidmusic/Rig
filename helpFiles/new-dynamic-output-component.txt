@@ -21,9 +21,37 @@
                                ~~~~~
                                ~~~
                                WARNING: The specified App must
-                               exist, if it does not, the new
+                               exist at the path that corresponds
+                               to the path assigned to the
+                               `--path-to-apps-directory` flag.
+                               If the App does not exist, the new
                                DynamicOutputComponent will not be
                                configured.
+                               ~~~~~
+                               ~~~
+                               Note: It is unnecessary to specify
+                               the `--path-to-apps-directory`
+                               flag's value, rig will determine
+                               an appropriate path at runtime as
+                               long as the `--path-to-apps-directory`
+                               flag is not specified.
+                               ~~~~~
+                               ~~~
+                               Note: It is best to let rig
+                               determine the value of the
+                               `--path-to-apps-directory`
+                               flag to insure an appropriate path
+                               is used.
+                               ~~~~~
+                               ~~~
+                               Note: More information about the
+                               `--path-to-apps-directory` flag can
+                               be obtained via:
+                               ~~~
+                               ```
+                               rig --help path-to-apps-directory
+                               ```
+                               ~~~~~
                                ~~~~~
   ~~~```--name```~~~~~
                                ~~~
