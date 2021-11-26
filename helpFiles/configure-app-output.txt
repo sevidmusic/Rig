@@ -234,12 +234,15 @@
                         Will result in the derived name: `Spaces`
                         ~~~~~
                         ~~~
-                        WARNING: rig will refuse to configure the 
-                        output if the specified `--name` that 
-                        contains spaces is surrounded by quotes.
-                        ~~~~~
-                        ~~~
-                        The following examples will not work:
+                        WARNING: If the specified `--name` contains 
+                        spaces, and is also surrounded by quotes,
+                        then the rig will create the specified App, 
+                        but will not configure any Components for 
+                        the specified output. For example, the 
+                        following calls to rig will create an App 
+                        named `Bar`, and an App named `Bazzer`, but 
+                        will not configure any Components for the 
+                        specified output:
                         ~~~~~
                         ~~~
                         ```
@@ -257,9 +260,9 @@
                         ~~~~~
   ~~~```--output```~~~~~
                         ~~~
-                        The output to assign. This flag is 
-                        required unless the `--output-source-file` 
-                        flag is specified.
+                        The output to assign. This flag is required 
+                        unless the `--output-source-file` flag is 
+                        specified.
                         ~~~~~
                         ~~~
                         Note: If the `--static` flag is not
@@ -357,7 +360,8 @@
                         ```
                         ~~~~~
                         ~~~
-                        The contents of `./Foo/OutputComponents/Bar.php`
+                        The contents of 
+                        `./Foo/OutputComponents/Bar.php`
                         will be:
                         ~~~~~
                         ~~~
@@ -486,11 +490,11 @@
                         ~~~~~
                         ~~~
                         Note: If the `--static` flag is specified,
-                        the specified `--output-source-file`'s
-                        content will be defined in an
-                        OutputComponent configuration file in the
-                        App's OutputComponents directory whose 
-                        name matches the specified `--name`.
+                        then the specified `--output-source-file`'s
+                        content will be saved in an OutputComponent 
+                        configuration file located in the App's 
+                        OutputComponents directory whose name 
+                        matches the specified `--name`.
                         ~~~~~
                         ~~~
                         For example:
