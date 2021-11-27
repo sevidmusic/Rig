@@ -9,294 +9,365 @@
   ### Description:
   ~~~~~
   ~~~
-  Configure a new DynamicOutputComponent for the specified App.
+  Configure a new DynamicOutpuComponent for the specified App.
   ~~~~~
   ~~~
   ### Flags:
   ~~~~~
   ~~~```--for--app```~~~~~
-                               ~~~
-                               The name of the App to configure
-                               the new DynamicOutputComponent for.
-                               ~~~~~
-                               ~~~
-                               WARNING: The specified App must
-                               exist at the path that corresponds
-                               to the path assigned to the
-                               `--path-to-apps-directory` flag.
-                               If the App does not exist, the new
-                               DynamicOutputComponent will not be
-                               configured.
-                               ~~~~~
-                               ~~~
-                               Note: It is unnecessary to specify
-                               the `--path-to-apps-directory`
-                               flag's value, rig will determine
-                               an appropriate path at runtime as
-                               long as the `--path-to-apps-directory`
-                               flag is not specified.
-                               ~~~~~
-                               ~~~
-                               Note: It is best to let rig
-                               determine the value of the
-                               `--path-to-apps-directory`
-                               flag to insure an appropriate path
-                               is used.
-                               ~~~~~
-                               ~~~
-                               Note: More information about the
-                               `--path-to-apps-directory` flag can
-                               be obtained via:
-                               ~~~
-                               ```
-                               rig --help path-to-apps-directory
-                               ```
-                               ~~~~~
-                               ~~~~~
+                              ~~~
+                              The name of the App to configure
+                              the new DynamicOutputComponent for.
+                              ~~~~~
+                              ~~~
+                              WARNING: The specified App must
+                              exist at the path that corresponds
+                              to the path assigned to the
+                              `--path-to-apps-directory` flag.
+                              If the App does not exist, the new
+                              DynamicOutputComponent will not be
+                              configured.
+                              ~~~~~
+                              ~~~
+                              Note: It is unnecessary to specify
+                              the `--path-to-apps-directory`
+                              flag's value, rig will determine
+                              an appropriate path at runtime as
+                              long as the `--path-to-apps-directory`
+                              flag is not specified.
+                              ~~~~~
+                              ~~~
+                              Note: It is best to let rig
+                              determine the value of the
+                              `--path-to-apps-directory`
+                              flag to insure an appropriate path
+                              is used.
+                              ~~~~~
+                              ~~~
+                              Note: More information about the
+                              `--path-to-apps-directory` flag can
+                              be obtained via:
+                              ~~~
+                              ```
+                              rig --help path-to-apps-directory
+                              ```
+                              ~~~~~
+                              ~~~~~
   ~~~```--name```~~~~~
-                               ~~~
-                               An alphanumeric name to assign to
-                               the new DynamicOutputComponent.
-                               ~~~~~
-                               ~~~
-                               WARNING: The name must be unique.
-                               rig will refuse to configure the
-                               new DynamicOutputComponent if a
-                               DynamicOutputComponent with the
-                               same name already exists.
-                               ~~~~~
-                               ~~~
-                               WARNING: rig will refuse to configure
-                               the new DynamicOutputComponent if the
-                               name is not alphanumeric.
-                               ~~~~~
-                               ~~~
-                               Note: If the name contains spaces, and
-                               is not quoted, only the alphanumeric
-                               characters up to the first space will
-                               be used.
-                               ~~~~~
-                               ~~~
-                               For example:
-                               ~~~~~
-                               ~~~
-                               ```
-                               rig --new-dynamic-output-component \
-                                   --for-app Foo \
-                                   --name Spaces In Name \
-                                   --initial-output 'barBaz Foo'
-                               ```
-                               ~~~~~
-                               ~~~
-                               Would result in the assigned name:
-                               ~~~~~
-                               ~~~
-                               `Spaces`
-                               ~~~~~
-                               ~~~
-                               Note: If the name contains spaces,
-                               and is surrounded by quotes, then
-                               rig will refuse to configure the
-                               new DynamicOutputComponent.
-                               ~~~~~
-                               ~~~
-                               For example, the following will fail:
-                               ~~~~~
-                               ~~~
-                               ```
-                               rig --new-dynamic-output-component \
-                                   --for-app Foo \
-                                   --name 'Spaces In Quoted Name' \
-                                   --initial-output 'barBaz Foo'
-                               ```
-                               ~~~~~
+                              ~~~
+                              An alphanumeric name to assign to
+                              the new DynamicOutputComponent.
+                              ~~~~~
+                              ~~~
+                              WARNING: The name must be unique.
+                              rig will refuse to configure the
+                              new DynamicOutputComponent if a
+                              DynamicOutputComponent with the
+                              same name already exists.
+                              ~~~~~
+                              ~~~
+                              WARNING: rig will refuse to configure
+                              the new DynamicOutputComponent if the
+                              name is not alphanumeric.
+                              ~~~~~
+                              ~~~
+                              Note: If the name contains spaces, and
+                              is not quoted, only the alphanumeric
+                              characters up to the first space will
+                              be used.
+                              ~~~~~
+                              ~~~
+                              For example:
+                              ~~~~~
+                              ~~~
+                              ```
+                              rig --new-dynamic-output-component \
+                                  --for-app Foo \
+                                  --name Spaces In Name \
+                                  --initial-output 'barBaz Foo'
+                              ```
+                              ~~~~~
+                              ~~~
+                              Would result in the assigned name:
+                              ~~~~~
+                              ~~~
+                              `Spaces`
+                              ~~~~~
+                              ~~~
+                              Note: If the name contains spaces,
+                              and is surrounded by quotes, then
+                              rig will refuse to configure the
+                              new DynamicOutputComponent.
+                              ~~~~~
+                              ~~~
+                              For example, the following will fail:
+                              ~~~~~
+                              ~~~
+                              ```
+                              rig --new-dynamic-output-component \
+                                  --for-app Foo \
+                                  --name 'Spaces In Quoted Name' \
+                                  --initial-output 'barBaz Foo'
+                              ```
+                              ~~~~~
   ~~~```[--container]```~~~~~
-                               ~~~
-                               The container to store the new
-                               DynamicOutputComponent's data in.
-                               This value is used when an App is
-                               built for a domain, it determines
-                               where in the Domain's storage the
-                               DynamicOutputComponent's data will
-                               be located after the App is built.
-                               ~~~~~
-                               ~~~
-                               Defaults to:
-                               ~~~~~
-                               ~~~
-                               ```
-                               DynamicOutputComponents
-                               ```
-                               ~~~~~
-                               ~~~
-                               WARNING: rig will refuse to configure
-                               the new DynamicOutputComponent if the
-                               container is not alphanumeric.
-                               ~~~~~
-                               ~~~
-                               Note: If the container contains
-                               spaces, and is not quoted, only
-                               the alphanumeric characters up
-                               to the first space will be used.
-                               ~~~~~
-                               ~~~
-                               For example:
-                               ~~~~~
-                               ~~~
-                               ```
-                               rig --new-dynamic-output-component \
-                                   --for-app Foo \
-                                   --name Bar \
-                                   --container Spaces In Container \
-                                   --initial-output 'barBaz Foo'
-                               ```
-                               ~~~~~
-                               ~~~
-                               Would result in the assigned
-                               container: `Spaces`
-                               ~~~~~
-                               ~~~
-                               Note: If the container contains
-                               spaces, and is surrounded by quotes,
-                               then rig will refuse to configure the
-                               new DynamicOutputComponent.
-                               ~~~~~
-                               ~~~
-                               For example, the following will fail:
-                               ~~~~~
-                               ~~~
-                               ```
+                              ~~~
+                              The name of the container to store 
+                              the new DynamicOutputComponent's 
+                              data in. This value is used when 
+                              an App is built for a domain, it 
+                              determines where in the Domain's 
+                              storage the DynamicOutputComponent's 
+                              data will be located after the App 
+                              is built.
+                              ~~~~~
+                              ~~~
+                              Defaults to:
+                              ~~~~~
+                              ~~~
+                              ```
+                              DynamicOutputComponents
+                              ```
+                              ~~~~~
+                              ~~~
+                              WARNING: rig will refuse to configure
+                              the new DynamicOutputComponent if the
+                              container is not alphanumeric.
+                              ~~~~~
+                              ~~~
+                              For example, the following will fail:
+                              ~~~~~
+                              ~~~
+                              ```
+                              rig --new-dynamic-output-component \
+                                  --for-app Foo \
+                                  --name Bar \
+                                  --container '_Bad-Char$_' \
+                                  --initial-output 'barBaz Foo'
+                              ```
+                              ~~~~~
+                              ~~~
+                              Note: If the container's name contains
+                              spaces, and is not quoted, only the 
+                              alphanumeric characters up to the 
+                              first space will be used.
+                              ~~~~~
+                              ~~~
+                              For example:
+                              ~~~~~
+                              ~~~
+                              ```
+                              rig --new-dynamic-output-component \
+                                  --for-app Foo \
+                                  --name Bar \
+                                  --container Spaces In Container \
+                                  --initial-output 'barBaz Foo'
+                              ```
+                              ~~~~~
+                              ~~~
+                              Would result in the assigned
+                              container: `Spaces`
+                              ~~~~~
+                              ~~~
+                              Note: If the container's name contains
+                              spaces, and is surrounded by quotes,
+                              then rig will refuse to configure the
+                              new DynamicOutputComponent.
+                              ~~~~~
+                              ~~~
+                              For example, the following will fail:
+                              ~~~~~
+                              ~~~
+                              ```
 
-                               rig --new-dynamic-output-component \
-                                   --for-app Foo \
-                                   --name Bar \
-                                   --container 'Spaces In Container' \
-                                   --initial-output 'barBaz Foo'
-                               ```
-                               ~~~~~
+                              rig --new-dynamic-output-component \
+                                  --for-app Foo \
+                                  --name Bar \
+                                  --container 'Spaces In Container' \
+                                  --initial-output 'barBaz Foo'
+                              ```
+                              ~~~~~
   ~~~```[--position]```~~~~~
-                               ~~~
-                               The position to assign to the
-                               DynamicOutputComponent.
-                               ~~~~~
-                               ~~~
-                               This position will be used to sort
-                               the DynamicOutputComponent
-                               relative to other
-                               DynamicOutputComponents and
-                               OutputComponents that are served
-                               by the same Response or
-                               GlobalResponse.
-                               ~~~~~
-                               ~~~
-                               Defaults to: `0`
-                               ~~~~~
+                              ~~~
+                              The position to assign to the
+                              DynamicOutputComponent.
+                              ~~~~~
+                              ~~~
+                              This position will be used to sort 
+                              the DynamicOutputComponent relative 
+                              to other DynamicOutputComponents and
+                              OutputComponents that are served by
+                              the same Response or GlobalResponse.
+                              ~~~~~
+                              ~~~
+                              Defaults to: `0`
+                              ~~~~~
   ~~~```[--file-name]```~~~~~
-                               ~~~
-                               Either the name of file that
-                               already exists in the App's
-                               DynamicOutput directory, or the
-                               name to assign to the file that
-                               will be created for the
-                               DynamicOutputComponent in the
-                               App's DynamicOutput directory.
-                               ~~~~~
-                               ~~~
-                               Note: If the --shared flag is
-                               specified, then the file will be
-                               created or expected to exist in
-                               roady's SharedDynamicOutput
-                               directory instead of in the App's
-                               DynamicOutput directory.
-                               ~~~~~
-                               ~~~
-                               Note: The path to roady
-                               SharedDynamicOutput directory will
-                               correspond to the following path
-                               relative to the path assigned to
-                               the --path-to-apps-directory flag:
-                               ~~~~~
-                               ~~~
-                               ```
-                               ../SharedDynamicOutput
-                               ```
-                               ~~~~~
-                               ~~~
-                               Note: If the --file-name flag is
-                               not specified, the file name will
-                               be assumed to match the specified
-                               --name, with the extension ".php"
-                               appended.
-                               ~~~~~
+                              ~~~
+                              Either the name of a file that
+                              already exists in the App's
+                              DynamicOutput directory, or the
+                              name to assign to the file that
+                              will be created for the
+                              DynamicOutputComponent in the
+                              App's DynamicOutput directory.
+                              ~~~~~
+                              ~~~
+                              For example, the following:
+                              ~~~~~
+                              ~~~
+                              ```
+                              rig --new-dynamic-output-component \
+                                  --for-app Foo \
+                                  --name Bar \
+                                  --file-name 'UniqueFileName.html' \
+                                  --initial-output '<p>Foo bar</p>'
+                              ```
+                              ~~~~~
+                              ~~~
+                              Will create a file named 
+                              `UniqueFileName.html` in the
+                              Foo App's DynamicOutput directory
+                              whose contents will be:
+                              ~~~~~
+                              ~~~
+                              ```
+                              <p>Foo bar</p>
+                              ```
+                              ~~~~~
+                              ~~~
+                              Note: If the --shared flag is
+                              specified, then the file will be
+                              created or expected to exist in
+                              roady's SharedDynamicOutput
+                              directory instead of in the App's
+                              DynamicOutput directory. For example, 
+                              the following:
+                              ~~~
+                              ```
+                              rig --new-dynamic-output-component \
+                                  --for-app Foo \
+                                  --name Baz \
+                                  --file-name 'UniqueFileName.html' \
+                                  --initial-output '<p>Foo baz</p>' \
+                                  --shared
+                              ```
+                              ~~~~~
+                              Will create a file named 
+                              `UniqueFileName.html` in 
+                              roady's SharedDynamicOutput 
+                              directory whose contents 
+                              will be:
+                              ~~~
+                              ```
+                              <p>Foo baz</p>
+                              ```
+                              ~~~~~
+                              ~~~
+                              Note: The path to roady's
+                              SharedDynamicOutput directory will
+                              correspond to the following path
+                              relative to the path assigned to
+                              the --path-to-apps-directory flag:
+                              ~~~
+                              ```
+                              ../SharedDynamicOutput
+                              ```
+                              ~~~~~
+                              ~~~~~
+                              ~~~~~
+                              ~~~
+                              Note: If the --file-name flag is
+                              not specified, the file name will
+                              be assumed to match the specified
+                              --name, with the extension ".php"
+                              appended. For example, the following:
+                              ~~~
+                              ```
+                              rig --new-dynamic-output-component \
+                                  --for-app Foo \
+                                  --name Bin \
+                                  --initial-output '<p>Foo bin</p>' 
+                              ```
+                              ~~~~~
+                              Will create a file named `Bar.php` in 
+                              the App's DynamicOutput directory 
+                              whose contents will be:
+                              ~~~
+                              ```
+                              <p>Foo bin</p>
+                              ```
+                              ~~~~~
+                              ~~~~~
   ~~~```[--initial-output]```~~~~~
-                               ~~~
-                               The initial output to assign as
-                               the content of the new file that
-                               will be created for the new
-                               DynamicOutputComponent.
-                               ~~~~~
-                               ~~~
-                               WARNING:
-                               rig will fail if the creation of
-                               the new file would overwrite an
-                               existing file.
-                               ~~~~~
-                               ~~~
-                               WARNING: The --initial-output and
-                               --initial-output-file flags cannot
-                               be used in conjunction with each
-                               other, if they are both specified
-                               rig will not configure the new
-                               DynamicOutputComponent.
-                               ~~~~~
+                              ~~~
+                              The initial output to assign as
+                              the content of the new file that
+                              will be created for the new
+                              DynamicOutputComponent.
+                              ~~~~~
+                              ~~~
+                              WARNING:
+                              rig will fail if the creation of
+                              the new file would overwrite an
+                              existing file.
+                              ~~~~~
+                              ~~~
+                              WARNING: The --initial-output and
+                              --initial-output-file flags cannot
+                              be used in conjunction with each
+                              other, if they are both specified
+                              rig will not configure the new
+                              DynamicOutputComponent.
+                              ~~~~~
   ~~~```[initial-output-file]```~~~~~
-                               ~~~
-                               A path to a file whose content
-                               will be used as the contents of
-                               the new file that will be created
-                               to generate output for the new
-                               DynamicOutputComponent.
-                               ~~~~~
-                               ~~~
-                               WARNING:
-                               rig will fail if the specified
-                               file does not exist.
-                               ~~~~~
-                               ~~~
-                               WARNING:
-                               rig will fail if the creation of
-                               the new file would overwrite an
-                               existing file.
-                               ~~~~~
-                               ~~~
-                               WARNING: The --initial-output-file
-                               and --initial-output flags cannot
-                               be used in conjunction with each
-                               other, if they are both specified
-                               rig will not configure the new
-                               DynamicOutputComponent.
-                               ~~~~~
+                              ~~~
+                              A path to a file whose content
+                              will be used as the contents of
+                              the new file that will be created
+                              to generate output for the new
+                              DynamicOutputComponent.
+                              ~~~~~
+                              ~~~
+                              WARNING:
+                              rig will fail if the specified
+                              file does not exist.
+                              ~~~~~
+                              ~~~
+                              WARNING:
+                              rig will fail if the creation of
+                              the new file would overwrite an
+                              existing file.
+                              ~~~~~
+                              ~~~
+                              WARNING: The --initial-output-file
+                              and --initial-output flags cannot
+                              be used in conjunction with each
+                              other, if they are both specified
+                              rig will not configure the new
+                              DynamicOutputComponent.
+                              ~~~~~
   ~~~```[--shared]```~~~~~
-                               ~~~
-                               If specified, rig will assume the
-                               file that generates the output for
-                               the DynamicOutputComponent exists,
-                               or should be created at the
-                               following path relative to the
-                               --path-to-apps-directory:
-                               ~~~~~
-                               ~~~
-                               ```
-                               ../SharedDynamicOutput
-                               ```
-                               ~~~~~
-                               ~~~
-                               If the file has to be created, and
-                               the --shared flag is specified,
-                               and the SharedDynamicOutput
-                               directory does not exist at the
-                               expected path, it will be created.
-                               ~~~~~
+                              ~~~
+                              If specified, rig will assume the
+                              file that generates the output for
+                              the DynamicOutputComponent exists,
+                              or should be created at the
+                              following path relative to the
+                              --path-to-apps-directory:
+                              ~~~~~
+                              ~~~
+                              ```
+                              ../SharedDynamicOutput
+                              ```
+                              ~~~~~
+                              ~~~
+                              If the file has to be created, and
+                              the --shared flag is specified,
+                              and the SharedDynamicOutput
+                              directory does not exist at the
+                              expected path, it will be created.
+                              ~~~~~
   ~~~
   ### Examples:
   ~~~~~
