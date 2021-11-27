@@ -96,7 +96,7 @@
                                ~~~
                                Note: If the name contains spaces,
                                and is surrounded by quotes, then 
-                               rig may refuse to configure the 
+                               rig will refuse to configure the 
                                new DynamicOutputComponent.
                                ~~~~~
                                ~~~
