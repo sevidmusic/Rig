@@ -59,21 +59,21 @@
                                the new DynamicOutputComponent.
                                ~~~~~
                                ~~~
-                               WARNING: The name must be unique,
+                               WARNING: The name must be unique.
                                rig will refuse to configure the
-                               new DynamicOutputComponent if a 
-                               DynamicOutputComponent with the 
+                               new DynamicOutputComponent if a
+                               DynamicOutputComponent with the
                                same name already exists.
                                ~~~~~
                                ~~~
-                               WARNING: rig will refuse to configure 
+                               WARNING: rig will refuse to configure
                                the new DynamicOutputComponent if the
                                name is not alphanumeric.
                                ~~~~~
                                ~~~
-                               Note: If the name contains spaces, and 
-                               is not quoted, only the alphanumeric 
-                               characters up to the first space will 
+                               Note: If the name contains spaces, and
+                               is not quoted, only the alphanumeric
+                               characters up to the first space will
                                be used.
                                ~~~~~
                                ~~~
@@ -95,8 +95,8 @@
                                ~~~~~
                                ~~~
                                Note: If the name contains spaces,
-                               and is surrounded by quotes, then 
-                               rig will refuse to configure the 
+                               and is surrounded by quotes, then
+                               rig will refuse to configure the
                                new DynamicOutputComponent.
                                ~~~~~
                                ~~~
@@ -124,7 +124,55 @@
                                Defaults to:
                                ~~~~~
                                ~~~
-                               `DynamicOutputComponents`
+                               ```
+                               DynamicOutputComponents
+                               ```
+                               ~~~~~
+                               ~~~
+                               WARNING: rig will refuse to configure
+                               the new DynamicOutputComponent if the
+                               container is not alphanumeric.
+                               ~~~~~
+                               ~~~
+                               Note: If the container contains
+                               spaces, and is not quoted, only
+                               the alphanumeric characters up
+                               to the first space will be used.
+                               ~~~~~
+                               ~~~
+                               For example:
+                               ~~~~~
+                               ~~~
+                               ```
+                               rig --new-dynamic-output-component \
+                                   --for-app Foo \
+                                   --name Bar \
+                                   --container Spaces In Container \
+                                   --initial-output 'barBaz Foo'
+                               ```
+                               ~~~~~
+                               ~~~
+                               Would result in the assigned
+                               container: `Spaces`
+                               ~~~~~
+                               ~~~
+                               Note: If the container contains
+                               spaces, and is surrounded by quotes,
+                               then rig will refuse to configure the
+                               new DynamicOutputComponent.
+                               ~~~~~
+                               ~~~
+                               For example, the following will fail:
+                               ~~~~~
+                               ~~~
+                               ```
+
+                               rig --new-dynamic-output-component \
+                                   --for-app Foo \
+                                   --name Bar \
+                                   --container 'Spaces In Container' \
+                                   --initial-output 'barBaz Foo'
+                               ```
                                ~~~~~
   ~~~```[--position]```~~~~~
                                ~~~
