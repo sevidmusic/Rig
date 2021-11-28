@@ -35,13 +35,12 @@
                               an appropriate path at runtime as
                               long as the `--path-to-apps-directory`
                               flag is not specified.
-                              ~~~~~
                               ~~~
                               Note: It is best to let rig
                               determine the value of the
                               `--path-to-apps-directory`
-                              flag to insure an appropriate path
-                              is used.
+                              flag to insure an appropriate 
+                              path is used.
                               ~~~~~
                               ~~~
                               Note: More information about the
@@ -51,6 +50,7 @@
                               ```
                               rig --help path-to-apps-directory
                               ```
+                              ~~~~~
                               ~~~~~
                               ~~~~~
   ~~~```--name```~~~~~
@@ -74,11 +74,7 @@
                               Note: If the name contains spaces, and
                               is not quoted, only the alphanumeric
                               characters up to the first space will
-                              be used.
-                              ~~~~~
-                              ~~~
-                              For example:
-                              ~~~~~
+                              be used. For example:
                               ~~~
                               ```
                               rig --new-dynamic-output-component \
@@ -87,21 +83,17 @@
                                   --initial-output 'barBaz Foo'
                               ```
                               ~~~~~
-                              ~~~
                               Would result in the assigned name:
-                              ~~~~~
                               ~~~
                               `Spaces`
+                              ~~~~~
                               ~~~~~
                               ~~~
                               Note: If the name contains spaces,
                               and is surrounded by quotes, then
                               rig will refuse to configure the
                               new DynamicOutputComponent.
-                              ~~~~~
-                              ~~~
                               For example, the following will fail:
-                              ~~~~~
                               ~~~
                               ```
                               rig --new-dynamic-output-component \
@@ -109,6 +101,7 @@
                                   --name 'Spaces In Quoted Name' \
                                   --initial-output 'barBaz Foo'
                               ```
+                              ~~~~~
                               ~~~~~
   ~~~```[--container]```~~~~~
                               ~~~
@@ -150,11 +143,7 @@
                               Note: If the container's name contains
                               spaces, and is not quoted, only the
                               alphanumeric characters up to the
-                              first space will be used.
-                              ~~~~~
-                              ~~~
-                              For example:
-                              ~~~~~
+                              first space will be used. For example:
                               ~~~
                               ```
                               rig --new-dynamic-output-component \
@@ -164,7 +153,6 @@
                                   --initial-output 'barBaz Foo'
                               ```
                               ~~~~~
-                              ~~~
                               Would result in the assigned
                               container: `Spaces`
                               ~~~~~
@@ -173,10 +161,7 @@
                               spaces, and is surrounded by quotes,
                               then rig will refuse to configure the
                               new DynamicOutputComponent.
-                              ~~~~~
-                              ~~~
                               For example, the following will fail:
-                              ~~~~~
                               ~~~
                               ```
 
@@ -186,6 +171,7 @@
                                   --container 'Spaces In Container' \
                                   --initial-output 'barBaz Foo'
                               ```
+                              ~~~~~
                               ~~~~~
   ~~~```[--position]```~~~~~
                               ~~~
