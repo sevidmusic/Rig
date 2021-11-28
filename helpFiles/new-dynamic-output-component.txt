@@ -190,21 +190,33 @@
                               ~~~~~
   ~~~```[--file-name]```~~~~~
                               ~~~
-                              Either the name of a file that
-                              already exists in the App's
-                              DynamicOutput directory, or the
-                              name to assign to the file that
-                              will be created for the
-                              DynamicOutputComponent in the
+                              Either the name to assign to 
+                              the file that will be created 
+                              for the DynamicOutputComponent 
+                              in the App's DynamicOutput 
+                              directory, or the name of a 
+                              file that already exists in the 
                               App's DynamicOutput directory.
                               ~~~~~
                               ~~~
-                              For example, if an App named Foo
-                              exists, and a file named
+                              Note: This DynamicOutput file will 
+                              be used to generate the new
+                              DynamicOutputComponent's output.
+                              ~~~~~
+                              ~~~
+                              Note: roady will interpret 
+                              DynamicOutput files that have
+                              the extension `.php` as executable
+                              `php` files. All other file extensions
+                              will be interpreted as plain text.
+                              ~~~~~
+                              ~~~
+                              For example, if an App named `Foo`
+                              already exists, and a file named
                               `UniqueFileName.html` does not
-                              already exist in the Foo App's
-                              DynamicOuput directory, then
-                              the following:
+                              already exist in the `Foo` App's
+                              DynamicOutput directory, then
+                              the following example:
                               ~~~~~
                               ~~~
                               ```
@@ -218,12 +230,83 @@
                               ~~~
                               Will create a file named
                               `UniqueFileName.html` in the
-                              Foo App's DynamicOutput directory
+                              `Foo` App's DynamicOutput directory
                               whose contents will be:
                               ~~~~~
                               ~~~
                               ```
                               <p>Foo bar</p>
+                              ```
+                              ~~~~~
+                              ~~~
+                              However, if a file named
+                              `UniqueFileName.html` does 
+                              already exists in the `Foo` App's 
+                              DynamicOutput directory, then
+                              the existing `UniqueFileName.html`
+                              DynamicOutput file will be assigned 
+                              as the new DynamicOutputComponent's 
+                              DynamicOutput file.
+                              ~~~~~
+                              ~~~
+                              For example, the `UniqueFileName.html`
+                              file created in the last example 
+                              could be assigned to another new
+                              DynamicOutputComponent. 
+                              ~~~~~
+                              ~~~
+                              Assuming the `Foo` App exists, the 
+                              `UniqueFileName.html` DynamicOutput
+                              file exists, and the 
+                              DynamicOutputComponent named `Bar` that
+                              was created in the previous example 
+                              exists, then the following:
+                              ~~~~~
+                              ~~~
+                              ```
+                              rig --new-dynamic-output-component \
+                                  --for-app Foo \
+                                  --name Bazzer \
+                                  --file-name 'UniqueFileName.html'
+                              ```
+                              ~~~~~
+                              ~~~
+                              Would configure a new 
+                              DynamicOutputComponent for 
+                              the `Foo` app named `Bazzer` 
+                              whose output was also generated 
+                              by the DynamicOutput file named 
+                              `UniqueFileName.html`.
+                              ~~~~~
+                              ~~~
+                              WARNING: If a file already 
+                              exists in the App's DynamicOutput 
+                              directory whose name matches the 
+                              specified `--file-name`, and the 
+                              `--initial-output` flag is also
+                              specified, rig will refuse to configure
+                              the new DynamicOutputComponent to 
+                              prevent accidentally overwriting an 
+                              existing DynamicOutput file.
+                              ~~~~~
+                              ~~~
+                              For instance, assuming the `Foo` App
+                              exists, the second call to rig 
+                              will fail in the following example:
+                              ~~~~~
+                              ~~~
+                              ```
+                              rig --new-dynamic-output-component \
+                                  --for-app Foo \
+                                  --name FooBarBaz \
+                                  --initial-output 'FooBarBaz' \
+                                  --file-name 'FooBarBaz.txt' 
+
+                              rig --new-dynamic-output-component \
+                                  --for-app Foo \
+                                  --name BazBarFoo \
+                                  --initial-output 'BazBarFoo' \
+                                  --file-name 'FooBarBaz.txt' 
                               ```
                               ~~~~~
                               ~~~
@@ -238,8 +321,8 @@
                               ```
                               rig --new-dynamic-output-component \
                                   --for-app Foo \
-                                  --name Baz \
-                                  --file-name 'UniqueFileName.html' \
+                                  --name FooBinBar \
+                                  --file-name 'SharedFile.html' \
                                   --initial-output '<p>Foo baz</p>' \
                                   --shared
                               ```
@@ -293,15 +376,23 @@
   ~~~```[--initial-output]```~~~~~
                               ~~~
                               The initial output to assign as
-                              the content of the new file that
-                              will be created for the new
+                              the content of the new DynamicOutput
+                              file that will be created for the new
                               DynamicOutputComponent.
                               ~~~~~
                               ~~~
-                              WARNING:
-                              rig will fail if the creation of
-                              the new file would overwrite an
-                              existing file.
+                              Note: This file will be created in the
+                              App DynamicOutput directory.
+                              ~~~~~
+                              ~~~
+                              Note: The name of this file will
+                              match the specified `--name`.
+                              ~~~~~
+                              ~~~
+                              WARNING: rig will refuse to configure 
+                              the new DynamicOutputComponent if 
+                              the creation of the new file would 
+                              overwrite an existing file.
                               ~~~~~
                               ~~~
                               WARNING: The --initial-output and
