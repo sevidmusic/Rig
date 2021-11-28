@@ -112,13 +112,13 @@
                               ~~~~~
   ~~~```[--container]```~~~~~
                               ~~~
-                              The name of the container to store 
-                              the new DynamicOutputComponent's 
-                              data in. This value is used when 
-                              an App is built for a domain, it 
-                              determines where in the Domain's 
-                              storage the DynamicOutputComponent's 
-                              data will be located after the App 
+                              The name of the container to store
+                              the new DynamicOutputComponent's
+                              data in. This value is used when
+                              an App is built for a domain, it
+                              determines where in the Domain's
+                              storage the DynamicOutputComponent's
+                              data will be located after the App
                               is built.
                               ~~~~~
                               ~~~
@@ -148,8 +148,8 @@
                               ~~~~~
                               ~~~
                               Note: If the container's name contains
-                              spaces, and is not quoted, only the 
-                              alphanumeric characters up to the 
+                              spaces, and is not quoted, only the
+                              alphanumeric characters up to the
                               first space will be used.
                               ~~~~~
                               ~~~
@@ -193,8 +193,8 @@
                               DynamicOutputComponent.
                               ~~~~~
                               ~~~
-                              This position will be used to sort 
-                              the DynamicOutputComponent relative 
+                              This position will be used to sort
+                              the DynamicOutputComponent relative
                               to other DynamicOutputComponents and
                               OutputComponents that are served by
                               the same Response or GlobalResponse.
@@ -213,7 +213,12 @@
                               App's DynamicOutput directory.
                               ~~~~~
                               ~~~
-                              For example, the following:
+                              For example, if an App named Foo
+                              exists, and a file named
+                              `UniqueFileName.html` does not
+                              already exist in the Foo App's
+                              DynamicOuput directory, then
+                              the following:
                               ~~~~~
                               ~~~
                               ```
@@ -225,7 +230,7 @@
                               ```
                               ~~~~~
                               ~~~
-                              Will create a file named 
+                              Will create a file named
                               `UniqueFileName.html` in the
                               Foo App's DynamicOutput directory
                               whose contents will be:
@@ -241,7 +246,7 @@
                               created or expected to exist in
                               roady's SharedDynamicOutput
                               directory instead of in the App's
-                              DynamicOutput directory. For example, 
+                              DynamicOutput directory. For example,
                               the following:
                               ~~~
                               ```
@@ -253,10 +258,10 @@
                                   --shared
                               ```
                               ~~~~~
-                              Will create a file named 
-                              `UniqueFileName.html` in 
-                              roady's SharedDynamicOutput 
-                              directory whose contents 
+                              Will create a file named
+                              `UniqueFileName.html` in
+                              roady's SharedDynamicOutput
+                              directory whose contents
                               will be:
                               ~~~
                               ```
@@ -287,11 +292,11 @@
                               rig --new-dynamic-output-component \
                                   --for-app Foo \
                                   --name Bin \
-                                  --initial-output '<p>Foo bin</p>' 
+                                  --initial-output '<p>Foo bin</p>'
                               ```
                               ~~~~~
-                              Will create a file named `Bar.php` in 
-                              the App's DynamicOutput directory 
+                              Will create a file named `Bar.php` in
+                              the App's DynamicOutput directory
                               whose contents will be:
                               ~~~
                               ```
