@@ -15,55 +15,80 @@
   ~~~~~
   ~~~```--for--app```~~~~~
                 ~~~
-                The name of the App to configure the new
+                The name of the App to configure the new 
                 OutputComponent for.
                 ~~~~~
                 ~~~
-                WARNING: The specified App must exist, if it
-                does not, the new OutputComponent will not be
+                WARNING: The specified App must exist at the path 
+                that corresponds to the path assigned to the 
+                `--path-to-apps-directory` flag. If the App does 
+                not exist, the new OutputComponent will not be
                 configured.
+                ~~~~~
+                ~~~
+                Note: It is unnecessary to specify the 
+                `--path-to-apps-directory` flag's value, rig 
+                will determine an appropriate path at runtime 
+                as long as the `--path-to-apps-directory` flag 
+                is not specified.
+                ~~~
+                Note: It is best to let rig determine the value of 
+                the `--path-to-apps-directory` flag to insure an 
+                appropriate path is used.
+                ~~~~~
+                ~~~
+                Note: More information about the
+                `--path-to-apps-directory` flag can
+                be obtained via:
+                ~~~
+                ```
+                rig --help path-to-apps-directory
+                ```
+                ~~~~~
+                ~~~~~
                 ~~~~~
   ~~~```--name```~~~~~
                 ~~~
-                An alphanumeric name to assign to the new
+                An alphanumeric name to assign to the new 
                 OutputComponent.
                 ~~~~~
                 ~~~
-                WARNING: The name must be unique, if an
-                OutputComponent already exists with the same
-                name, the new OutputComponent will not be
-                configured.
+                WARNING: The name must be unique. rig will 
+                refuse to configure the new OutputComponent 
+                if a OutputComponent with the same name already 
+                exists.
                 ~~~~~
                 ~~~
-                WARNING: The name must be alphanumeric with
-                no spaces, if spaces or non-alphanumeric
-                characters are present in the specified name,
-                only the alphanumeric characters up to the
-                first space or non-alphanumeric character
-                will be used.
+                WARNING: rig will refuse to configure the new 
+                OutputComponent if the name is not alphanumeric.
                 ~~~~~
                 ~~~
-                ### For example:
-                ~~~~~
+                Note: If the name contains spaces, and is not 
+                quoted, only the alphanumeric characters up to 
+                the first space will be used. For example:
                 ~~~
                 ```
                 rig --new-output-component \
-                    --for-app foo \
-                    --name 'Spaces & Bad Chars' \
-                    --output bar
+                    --for-app Foo \
+                    --name Spaces In Name \
+                    --output 'barBaz Foo'
                 ```
                 ~~~~~
-                ~~~
                 Would result in the assigned name: `Spaces`
                 ~~~~~
                 ~~~
-                It is also possible that rig will
-                refuse to configure the OutputComponent
-                if an alphanumeric name cannot be derived
-                from a name that contains spaces or
-                non-alphanumeric characters. This may
-                happen, for instance, if the specified
-                name starts with a non-alphanumeric character.
+                Note: If the name contains spaces, and is 
+                surrounded by quotes, then rig will refuse to
+                configure the new OutputComponent. For example, 
+                the following will fail:
+                ~~~
+                ```
+                rig --new-output-component \
+                    --for-app Foo \
+                    --name 'Spaces In Quoted Name' \
+                    --output 'barBaz Foo'
+                ```
+                ~~~~~
                 ~~~~~
   ~~~```--output```~~~~~
                 ~~~
@@ -71,23 +96,76 @@
                 ~~~~~
   ~~~```[--container]```~~~~~
                 ~~~
-                The container to store the new OutputComponent's
-                data in. This value is used when an App is
-                built for a domain, it determines where in
-                the Domain's storage the OutputComponent's data
-                will be located after the App is built.
+                The name of the container to store the new 
+                OutputComponent's data in. This value is used 
+                when an App is built for a domain, it determines 
+                where in the Domain's storage the OutputComponent's
+                data will be located after the App is built.
                 ~~~~~
                 ~~~
-                Defaults to: OutputComponents
+                Defaults to:
+                ~~~~~
+                ~~~
+                ```
+                OutputComponents
+                ```
+                ~~~~~
+                ~~~
+                WARNING: rig will refuse to configure the new 
+                OutputComponent if the specified container name 
+                is not alphanumeric.
+                ~~~~~
+                ~~~
+                For example, the following will fail:
+                ~~~~~
+                ~~~
+                ```
+                rig --new-output-component \
+                    --for-app Foo \
+                    --name Bar \
+                    --container '_Bad-Char$_' \
+                    --output 'barBaz Foo'
+                ```
+                ~~~~~
+                ~~~
+                Note: If the specified container name contains 
+                spaces, and is not quoted, only the alphanumeric 
+                characters up to the first space will be used.
+                For example:
+                ~~~
+                ```
+                rig --new-output-component \
+                    --for-app Foo \
+                    --name Bar \
+                    --container Spaces In Container \
+                    --output 'barBaz Foo'
+                ```
+                ~~~~~
+                Would result in the assigned container: `Spaces`
+                ~~~~~
+                ~~~
+                Note: If the specified container name contains 
+                spaces, and is surrounded by quotes, then rig
+                will refuse to configure the new OutputComponent. 
+                For example, the following will fail:
+                ~~~
+                ```
+
+                rig --new-output-component \
+                    --for-app Foo \
+                    --name Baz \
+                    --container 'Spaces In Container' \
+                    --output 'barBaz Foo'
+                ```
+                ~~~~~
                 ~~~~~
   ~~~```[--position]```~~~~~
                 ~~~
                 The position to assign to the OutputComponent.
                 This position will be used to sort the
-                OutputComponent relative to other
-                OutputComponents and DynamicOutputComponents
-                that are served by the same Response or
-                GlobalResponse.
+                OutputComponent relative to other OutputComponents 
+                and OutputComponents that are served by the same 
+                Response or GlobalResponse.
                 ~~~~~
                 ~~~
                 Defaults to: `0`
