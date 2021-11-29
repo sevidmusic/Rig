@@ -55,8 +55,8 @@
                 ~~~
                 WARNING: The name must be unique. rig will 
                 refuse to configure the new OutputComponent 
-                if a OutputComponent with the same name already 
-                exists.
+                if an OutputComponent with the same name 
+                already exists.
                 ~~~~~
                 ~~~
                 WARNING: rig will refuse to configure the new 
@@ -164,8 +164,8 @@
                 The position to assign to the OutputComponent.
                 This position will be used to sort the
                 OutputComponent relative to other OutputComponents 
-                and OutputComponents that are served by the same 
-                Response or GlobalResponse.
+                and DynamicOutputComponents that are served by the 
+                same Response or GlobalResponse.
                 ~~~~~
                 ~~~
                 Defaults to: `0`
@@ -177,18 +177,18 @@
   ```
   rig --new-output-component \
       --for-app Foo \
-      --name Bar \
+      --name BazFooBar \
       --output Bar
 
   rig --new-output-component \
       --for-app Foo \
-      --name Baz \
+      --name BazFooBaz \
       --output Baz \
       --container FooOutput
 
   rig --new-output-component \
       --for-app Foo \
-      --name Bin \
+      --name BazFooBin \
       --output Bin \
       --position 2.4
   ```
