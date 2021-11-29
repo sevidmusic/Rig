@@ -103,12 +103,7 @@
                 data will be located after the App is built.
                 ~~~~~
                 ~~~
-                Defaults to:
-                ~~~~~
-                ~~~
-                ```
-                OutputComponents
-                ```
+                Defaults to: `OutputComponents`
                 ~~~~~
                 ~~~
                 WARNING: rig will refuse to configure the new 
