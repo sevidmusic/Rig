@@ -28,40 +28,42 @@
                ~~~~~
   ~~~```--name```~~~~~       
                ~~~
-               A name to assign to the new GlobalResponse.
+               An alphanumeric name to assign to the new 
+               GlobalResponse.
                ~~~~~
                ~~~
-               WARNING: The name must be unique, if a 
-               GlobalResponse already exists with the same name 
-               the new GlobalResponse will not be configured.
+               WARNING: The name must be unique. rig will refuse to 
+               configure the new GlobalResponse if a GlobalResponse 
+               with the same name already exists.
                ~~~~~
                ~~~
-               WARNING: The name must be alphanumeric with no 
-               spaces, if spaces or non-alphanumeric characters 
-               are present in the specified name, only the 
-               alphanumeric characters up to the first space or 
-               non-alphanumeric character will be used. 
+               WARNING: rig will refuse to configure the new 
+               GlobalResponse if the name is not alphanumeric.
                ~~~~~
                ~~~
-               For example:
-               ~~~~~
+               Note: If the name contains spaces, and is not quoted, 
+               only the alphanumeric characters up to the first space 
+               will be used. For example:
                ~~~
                ```
                rig --new-global-response \
-                   --for-app foo \
-                   --name 'Spaces & Bad Chars'
+                   --for-app Foo \
+                   --name Spaces In Name 
                ```
                ~~~~~
-               ~~~
                Would result in the assigned name: `Spaces`
                ~~~~~
                ~~~
-               It is also possible that rig will refuse to 
-               configure the GlobalResponse if an alphanumeric 
-               name cannot be derived from a name that contains 
-               spaces or non-alphanumeric characters. This may 
-               happen, for instance, if the specified name 
-               starts with a non-alphanumeric character. 
+               Note: If the name contains spaces, and is surrounded 
+               by quotes, then rig will refuse to configure the new 
+               GlobalResponse. For example, the following will fail:
+               ~~~
+               ```
+               rig --new-global-response \
+                   --for-app Foo \
+                   --name 'Spaces In Quoted Name'
+               ```
+               ~~~~~
                ~~~~~
   ~~~```[--position]```~~~~~ 
                ~~~
