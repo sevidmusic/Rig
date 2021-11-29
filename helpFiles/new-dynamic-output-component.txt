@@ -252,9 +252,9 @@
                               ~~~~~
                               ~~~
                               For example, the `UniqueFileName.html`
-                              file created in the last example 
-                              could be assigned to another new
-                              DynamicOutputComponent. 
+                              DynamicOutput file created in the last 
+                              example could be assigned to another 
+                              new DynamicOutputComponent. 
                               ~~~~~
                               ~~~
                               Assuming the `Foo` App exists, 
@@ -280,12 +280,12 @@
                               `UniqueFileName.html`.
                               ~~~~~
                               ~~~
-                              WARNING: If a file already 
-                              exists in the App's DynamicOutput 
-                              directory whose name matches the 
-                              specified `--file-name`, and the 
-                              `--initial-output` flag is also
-                              specified, rig will refuse to configure
+                              WARNING: If a DynamicOutput file 
+                              already exists in the App's 
+                              DynamicOutput directory whose name 
+                              matches the specified `--file-name`, 
+                              and the `--initial-output` flag is also
+                              specified, rig will refuse to configure 
                               the new DynamicOutputComponent to 
                               prevent accidentally overwriting an 
                               existing DynamicOutput file.
@@ -311,10 +311,10 @@
                               ```
                               ~~~~~
                               ~~~
-                              Note: If the --shared flag is
-                              specified, then the file will be
-                              created, or expected to exist in
-                              roady's SharedDynamicOutput
+                              Note: If the `--shared` flag is
+                              specified, then the DynamicOutput file 
+                              will be created, or expected to exist 
+                              in roady's `SharedDynamicOutput`
                               directory instead of in the relevant
                               App's DynamicOutput directory. 
                               For example, assuming the `Foo` App 
@@ -331,7 +331,7 @@
                               ~~~~~
                               Will create a file named
                               `SharedFile.html` in
-                              roady's SharedDynamicOutput
+                              roady's `SharedDynamicOutput`
                               directory whose contents
                               will be:
                               ~~~
@@ -341,7 +341,7 @@
                               ~~~~~
                               ~~~
                               Note: The path to roady's
-                              SharedDynamicOutput directory will
+                              `SharedDynamicOutput` directory will
                               correspond to the following path
                               relative to the path assigned to
                               the `--path-to-apps-directory` flag:
@@ -384,11 +384,12 @@
                               ~~~~~
                               ~~~
                               Note: This file will be created in the
-                              App DynamicOutput directory.
+                              relevant App's DynamicOutput directory.
                               ~~~~~
                               ~~~
                               Note: The name of this file will
-                              match the specified `--name`.
+                              match the specified `--name`, unless
+                              the `--file-name` flag is specified.
                               ~~~~~
                               ~~~
                               WARNING: rig will refuse to configure 
@@ -397,8 +398,8 @@
                               overwrite an existing file.
                               ~~~~~
                               ~~~
-                              WARNING: The --initial-output and
-                              --initial-output-file flags cannot
+                              WARNING: The `--initial-output` and
+                              `--initial-output-file` flags cannot
                               be used in conjunction with each
                               other, if they are both specified
                               rig will not configure the new
@@ -424,8 +425,8 @@
                               existing file.
                               ~~~~~
                               ~~~
-                              WARNING: The --initial-output-file
-                              and --initial-output flags cannot
+                              WARNING: The `--initial-output-file`
+                              and `--initial-output` flags cannot
                               be used in conjunction with each
                               other, if they are both specified
                               rig will not configure the new
@@ -433,12 +434,13 @@
                               ~~~~~
   ~~~```[--shared]```~~~~~
                               ~~~
-                              If specified, rig will assume the
-                              file that generates the output for
-                              the DynamicOutputComponent exists,
+                              If specified, rig will assume 
+                              the DynamicOutput file that 
+                              generates the output for the 
+                              new DynamicOutputComponent exists,
                               or should be created at the
                               following path relative to the
-                              --path-to-apps-directory:
+                              `--path-to-apps-directory`:
                               ~~~~~
                               ~~~
                               ```
@@ -446,11 +448,15 @@
                               ```
                               ~~~~~
                               ~~~
-                              If the file has to be created, and
-                              the --shared flag is specified,
-                              and the SharedDynamicOutput
-                              directory does not exist at the
-                              expected path, it will be created.
+                              If the DynamicOutput file has 
+                              to be created, the `--shared` 
+                              flag is specified, and the 
+                              `SharedDynamicOutput` directory 
+                              does not already exist at the 
+                              expected path, then rig will 
+                              create the `SharedDynamicOutput` 
+                              directory as well as the new 
+                              DynamicOutput file.
                               ~~~~~
   ~~~
   ### Examples:
@@ -468,7 +474,7 @@
       --container 'SpecifiedContainer' \
       --file-name 'SpecifiedFileName.txt' \
       --initial-output-file /path/to/initial/output/file.txt \
-      --position '2.7' \
+      --position 2.7 \
       --shared
   ```
   ~~~~~
