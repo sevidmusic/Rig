@@ -10,7 +10,7 @@
   Configure a new Request for the specified App.
   ~~~~~
   ~~~
-  A Request represents a specific request to a domain the
+  A Request represents a specific request to a domain that the
   App has been built for.
   ~~~~~
   ~~~
@@ -19,7 +19,7 @@
   ~~~~~
   ~~~
   For example, the following would define a request that 
-  represents a request to root of a domain:
+  represents a request to the root of a domain:
   ~~~~~
   ~~~
   ```
@@ -84,26 +84,21 @@
                  ~~~~~
   ~~~```--name```~~~~~         
                  ~~~
-                 An alphanumeric name to assign to
-                 the new Request.
+                 An alphanumeric name to assign to the new Request.
                  ~~~~~
                  ~~~
-                 WARNING: The name must be unique.
-                 rig will refuse to configure the
-                 new Request if a
-                 Request with the
+                 WARNING: The name must be unique. rig will refuse 
+                 to configure the new Request if a Request with the
                  same name already exists.
                  ~~~~~
                  ~~~
-                 WARNING: rig will refuse to configure
-                 the new Request if the
-                 name is not alphanumeric.
+                 WARNING: rig will refuse to configure the new 
+                 Request if the name is not alphanumeric.
                  ~~~~~
                  ~~~
-                 Note: If the name contains spaces, and
-                 is not quoted, only the alphanumeric
-                 characters up to the first space will
-                 be used. For example:
+                 Note: If the name contains spaces, and is not 
+                 quoted, only the alphanumeric characters up to 
+                 the first space will be used. For example:
                  ~~~
                  ```
                  rig --new-request \
@@ -114,11 +109,9 @@
                  Would result in the assigned name: `Spaces`
                  ~~~~~
                  ~~~
-                 Note: If the name contains spaces,
-                 and is surrounded by quotes, then
-                 rig will refuse to configure the
-                 new Request.
-                 For example, the following will fail:
+                 Note: If the name contains spaces, and is surrounded 
+                 by quotes, then rig will refuse to configure the
+                 new Request. For example, the following will fail:
                  ~~~
                  ```
                  rig --new-request \
@@ -162,6 +155,77 @@
                  ~~~~~
                  ~~~
                  `http://{domain}/`
+                 ~~~~~
+
+  ~~~```[--container]```~~~~~
+                 ~~~
+                 The name of the container to store
+                 the new Request's
+                 data in. This value is used when
+                 an App is built for a domain, it
+                 determines where in the Domain's
+                 storage the Request's
+                 data will be located after the App
+                 is built.
+                 ~~~~~
+                 ~~~
+                 Defaults to:
+                 ~~~~~
+                 ~~~
+                 ```
+                 Requests
+                 ```
+                 ~~~~~
+                 ~~~
+                 WARNING: rig will refuse to configure
+                 the new Request if the
+                 specified container name is not 
+                 alphanumeric.
+                 ~~~~~
+                 ~~~
+                 For example, the following will fail:
+                 ~~~~~
+                 ~~~
+                 ```
+                 rig --new-request \
+                     --for-app Foo \
+                     --name Bar \
+                     --container '_Bad-Char$_' 
+                 ```
+                 ~~~~~
+                 ~~~
+                 Note: If the specified container name 
+                 contains spaces, and is not quoted, 
+                 only the alphanumeric characters up to 
+                 the first space will be used. 
+                 For example:
+                 ~~~
+                 ```
+                 rig --new-request \
+                     --for-app Foo \
+                     --name Bar \
+                     --container Spaces In Container 
+                 ```
+                 ~~~~~
+                 Would result in the assigned
+                 container: `Spaces`
+                 ~~~~~
+                 ~~~
+                 Note: If the specified container 
+                 name contains spaces, and is 
+                 surrounded by quotes, then rig 
+                 will refuse to configure the new 
+                 Request. For example, 
+                 the following will fail:
+                 ~~~
+                 ```
+
+                 rig --new-request \
+                     --for-app Foo \
+                     --name Baz \
+                     --container 'Spaces In Container' 
+                 ```
+                 ~~~~~
                  ~~~~~
   ~~~
   ### Examples:
