@@ -1,6 +1,6 @@
   ~~~
   ```
-  rig --new-request --for-app --name [--relative-url]
+  rig --new-request --for-app --name [--container] [--relative-url]
   ```
   ~~~~~
   ~~~
@@ -10,8 +10,8 @@
   Configure a new Request for the specified App.
   ~~~~~
   ~~~
-  The purpose of a Request is to represent a specific request 
-  to a domain.
+  A Request represents a specific request to a domain the
+  App has been built for.
   ~~~~~
   ~~~
   Requests are defined using relative urls. This allows them to 
@@ -19,35 +19,68 @@
   ~~~~~
   ~~~
   For example, the following would define a request that 
-  represents a request to index.php:
+  represents a request to root of a domain:
   ~~~~~
   ~~~
   ```
   rig --new-request \
       --for-app Foo \
-      --name Bar \
-      --relative-url 'index.php'
+      --name RootRequest \
+      --relative-url '/'
   ```
   ~~~~~
   ~~~
-  If the Foo App was built for the domain, http://localhost:8080, 
-  then the Bar Request configured in the previous example 
-  would represent the following request to the domain 
-  http://localhost:8080:
+  If the Foo App was built for the domain, `http://localhost:8080`, 
+  then the Bar Request configured in the previous example would 
+  represent the following request:
   ~~~~~
   ~~~
-  http://localhost:8080/index.php
+  http://localhost:8080/
+  ~~~~~
+  ~~~
+  Alternatively, if the Foo App was built for the domain, 
+  `https://roady.tech` then the Bar Request configured in the 
+  previous example would represent the following request:
+  ~~~~~
+  ~~~
+  https://roady.tech/
   ~~~~~
   ~~~
   ### Flags:
   ~~~~~
   ~~~```--for-app```~~~~~      
                  ~~~
-                 The name of the App to configure the Request for.
+                 The name of the App to configure the new 
+                 Request for.
                  ~~~~~
                  ~~~
-                 WARNING: The specified App must exist, if it 
-                 does not, the new Request will not be configured.
+                 WARNING: The specified App must exist at the 
+                 path that corresponds to the path assigned to 
+                 the `--path-to-apps-directory` flag. If the App 
+                 does not exist, the new Request will not be 
+                 configured.
+                 ~~~~~
+                 ~~~
+                 Note: It is unnecessary to specify the 
+                 `--path-to-apps-directory` flag's value, 
+                 rig will determine an appropriate path at 
+                 runtime as long as the `--path-to-apps-directory`
+                 flag is not specified.
+                 ~~~
+                 Note: It is best to let rig determine the value of 
+                 the `--path-to-apps-directory` flag to insure an 
+                 appropriate path is used.
+                 ~~~~~
+                 ~~~
+                 Note: More information about the
+                 `--path-to-apps-directory` flag can
+                 be obtained via:
+                 ~~~
+                 ```
+                 rig --help path-to-apps-directory
+                 ```
+                 ~~~~~
+                 ~~~~~
                  ~~~~~
   ~~~```--name```~~~~~         
                  ~~~
@@ -129,6 +162,7 @@
   rig --new-request \
       --for-app Foo \
       --name Baz \
+      --container CustomContainer \
       --relative-url "?request=Baz"
 
   rig --new-request \
