@@ -196,10 +196,10 @@
                               Either the name to assign to 
                               the file that will be created 
                               for the DynamicOutputComponent 
-                              in the App's DynamicOutput 
+                              in the relevant App's DynamicOutput 
                               directory, or the name of a 
                               file that already exists in the 
-                              App's DynamicOutput directory.
+                              relevant App's DynamicOutput directory.
                               ~~~~~
                               ~~~
                               Note: This DynamicOutput file will 
@@ -214,11 +214,10 @@
                               will be interpreted as plain text.
                               ~~~~~
                               ~~~
-                              For example, if an App named `Foo`
-                              already exists, and a file named
-                              `UniqueFileName.html` does not
-                              already exist in the `Foo` App's
-                              DynamicOutput directory, then
+                              If an App named `Foo` already exists, 
+                              and a file named `UniqueFileName.html` 
+                              does not already exist in the `Foo` 
+                              App's DynamicOutput directory, then
                               the following example:
                               ~~~~~
                               ~~~
@@ -258,13 +257,11 @@
                               DynamicOutputComponent. 
                               ~~~~~
                               ~~~
-                              Assuming the `Foo` App exists, the 
-                              `UniqueFileName.html` DynamicOutput
-                              file exists in the Foo App's 
-                              DynamicOutput directory, and the 
-                              DynamicOutputComponent named `Baz` 
-                              that was configured in the previous 
-                              example exists, then the following:
+                              Assuming the `Foo` App exists, 
+                              and the `UniqueFileName.html` 
+                              DynamicOutput file exists in the 
+                              `Foo` App's DynamicOutput directory, 
+                              then the following:
                               ~~~~~
                               ~~~
                               ```
@@ -316,11 +313,12 @@
                               ~~~
                               Note: If the --shared flag is
                               specified, then the file will be
-                              created or expected to exist in
+                              created, or expected to exist in
                               roady's SharedDynamicOutput
                               directory instead of in the relevant
                               App's DynamicOutput directory. 
-                              For example, the following:
+                              For example, assuming the `Foo` App 
+                              exists, then the following:
                               ~~~
                               ```
                               rig --new-dynamic-output-component \
