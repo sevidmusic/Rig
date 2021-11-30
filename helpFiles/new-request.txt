@@ -18,29 +18,31 @@
   be domain agnostic.
   ~~~~~
   ~~~
-  For example, the following would define a request to a domain's 
-  index.php:
+  For example, if the `Foo` App already exists, the following 
+  will define a Request that represents a request to a domain's 
+  `index.php`:
   ~~~~~
   ~~~
   ```
   rig --new-request \
       --for-app Foo \
-      --name RootRequest \
+      --name IndexRequest \
       --relative-url 'index.php'
   ```
   ~~~~~
   ~~~
-  If the Foo App is built for the domain, `http://localhost:8080`, 
-  then the Bar Request configured in the previous example will 
-  represent the following request:
+  If the `Foo` App is built for the domain, `http://localhost:8080`, 
+  then the `Bar` Request configured in the previous example will 
+  represent the following request to `http://localhost:8080`:
   ~~~~~
   ~~~
   http://localhost:8080/index.php
   ~~~~~
   ~~~
-  Alternatively, if the Foo App is built for the domain, 
-  `https://roady.tech` then the Bar Request configured in the 
-  previous example will represent the following request:
+  Alternatively, if the `Foo` App is built for the domain, 
+  `https://roady.tech` then the `Bar` Request configured in the 
+  previous example will represent the following request to
+  `https://roady.tech`:
   ~~~~~
   ~~~
   https://roady.tech/index.php
@@ -123,63 +125,52 @@
   ~~~```--relative-url```~~~~~ 
                  ~~~
                  A relative url to assign to the new Request. 
-                 This relative url will correspond to a 
-                 complete url when an App is built for a domain. 
+                 ~~~~~
+                 ~~~
                  By default, the relative url '/' is assigned, 
                  which will correspond to the domain's root url. 
                  ~~~~~
                  ~~~
-                 For example:
+                 For example, the following would define a Request
+                 that represents a request to the root of a domain:
                  ~~~~~
                  ~~~
                  ```
-                 ?request=Foo
+                 rig --new-request \
+                     --for-app Foo \
+                     --name RootRequest
                  ```
                  ~~~~~
                  ~~~
-                 corresponds to:
+                 The specified relative url will correspond to a 
+                 complete url when the App is built for a domain. 
+                 ~~~~~
+                 ~~~
+                 For example, the following relative urls 
+                 correspond to the following complete url 
+                 patterns, where `{domain}` is replaced by 
+                 the actual domain the App is built for:
                  ~~~~~
                  ~~~
                  ```
-                 http://{domain}/?request=Foo
+                 ----------------------------------------------------
+                 | Relative Url  <- Corresponds To ->  Complete Url |
+                 ----------------------------------------------------
+                 ?request=Foo       http://{domain}/?request=Foo
+
+                 index.php?Bar=baz  http://{domain}/index.php?Bar=baz
+
+                 /                  http://{domain}/
                  ```
-                 ~~~~~
-                 ~~~
-                 ```
-                 index.php?request=Foo
-                 ```
-                 ~~~~~
-                 ~~~
-                 corresponds to:
-                 ~~~~~
-                 ~~~
-                 ```
-                 http://{domain}/index.php?request=Foo
-                 ```
-                 ~~~~~
-                 ~~~
-                 The default:
-                 ~~~~~
-                 ~~~
-                 `/`
-                 ~~~~~
-                 ~~~
-                 corresponds to:
-                 ~~~~~
-                 ~~~
-                 `http://{domain}/`
                  ~~~~~
 
   ~~~```[--container]```~~~~~
                  ~~~
-                 The name of the container to store
-                 the new Request's
-                 data in. This value is used when
-                 an App is built for a domain, it
-                 determines where in the Domain's
-                 storage the Request's
-                 data will be located after the App
-                 is built.
+                 The name of the container to store the new 
+                 Request's data in. This value is used when 
+                 an App is built for a domain, it determines 
+                 where in the Domain's storage the Request's 
+                 data will be located after the App is built.
                  ~~~~~
                  ~~~
                  Defaults to:
@@ -247,16 +238,16 @@
   ```
   rig --new-request \
       --for-app Foo \
-      --name Bar
+      --name BarBazFoo
 
   rig --new-request \
       --for-app Foo \
-      --name Baz \
+      --name BazFooBar \
       --relative-url "?request=Baz"
 
   rig --new-request \
       --for-app Foo \
-      --name Bin \
+      --name BinBazFoo \
       --container CustomContainer \
       --relative-url "?Foo=bar&baz=biz"
   ```
