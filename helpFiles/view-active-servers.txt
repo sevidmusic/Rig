@@ -7,13 +7,14 @@
   ### Description:
   ~~~~~
   ~~~
-  List the active php built in server instances started via 
-  `rig --start-server`.
+  List the domains associated with the currently active php built 
+  in server instances that were started via `rig --start-server`.
   ~~~~~
   ~~~
   ### Example:
+  ~~~~~
+  ~~~
   ```
   rig --view-active-servers
   ```
   ~~~~~
-

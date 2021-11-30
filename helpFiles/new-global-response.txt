@@ -1,83 +1,92 @@
+  ~~~
   ```
   rig --new-global-response --for-app --name [--position]
   ```
-
+  ~~~~~
+  ~~~
   ### Description:
-
+  ~~~~~
   ~~~
   Configure a new GlobalResponse for the specified App.
   ~~~~~
-
   ~~~
-  A GlobalResponse is a type of Response that will respond to all Requests to the
-  domain the App is built for.
+  A GlobalResponse is a type of Response that will respond to
+  all Requests to any domain the App is built for.
   ~~~~~
-
+  ~~~
   ### Flags:
-
-  ~~~```--for-app```~~~~~    ~~~The name of the App to configure the GlobalResponse for.~~~~~
-
+  ~~~~~
+  ~~~```--for-app```~~~~~
                ~~~
-               WARNING: The specified App must exist, if it does not, the new
-               GlobalResponse will not be configured.
+               The name of the App to configure the
+               GlobalResponse for.
                ~~~~~
-
-  ~~~```--name```~~~~~       ~~~A name to assign to the new GlobalResponse.~~~~~
-
                ~~~
-               WARNING: The name must be unique, if a GlobalResponse already
-               exists with the same name the new GlobalResponse will not be
+               WARNING: The specified App must exist, if it
+               does not, the new GlobalResponse will not be
                configured.
                ~~~~~
-
+  ~~~```--name```~~~~~
                ~~~
-               WARNING: The name must be alphanumeric with no spaces, if spaces
-               or non-alphanumeric characters are present in the specified name,
-               only the alphanumeric characters up to the first space or
-               non-alphanumeric character will be used.
+               An alphanumeric name to assign to the new
+               GlobalResponse.
                ~~~~~
-
                ~~~
-               For example:
+               WARNING: The name must be unique. rig will refuse to
+               configure the new GlobalResponse if a GlobalResponse
+               with the same name already exists.
                ~~~~~
-
-                   ```
-                   rig --new-global-response \
-                   --for-app foo \
-                   --name 'Spaces & Bad Chars'
-                   ```
-
                ~~~
-               Would result in the assigned name:
+               WARNING: rig will refuse to configure the new
+               GlobalResponse if the name is not alphanumeric.
                ~~~~~
-
-                   ~~~
-                   `Spaces`
-                   ~~~~~
-
                ~~~
-               It is also possible that rig will refuse to configure the
-               GlobalResponse if an alphanumeric name cannot be derived from a name
-               that contains spaces or non-alphanumeric characters. This may happen,
-               for instance, if the specified name starts with a non-alphanumeric
-               character.
+               Note: If the name contains spaces, and is not quoted,
+               only the alphanumeric characters up to the first space
+               will be used. For example:
+               ~~~
+               ```
+               rig --new-global-response \
+                   --for-app Foo \
+                   --name Spaces In Name
+               ```
                ~~~~~
-
-  ~~~```[--position]```~~~~~ ~~~The position to assign to the GlobalResponse. This position is used
-               to sort the GlobalResponse relative to other GlobalResponses and
-               Responses that respond to the same Request.~~~~~
-
+               Would result in the assigned name: `Spaces`
+               ~~~~~
+               ~~~
+               Note: If the name contains spaces, and is surrounded
+               by quotes, then rig will refuse to configure the new
+               GlobalResponse. For example, the following will fail:
+               ~~~
+               ```
+               rig --new-global-response \
+                   --for-app Foo \
+                   --name 'Spaces In Quoted Name'
+               ```
+               ~~~~~
+               ~~~~~
+  ~~~```[--position]```~~~~~
+               ~~~
+               The position to assign to the GlobalResponse.
+               This position is used to sort the GlobalResponse
+               relative to other GlobalResponses and Responses
+               that respond to the same Request.
+               ~~~~~
                ~~~
                Defaults to: `0`
                ~~~~~
-
+  ~~~
   ### Examples:
+  ~~~~~
+  ~~~
+  ```
+  rig --new-global-response \
+      --for-app Foo \
+      --name Bar
 
+  rig --new-global-response \
+      --for-app Foo \
+      --name Baz \
+      --position 3.5
   ```
-  rig --new-global-response --for-app Foo --name Bar
-  ```
-
-  ```
-  rig --new-global-response --for-app Foo --name Baz --position 3.5
-  ```
-
+  ~~~~~

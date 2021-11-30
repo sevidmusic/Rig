@@ -1,121 +1,254 @@
+  ~~~
   ```
-  rig --new-request --for-app --name [--relative-url]
+  rig --new-request --for-app --name [--relative-url] [--container]
   ```
-
+  ~~~~~
+  ~~~
   ### Description:
-
+  ~~~~~
   ~~~
   Configure a new Request for the specified App.
   ~~~~~
-
   ~~~
-  The purpose of a Request is to represent a specific request to a domain.
+  A Request represents a specific request to a domain that the
+  App has been built for.
   ~~~~~
-
   ~~~
-  Requests are defined using relative urls. This allows them to be domain
-  agnostic.
+  Requests are defined using relative urls. This allows them to 
+  be domain agnostic.
   ~~~~~
-
   ~~~
-  For example, the following would define a request that represents a request
-  to index.php:
+  For example, if the `Foo` App already exists, the following 
+  will define a Request that represents a request to a domain's 
+  `index.php`:
   ~~~~~
-
-      ```
-      rig --new-request \
+  ~~~
+  ```
+  rig --new-request \
       --for-app Foo \
-      --name Bar \
+      --name IndexRequest \
       --relative-url 'index.php'
-      ```
-
-  ~~~
-  If the Foo App was built for the domain, http://localhost:8080, then the Bar
-  Request configured in the previous example would represent the following
-  request to the domain http://localhost:8080:
+  ```
   ~~~~~
-
-      ~~~
-      http://localhost:8080/index.php
-      ~~~~~
-
+  ~~~
+  If the `Foo` App is built for the domain, `http://localhost:8080`, 
+  then the `IndexRequest` Request configured in the previous example 
+  will represent the following request to `http://localhost:8080`:
+  ~~~~~
+  ~~~
+  http://localhost:8080/index.php
+  ~~~~~
+  ~~~
+  Alternatively, if the `Foo` App is built for the domain, 
+  `https://roady.tech` then the `IndexRequest` Request configured 
+  in the previous example will represent the following request to
+  `https://roady.tech`:
+  ~~~~~
+  ~~~
+  https://roady.tech/index.php
+  ~~~~~
+  ~~~
   ### Flags:
-
-  ~~~```--for-app```~~~~~      ~~~The name of the App to configure the Request for.~~~~~
-
+  ~~~~~
+  ~~~```--for-app```~~~~~      
                  ~~~
-                 WARNING: The specified App must exist, if it does not, the new
-                 Request will not be configured.
+                 The name of the App to configure the new 
+                 Request for.
                  ~~~~~
-
-  ~~~```--name```~~~~~         ~~~A name to assign to the new Request.~~~~~
-
                  ~~~
-                 WARNING: The name must be unique, if a Request already
-                 exists with the same name the new Request will not be
+                 WARNING: The specified App must exist at the 
+                 path that corresponds to the path assigned to 
+                 the `--path-to-apps-directory` flag. If the App 
+                 does not exist, the new Request will not be 
                  configured.
                  ~~~~~
-
                  ~~~
-                 WARNING: The specified name must be alphanumeric or rig will
-                 refuse to configure the Request.
-                 ~~~~~
-
+                 Note: It is unnecessary to specify the 
+                 `--path-to-apps-directory` flag's value, 
+                 rig will determine an appropriate path at 
+                 runtime as long as the `--path-to-apps-directory`
+                 flag is not specified.
                  ~~~
-                 WARNING: If the specified name contains spaces, only the
-                 alphanumeric characters up to the first space will be used.
+                 Note: It is best to let rig determine the value of 
+                 the `--path-to-apps-directory` flag to insure an 
+                 appropriate path is used.
                  ~~~~~
-
                  ~~~
-                 For example:
+                 Note: More information about the
+                 `--path-to-apps-directory` flag can
+                 be obtained via:
+                 ~~~
+                 ```
+                 rig --help path-to-apps-directory
+                 ```
                  ~~~~~
-
-                     ```
-                     rig --new-request \
+                 ~~~~~
+                 ~~~~~
+  ~~~```--name```~~~~~         
+                 ~~~
+                 An alphanumeric name to assign to the new Request.
+                 ~~~~~
+                 ~~~
+                 WARNING: The name must be unique. rig will refuse 
+                 to configure the new Request if a Request with the
+                 same name already exists.
+                 ~~~~~
+                 ~~~
+                 WARNING: rig will refuse to configure the new 
+                 Request if the name is not alphanumeric.
+                 ~~~~~
+                 ~~~
+                 Note: If the name contains spaces, and is not 
+                 quoted, only the alphanumeric characters up to 
+                 the first space will be used. For example:
+                 ~~~
+                 ```
+                 rig --new-request \
                      --for-app Foo \
-                     --name 'Spaces In Alphanumeric Name'
-                     ```
-
+                     --name Spaces In Name 
+                 ```
+                 ~~~~~
+                 Would result in the assigned name: `Spaces`
+                 ~~~~~
                  ~~~
-                 Would result in the assigned name:
+                 Note: If the name contains spaces, and is surrounded 
+                 by quotes, then rig will refuse to configure the
+                 new Request. For example, the following will fail:
+                 ~~~
+                 ```
+                 rig --new-request \
+                     --for-app Foo \
+                     --name 'Spaces In Quoted Name'
+                 ```
+                 ~~~~~
+                 ~~~~~
+  ~~~```--relative-url```~~~~~ 
+                 ~~~
+                 A relative url to assign to the new Request. 
+                 ~~~~~
+                 ~~~
+                 By default, the relative url '/' is assigned, 
+                 which will correspond to the domain's root url. 
+                 ~~~~~
+                 ~~~
+                 For example, the following would define a Request
+                 that represents a request to the root of a domain:
+                 ~~~~~
+                 ~~~
+                 ```
+                 rig --new-request \
+                     --for-app Foo \
+                     --name RootRequest
+                 ```
+                 ~~~~~
+                 ~~~
+                 The specified relative url will correspond to a 
+                 complete url when the App is built for a domain. 
+                 ~~~~~
+                 ~~~
+                 For example, the following relative urls 
+                 correspond to the following complete url 
+                 patterns, where `{domain}` is replaced by 
+                 the actual domain the App is built for:
+                 ~~~~~
+                 ~~~
+                 ```
+                 ----------------------------------------------------
+                 | Relative Url  <- Corresponds To ->  Complete Url |
+                 ----------------------------------------------------
+                 ?request=Foo       http://{domain}/?request=Foo
+
+                 index.php?Bar=baz  http://{domain}/index.php?Bar=baz
+
+                 /                  http://{domain}/
+                 ```
                  ~~~~~
 
-                     ~~~
-                     `Spaces`
-                     ~~~~~
-
-  ~~~```--relative-url```~~~~~ ~~~A relative url to assign to the new Request. This relative url
-                 will correspond to a complete url when an App is built for a domain.
-                 By default, the relative url '/' is assigned which will correspond
-                 to the domain's root url.~~~~~
-
+  ~~~```[--container]```~~~~~
                  ~~~
+                 The name of the container to store the new 
+                 Request's data in. This value is used when 
+                 an App is built for a domain, it determines 
+                 where in the Domain's storage the Request's 
+                 data will be located after the App is built.
+                 ~~~~~
+                 ~~~
+                 Defaults to:
+                 ~~~~~
+                 ~~~
+                 ```
+                 Requests
+                 ```
+                 ~~~~~
+                 ~~~
+                 WARNING: rig will refuse to configure
+                 the new Request if the
+                 specified container name is not 
+                 alphanumeric.
+                 ~~~~~
+                 ~~~
+                 For example, the following will fail:
+                 ~~~~~
+                 ~~~
+                 ```
+                 rig --new-request \
+                     --for-app Foo \
+                     --name Bar \
+                     --container '_Bad-Char$_' 
+                 ```
+                 ~~~~~
+                 ~~~
+                 Note: If the specified container name 
+                 contains spaces, and is not quoted, 
+                 only the alphanumeric characters up to 
+                 the first space will be used. 
                  For example:
-                 ~~~~~
-
-                     ~~~
-                     `?request=Foo` corresponds to `http://{domain}/?request=Foo`
-                     ~~~~~
-
                  ~~~
-                 Defaults to relative root url:
+                 ```
+                 rig --new-request \
+                     --for-app Foo \
+                     --name Bar \
+                     --container Spaces In Container 
+                 ```
                  ~~~~~
+                 Would result in the assigned
+                 container: `Spaces`
+                 ~~~~~
+                 ~~~
+                 Note: If the specified container 
+                 name contains spaces, and is 
+                 surrounded by quotes, then rig 
+                 will refuse to configure the new 
+                 Request. For example, 
+                 the following will fail:
+                 ~~~
+                 ```
 
-                     ~~~
-                     `/` the default corresponds to `http://{domain}/`
-                     ~~~~~
-
+                 rig --new-request \
+                     --for-app Foo \
+                     --name Baz \
+                     --container 'Spaces In Container' 
+                 ```
+                 ~~~~~
+                 ~~~~~
+  ~~~
   ### Examples:
+  ~~~~~
+  ~~~
+  ```
+  rig --new-request \
+      --for-app Foo \
+      --name BarBazFoo
 
-  ```
-  rig --new-request --for-app Foo --name Bar
-  ```
+  rig --new-request \
+      --for-app Foo \
+      --name BazFooBar \
+      --relative-url "?request=Baz"
 
+  rig --new-request \
+      --for-app Foo \
+      --name BinBazFoo \
+      --container CustomContainer \
+      --relative-url "?Foo=bar&baz=biz"
   ```
-  rig --new-request --for-app Foo --name Baz --relative-url "?request=Baz"
-  ```
-
-  ```
-  rig --new-request --for-app Foo --name Bin --relative-url "?Foo=bar&baz=biz"
-  ```
-
+  ~~~~~

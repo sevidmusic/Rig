@@ -1,57 +1,64 @@
-```
-[--path-to-apps-directory]
-```
+  ~~~
+  ```
+  [--path-to-apps-directory]
+  ```
+  ~~~~~
+  ~~~
+  This flag can be used in conjunction with other rig flags to 
+  manually set the roady Apps directory path used by rig to an 
+  alternative Apps directory path.
+  ~~~~~
+  ~~~
+  Typically it is not necessary to specify this flag. rig will 
+  attempt to locate the Apps directory at the following path 
+  relative to rig's root directory: 
+  ~~~~~
+  ~~~
+  ```
+  ../../../Apps
+  ```
+  ~~~~~
+  ~~~
+  If rig cannot locate the expected Apps directory rig will use 
+  the path to rig's tmp directory as the --path-to-apps-directory.
+  ~~~~~
+  ~~~
+  rig's tmp directory will be located in rig's root directory, 
+  for example: 
+  ~~~~~
+  ~~~
+  ```
+  /path/to/rig/tmp
+  ```
+  ~~~~~
+  ~~~
+  WARNING: It is best to let rig determine the 
+  --path-to-apps-directory flag's value to insure 
+  an appropriate path is used. 
+  ~~~~~
+  ~~~
+  WARNING: Using the --path-to-apps-directory flag in conjunction 
+  wtih the --configure-app-output flag does work properly at the
+  moment. This bug is being addressed. See issue #100:
+  ~~~~~
+  ~~~
+  ```
+  https://github.com/sevidmusic/rig/issues/100
+  ```
+  ~~~~~
+  ~~~
+  ### Examples:
+  ~~~~~
+  ~~~
+  ```
+  rig --new-request \
+      --for-app Foo \
+      --name Bar \
+      --path-to-apps-directory ~/AlternativeAppsDirectory
 
-~~~
-This flag can be used in conjunction with other rig flags to manually set the
-roady Apps directory path used by rig to an alternative
-Apps directory path.
-~~~~~
-
-~~~
-Typically it is not necessary to specify this flag. rig will attempt to locate
-the Apps directory at the following path relative to rig's root directory:
-~~~~~
-
-    ~~~
-    `../../../Apps`
-    ~~~~~
-
-~~~
-If rig cannot locate the expected Apps directory rig will use the path to
-rig's tmp directory as the --path-to-apps-directory.
-~~~~~
-
-~~~
-rig's tmp directory will be located in rig's root directory, for example:
-~~~~~
-
-~~~
-    `/path/to/rig/tmp`
-~~~~~
-
-~~~
-WARNING: Unless you really need to, it is best to let rig manage the
---path-to-apps-directory flag's value to insure an appropriate path is used.
-~~~~~
-
-~~~
-WARNING: This flag causes issues when used in conjunction with the
---configure-app-output flag. This is a bug, and it is being addressed.
-~~~~~
-
-~~~
-See issue #100:
-~~~~~
-
-~~~
-    `https://github.com/sevidmusic/rig/issues/100`
-~~~~~
-
-### Examples:
-
-```
-rig --new-app --name Foo --path-to-apps-directory ~/AlternativeAppsDirectory
-
-rig --new-request --name Foo --for-app Foo --path-to-apps-directory ~/AlternativeAppsDirectory
-```
+  rig --new-response \
+      --for-app Foo \
+      --name Baz \
+      --path-to-apps-directory ~/AlternativeAppsDirectory
+  ```
+  ~~~~~
