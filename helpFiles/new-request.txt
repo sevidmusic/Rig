@@ -1,6 +1,6 @@
   ~~~
   ```
-  rig --new-request --for-app --name [--container] [--relative-url]
+  rig --new-request --for-app --name [--relative-url] [--container]
   ```
   ~~~~~
   ~~~
@@ -32,16 +32,16 @@
   ~~~~~
   ~~~
   If the `Foo` App is built for the domain, `http://localhost:8080`, 
-  then the `Bar` Request configured in the previous example will 
-  represent the following request to `http://localhost:8080`:
+  then the `IndexRequest` Request configured in the previous example 
+  will represent the following request to `http://localhost:8080`:
   ~~~~~
   ~~~
   http://localhost:8080/index.php
   ~~~~~
   ~~~
   Alternatively, if the `Foo` App is built for the domain, 
-  `https://roady.tech` then the `Bar` Request configured in the 
-  previous example will represent the following request to
+  `https://roady.tech` then the `IndexRequest` Request configured 
+  in the previous example will represent the following request to
   `https://roady.tech`:
   ~~~~~
   ~~~
