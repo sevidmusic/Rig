@@ -11,7 +11,7 @@
   ~~~~~
   ~~~
   A Response can be used to determine which OutputComponents, 
-  and DynamicOutputComponents should have their output served 
+  and Responses should have their output served 
   in response to a Request. 
   ~~~~~
   ~~~
@@ -64,9 +64,9 @@
   http://localhost:8080/index.php?foo=bar&baz=bazzer
   ~~~~~
   ~~~
-  Note: A Response can be assigned multiple DynamicOutputComponents, 
+  Note: A Response can be assigned multiple Responses, 
   OutputComponents, and Requests, as long as the Response, the 
-  DynamicOutputComponents, the OutputComponents, and the Requests 
+  Responses, the OutputComponents, and the Requests 
   were all configured by the same App.
   ~~~~~
   ~~~
@@ -74,42 +74,90 @@
   ~~~~~
   ~~~```--for-app```~~~~~    
                ~~~
-               The name of the App to configure the Response for.
+               The name of the App to configure
+               the new Response for.
                ~~~~~
                ~~~
-               WARNING: The specified App must exist, if it 
-               does not, the new Response will not be configured.
+               WARNING: The specified App must
+               exist at the path that corresponds
+               to the path assigned to the
+               `--path-to-apps-directory` flag.
+               If the App does not exist, the new
+               Response will not be
+               configured.
+               ~~~~~
+               ~~~
+               Note: It is unnecessary to specify
+               the `--path-to-apps-directory`
+               flag's value, rig will determine
+               an appropriate path at runtime as
+               long as the `--path-to-apps-directory`
+               flag is not specified.
+               ~~~
+               Note: It is best to let rig
+               determine the value of the
+               `--path-to-apps-directory`
+               flag to insure an appropriate 
+               path is used.
+               ~~~~~
+               ~~~
+               Note: More information about the
+               `--path-to-apps-directory` flag can
+               be obtained via:
+               ~~~
+               ```
+               rig --help path-to-apps-directory
+               ```
+               ~~~~~
+               ~~~~~
                ~~~~~
   ~~~```--name```~~~~~       
                ~~~
-               A name to assign to the new Response.
+               An alphanumeric name to assign to
+               the new Response.
                ~~~~~
                ~~~
-               WARNING: The name must be unique, if a Response 
-               already exists with the same name the new 
-               Response will not be configured.
+               WARNING: The name must be unique.
+               rig will refuse to configure the
+               new Response if a
+               Response with the
+               same name already exists.
                ~~~~~
                ~~~
-               WARNING: The specified name must be alphanumeric 
-               or rig will refuse to configure the Response.
+               WARNING: rig will refuse to configure
+               the new Response if the
+               name is not alphanumeric.
                ~~~~~
                ~~~
-               WARNING: If the specified name contains spaces, 
-               only the alphanumeric characters up to the first 
-               space will be used. 
-               ~~~~~
-               ~~~
-               For example:
-               ~~~~~
+               Note: If the name contains spaces, and
+               is not quoted, only the alphanumeric
+               characters up to the first space will
+               be used. For example:
                ~~~
                ```
                rig --new-response \
                    --for-app Foo \
-                   --name 'Spaces In Alphanumeric Name'
+                   --name Spaces In Name 
                ```
                ~~~~~
+               Would result in the assigned name:
                ~~~
-               Would result in the assigned name: `Spaces`
+               `Spaces`
+               ~~~~~
+               ~~~~~
+               ~~~
+               Note: If the name contains spaces,
+               and is surrounded by quotes, then
+               rig will refuse to configure the
+               new Response.
+               For example, the following will fail:
+               ~~~
+               ```
+               rig --new-response \
+                   --for-app Foo \
+                   --name 'Spaces In Quoted Name' 
+               ```
+               ~~~~~
                ~~~~~
   ~~~```[--position]```~~~~~ 
                ~~~
