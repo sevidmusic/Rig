@@ -2,7 +2,7 @@
   # Dynamic Output
   ~~~~~
   ~~~
-  Apps can configure output that is generated from a file
+  Apps can serve output that is generated from a file
   in the App's `DynamicOutput` directory.
   ~~~~~
   ~~~
@@ -12,4 +12,18 @@
   ~~~
   Note: php files will be interpreted as executable php code, all 
   other files will be interpreted as plain text.
+  ~~~~~
+  ~~~
+  In order for a DynamicOutput file to generate output for a 
+  roady App, a DynamicOutputComponent must be configured for the 
+  DynamicOutput file.
+  ~~~~~
+  ~~~
+  More information on configuring DynamicOutputComponents can be
+  obtained via:
+  ~~~~~
+  ~~~
+  ```
+  rig --help new-dynamic-output-components
+  ```
   ~~~~~
