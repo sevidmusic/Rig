@@ -8,7 +8,8 @@
   ### Description:
   ~~~~~
   ~~~
-  Start a php built in server instance.
+  Start a php built in server instance that can be used to 
+  run one or more roady Apps locally.
   ~~~~~
   ~~~
   WARNING: Do not use `php`'s built in server in production,
@@ -22,16 +23,15 @@
   ~~~~~
   ~~~~~
   ~~~
-  One or more roady Apps can be run locally by building the desired 
-  Apps for a domain that corresponds to a running development server 
-  instance's domain.
+  An App can be run locally by building it for a running `php`
+  development server instance's domain.
   ~~~~~
   ~~~
   For example, to run an existing App named Foo locally
-  on http://localhost:8080:
+  on `http://localhost:8080`:
   ~~~~~
   ~~~
-  ### 1. Build the Foo App for the domain 'http://localhost:8080'
+  ### 1. Build the Foo App for the domain 'http://localhost:8080':
   ~~~~~
   ~~~
   ```
@@ -53,16 +53,18 @@
   ~~~~~
   ~~~~~
   ~~~
-  ### 2. Start a local development server on port 8080
+  ### 2. Start a local development server on port `8080`:
   ~~~~~
   ~~~
   ```
-  rig --start-server --port 8080
+  rig --start-server \
+      --port 8080 \
+      --open-in-browser
   ```
   ~~~~~
   ~~~
-  The Foo App is now running on 'http://localhost:8080' and
-  can be accessed via a web browser.
+  The Foo App is now running on 'http://localhost:8080', and
+  `http://localhost:8080` is now accessible from a web browser.
   ~~~~~
   ~~~
   Note: To get a list of active development servers use:
@@ -84,8 +86,8 @@
   ~~~~~
   ~~~```[--ini-file]```~~~~~
                         ~~~
-                        The path to the php.ini file to use to
-                        configure php for the development server 
+                        The path to the `php.ini` file to use to
+                        configure `php` for the development server 
                         instance. This flag is optional, and does 
                         not have a default value.
                         ~~~~~
@@ -109,8 +111,7 @@
                         ~~~~~
                         ~~~
                         For example, if the path assigned to the
-                        `--path-to-apps-directory` flag is assigned
-                        the path:
+                        `--path-to-apps-directory` flag is: 
                         ~~~~~
                         ~~~
                         ```
@@ -151,15 +152,16 @@
                         ~~~~~
   ~~~```[--open-in-browser]```~~~~~
                         ~~~
-                        Attempt to open the root url of the new
+                        Attempt to open the domain of the new
                         development server instance in a web
                         browser via `xdg-open`.
                         ~~~~~
                         ~~~
                         WARNING: This flag will not always work.
-                        It uses `xdg-open` under the hood, if
-                        `xdg-open` is not available then this
-                        flag will fail.
+                        It uses `xdg-open` under the hood. 
+                        `xdg-open` is not assoiciated with roady 
+                        or rig. If `xdg-open` is not available 
+                        then this flag will not work.
                         ~~~~~
                         ~~~
                         Also, this flag may begin to fail as
@@ -174,9 +176,9 @@
                         https://portland.freedesktop.org/doc/xdg-open.html
                         ~~~~~
                         ~~~
-                        Note: A development server instance's url
-                        can always be opened manually via a web
-                        browser while the development server
+                        Note: A development server instance's 
+                        domain can always be opened manually via 
+                        a web browser while the development server 
                         instance is running.
                         ~~~~~
   ~~~
@@ -187,11 +189,11 @@
   rig --start-server
 
   rig --start-server \
-      --port 8020
+      --port 8010
 
   rig --start-server \
-      --port 8010 \
-      --ini-file ~/devconfig.ini \
+      --port 8020 \
+      --ini-file ~/devconfig.ini 
 
   rig --start-server \
       --port 8030 \
