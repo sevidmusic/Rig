@@ -27,11 +27,11 @@
   development server instance's domain.
   ~~~~~
   ~~~
-  For example, to run an existing App named Foo locally
-  on `http://localhost:8080`:
+  For example, to run an existing App named `Foo` locally
+  on the domain `http://localhost:8080`:
   ~~~~~
   ~~~
-  ### 1. Build the Foo App for the domain 'http://localhost:8080':
+  ### 1. Build the `Foo` App for the domain 'http://localhost:8080':
   ~~~~~
   ~~~
   ```
@@ -63,7 +63,7 @@
   ```
   ~~~~~
   ~~~
-  The Foo App is now running on 'http://localhost:8080', and
+  The `Foo` App is now running on `http://localhost:8080`, and
   `http://localhost:8080` is now accessible from a web browser.
   ~~~~~
   ~~~
@@ -127,8 +127,8 @@
                         ```
                         ~~~~~
                         ~~~
-                        If the `--path-to-apps-directory` is assigned
-                        the path:
+                        Alternatively, if the path assigned to the
+                        `--path-to-apps-directory` is:
                         ~~~~~
                         ~~~
                         ```
@@ -159,7 +159,7 @@
                         ~~~
                         WARNING: This flag will not always work.
                         It uses `xdg-open` under the hood. 
-                        `xdg-open` is not assoiciated with roady 
+                        `xdg-open` is not associated with roady 
                         or rig. If `xdg-open` is not available 
                         then this flag will not work.
                         ~~~~~
