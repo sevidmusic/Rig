@@ -11,15 +11,15 @@
   Start a php built in server instance.
   ~~~~~
   ~~~
-  WARNING: Do not use php's built in server in production,
+  WARNING: Do not use `php`'s built in server in production,
   it is meant for development only.
   ~~~~~
   ~~~
-  More information about Php's built in server can be found
-  online:
-  ~~~~~
+  Note: More information about `php`'s built in server can be found
+  online at:
   ~~~
   https://www.php.net/manual/en/features.commandline.webserver.php
+  ~~~~~
   ~~~~~
   ~~~
   Once a sever is started, it can be used to run one or more
@@ -53,12 +53,19 @@
   can be accessed via a web browser.
   ~~~~~
   ~~~
-  To get a list of active development servers use:
-  ~~~~~
+  Note: To get a list of active development servers use:
   ~~~
   ```
   rig --view-active-servers
   ```
+  ~~~~~
+  More information about the `--view-active-servers` flag can
+  be obtained via:
+  ~~~
+  ```
+  rig --help view-active-servers
+  ```
+  ~~~~~
   ~~~~~
   ~~~
   ### Flags:
@@ -177,6 +184,6 @@
 
   rig --start-server \
       --port 8975
-      --root-dir "${HOME}/AlternativeRootDir/"
+      --root-dir "${HOME}/AlternativeRootDirectory/"
   ```
   ~~~~~
