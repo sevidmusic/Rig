@@ -53,7 +53,7 @@
   ~~~
   ### Flags:
   ~~~~~
-  ~~~```--name```~~~~~                       
+  ~~~```--name```~~~~~
                                ~~~
                                The name to assign to the new App
                                ~~~~~
@@ -62,7 +62,7 @@
                                App with the same name already exists the
                                new App will not be created.
                                ~~~~~
-  ~~~```[--domain]```~~~~~                   
+  ~~~```[--domain]```~~~~~
                                ~~~
                                A domain to assign as the new App's default domain.
                                The default domain is used when an App is built
@@ -108,7 +108,7 @@
   ~~~
   ```
   rig --new-app --name "Foo"
-  
+
   rig --new-app --name "Foo" --domain "http://localhost:8765"
   ```
   ~~~~~
