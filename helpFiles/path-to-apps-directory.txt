@@ -56,6 +56,7 @@
       --path-to-apps-directory ~/AlternativeAppsDirectory
 
   rig --new-output-component \
+      --for-app Foo \
       --name Bar \
       --output 'FooBarBaz' \
       --path-to-apps-directory ~/AlternativeAppsDirectory
