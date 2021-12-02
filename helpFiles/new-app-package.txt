@@ -45,6 +45,10 @@
           ~~~~~
   ~~~```[--domain]```~~~~~
           ~~~
+          The default domain that the App this App Package
+          makes will be built for.
+          ~~~~~
+          ~~~
           After an App Package is made into an App via
           `rig --make-app-package`, the App will not be
           usable until it is built for a domain.
@@ -74,6 +78,11 @@
           to the App that is made from this App Package.
           ~~~~~
           ~~~
+          Note: If the `--domain` flag is not specified, the 
+          domain `http://localhost:8080` will be set as the 
+          default domain.
+          ~~~~~
+          ~~~
           Note: More information about building Apps, and
           the `Components.php` file, can be obtained via:
           ~~~
@@ -94,15 +103,15 @@
   ~~~
   ```
   rig --new-app-package \
-      --name "Foo"
+      --name Foo
 
   rig --new-app-package \
-      --name "Bar" \
-      --domain "http://localhost:8765"
+      --name Bar \
+      --domain 'http://localhost:8765'
 
   rig --new-app-package \
-      --name "Baz" \
-      --domain "http://localhost:8765" \
+      --name Baz \
+      --domain 'http://localhost:8765' \
       --path ~/
   ```
   ~~~~~
