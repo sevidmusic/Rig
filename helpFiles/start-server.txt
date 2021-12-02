@@ -41,6 +41,19 @@
   ```
   ~~~~~
   ~~~
+  Note: Make sure to use the correct path to 
+  `roady/Apps/Foo/Components.php`, the path used 
+  in the example is just for demonstration.
+  ~~~~~
+  ~~~
+  Note: More information about building Apps can be obtained via:
+  ~~~
+  ```
+  rig --help Components.php
+  ```
+  ~~~~~
+  ~~~~~
+  ~~~
   ### 2. Start a local development server on port 8080
   ~~~~~
   ~~~
@@ -49,7 +62,7 @@
   ```
   ~~~~~
   ~~~
-  Note: The Foo App is now running on 'http://localhost:8080' and
+  The Foo App is now running on 'http://localhost:8080' and
   can be accessed via a web browser.
   ~~~~~
   ~~~
@@ -72,11 +85,10 @@
   ~~~~~
   ~~~```[--ini-file]```~~~~~
                         ~~~
-                        Path to the php.ini file to use to
-                        configure php for the development
-                        server instance. This flag is
-                        optional, and does not have a default
-                        value.
+                        The path to the php.ini file to use to
+                        configure php for the development server 
+                        instance. This flag is optional, and does 
+                        not have a default value.
                         ~~~~~
   ~~~```[--port]```~~~~~
                         ~~~
@@ -94,11 +106,11 @@
                         ~~~
                         Defaults to the parent directory of the
                         directory located at the path assigned
-                        to the --path-to-apps-directory flag.
+                        to the `--path-to-apps-directory` flag.
                         ~~~~~
                         ~~~
                         For example, if the path assigned to the
-                        --path-to-apps-directory flag is:
+                        `--path-to-apps-directory` flag is:
                         ~~~~~
                         ~~~
                         ```
@@ -106,7 +118,7 @@
                         ```
                         ~~~~~
                         ~~~
-                        Then the default --root-dir will be:
+                        Then the default `--root-dir` will be:
                         ~~~~~
                         ~~~
                         ```
@@ -114,7 +126,7 @@
                         ```
                         ~~~~~
                         ~~~
-                        If the --path-to-apps-directory is:
+                        If the `--path-to-apps-directory` is:
                         ~~~~~
                         ~~~
                         ```
@@ -122,7 +134,7 @@
                         ```
                         ~~~~~
                         ~~~
-                        Then the default --root-dir will be:
+                        Then the default `--root-dir` will be:
                         ~~~~~
                         ~~~
                         ```
@@ -131,25 +143,20 @@
                         ~~~~~
                         ~~~
                         Note: It is typically not necessary to
-                        specify the --root-dir flag since rig
-                        will typically determine the correct
-                        root directory for you, however, if
-                        you find rig is unable to determine
-                        the correct root directory to use for
-                        the development server instance, or if
-                        an alternative root directory needs to
-                        be used, the --root-dir flag can be used
-                        to manually set the appropriate path.
+                        specify the `--root-dir` flag, rig will
+                        determine an appropriate path to use as
+                        long as the `--root-dir` flag is not
+                        specified.
                         ~~~~~
   ~~~```[--open-in-browser]```~~~~~
                         ~~~
                         Attempt to open the root url of the new
                         development server instance in a web
-                        browser via xdg-open.
+                        browser via `xdg-open`.
                         ~~~~~
                         ~~~
                         WARNING: This flag will not always work.
-                        It uses xdg-open under the hood, if
+                        It uses `xdg-open` under the hood, if
                         `xdg-open` is not available then this
                         flag will fail.
                         ~~~~~
@@ -179,11 +186,18 @@
   rig --start-server
 
   rig --start-server \
-      --port 8927 \
-      --open-in-browser
+      --port 8020
 
   rig --start-server \
-      --port 8975
+      --port 8010 \
+      --ini-file ~/devconfig.ini \
+
+  rig --start-server \
+      --port 8030 \
       --root-dir "${HOME}/AlternativeRootDirectory/"
+
+  rig --start-server \
+      --port 8040 \
+      --open-in-browser
   ```
   ~~~~~
