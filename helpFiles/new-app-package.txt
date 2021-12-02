@@ -10,29 +10,86 @@
   ### Flags:
   ~~~```--name```~~~~~                       
                                ~~~
-                               The name to assign to the new App.
+                               The name to assign to the new 
+                               App Package.
+                               ~~~~~
+                               ~~~
+                               Note: This name will also be
+                               assigned to the App that is 
+                               made from this App Package.
+                               ~~~
+                               Note: roady App Packages can be 
+                               made into roady Apps via:
+                               ~~~
+                               ```
+                               rig --make-app-package
+                               ```
+                               ~~~~~
+                               More information about 
+                               `rig --make-app-package`
+                               can be obtained via:
+                               ~~~
+                               ```
+                               rig --help make-app-package
+                               ```
+                               ~~~~~
+                               ~~~~~
                                ~~~~~
                                ~~~
                                WARNING: The name must be unique, 
-                               if an App with the same name 
-                               already exists the new App will 
-                               not be created.
+                               if an App Package with the same 
+                               name already exists then the new 
+                               App Package will not be created.
                                ~~~~~
   ~~~```[--domain]```~~~~~                   
                                ~~~
-                               A domain to use as the default 
-                               domain for the App that the App 
-                               Package represents.
+                               After an App Package is made into
+                               an App via `rig --make-app-package`,
+                               the App will not be usable until it
+                               is built for a domain.
                                ~~~~~
                                ~~~
-                               The default domain is used when 
-                               an App is built without 
-                               specifying a domain.
+                               Apps are built for a domain by 
+                               executing the App's `Components.php` 
+                               file via `php`. For example:
+                               ~~~~~
+                               ~~~
+                               ```
+                               php /path/to/roady/Apps/Foo/Components.php
+                               ```
+                               ~~~~~
+                               ~~~
+                               If a domain is not specified when
+                               the App's `Components.php` file 
+                               is executed, then the App will 
+                               be built for the default domain
+                               that is hard coded in it's 
+                               `Components.php` file.
+                               ~~~~~
+                               ~~~
+                               The `--domain` flag will is used
+                               to set the value of the default 
+                               domain that will be hard coded
+                               in the `Components.php` file that
+                               belongs to the App that is made
+                               from this App Package.
+                               ~~~~~
+                               ~~~
+                               Note: More information about building 
+                               Apps, and the `Components.php` file 
+                               can be obtained via:
+                               ~~~
+                               ```
+                               rig --help Components.php
+                               ```
+                               ~~~~~
                                ~~~~~
   ~~~```[--path]```~~~~~                     
                                ~~~
                                The path to create the App 
-                               Package at.
+                               Package at. If not specified,
+                               the current working directory
+                               will be used.
                                ~~~~~
   ~~~
   ### Examples:
