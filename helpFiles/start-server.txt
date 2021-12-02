@@ -22,10 +22,9 @@
   ~~~~~
   ~~~~~
   ~~~
-  Once a sever is started, it can be used to run one or more
-  roady Apps locally by building the desired Apps for a domain
-  that corresponds to the running development server instance's
-  url.
+  One or more roady Apps can be run locally by building the desired 
+  Apps for a domain that corresponds to a running development server 
+  instance's domain.
   ~~~~~
   ~~~
   For example, to run an existing App named Foo locally
@@ -110,7 +109,8 @@
                         ~~~~~
                         ~~~
                         For example, if the path assigned to the
-                        `--path-to-apps-directory` flag is:
+                        `--path-to-apps-directory` flag is assigned
+                        the path:
                         ~~~~~
                         ~~~
                         ```
@@ -126,7 +126,8 @@
                         ```
                         ~~~~~
                         ~~~
-                        If the `--path-to-apps-directory` is:
+                        If the `--path-to-apps-directory` is assigned
+                        the path:
                         ~~~~~
                         ~~~
                         ```
