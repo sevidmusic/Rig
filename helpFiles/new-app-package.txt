@@ -45,13 +45,16 @@
           ~~~~~
   ~~~```[--domain]```~~~~~
           ~~~
-          After an App Package is made into an App via `
-          rig --make-app-package`, the App will not be
+          After an App Package is made into an App via
+          `rig --make-app-package`, the App will not be
           usable until it is built for a domain.
           ~~~~~
           ~~~
-          Apps are built for a domain by executing the App's
-          `Components.php` file via `php`. For example:
+          An App is built for a domain by executing the App's
+          `Components.php` file via `php`.
+          ~~~~~
+          ~~~
+          For example:
           ~~~~~
           ~~~
           ```
@@ -59,10 +62,10 @@
           ```
           ~~~~~
           ~~~
-          If a domain is not specified when the App's `
-          Components.php` file is executed, then the App
+          If a domain is not specified when the App's
+          `Components.php` file is executed, then the App
           will be built for the default domain that is
-          hard coded in it's `Components.php` file.
+          hard coded in the App's `Components.php` file.
           ~~~~~
           ~~~
           The `--domain` flag will is used to set the
@@ -72,7 +75,7 @@
           ~~~~~
           ~~~
           Note: More information about building Apps, and
-          the `Components.php` file can be obtained via:
+          the `Components.php` file, can be obtained via:
           ~~~
           ```
           rig --help Components.php
