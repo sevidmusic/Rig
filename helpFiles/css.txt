@@ -30,8 +30,8 @@
   ~~~~~
   ~~~
   `HelloWorld.css` will only be served in response to Requests with 
-  the name `homepage`. This will be any Request that assigns the 
-  value `homepage` to `$_GET['request']`.
+  the name `HelloWorld`. This will be any Request that assigns the 
+  value `HelloWorld` to `$_GET['request']`.
   ~~~~~
   ~~~
   Note: In the following example roady is assumed to be installed
