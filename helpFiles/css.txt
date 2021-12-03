@@ -26,10 +26,10 @@
   ~~~~~
   ~~~
   In the following example an App named HelloWorld will be created
-  that provides a single stylesheet named `homepage.css`.
+  that provides a single stylesheet named `HelloWorld.css`.
   ~~~~~
   ~~~
-  `homepage.css` will only be served in response to Requests with 
+  `HelloWorld.css` will only be served in response to Requests with 
   the name `homepage`. This will be any Request that assigns the 
   value `homepage` to `$_GET['request']`.
   ~~~~~
@@ -63,12 +63,12 @@
   ~~~~~
   ~~~
   2. Define styles for the HelloWorld App in a stylesheet named
-  `homepage.css`:
+  `HelloWorld.css`:
   ~~~~~
   ~~~
   ```
   printf '\n%s\n' 'p { background: black; color: white; }' \
-  > ~/roady/Apps/HelloWorld/css/homepage.css
+  > ~/roady/Apps/HelloWorld/css/HelloWorld.css
   ```
   ~~~~~
   ~~~
