@@ -205,7 +205,10 @@
                                       path.
                                       ~~~~~
                                       ~~~
-                                      `rig --help --path-to-apps-directory`
+                                      ```
+                                      rig --help \
+                                          --path-to-apps-directory
+                                      ```
                                       ~~~~~
                                       ~~~
                                       To get help information 
@@ -215,7 +218,10 @@
                                       prefix must be excluded:
                                       ~~~~~
                                       ~~~
-                                      `rig --help path-to-apps-directory`
+                                      ```
+                                      rig --help 
+                                          path-to-apps-directory
+                                      ```
                                       ~~~~~
 
   ~~~```[--make-app-package]```~~~~~                ~~~Make an App Package into a roady App.~~~~~
