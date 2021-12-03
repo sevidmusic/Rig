@@ -1,10 +1,13 @@
-  ~~~```rig  [--assign-to-response] [--configure-app-output]
+  ~~~
+  ```
+  rig  [--assign-to-response] [--configure-app-output]
        [--path-to-apps-directory] [--debug] [--help]
        [--make-app-package] [--new-app-package] [--new-app]
        [--new-dynamic-output-component] [--new-global-response]
        [--new-output-component] [--new-request] [--new-response]
-       [--start-server] [--view-active-servers]```~~~~~
-
+       [--start-server] [--view-active-servers]
+  ```
+  ~~~~~
   ~~~
   # Description:
   ~~~~~
