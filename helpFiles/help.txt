@@ -160,57 +160,63 @@
                                       ~~~~~
                                       ~~~~~
   ~~~```[--help] [FLAG]```~~~~~
-                                 ~~~
-                                      Show this help message, or the appropriate
-                                      help message for the specified `[FLAG]`.
-                                 ~~~~~
-
-                                      ~~~For example:~~~~~
-
-                                          ```
-                                          rig --help
-
-                                          rig --help --new-app
-                                          ```
-
-                                      ~~~Note: `[FLAG]` may be specified with or
-                                      without the `--` prefix.~~~~~
-                                      ~~~For example:~~~~~
-                                      ```
-                                          rig --help --new-app
-
-                                          rig --help new-app
-                                      ```
                                       ~~~
-                                      WARNING: The `--path-to-apps-directory` flag
-                                      is an exception, to get help information
-                                      for it the `--` prefix must be excluded.
+                                      Show this help message, or 
+                                      the appropriate help 
+                                      message for the specified 
+                                      `[FLAG]`.
                                       ~~~~~
-
                                       ~~~
                                       For example:
                                       ~~~~~
-
-                                          ~~~
-                                          The following example won't work, rig
-                                          will think you are trying to set an
-                                          alternative Apps directory path.
-                                          ~~~~~
-
-                                          ~~~
-                                          `rig --help --path-to-apps-directory`
-                                          ~~~~~
-
-                                          ~~~
-                                          To get help information about the
-                                          `--path-to-apps-directory` flag the
-                                          `--` prefix must be excluded:
-                                          ~~~~~
-
-                                          ~~~
-                                          `rig --help path-to-apps-directory`
-                                          ~~~~~
-
+                                      ~~~
+                                      ```
+                                      rig --help
+                                      rig --help --new-app
+                                      ```
+                                      ~~~~~
+                                      ~~~
+                                      Note: `[FLAG]` may be 
+                                      specified with or without 
+                                      the `--` prefix.
+                                      ~~~~~
+                                      ~~~
+                                      For example:
+                                      ~~~~~
+                                      ```
+                                      rig --help --new-app
+                                      rig --help new-app
+                                      ```
+                                      ~~~
+                                      WARNING: The `--path-to-apps
+                                      -directory` flag is an 
+                                      exception, to get help 
+                                      information for it the `--` 
+                                      prefix must be excluded.
+                                      ~~~~~
+                                      ~~~
+                                      For example:
+                                      ~~~~~
+                                      ~~~
+                                      The following example won't 
+                                      work, rig will think you 
+                                      are trying to set an 
+                                      alternative Apps directory 
+                                      path.
+                                      ~~~~~
+                                      ~~~
+                                      `rig --help --path-to-apps-directory`
+                                      ~~~~~
+                                      ~~~
+                                      To get help information 
+                                      about the 
+                                      `--path-to-apps-directory` 
+                                      flag the `--` 
+                                      prefix must be excluded:
+                                      ~~~~~
+                                      ~~~
+                                      `rig --help path-to-apps-directory`
+                                      ~~~~~
 
   ~~~```[--make-app-package]```~~~~~                ~~~Make an App Package into a roady App.~~~~~
 
