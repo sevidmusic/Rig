@@ -137,7 +137,7 @@
       --for-app HelloUniverse \
       --name HelloUniverse \
       --output '<p>Hello Universe</p>' \
-      --relative-urls '/'
+      --global
       ```
   ~~~~~
   ~~~
