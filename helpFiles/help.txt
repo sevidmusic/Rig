@@ -13,30 +13,37 @@
   ~~~~~
   ~~~
   rig is a command line utility designed to aid in the development
-  of roady Apps. rig provides a number of flags that can be used to
-  perform common development tasks.
+  of roady Apps. 
   ~~~~~
   ~~~
-  Note: To use rig, rig must be in your `$PATH`. rig's executable
-  will be located at the following path relative to the relevant
-  roady installation's root directory:
+  To use rig, rig must be in your `$PATH`. 
+  ~~~~~
+  ~~~
+  rig's executable will be located at the following path relative to 
+  the relevant roady installation's root directory:
+  ~~~~~
   ~~~
   ```
   ./vendor/darling/rig/bin/rig
   ```
   ~~~~~
+  ~~~
   For example, if roady is installed at the following path:
+  ~~~~~
   ~~~
   ```
   ~/roady
   ```
   ~~~~~
+  ~~~
   Then rig can be added to your `$PATH` via:
+  ~~~~~
   ~~~
   ```
   export PATH="${PATH}:${HOME}/roady/vendor/darling/rig/bin"
   ```
   ~~~~~
+  ~~~
   Note: This will only add rig to your `$PATH` temporarily, to
   add it permanently you will need to set your `$PATH` in the
   appropriate configuration file for the shell you are using.
@@ -219,62 +226,59 @@
                                       ~~~~~
                                       ~~~
                                       ```
-                                      rig --help 
+                                      rig --help \
                                           path-to-apps-directory
                                       ```
                                       ~~~~~
 
   ~~~```[--make-app-package]```~~~~~                
                                       ~~~
-                                      Make an App Package into a roady App.
+
                                       ~~~~~
 
   ~~~```[--new-app-package]```~~~~~                 
                                       ~~~
-                                      Create a new App package.
+
                                       ~~~~~
 
   ~~~```[--new-app]```~~~~~                         
                                       ~~~
-                                      Create a new roady App.
+
                                       ~~~~~
 
   ~~~```[--new-dynamic-output-component]```~~~~~    
                                       ~~~
-                                      Configure a new DynamicOutputComponent f
-                                      or
-                                      a roady App.~~~~~
+
+                                      ~~~~~
 
   ~~~```[--new-global-response]```~~~~~             
                                       ~~~
-                                      Configure a new GlobalResponse for a r
-                                      oady
-                                      App.~~~~~
+
+                                      ~~~~~
 
   ~~~```[--new-output-component]```~~~~~            
                                       ~~~
-                                      Configure a new OutputComponent for a r
-                                      oady
-                                      App.~~~~~
+
+                                      ~~~~~
 
   ~~~```[--new-request]```~~~~~                     
                                       ~~~
-                                      Configure a new Request for a roady App.
+
                                       ~~~~~
 
   ~~~```[--new-response]```~~~~~                    
                                       ~~~
-                                      Configure a new Response for a roady App.
+
                                       ~~~~~
 
   ~~~```[--start-server]```~~~~~                    
                                       ~~~
-                                      Start a development server.
+
                                       ~~~~~
 
   ~~~```[--view-active-servers]```~~~~~             
                                       ~~~
-                                      Show active development servers.
+
                                       ~~~~~
   ~~~
   # Examples:
