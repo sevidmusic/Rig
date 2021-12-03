@@ -17,7 +17,7 @@
   be obtained via: 
   ~~~
   ```
-  rig --help --new-request
+  rig --help new-request
   ```
   ~~~~~
   ~~~~~
@@ -36,16 +36,9 @@
   ```
   ~~~~~
   ~~~
-  Note: More information about `rig --assign-to-response` can
-  be obtained via:
-  ~~~
-  ```
-  rig --help --assign-to-response
-  ```
-  ~~~~~
-  ~~~~~
-  ~~~
-  ### Example: Create an App and assign a Request to a Response
+  For example, the following calls to rig will create an App named
+  `Foo`, configure a Response named `Baz`, configure a Request named 
+  `Bar`, and assign the `Bar` Request to the `Baz` Response.
   ~~~~~
   ~~~
   ```
@@ -66,6 +59,15 @@
       --response Baz \
       --requests Bar 
   ```
+  ~~~~~
+  ~~~
+  Note: More information about `rig --assign-to-response` can
+  be obtained via:
+  ~~~
+  ```
+  rig --help assign-to-response
+  ```
+  ~~~~~
   ~~~~~
   ~~~
   Note: It is not necessary to assign Requests to GlobalResponses
