@@ -66,7 +66,7 @@
                     WARNING: The name must be unique, if an App 
                     with the same name already exists at the path 
                     that corresponds to the path assigned to the 
-                    `--path-to-apps-directory` flag then the new 
+                    `--path-to-apps-directory` flag, then the new 
                     App will not be created.
                     ~~~~~
   ~~~```[--domain]```~~~~~
@@ -103,8 +103,8 @@
                     ~~~~~
                     ~~~
                     Note: If the `--domain` flag is not specified,
-                    the domain `http://localhost:8080` will be 
-                    set as the default domain.
+                    then the domain `http://localhost:8080` will 
+                    be set as the default domain.
                     ~~~~~
                     ~~~
                     Note: More information about building Apps, and
@@ -123,7 +123,8 @@
   rig --new-app \
       --name 'Foo'
 
-  rig --new-app --name 'Foo' \
+  rig --new-app \
+      --name 'Foo' \
       --domain 'http://localhost:8765'
   ```
   ~~~~~
