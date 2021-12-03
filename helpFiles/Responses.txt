@@ -7,20 +7,6 @@
   to appropriate requests to the domains an App is built for.
   ~~~~~
   ~~~
-  Note: There is another type of Response called a GlobalResponse
-  that can configured to serve output in response to all requests 
-  to a domain.
-  ~~~
-  Note: More information about GlobalResponses can be obtained
-  via:
-  ~~~
-  ```
-  rig --help GlobalResponses
-  ```
-  ~~~~~
-  ~~~~~
-  ~~~~~
-  ~~~
   New Responses can be configured for an existing App via:
   ~~~~~
   ~~~
@@ -192,5 +178,19 @@
   ```
   rig --help configure-app-output
   ```
+  ~~~~~
+  ~~~~~
+  ~~~
+  Note: There is another type of Response called a GlobalResponse
+  that can configured to serve output in response to all requests 
+  to a domain.
+  ~~~
+  Note: More information about GlobalResponses can be obtained
+  via:
+  ~~~
+  ```
+  rig --help GlobalResponses
+  ```
+  ~~~~~
   ~~~~~
   ~~~~~
