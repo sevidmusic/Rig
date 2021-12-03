@@ -80,7 +80,7 @@
   ~~~
   ```
   php ~/roady/Apps/HelloWorld/Components.php \
-  'https://localhost:8010'
+  'http://localhost:8010'
   ```
   ~~~~~
   ~~~
@@ -166,7 +166,7 @@
   ~~~
   ```
   php ~/roady/Apps/HelloUniverse/Components.php \
-  'https://localhost:8010'
+  'http://localhost:8010'
   ```
   ~~~~~
   ~~~
