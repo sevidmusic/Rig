@@ -224,32 +224,62 @@
                                       ```
                                       ~~~~~
 
-  ~~~```[--make-app-package]```~~~~~                ~~~Make an App Package into a roady App.~~~~~
+  ~~~```[--make-app-package]```~~~~~                
+                                      ~~~
+                                      Make an App Package into a roady App.
+                                      ~~~~~
 
-  ~~~```[--new-app-package]```~~~~~                 ~~~Create a new App package.~~~~~
+  ~~~```[--new-app-package]```~~~~~                 
+                                      ~~~
+                                      Create a new App package.
+                                      ~~~~~
 
-  ~~~```[--new-app]```~~~~~                         ~~~Create a new roady App.~~~~~
+  ~~~```[--new-app]```~~~~~                         
+                                      ~~~
+                                      Create a new roady App.
+                                      ~~~~~
 
-  ~~~```[--new-dynamic-output-component]```~~~~~    ~~~Configure a new DynamicOutputComponent for
+  ~~~```[--new-dynamic-output-component]```~~~~~    
+                                      ~~~
+                                      Configure a new DynamicOutputComponent f
+                                      or
                                       a roady App.~~~~~
 
-  ~~~```[--new-global-response]```~~~~~             ~~~Configure a new GlobalResponse for a roady
+  ~~~```[--new-global-response]```~~~~~             
+                                      ~~~
+                                      Configure a new GlobalResponse for a r
+                                      oady
                                       App.~~~~~
 
-  ~~~```[--new-output-component]```~~~~~            ~~~Configure a new OutputComponent for a roady
+  ~~~```[--new-output-component]```~~~~~            
+                                      ~~~
+                                      Configure a new OutputComponent for a r
+                                      oady
                                       App.~~~~~
 
-  ~~~```[--new-request]```~~~~~                     Configure a new Request for a roady App.
+  ~~~```[--new-request]```~~~~~                     
+                                      ~~~
+                                      Configure a new Request for a roady App.
+                                      ~~~~~
 
-  ~~~```[--new-response]```~~~~~                    Configure a new Response for a roady App.
+  ~~~```[--new-response]```~~~~~                    
+                                      ~~~
+                                      Configure a new Response for a roady App.
+                                      ~~~~~
 
-  ~~~```[--start-server]```~~~~~                    Start a development server.
+  ~~~```[--start-server]```~~~~~                    
+                                      ~~~
+                                      Start a development server.
+                                      ~~~~~
 
-  ~~~```[--view-active-servers]```~~~~~             Show active development servers.
-
-
+  ~~~```[--view-active-servers]```~~~~~             
+                                      ~~~
+                                      Show active development servers.
+                                      ~~~~~
+  ~~~
   # Examples:
-
+  ~~~~~
+  ~~~
   ```
   rig --help
 
@@ -307,12 +337,12 @@
 
   rig --help --view-active-servers
   ```
-
-  ~~~Note:
-
-  The following arguments may also be passed to the --help flag
-  to get additional information about roady and rig:~~~~~
-
+  ~~~~~
+  ~~~
+  Note: The following arguments may also be passed to the --help flag
+  to get additional information about roady and rig:
+  ~~~~~
+  ~~~
   ```
   rig --help Apps
 
@@ -332,33 +362,39 @@
 
   rig --help roady
   ```
-
+  ~~~~~
   ~~~
   Note: Documentation for rig and roady can be found at:
   ~~~~~
-
   ~~~
-      `https://roady.tech`
+  ```
+  https://roady.tech
+  ```
   ~~~~~
-
   ~~~
   rig is available on GitHub:
   ~~~~~
-
-      ~~~https://github.com/sevidmusic/rig~~~~~
-
-  ~~~roady is available on GitHub:~~~~~
-
-      ~~~https://github.com/sevidmusic/roady~~~~~
-
-  ~~~A collection of supported App Packages that can be made into roady Apps via
-  rig --make-app-package is available on GitHub:~~~~~
-
-      ~~~https://github.com/sevidmusic/roadyAppPackages~~~~~
-
-  ~~~roady, the rig command line utility, and
-  roadyAppPackages are all licensed under the MIT license.~~~~~
-
+  ~~~
+  https://github.com/sevidmusic/rig
+  ~~~~~
+  ~~~
+  roady is available on GitHub:
+  ~~~~~
+  ~~~
+  https://github.com/sevidmusic/roady
+  ~~~~~
+  ~~~
+  A collection of supported App Packages that can be made into roady Apps via
+  rig --make-app-package is available on GitHub:
+  ~~~~~
+  ~~~
+  https://github.com/sevidmusic/roadyAppPackages
+  ~~~~~
+  ~~~
+  roady, the rig command line utility, and roadyAppPackages are all 
+  licensed under the MIT license.
+  ~~~~~
+  ~~~
   ```
   MIT License
 
@@ -382,3 +418,4 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
   ```
+  ~~~~~
