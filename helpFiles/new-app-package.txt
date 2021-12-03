@@ -72,10 +72,10 @@
           hard coded in the App's `Components.php` file.
           ~~~~~
           ~~~
-          The `--domain` flag will is used to set the
-          value of the default domain that will be hard
-          coded in the `Components.php` file that belongs
-          to the App that is made from this App Package.
+          The `--domain` flag is used to set the value of the 
+          default domain that will be hard coded in the 
+          `Components.php` file that belongs to the App that 
+          is made from this App Package.
           ~~~~~
           ~~~
           Note: If the `--domain` flag is not specified, the 

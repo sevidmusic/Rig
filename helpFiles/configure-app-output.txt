@@ -21,9 +21,9 @@
   assigned to the `--path-to-apps-directory` flag.
   ~~~
   Note: It is unnecessary to specify the
-  `--path-to-apps-directory` flag's value, rig
-  will determine an appropriate path at runtime
-  as long as the `--path-to-apps-directory` flag
+  `--path-to-apps-directory` flag's value, 
+  rig will determine an appropriate path as 
+  long as the `--path-to-apps-directory` flag 
   is not specified.
   ~~~
   WARNING: Using the `--path-to-apps-directory` flag in
