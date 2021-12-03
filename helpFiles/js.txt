@@ -10,16 +10,52 @@
   directory.
   ~~~~~
   ~~~
-  Note: At the moment, javascript files must be served via an 
-  OutputComponent or DynamicOutputComponent that generates 
-  the html for the `<script>` tags to load the appropriate 
-  javascript files.
+  In order for a javascript file to be loaded, a OutputComponent 
+  or DynamicOutputComponent must be created whose output is the 
+  `<script>` tag that will be used to load the javascript file.
+  ~~~~
+  ~~~
+  This OutputComponent or DynamicOutputComponent can then be 
+  assigned to one or more Responses or GlobalResponses.
   ~~~~~
   ~~~
-  In future versions of roady javascript files will be loaded 
+  Note: More information about OutputComponents can be obtained via:
+  ~~~~~
+  ~~~
+  ```
+  rig --help OutputComponents
+  ```
+  ~~~~~
+  ~~~
+  Note: More information about DynamicOutputComponents can be 
+  obtained via:
+  ~~~~~
+  ~~~
+  ```
+  rig --help DynamicOutputComponents
+  ```
+  ~~~~~
+  ~~~
+  Note: In future versions of roady javascript files will be loaded 
   the same way as stylesheets are currently loaded. 
   See issue #234:
-  ~~~~~
   ~~~
   https://github.com/sevidmusic/Roady/issues/234
+  ~~~~~
+  ~~~~~
+  ~~~
+  Note: More information about Responses can be obtained via:
+  ~~~~~
+  ~~~
+  ```
+  rig --help Responses
+  ```
+  ~~~~~
+  ~~~
+  Note: More information about GlobalResponses can be obtained via:
+  ~~~~~
+  ~~~
+  ```
+  rig --help GlobalResponses
+  ```
   ~~~~~
