@@ -21,16 +21,16 @@
   stylesheet excluding the `.css` extension.
   ~~~~~
   ~~~
-  Note: The name of the request will correspond to the value 
+  Note: The name of the Request will correspond to the value 
   of `$_GET['request']`.
   ~~~~~
   ~~~
-  In the following example an App named HelloWorld will be creaed
+  In the following example an App named HelloWorld will be created
   that provides a single stylesheet named `homepage.css`.
   ~~~~~
   ~~~
-  `homepage.css` will only be served in response to requests with 
-  the name `homepage`. This will be any request that assigns the 
+  `homepage.css` will only be served in response to Requests with 
+  the name `homepage`. This will be any Request that assigns the 
   value `homepage` to `$_GET['request']`.
   ~~~~~
   ~~~
@@ -132,7 +132,7 @@
   rig --configure-app-output \
       --for-app HelloUniverse \
       --name HelloUniverse \
-      --output '<p>Hello World</p>' \
+      --output '<p>Hello Universe</p>' \
       --relative-urls '/'
       ```
   ~~~~~
@@ -160,27 +160,27 @@
   ~~~
   3. Build the HelloUniverse App for the local domain:
   ~~~
-  http://localhost:8010
+  http://localhost:8020
   ~~~~~
   ~~~~~
   ~~~
   ```
   php ~/roady/Apps/HelloUniverse/Components.php \
-  'http://localhost:8010'
+  'http://localhost:8020'
   ```
   ~~~~~
   ~~~
   4. If one is not already running, start a development server on
-  port `8010` so HelloUniverse is available at the local domain
-  `http://localhost:8010`:
+  port `8020` so HelloUniverse is available at the local domain
+  `http://localhost:8020`:
   ~~~~~
   ~~~
   ```
-  rig --start-server --port 8010 --open-in-browser
+  rig --start-server --port 8020 --open-in-browser
   ```
   ~~~~~
   ~~~
-  Note: If http://localhost:8010 does not open in a web browser
+  Note: If http://localhost:8020 does not open in a web browser
   automatically you will have to open it in a web browser manually.
   For more information about `rig --start-server` use
   `rig --help --start-server`.
