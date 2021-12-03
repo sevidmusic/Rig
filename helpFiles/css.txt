@@ -116,12 +116,12 @@
   domains that the App is built for.
   ~~~~~
   ~~~
-  For example:
+  In the following example a new App named HelloUniverse will be
+  created that provides a single stylesheet named `global.css`. 
   ~~~~~
   ~~~
-  Create a HelloUniverse App that provides a single stylesheet named
-  `global.css`. `global.css` will be served in response
-  to all Requests to any domain the HelloUniverse App is built for.
+  `global.css` will be served in response to all Requests to any 
+  domain the HelloUniverse App is built for.
   ~~~~~
   ~~~
   Note: In the following example roady is assumed to be installed
