@@ -50,7 +50,13 @@
   ~~~
   To configure a Response to respond to a Request, the 
   relevant Request must be assigned to the Response via 
-  `rig --assign-to-response`. For example:
+  `rig --assign-to-response`.
+  ~~~~~
+  ~~~
+  For example, the following calls to rig will create a new App
+  named `Bar`, configure a Response named `Baz`, configure a
+  Request named `Bazzer`, and assign the `Bazzer` Request to
+  the `Bar` Response:
   ~~~~~
   ~~~
   ```
@@ -81,11 +87,17 @@
   ~~~~~
   ~~~~~
   ~~~
-  To configure a Response to serve the output of a 
-  OutputComponent or DynamicOutputComponent in response 
-  to a Request, the OutputComponent or DynamicOutputComponent,
-  and the Request must be assigned to the Response via 
-  `rig --assign-to-response`. For example:
+  To configure a Response to serve the output of a OutputComponent 
+  or DynamicOutputComponent in response to a Request, the 
+  OutputComponent or DynamicOutputComponent, and the Request 
+  must be assigned to the Response via `rig --assign-to-response`. 
+  ~~~~~
+  ~~~
+  For example, the following calls to rig will create a new App
+  named `Baz`, configure a Response named `Foo`, configure a
+  OutputComponent named `Bar`, configure a Request named `Bin`,
+  and assign the `Bar` OutputComponent and the `Bin` Request to
+  the `Foo` Response:
   ~~~~~
   ~~~
   ```
@@ -137,7 +149,7 @@
   ~~~
   ```
   rig --configure-app-output \
-      --for-app Foo \
+      --for-app FooBarBaz \
       --name Bar \
       --output Baz
   ```
@@ -148,26 +160,26 @@
   ~~~
   ```
   rig --new-app \
-      --name Foo
+      --name FooBarBaz
 
   rig --new-dynamic-output-component \
-      --for-app Foo \
+      --for-app FooBarBaz \
       --name Bar \
       --initial-output Baz \
       --container FooDynamicOutput
 
   rig --new-request \
-      --for-app Foo \
+      --for-app FooBarBaz \
       --name Bar \
       --relative-url 'index.php?request=Bar' \
       --container FooRequests
 
   rig --new-response \
-      --for-app Foo \
+      --for-app FooBarBaz \
       --name Bar
 
   rig --assign-to-response \
-      --for-app Foo \
+      --for-app FooBarBaz \
       --response Bar \
       --dynamic-output-components Bar \
       --requests Bar
