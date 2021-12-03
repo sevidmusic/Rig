@@ -56,9 +56,9 @@
   ~~~~~
   ~~~
   Note: `rig --configure-app-output` is used in this example to
-  create the HelloWorld App and configure the appropriate Components.
-  More information can be obtained about `rig --configure-app-output` 
-  via:
+  create the HelloWorld App and configure the appropriate 
+  Components. More information can be obtained about 
+  `rig --configure-app-output` via:
   ~~~
   ```
   rig --help --configure-app-output
