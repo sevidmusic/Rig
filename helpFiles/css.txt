@@ -115,9 +115,9 @@
   For example:
   ~~~~~
   ~~~
-  Create a HelloWorld App that provides a single stylesheet named
+  Create a HelloUniverse App that provides a single stylesheet named
   `global.css`. `global.css` will be served in response
-  to all Requests to any domain the HelloWorld App is built for.
+  to all Requests to any domain the HelloUniverse App is built for.
   ~~~~~
   ~~~
   Note: In the following example roady is assumed to be installed
@@ -125,20 +125,20 @@
   sure to adjust the paths used in the example appropriately.
   ~~~~~
   ~~~
-  1. Create a HelloWorld App and configure some output:
+  1. Create a HelloUniverse App and configure some output:
   ~~~~~
   ~~~
   ```
   rig --configure-app-output \
-      --for-app HelloWorld \
-      --name HelloWorld \
+      --for-app HelloUniverse \
+      --name HelloUniverse \
       --output '<p>Hello World</p>' \
       --relative-urls '/'
       ```
   ~~~~~
   ~~~
   Note: `rig --configure-app-output` is used in this example to
-  create the HelloWorld App and configure the appropriate Components.
+  create the HelloUniverse App and configure the appropriate Components.
   More information can be obtained about `rig --configure-app-output` 
   via:
   ~~~
@@ -148,30 +148,30 @@
   ~~~~~
   ~~~~~
   ~~~
-  2. Define styles for the HelloWorld App in a stylesheet named
+  2. Define styles for the HelloUniverse App in a stylesheet named
   `global.css`:
   ~~~~~
   ~~~
   ```
   printf '\n%s\n' 'p { background: black; color: white; }' \
-  > ~/roady/Apps/HelloWorld/css/global.css
+  > ~/roady/Apps/HelloUniverse/css/global.css
   ```
   ~~~~~
   ~~~
-  3. Build the HelloWorld App for the local domain:
+  3. Build the HelloUniverse App for the local domain:
   ~~~
   http://localhost:8010
   ~~~~~
   ~~~~~
   ~~~
   ```
-  php ~/roady/Apps/HelloWorld/Components.php \
+  php ~/roady/Apps/HelloUniverse/Components.php \
   'https://localhost:8010'
   ```
   ~~~~~
   ~~~
   4. If one is not already running, start a development server on
-  port `8010` so HelloWorld is available at the local domain
+  port `8010` so HelloUniverse is available at the local domain
   `http://localhost:8010`:
   ~~~~~
   ~~~
