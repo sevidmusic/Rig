@@ -61,7 +61,7 @@
 
   rig --assign-to-response \
       --for-app Baz \
-      --global-response Foo \
+      --response Foo \
       --output-components Bar
   ```
   ~~~~~
