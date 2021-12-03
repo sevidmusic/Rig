@@ -46,9 +46,13 @@
   rig --configure-app-output \
       --for-app HelloWorld \
       --name HelloWorld \
-      --output '<p>Hello World</p>' \
+      --output '
+        <p>
+            Hello <a href="index.php?request=HelloWorld">World</a>
+        </p>
+        ' \
       --relative-urls '/'
-      ```
+  ```
   ~~~~~
   ~~~
   Note: `rig --configure-app-output` is used in this example to
