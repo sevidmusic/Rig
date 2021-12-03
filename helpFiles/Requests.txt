@@ -125,7 +125,7 @@
   ~~~~~
   ~~~
   Note: It is not necessary to assign Requests to GlobalResponses
-  since GlobalResponses respond to all Requests.
+  since GlobalResponses respond to all requests.
   ~~~~~
   ~~~
   Note: More information about Responses can be obtained via:
