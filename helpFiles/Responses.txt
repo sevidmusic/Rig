@@ -328,3 +328,58 @@
   rig --help DynamicOutputComponents
   ```
   ~~~~~
+  ~~~
+  Hint: The `--configure-app-output` flag can also be used to
+  configure output to be served in response to a request.
+  ~~~~~
+  ~~~
+  For example, if the Foo App does not exist, then the following:
+  ~~~~~
+  ~~~
+  ```
+  rig --configure-app-output \
+      --for-app Foo \
+      --name Bar \
+      --output Baz
+  ```
+  ~~~~~
+  ~~~
+  Is equivalent to:
+  ~~~~~
+  ~~~
+  ```
+  rig --new-app \
+      --name Foo
+
+  rig --new-dynamic-output-component \
+      --for-app Foo \
+      --name Bar \
+      --initial-output Baz \
+      --container FooDynamicOutput
+
+  rig --new-request \
+      --for-app Foo \
+      --name Bar \
+      --relative-url 'index.php?request=Bar' \
+      --container FooRequests
+
+  rig --new-response \
+      --for-app Foo \
+      --name Bar
+
+  rig --assign-to-response \
+      --for-app Foo \
+      --response Bar \
+      --dynamic-output-components Bar \
+      --requests Bar
+  ```
+  ~~~~~
+  ~~~
+  Note: More information about the `--configure-app-output` flag
+  can be obtained via:
+  ~~~
+  ```
+  rig --help configure-app-output
+  ```
+  ~~~~~
+  ~~~~~
