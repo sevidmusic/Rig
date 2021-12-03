@@ -2,9 +2,10 @@
   # Responses
   ~~~~~
   ~~~
-  Responses serve output in response to appropriate requests to 
-  the domains an App is built for, and conform to the following 
-  interface:
+  Responses serve the output of OutputComponents and 
+  DynamicOutputComponents in response to appropriate 
+  requests to the domains an App is built for, and 
+  conform to the following interface:
   ~~~~~
   ~~~
   ```
@@ -210,16 +211,120 @@
   Note: There is another type of Response called a GlobalResponse
   that can be used to serve output in response to all requests to
   a domain.
+  ~~~
+  Note: More inforamtion about GlobalResponses can be obtained
+  via:
+  ~~~
+  ```
+  rig --help GlobalResponses
+  ```
+  ~~~~~
+  ~~~~~
   ~~~~~
   ~~~
-  ### Example: Create an App, a Response, and a GlobalResponse
+  New Responses can be configured for an existing App via:
   ~~~~~
   ~~~
   ```
-  rig --new-app --name Foo
-
+  rig --new-response
+  ```
+  ~~~~~
+  ~~~
+  For example: 
+  ~~~~~
+  ~~~
+  ```
   rig --new-response \
       --for-app Foo \
       --name Bar 
+  ```
+  ~~~~~
+  ~~~
+  Note: More information about `rig --new-response` can be obtained 
+  via:
+  ~~~
+  ```
+  rig --help new-response
+  ```
+  ~~~~~
+  ~~~~~
+  ~~~
+  To configure a Response to respond to a Request, the 
+  relevant Request must be assigned to the Response via 
+  `rig --assign-to-response`. For example:
+  ~~~~~
+  ~~~
+  ```
+  rig --new-app \
+      --name Bar
+
+  rig --new-response \
+      --for-app Bar \
+      --name Baz
+
+  rig --new-request \
+      --for-app Bar \
+      --name Bazzer 
+
+  rig --assign-to-response \
+      --for-app Bar \
+      --response Baz \
+      --requests Bazzer
+  ```
+  ~~~~~
+  ~~~
+  Note: More information about the `rig --assign-to-response` flag
+  can be obtained via:
+  ~~~
+  ```
+  rig --help assign-to-response
+  ```
+  ~~~~~
+  ~~~~~
+  ~~~
+  To configure a Response to serve the output of a 
+  OutputComponent or DynamicOutputComponent in response 
+  to a Request, the OutputComponent or DynamicOutputComponent,
+  and the Request must be assigned to the Response via 
+  `rig --assign-to-response`. For example:
+  ~~~~~
+  ~~~
+  ```
+  rig --new-app \
+      --name Baz
+
+  rig --new-response \
+      --for-app Baz \
+      --name Foo
+
+  rig --new-output-component \
+      --for-app Baz \
+      --name Bar \
+      --output 'Foo bar bazzer'
+
+  rig --new-request \
+      --for-app Baz \
+      --name Bin 
+
+  rig --assign-to-response \
+      --for-app Baz \
+      --response Foo \
+      --output-components Bar \
+      --requests Bin
+  ```
+  ~~~~~
+  ~~~
+  Note: More information about OutputComponent can be obtained via:
+  ~~~
+  ```
+  rig --help OutputComponents
+  ```
+  ~~~~~
+  ~~~
+  Note: More information about DynamicOutputComponents can be 
+  obtained via:
+  ~~~
+  ```
+  rig --help DynamicOutputComponents
   ```
   ~~~~~
