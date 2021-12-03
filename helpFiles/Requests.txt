@@ -80,7 +80,7 @@
   ~~~
   A Request can be assigned to a Response or GlobalResponse. 
   When a Request is assigned to a Response or GlobalResponse,
-  the respective Response or GlobalResponse will then be able
+  the respective Response or GlobalResponse will then configured 
   to respond to the assigned Request:
   ~~~~~
   ~~~
