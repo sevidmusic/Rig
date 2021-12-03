@@ -120,6 +120,12 @@
       --initial-output Baz \
       --container FooBarBazDynamicOutput
 
+  rig --new-request \
+      --for-app FooBarBaz \
+      --name Bar \
+      --container FooBarBazRequests \
+      --relative-url 'index.php?request=Bar'
+
   rig --new-global-response \
       --for-app FooBarBaz \
       --name Bar
