@@ -17,8 +17,8 @@
   perform common development tasks.
   ~~~~~
   ~~~
-  Note: To use rig, rig must be in your `$PATH`. rig's executable 
-  will be located at the following path relative to the relevant 
+  Note: To use rig, rig must be in your `$PATH`. rig's executable
+  will be located at the following path relative to the relevant
   roady installation's root directory:
   ~~~
   ```
@@ -43,101 +43,127 @@
   For information on setting your `$PATH` permanently, please
   consult the documentation for the shell you are using.
   ~~~
-  WARNING: If you have multiple installations of roady on your system,
-  make sure the path to the rig executable defined in your `$PATH`
-  matches the path to the rig executable located in the vendor
-  directory of the roady installation you are currently working with,
-  or else rig may perform actions on the wrong roady installation.
+  WARNING: If you have multiple installations of roady on your
+  system, make sure the path to the rig executable defined in
+  your `$PATH` matches the path to the rig executable located
+  in the vendor directory of the roady installation you are
+  currently working with, or else rig may perform actions on
+  the wrong roady installation.
   ~~~~~
   ~~~~~
   ~~~
   # Flags:
   ~~~~~
-
-  ~~~```[--assign-to-response]```~~~~~              ~~~Assign one or more
-                                      Requests, OutputComponents, or
+  ~~~```[--assign-to-response]```~~~~~
+                                      ~~~
+                                      Assign one or more Requests,
+                                      OutputComponents, or
                                       DynamicOutputComponents to an
-                                      existing Response or GlobalResponse
-                                      for an existing roady App.~~~~~
-
-  ~~~```[--configure-app-output]```~~~~~            ~~~Configure output
-                                      for a specified roady App to show up
-                                      in response to specified requests to
-                                      any domain the App is built for.~~~~~
-
-                                      ~~~Note: If the specified App does not exist
-                                      it will be created.~~~~~
-
-  ~~~```[--path-to-apps-directory]```~~~~~          ~~~The path to roady's Apps directory, or an
-                                      alternative directory.~~~~~
-
-                                      ~~~If not specified, rig will attempt to
-                                      locate roady's Apps directory.~~~~~
-
-                                      ~~~rig will look for roady's Apps directory at
-                                      the following path relative to rig's root
-                                      directory:~~~~~
+                                      existing Response or
+                                      GlobalResponse.
+                                      ~~~~~
+                                      ~~~
+                                      Note: For more information use:
+                                      ~~~
+                                      ```
+                                      rig --help assign-to-response
+                                      ```
+                                      ~~~~~
+                                      ~~~~~
+  ~~~```[--configure-app-output]```~~~~~
+                                      ~~~
+                                      Configure output for an App
+                                      to be served in response to
+                                      appropriate requests to any
+                                      domains the App is built for.
+                                      ~~~~~
+                                      ~~~
+                                      Note: For more information use:
+                                      ~~~
+                                      ```
+                                      rig --help configure-app-output
+                                      ```
+                                      ~~~~~
+                                      ~~~~~
+  ~~~```[--path-to-apps-directory]```~~~~~
+                                      ~~~
+                                      This flag can be used in
+                                      conjunction with other rig
+                                      flags to manually set the
+                                      roady Apps directory path
+                                      used by rig to an
+                                      alternative Apps directory
+                                      path.
+                                      ~~~~~
+                                      ~~~
+                                      Note: For more information use:
+                                      ~~~
+                                      ```
+                                      rig --help \
+                                          path-to-apps-directory
+                                      ```
+                                      ~~~~~
+                                      ~~~~~
+  ~~~```[--debug]```~~~~~
+                                      ~~~
+                                      Show debug information for the
+                                      current call to rig.
+                                      ~~~~~
+                                      ~~~
+                                      The following arguments can be
+                                      specified to control what debug
+                                      information is shown, at least
+                                      one is expected.
+                                      ~~~~~
+                                          ~~~```flags```~~~~~
+                                                    ~~~
+                                                    Specifying
+                                                    `flags`will cause
+                                                    rig to output the
+                                                    flags passed to
+                                                    rig and their
+                                                    arguments.
+                                                    ~~~~~
+                                          ~~~```options```~~~~~
+                                                    ~~~
+                                                    Specifying
+                                                    `options` will
+                                                    cause rig to
+                                                    output any
+                                                    options passed
+                                                    to rig, i.e, the
+                                                    arguments that
+                                                    were specified
+                                                    that are not
+                                                    associated with a
+                                                    flag.
+                                                    ~~~~~
+                                                    ~~~
+                                                    Note: The
+                                                    'options'
+                                                    argument is
+                                                    provided for
+                                                    future use, at
+                                                    the moment rig
+                                                    does not accept
+                                                    any `options`,
+                                                    only `flags` and
+                                                    flag arguments.
+                                                    ~~~~~
 
                                       ~~~
-                                          `../../../Apps`
-                                      ~~~~~
-
-                                      ~~~If the Apps directory cannot be located
-                                      there, then the path to rig's tmp
-                                      directory will be used, for example:~~~~~
+                                      Note: For more information use:
                                       ~~~
-                                          `/path/to/rig/tmp`
+                                      ```
+                                      rig --help debug
+                                      ```
                                       ~~~~~
-
-                                      ~~~Note: Typically, you do not need to specify
-                                      the `--path-to-apps-directory` flag since rig
-                                      will determine an appropriate path at
-                                      runtime.~~~~~
-
-                                      ~~~The only reason to use this flag is if you
-                                      explicitly want to target an alternative
-                                      Apps directory.~~~~~
-
-                                      ~~~WARNING: Unless you really need to, it is
-                                      best to let rig manage the
-                                      `--path-to-apps-directory` flag's value to
-                                      insure an appropriate path is used.~~~~~
-
-  ~~~```[--debug]```~~~~~                           ~~~Show debug information for the current call
-                                      to rig. This flag is intended to be used in
-                                      conjunction with other flags, not alone.~~~~~
-
-                                      ~~~The following arguments can be specified to
-                                      control what debug information is shown, at
-                                      least one is expected.~~~~~
-
-                                        ~~~`flags` :   This will cause rig to output
-                                                  the flags passed to rig and
-                                                  their arguments.~~~~~
-
-                                                  ~~~For example:~~~~~
-
-                                                      ~~~`rig --help --debug flags`~~~~~
-
-                                        ~~~`options` : This will cause rig to output
-                                                  any options passed to rig,
-                                                  i.e, the arguments that were
-                                                  specified that are not
-                                                  associated with a flag.~~~~~
-
-                                                  ~~~For example:~~~~~
-
-                                                      ~~~`rig --help --debug options`~~~~~
-
-                                                  ~~~Note: The options argument is
-                                                  provided for future use, at the
-                                                  moment rig does not accept any
-                                                  options, only flags and flag
-                                                  arguments.~~~~~
-
-
-  ~~~```[--help] [FLAG]```~~~~~                     ~~~Show this help message, or the appropriate
-                                      help message for the specified `[FLAG]`.~~~~~
+                                      ~~~~~
+  ~~~```[--help] [FLAG]```~~~~~
+                                 ~~~
+                                      Show this help message, or the appropriate
+                                      help message for the specified `[FLAG]`.
+                                 ~~~~~
 
                                       ~~~For example:~~~~~
 
