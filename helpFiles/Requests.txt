@@ -2,7 +2,7 @@
   # Requests
   ~~~~~
   ~~~
-  Requests represent a request to a domain, and conform to the 
+  A Request represents a request to a domain, and conforms to the 
   following roady interface:
   ~~~~~
   ~~~
@@ -101,10 +101,6 @@
   ~~~~~
   ~~~~~
   ~~~
-  Note: It is not necessary to assign Requests to GlobalResponses
-  since GlobalResponses respond to all Requests.
-  ~~~~~
-  ~~~
   ### Example: Create an App and assign a Request to a Response
   ~~~~~
   ~~~
@@ -126,4 +122,24 @@
       --response Baz \
       --requests Bar 
   ```
+  ~~~~~
+  ~~~
+  Note: It is not necessary to assign Requests to GlobalResponses
+  since GlobalResponses respond to all Requests.
+  ~~~~~
+  ~~~
+  Note: More information about Responses can be obtained via:
+  ~~~
+  ```
+  rig --help Responses
+  ```
+  ~~~~~
+  ~~~~~
+  ~~~
+  Note: More information about GlobalResponses can be obtained via:
+  ~~~
+  ```
+  rig --help GlobalResponses
+  ```
+  ~~~~~
   ~~~~~
