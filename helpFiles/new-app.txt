@@ -121,9 +121,9 @@
   ~~~
   ```
   rig --new-app \
-      --name "Foo"
+      --name 'Foo'
 
-  rig --new-app --name "Foo" \
-      --domain "http://localhost:8765"
+  rig --new-app --name 'Foo' \
+      --domain 'http://localhost:8765'
   ```
   ~~~~~
