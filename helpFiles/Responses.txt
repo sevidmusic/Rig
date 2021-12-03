@@ -111,7 +111,8 @@
   ```
   ~~~~~
   ~~~
-  Note: More information about OutputComponent can be obtained via:
+  Note: More information about OutputComponents can be 
+  obtained via:
   ~~~
   ```
   rig --help OutputComponents
