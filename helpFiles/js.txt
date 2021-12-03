@@ -2,7 +2,7 @@
   # Javascript
   ~~~~~
   ~~~
-  Javascript files must be provided by roady App to be utilized 
+  Javascript files must be provided by a roady App to be utilized 
   by a website running on roady.
   ~~~~~
   ~~~
@@ -37,7 +37,7 @@
   ~~~~~
   ~~~
   Note: In future versions of roady javascript files will be loaded 
-  the same way as stylesheets are currently loaded. 
+  the same way as css stylesheets are currently loaded. 
   See issue #234:
   ~~~
   https://github.com/sevidmusic/Roady/issues/234
