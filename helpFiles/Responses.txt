@@ -152,13 +152,13 @@
       --for-app FooBarBaz \
       --name Bar \
       --initial-output Baz \
-      --container FooDynamicOutput
+      --container FooBarBazDynamicOutput
 
   rig --new-request \
       --for-app FooBarBaz \
       --name Bar \
       --relative-url 'index.php?request=Bar' \
-      --container FooRequests
+      --container FooBarBazRequests
 
   rig --new-response \
       --for-app FooBarBaz \
@@ -181,16 +181,16 @@
   ~~~~~
   ~~~~~
   ~~~
-  Note: There is another type of Response called a GlobalResponse
+  Hint: There is another type of Response called a GlobalResponse
   that can configured to serve output in response to all requests 
   to a domain.
+  ~~~~~
   ~~~
-  Note: More information about GlobalResponses can be obtained
+  More information about GlobalResponses can be obtained
   via:
+  ~~~~~
   ~~~
   ```
   rig --help GlobalResponses
   ```
-  ~~~~~
-  ~~~~~
   ~~~~~
