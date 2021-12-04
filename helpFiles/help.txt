@@ -364,87 +364,49 @@
                                       `rig --start-server`.
                                       ~~~~~
   ~~~
-  ### More information about each flag can be obtained via:
+  ### Documenation 
+  ~~~~~
+  ~~~
+  The documentation can be accessed locally via `rig --help`.
+  ~~~~~
+  ~~~
+  The following arguments can be passed to `rig --help`
   ~~~~~
   ~~~
   ```
-  rig --help
-
   rig --help assign-to-response
-
-  rig --help --assign-to-response
-
   rig --help configure-app-output
-
-  rig --help --configure-app-output
-
-  rig --help path-to-apps-directory
-
   rig --help debug
-
-  rig --help --debug
-
-  rig --help make-app-package
-
-  rig --help --make-app-package
-
-  rig --help new-app-package
-
-  rig --help --new-app-package
-
-  rig --help new-app
-
-  rig --help --new-app
-
-  rig --help new-dynamic-output-component
-
-  rig --help --new-dynamic-output-component
-
-  rig --help new-global-response
-
-  rig --help --new-global-response
-
-  rig --help new-output-component
-
-  rig --help --new-output-component
-
-  rig --help new-request
-
-  rig --help --new-request
-
-  rig --help new-response
-
-  rig --help --new-response
-
-  rig --help start-server
-
-  rig --help --start-server
-
-  rig --help view-active-servers
-
-  rig --help --view-active-servers
-
-  rig --help Apps
-
-  rig --help AppPackages
-
-  rig --help DynamicOutputComponents
-
-  rig --help GlobalResponses
-
   rig --help getting-started
-
+  rig --help help
+  rig --help make-app-package
+  rig --help new-app-package
+  rig --help new-app
+  rig --help new-dynamic-output-component
+  rig --help new-global-response
+  rig --help new-output-component
+  rig --help new-request
+  rig --help new-response
+  rig --help path-to-apps-directory
+  rig --help start-server
+  rig --help view-active-servers
+  rig --help AppPackages
+  rig --help Apps
+  rig --help Components.php
+  rig --help DynamicOutput
+  rig --help DynamicOutputComponents
+  rig --help GlobalResponses
   rig --help OutputComponents
-
   rig --help Requests
-
   rig --help Responses
-
+  rig --help css
+  rig --help js
+  rig --help resources
   rig --help roady
   ```
   ~~~~~
   ~~~
-  Note: Documentation for rig and roady can be found online at:
+  Documentation for rig and roady can also be found online at:
   ~~~~~
   ~~~
   ```
