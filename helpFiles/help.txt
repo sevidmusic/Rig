@@ -28,15 +28,8 @@
   ```
   ~~~~~
   ~~~
-  For example, if roady is installed at the following path:
-  ~~~~~
-  ~~~
-  ```
-  ~/roady
-  ```
-  ~~~~~
-  ~~~
-  Then rig can be added to your `$PATH` via:
+  If roady is installed at the path `~/roady`, then rig can be added 
+  to your `$PATH` via:
   ~~~~~
   ~~~
   ```
