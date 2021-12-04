@@ -16,9 +16,6 @@
   of roady Apps.
   ~~~~~
   ~~~
-  To use rig, rig must be in your `$PATH`.
-  ~~~~~
-  ~~~
   rig's executable will be located at the following path relative to
   the relevant roady installation's root directory:
   ~~~~~
@@ -28,8 +25,11 @@
   ```
   ~~~~~
   ~~~
-  If roady is installed at the path `~/roady`, then rig can be added 
-  to your `$PATH` via:
+  To use rig, rig must be in your `$PATH`.
+  ~~~~~
+  ~~~
+  For example, if roady is installed at the path `~/roady`, then 
+  rig can be added to your `$PATH` via:
   ~~~~~
   ~~~
   ```
