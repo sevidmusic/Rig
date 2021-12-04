@@ -134,23 +134,27 @@
                                       ```
                                       ~~~~~
                                       ~~~
-                                      Note: `[FLAG]` may be
-                                      specified with or without
-                                      the `--` prefix.
+                                      The `[FLAG]` may be 
+                                      specified with or 
+                                      without the `--` prefix. 
                                       ~~~~~
                                       ~~~
-                                      For example:
+                                      For example, the following
+                                      calls to rig are equivalent:
                                       ~~~~~
+                                      ~~~
                                       ```
                                       rig --help --new-app
                                       rig --help new-app
                                       ```
+                                      ~~~~~
                                       ~~~
-                                      WARNING: The `--path-to-apps
-                                      -directory` flag is an
-                                      exception, to get help
-                                      information for it the `--`
-                                      prefix must be excluded.
+                                      WARNING: The 
+                                      `--path-to-apps-directory` 
+                                      flag is an exception, to get 
+                                      help information for the 
+                                      `--path-to-apps-directory` the
+                                      `--` prefix must be excluded.
                                       ~~~~~
                                       ~~~
                                       For example:
@@ -176,10 +180,38 @@
                                       prefix must be excluded:
                                       ~~~~~
                                       ~~~
+                                      For example:
+                                      ~~~~~
+                                      ~~~
                                       ```
                                       rig --help \
                                           path-to-apps-directory
                                       ```
+                                      ~~~~~
+                                      ~~~
+                                      Note: It is also possible to 
+                                      pass a documentation topic to
+                                      `rig --help`. The following 
+                                      documentation topics can be 
+                                      passed to `rig --help`:
+                                      ~~~
+                                      ```
+                                      rig --help AppPackages
+                                      rig --help Apps
+                                      rig --help Components.php
+                                      rig --help DynamicOutput
+                                      rig --help DynamicOutputComponents
+                                      rig --help GlobalResponses
+                                      rig --help OutputComponents
+                                      rig --help Requests
+                                      rig --help Responses
+                                      rig --help css
+                                      rig --help getting-started
+                                      rig --help js
+                                      rig --help resources
+                                      rig --help roady
+                                      ```
+                                      ~~~~~
                                       ~~~~~
   ~~~```[--make-app-package]```~~~~~
                                       ~~~
@@ -328,11 +360,10 @@
   rig --help assign-to-response
   rig --help configure-app-output
   rig --help debug
-  rig --help getting-started
   rig --help help
   rig --help make-app-package
-  rig --help new-app-package
   rig --help new-app
+  rig --help new-app-package
   rig --help new-dynamic-output-component
   rig --help new-global-response
   rig --help new-output-component
@@ -351,6 +382,7 @@
   rig --help Requests
   rig --help Responses
   rig --help css
+  rig --help getting-started
   rig --help js
   rig --help resources
   rig --help roady
