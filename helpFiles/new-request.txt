@@ -173,17 +173,11 @@
                  data will be located after the App is built.
                  ~~~~~
                  ~~~
-                 Defaults to:
+                 Defaults to: `Requests`
                  ~~~~~
                  ~~~
-                 ```
-                 Requests
-                 ```
-                 ~~~~~
-                 ~~~
-                 WARNING: rig will refuse to configure
-                 the new Request if the
-                 specified container name is not 
+                 WARNING: rig will refuse to configure the new 
+                 Request if the specified container name is not 
                  alphanumeric.
                  ~~~~~
                  ~~~
@@ -198,10 +192,9 @@
                  ```
                  ~~~~~
                  ~~~
-                 Note: If the specified container name 
-                 contains spaces, and is not quoted, 
-                 only the alphanumeric characters up to 
-                 the first space will be used. 
+                 Note: If the specified container name contains 
+                 spaces, and is not quoted, only the alphanumeric 
+                 characters up to the first space will be used. 
                  For example:
                  ~~~
                  ```
@@ -211,16 +204,13 @@
                      --container Spaces In Container 
                  ```
                  ~~~~~
-                 Would result in the assigned
-                 container: `Spaces`
+                 Would result in the assigned container: `Spaces`
                  ~~~~~
                  ~~~
-                 Note: If the specified container 
-                 name contains spaces, and is 
-                 surrounded by quotes, then rig 
-                 will refuse to configure the new 
-                 Request. For example, 
-                 the following will fail:
+                 Note: If the specified container name contains 
+                 spaces, and is surrounded by quotes, then rig 
+                 will refuse to configure the new Request. 
+                 For example, the following will fail:
                  ~~~
                  ```
 

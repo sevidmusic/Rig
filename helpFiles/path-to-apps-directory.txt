@@ -19,8 +19,8 @@
   ```
   ~~~~~
   ~~~
-  If rig cannot locate the expected Apps directory rig will use 
-  the path to rig's tmp directory as the --path-to-apps-directory.
+  If rig cannot locate the expected Apps directory rig will use the
+  path to rig's `tmp` directory as the `--path-to-apps-directory`.
   ~~~~~
   ~~~
   rig's tmp directory will be located in rig's root directory, 
@@ -33,13 +33,13 @@
   ~~~~~
   ~~~
   WARNING: It is best to let rig determine the 
-  --path-to-apps-directory flag's value to insure 
+  `--path-to-apps-directory` flag's value to insure 
   an appropriate path is used. 
   ~~~~~
   ~~~
-  WARNING: Using the --path-to-apps-directory flag in conjunction 
-  wtih the --configure-app-output flag does work properly at the
-  moment. This bug is being addressed. See issue #100:
+  WARNING: Using the `--path-to-apps-directory` flag in conjunction 
+  wtih the `--configure-app-output` flag does work properly at the
+  moment. This bug will be addressed. See issue #100:
   ~~~~~
   ~~~
   ```
@@ -51,14 +51,31 @@
   ~~~~~
   ~~~
   ```
-  rig --new-request \
+  rig --new-app \
+      --name Foo \
+      --path-to-apps-directory ~/AlternativeAppsDirectory
+
+  rig --new-output-component \
       --for-app Foo \
       --name Bar \
+      --output 'FooBarBaz' \
+      --path-to-apps-directory ~/AlternativeAppsDirectory
+
+  rig --new-request \
+      --for-app Foo \
+      --name Baz \
       --path-to-apps-directory ~/AlternativeAppsDirectory
 
   rig --new-response \
       --for-app Foo \
-      --name Baz \
+      --name Bazzer \
+      --path-to-apps-directory ~/AlternativeAppsDirectory
+  
+  rig --assign-to-response \
+      --for-app Foo \
+      --output-components Bar \
+      --requests Baz \
+      --response Bazzer \
       --path-to-apps-directory ~/AlternativeAppsDirectory
   ```
   ~~~~~

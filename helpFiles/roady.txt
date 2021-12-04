@@ -139,17 +139,24 @@
   ~~~
   ```
   cd ~/
+
   git clone https://github.com/sevidmusic/roady.git
+
   cd ~/roady
+
   composer update
+
   export PATH="${PATH}:${HOME}/roady/vendor/darling/rig/bin"
+
   rig --configure-app-output \
       --for-app HelloWorld \
       --name HelloWorld \
       --output 'Hello World' \
       --relative-urls '/'
+
   php ~/roady/Apps/HelloWorld/Components.php \
       'http://localhost:8080'
+
   rig --start-server --open-in-browser
   ```
   ~~~~~

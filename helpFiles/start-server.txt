@@ -8,31 +8,30 @@
   ### Description:
   ~~~~~
   ~~~
-  Start a php built in server instance.
+  Start a php built in server instance that can be used to 
+  run one or more roady Apps locally.
   ~~~~~
   ~~~
-  WARNING: Do not use php's built in server in production,
+  WARNING: Do not use `php`'s built in server in production,
   it is meant for development only.
   ~~~~~
   ~~~
-  More information about Php's built in server can be found
-  online:
-  ~~~~~
+  Note: More information about `php`'s built in server can be found
+  online at:
   ~~~
   https://www.php.net/manual/en/features.commandline.webserver.php
   ~~~~~
-  ~~~
-  Once a sever is started, it can be used to run one or more
-  roady Apps locally by building the desired Apps for a domain
-  that corresponds to the running development server instance's
-  url.
   ~~~~~
   ~~~
-  For example, to run an existing App named Foo locally
-  on http://localhost:8080:
+  An App can be run locally by building it for a running `php`
+  development server instance's domain.
   ~~~~~
   ~~~
-  ### 1. Build the Foo App for the domain 'http://localhost:8080'
+  For example, to run an existing App named `Foo` locally
+  on the domain `http://localhost:8080`:
+  ~~~~~
+  ~~~
+  ### 1. Build the `Foo` App for the domain 'http://localhost:8080':
   ~~~~~
   ~~~
   ```
@@ -41,35 +40,56 @@
   ```
   ~~~~~
   ~~~
-  ### 2. Start a local development server on port 8080
+  Note: Make sure to use the correct path to 
+  `roady/Apps/Foo/Components.php`, the path used 
+  in the example is just for demonstration.
+  ~~~~~
+  ~~~
+  Note: More information about building Apps can be obtained via:
+  ~~~
+  ```
+  rig --help Components.php
+  ```
+  ~~~~~
+  ~~~~~
+  ~~~
+  ### 2. Start a local development server on port `8080`:
   ~~~~~
   ~~~
   ```
-  rig --start-server --port 8080
+  rig --start-server \
+      --port 8080 \
+      --open-in-browser
   ```
   ~~~~~
   ~~~
-  Note: The Foo App is now running on 'http://localhost:8080' and
-  can be accessed via a web browser.
+  The `Foo` App is now running on `http://localhost:8080`, and
+  `http://localhost:8080` is now accessible from a web browser.
   ~~~~~
   ~~~
-  To get a list of active development servers use:
-  ~~~~~
+  Note: To get a list of active development servers use:
   ~~~
   ```
   rig --view-active-servers
   ```
+  ~~~~~
+  More information about the `--view-active-servers` flag can
+  be obtained via:
+  ~~~
+  ```
+  rig --help view-active-servers
+  ```
+  ~~~~~
   ~~~~~
   ~~~
   ### Flags:
   ~~~~~
   ~~~```[--ini-file]```~~~~~
                         ~~~
-                        Path to the php.ini file to use to
-                        configure php for the development
-                        server instance. This flag is
-                        optional, and does not have a default
-                        value.
+                        The path to the `php.ini` file to use to
+                        configure `php` for the development server 
+                        instance. This flag is optional, and does 
+                        not have a default value.
                         ~~~~~
   ~~~```[--port]```~~~~~
                         ~~~
@@ -87,11 +107,11 @@
                         ~~~
                         Defaults to the parent directory of the
                         directory located at the path assigned
-                        to the --path-to-apps-directory flag.
+                        to the `--path-to-apps-directory` flag.
                         ~~~~~
                         ~~~
                         For example, if the path assigned to the
-                        --path-to-apps-directory flag is:
+                        `--path-to-apps-directory` flag is: 
                         ~~~~~
                         ~~~
                         ```
@@ -99,7 +119,7 @@
                         ```
                         ~~~~~
                         ~~~
-                        Then the default --root-dir will be:
+                        Then the default `--root-dir` will be:
                         ~~~~~
                         ~~~
                         ```
@@ -107,7 +127,8 @@
                         ```
                         ~~~~~
                         ~~~
-                        If the --path-to-apps-directory is:
+                        Alternatively, if the path assigned to the
+                        `--path-to-apps-directory` is:
                         ~~~~~
                         ~~~
                         ```
@@ -115,7 +136,7 @@
                         ```
                         ~~~~~
                         ~~~
-                        Then the default --root-dir will be:
+                        Then the default `--root-dir` will be:
                         ~~~~~
                         ~~~
                         ```
@@ -124,27 +145,23 @@
                         ~~~~~
                         ~~~
                         Note: It is typically not necessary to
-                        specify the --root-dir flag since rig
-                        will typically determine the correct
-                        root directory for you, however, if
-                        you find rig is unable to determine
-                        the correct root directory to use for
-                        the development server instance, or if
-                        an alternative root directory needs to
-                        be used, the --root-dir flag can be used
-                        to manually set the appropriate path.
+                        specify the `--root-dir` flag, rig will
+                        determine an appropriate path to use as
+                        long as the `--root-dir` flag is not
+                        specified.
                         ~~~~~
   ~~~```[--open-in-browser]```~~~~~
                         ~~~
-                        Attempt to open the root url of the new
+                        Attempt to open the domain of the new
                         development server instance in a web
-                        browser via xdg-open.
+                        browser via `xdg-open`.
                         ~~~~~
                         ~~~
                         WARNING: This flag will not always work.
-                        It uses xdg-open under the hood, if
-                        `xdg-open` is not available then this
-                        flag will fail.
+                        It uses `xdg-open` under the hood. 
+                        `xdg-open` is not associated with roady 
+                        or rig. If `xdg-open` is not available 
+                        then this flag will not work.
                         ~~~~~
                         ~~~
                         Also, this flag may begin to fail as
@@ -159,9 +176,9 @@
                         https://portland.freedesktop.org/doc/xdg-open.html
                         ~~~~~
                         ~~~
-                        Note: A development server instance's url
-                        can always be opened manually via a web
-                        browser while the development server
+                        Note: A development server instance's 
+                        domain can always be opened manually via 
+                        a web browser while the development server 
                         instance is running.
                         ~~~~~
   ~~~
@@ -172,11 +189,18 @@
   rig --start-server
 
   rig --start-server \
-      --port 8927 \
-      --open-in-browser
+      --port 8010
 
   rig --start-server \
-      --port 8975
-      --root-dir "${HOME}/AlternativeRootDir/"
+      --port 8020 \
+      --ini-file ~/devconfig.ini 
+
+  rig --start-server \
+      --port 8030 \
+      --root-dir "${HOME}/AlternativeRootDirectory/"
+
+  rig --start-server \
+      --port 8040 \
+      --open-in-browser
   ```
   ~~~~~

@@ -1,16 +1,19 @@
   ~~~
-  ```rig --new-app --name [--domain] ```
+  ```
+  rig --new-app --name [--domain] 
+  ```
   ~~~~~
   ~~~
   ### Description:
   ~~~~~
   ~~~
-  Creates a new roady App. The new App will be created at
-  the path that corresponds to the value assigned to the
+  Creates a new roady App. The new App will be created at 
+  the path that corresponds to the value assigned to the 
   `--path-to-apps-directory` flag.
   ~~~~~
   ~~~
-  For example, if the `--path-to-apps-directory` flag is assigned the path:
+  For example, if the `--path-to-apps-directory` flag is assigned
+  the path:
   ~~~~~
   ~~~
   ```
@@ -18,7 +21,7 @@
   ```
   ~~~~~
   ~~~
-  Then:
+  Then the following call to rig:
   ~~~~~
   ~~~
   ```
@@ -26,7 +29,7 @@
   ```
   ~~~~~
   ~~~
-  Would create the new Foo App at:
+  Would create a new App named `Foo` at the following path:
   ~~~~~
   ~~~
   ```
@@ -34,81 +37,94 @@
   ```
   ~~~~~
   ~~~
-  Note: You do not need to explicitly set the `--path-to-apps-directory` unless you
-  intend to use an alternative Apps directory. The `--path-to-apps-directory` flag's
-  value will be determined by rig at runtime unless it is set explicitly.
+  Note: It is unnecessary to specify the `--path-to-apps-directory` 
+  flag's value, rig will determine an appropriate path as long as 
+  the `--path-to-apps-directory` flag is not specified.
   ~~~~~
   ~~~
-  WARNING: Unless you really need to, it is best to let rig manage the
-  `--path-to-apps-directory` flag's value to insure an appropriate path is used.
+  Note: It is best to let rig determine the value of the
+  `--path-to-apps-directory` flag to insure an appropriate
+  path is used.
   ~~~~~
   ~~~
-  For more information about the `--path-to-apps-directory` flag use:
-  ~~~~~
+  Note: More information about the `--path-to-apps-directory` flag 
+  can be obtained via:
   ~~~
   ```
   rig --help path-to-apps-directory
   ```
   ~~~~~
+  ~~~~~
   ~~~
   ### Flags:
   ~~~~~
-  ~~~```--name```~~~~~                       
-                               ~~~
-                               The name to assign to the new App
-                               ~~~~~
-                               ~~~
-                               WARNING: The name must be unique, if an
-                               App with the same name already exists the
-                               new App will not be created.
-                               ~~~~~
-  ~~~```[--domain]```~~~~~                   
-                               ~~~
-                               A domain to assign as the new App's default domain.
-                               The default domain is used when an App is built
-                               without specifying a domain.
-                               ~~~~~
-                               ~~~
-                               For example:
-                               ~~~~~
-                               ~~~
-                               ```
-                               php Apps/Foo/Components.php
-                               ```
-                               ~~~~~
-                               ~~~
-                               Would build the Foo App for the App's assigned
-                               default domain.
-                               ~~~~~
-                               ~~~
-                               If a --domain is not specified, the default
-                               domain will be:
-                               ~~~~~
-                               ~~~
-                               ```
-                               http://localhost:8080
-                               ```
-                               ~~~~~
-                               ~~~
-                               The App's default domain will be defined in the
-                               App's Components.php, and can be changed later
-                               if necessary by editing the App's Components.php.
-                               ~~~~~
-                               ~~~
-                               WARNING: Do not include the trailing / at the end
-                               of the domain or you may run into issues. This is
-                               a bug, and it is being addressed. See issue #193:
-                               ~~~~~
-                               ~~~
-                               `https://github.com/sevidmusic/roady/issues/193`
-                               ~~~~~
+  ~~~```--name```~~~~~
+                    ~~~
+                    The name to assign to the new App.
+                    ~~~~~
+                    ~~~
+                    WARNING: The name must be unique, if an App 
+                    with the same name already exists at the path 
+                    that corresponds to the path assigned to the 
+                    `--path-to-apps-directory` flag, then the new 
+                    App will not be created.
+                    ~~~~~
+  ~~~```[--domain]```~~~~~
+                    ~~~
+                    The default domain that this App will be 
+                    built for.
+                    ~~~~~
+                    ~~~
+                    An App will not be usable until it is built for a 
+                    domain.
+                    ~~~~~
+                    ~~~
+                    An App is built for a domain by executing the 
+                    App's `Components.php` file via `php`.
+                    ~~~~~
+                    ~~~
+                    For example:
+                    ~~~~~
+                    ~~~
+                    ```
+                    php /path/to/roady/Apps/Foo/Components.php
+                    ```
+                    ~~~~~
+                    ~~~
+                    If a domain is not specified when the App's
+                    `Components.php` file is executed, then the App
+                    will be built for the default domain that is
+                    hard coded in the App's `Components.php` file.
+                    ~~~~~
+                    ~~~
+                    The `--domain` flag is used to set the value of 
+                    the default domain that will be hard coded in 
+                    the App's `Components.php` file.
+                    ~~~~~
+                    ~~~
+                    Note: If the `--domain` flag is not specified,
+                    then the domain `http://localhost:8080` will 
+                    be set as the default domain.
+                    ~~~~~
+                    ~~~
+                    Note: More information about building Apps, and
+                    the `Components.php` file, can be obtained via:
+                    ~~~
+                    ```
+                    rig --help Components.php
+                    ```
+                    ~~~~~
+                    ~~~~~
   ~~~
   ### Examples:
   ~~~~~
   ~~~
   ```
-  rig --new-app --name "Foo"
-  
-  rig --new-app --name "Foo" --domain "http://localhost:8765"
+  rig --new-app \
+      --name 'Foo'
+
+  rig --new-app \
+      --name 'Foo' \
+      --domain 'http://localhost:8765'
   ```
   ~~~~~
