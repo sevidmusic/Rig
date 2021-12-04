@@ -9,17 +9,17 @@
   ```
   ~~~~~
   ~~~
-  # Description:
+  ### Description:
   ~~~~~
   ~~~
   rig is a command line utility designed to aid in the development
-  of roady Apps. 
+  of roady Apps.
   ~~~~~
   ~~~
-  To use rig, rig must be in your `$PATH`. 
+  To use rig, rig must be in your `$PATH`.
   ~~~~~
   ~~~
-  rig's executable will be located at the following path relative to 
+  rig's executable will be located at the following path relative to
   the relevant roady installation's root directory:
   ~~~~~
   ~~~
@@ -59,7 +59,7 @@
   ~~~~~
   ~~~~~
   ~~~
-  # Flags:
+  ### Flags:
   ~~~~~
   ~~~```[--assign-to-response]```~~~~~
                                       ~~~
@@ -168,9 +168,9 @@
                                       ~~~~~
   ~~~```[--help] [FLAG]```~~~~~
                                       ~~~
-                                      Show this help message, or 
-                                      the appropriate help 
-                                      message for the specified 
+                                      Show this help message, or
+                                      the appropriate help
+                                      message for the specified
                                       `[FLAG]`.
                                       ~~~~~
                                       ~~~
@@ -183,8 +183,8 @@
                                       ```
                                       ~~~~~
                                       ~~~
-                                      Note: `[FLAG]` may be 
-                                      specified with or without 
+                                      Note: `[FLAG]` may be
+                                      specified with or without
                                       the `--` prefix.
                                       ~~~~~
                                       ~~~
@@ -196,19 +196,19 @@
                                       ```
                                       ~~~
                                       WARNING: The `--path-to-apps
-                                      -directory` flag is an 
-                                      exception, to get help 
-                                      information for it the `--` 
+                                      -directory` flag is an
+                                      exception, to get help
+                                      information for it the `--`
                                       prefix must be excluded.
                                       ~~~~~
                                       ~~~
                                       For example:
                                       ~~~~~
                                       ~~~
-                                      The following example won't 
-                                      work, rig will think you 
-                                      are trying to set an 
-                                      alternative Apps directory 
+                                      The following example won't
+                                      work, rig will think you
+                                      are trying to set an
+                                      alternative Apps directory
                                       path.
                                       ~~~~~
                                       ~~~
@@ -218,10 +218,10 @@
                                       ```
                                       ~~~~~
                                       ~~~
-                                      To get help information 
-                                      about the 
-                                      `--path-to-apps-directory` 
-                                      flag the `--` 
+                                      To get help information
+                                      about the
+                                      `--path-to-apps-directory`
+                                      flag the `--`
                                       prefix must be excluded:
                                       ~~~~~
                                       ~~~
@@ -230,58 +230,141 @@
                                           path-to-apps-directory
                                       ```
                                       ~~~~~
-
-  ~~~```[--make-app-package]```~~~~~                
+  ~~~```[--make-app-package]```~~~~~
                                       ~~~
-
+                                      Make an App Package into
+                                      an App.
+                                      ~~~~~
+                                      ~~~
+                                      Note: For more information use:
+                                      ~~~
+                                      ```
+                                      rig --help make-app-package
+                                      ```
+                                      ~~~~~
+                                      ~~~~~
+  ~~~```[--new-app-package]```~~~~~
+                                      ~~~
+                                      Creates a new App Package.
+                                      ~~~~~
+                                      ~~~
+                                      Note: For more information use:
+                                      ~~~
+                                      ```
+                                      rig --help new-app-package
+                                      ```
+                                      ~~~~~
                                       ~~~~~
 
-  ~~~```[--new-app-package]```~~~~~                 
+  ~~~```[--new-app]```~~~~~
                                       ~~~
-
+                                      Creates a new roady App.
+                                      The new App will be created
+                                      at the path that corresponds
+                                      to the value assigned to the
+                                      `--path-to-apps-directory`
+                                      flag.
                                       ~~~~~
-
-  ~~~```[--new-app]```~~~~~                         
                                       ~~~
-
+                                      Note: For more information use:
+                                      ~~~
+                                      ```
+                                      rig --help new-app
+                                      ```
                                       ~~~~~
-
-  ~~~```[--new-dynamic-output-component]```~~~~~    
-                                      ~~~
-
                                       ~~~~~
-
-  ~~~```[--new-global-response]```~~~~~             
+  ~~~```[--new-dynamic-output-component]```~~~~~
                                       ~~~
-
+                                      Configure a new
+                                      DynamicOutputComponent
+                                      for an App.
                                       ~~~~~
-
-  ~~~```[--new-output-component]```~~~~~            
                                       ~~~
-
+                                      Note: For more information use:
+                                      ~~~
+                                      ```
+                                      rig --help \
+                                      --new-dynamic-output-component
+                                      ```
                                       ~~~~~
-
-  ~~~```[--new-request]```~~~~~                     
-                                      ~~~
-
                                       ~~~~~
-
-  ~~~```[--new-response]```~~~~~                    
+  ~~~```[--new-global-response]```~~~~~
                                       ~~~
-
+                                      Configure a new GlobalResponse
+                                      for the specified App.
                                       ~~~~~
-
-  ~~~```[--start-server]```~~~~~                    
                                       ~~~
-
+                                      Note: For more information use:
+                                      ~~~
+                                      ```
+                                      rig --help new-global-response
+                                      ```
                                       ~~~~~
-
-  ~~~```[--view-active-servers]```~~~~~             
+                                      ~~~~~
+  ~~~```[--new-output-component]```~~~~~
                                       ~~~
-
+                                      Configure a new OutputComponent
+                                      for the specified App.
+                                      ~~~~~
+                                      ~~~
+                                      Note: For more information use:
+                                      ~~~
+                                      ```
+                                      rig --help new-output-component
+                                      ```
+                                      ~~~~~
+                                      ~~~~~
+  ~~~```[--new-request]```~~~~~
+                                      ~~~
+                                      Configure a new Request for the
+                                      specified App.
+                                      ~~~~~
+                                      ~~~
+                                      Note: For more information use:
+                                      ~~~
+                                      ```
+                                      rig --help new-request
+                                      ```
+                                      ~~~~~
+                                      ~~~~~
+  ~~~```[--new-response]```~~~~~
+                                      ~~~
+                                      Configure a new Response for 
+                                      the specified App.
+                                      ~~~~~
+                                      ~~~
+                                      Note: For more information use:
+                                      ~~~
+                                      ```
+                                      rig --help new-response
+                                      ```
+                                      ~~~~~
+                                      ~~~~~
+  ~~~```[--start-server]```~~~~~
+                                      ~~~
+                                      Start a php built in server 
+                                      instance that can be used to 
+                                      run one or more roady Apps 
+                                      locally.
+                                      ~~~~~
+                                      ~~~
+                                      Note: For more information use:
+                                      ~~~
+                                      ```
+                                      rig --help start-server
+                                      ```
+                                      ~~~~~
+                                      ~~~~~
+  ~~~```[--view-active-servers]```~~~~~
+                                      ~~~
+                                      List the domains associated 
+                                      with the currently active 
+                                      php built in server instances 
+                                      that were started via 
+                                      `rig --start-server`.
                                       ~~~~~
   ~~~
-  # Examples:
+  ### More information about each flag can be obtained via:
   ~~~~~
   ~~~
   ```
@@ -340,14 +423,7 @@
   rig --help view-active-servers
 
   rig --help --view-active-servers
-  ```
-  ~~~~~
-  ~~~
-  Note: The following arguments may also be passed to the --help flag
-  to get additional information about roady and rig:
-  ~~~~~
-  ~~~
-  ```
+
   rig --help Apps
 
   rig --help AppPackages
@@ -368,7 +444,7 @@
   ```
   ~~~~~
   ~~~
-  Note: Documentation for rig and roady can be found at:
+  Note: Documentation for rig and roady can be found online at:
   ~~~~~
   ~~~
   ```
@@ -395,7 +471,7 @@
   https://github.com/sevidmusic/roadyAppPackages
   ~~~~~
   ~~~
-  roady, the rig command line utility, and roadyAppPackages are all 
+  roady, the rig command line utility, and roadyAppPackages are all
   licensed under the MIT license.
   ~~~~~
   ~~~
@@ -404,25 +480,25 @@
 
   Copyright (c) 2021 Sevi Donnelly Foreman
 
-  Permission is hereby granted, free of charge, to any person 
-  obtaining a copy of this software and associated documentation 
-  files (the "Software"), to deal in the Software without 
-  restriction, including without limitation the rights to use, 
-  copy, modify, merge, publish, distribute, sublicense, and/or 
-  sell copies of the Software, and to permit persons to whom the 
-  Software is furnished to do so, subject to the following 
+  Permission is hereby granted, free of charge, to any person
+  obtaining a copy of this software and associated documentation
+  files (the "Software"), to deal in the Software without
+  restriction, including without limitation the rights to use,
+  copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the
+  Software is furnished to do so, subject to the following
   conditions:
 
-  The above copyright notice and this permission notice shall be 
+  The above copyright notice and this permission notice shall be
   included in all copies or substantial portions of the Software.
 
-  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
-  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES 
-  OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
-  NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRigHT 
-  HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
-  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
-  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR 
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+  OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+  NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRigHT
+  HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
   OTHER DEALINGS IN THE SOFTWARE.
   ```
   ~~~~~
