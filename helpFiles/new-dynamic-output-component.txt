@@ -14,7 +14,9 @@
   ~~~
   ### Flags:
   ~~~~~
-  ~~~```--for--app```~~~~~
+  ~~~
+  ### `--for--app`
+  ~~~~~
                               ~~~
                               The name of the App to configure
                               the new DynamicOutputComponent for.
@@ -53,7 +55,9 @@
                               ~~~~~
                               ~~~~~
                               ~~~~~
-  ~~~```--name```~~~~~
+  ~~~
+  ### `--name`
+  ~~~~~
                               ~~~
                               An alphanumeric name to assign to
                               the new DynamicOutputComponent.
@@ -103,7 +107,9 @@
                               ```
                               ~~~~~
                               ~~~~~
-  ~~~```[--container]```~~~~~
+  ~~~
+  ### `[--container]`
+  ~~~~~
                               ~~~
                               The name of the container to store
                               the new DynamicOutputComponent's
@@ -176,7 +182,9 @@
                               ```
                               ~~~~~
                               ~~~~~
-  ~~~```[--position]```~~~~~
+  ~~~
+  ### `[--position]`
+  ~~~~~
                               ~~~
                               The position to assign to the
                               DynamicOutputComponent.
@@ -191,7 +199,9 @@
                               ~~~
                               Defaults to: `0`
                               ~~~~~
-  ~~~```[--file-name]```~~~~~
+  ~~~
+  ### `[--file-name]`
+  ~~~~~
                               ~~~
                               Either the name to assign to 
                               the file that will be created 
@@ -375,7 +385,9 @@
                               ```
                               ~~~~~
                               ~~~~~
-  ~~~```[--initial-output]```~~~~~
+  ~~~
+  ### `[--initial-output]`
+  ~~~~~
                               ~~~
                               The initial output to assign as
                               the content of the new DynamicOutput
@@ -405,7 +417,9 @@
                               rig will not configure the new
                               DynamicOutputComponent.
                               ~~~~~
-  ~~~```[initial-output-file]```~~~~~
+  ~~~
+  ### `[initial-output-file]`
+  ~~~~~
                               ~~~
                               A path to a file whose content
                               will be used as the contents of
@@ -432,7 +446,9 @@
                               rig will not configure the new
                               DynamicOutputComponent.
                               ~~~~~
-  ~~~```[--shared]```~~~~~
+  ~~~
+  ### `[--shared]`
+  ~~~~~
                               ~~~
                               If specified, rig will assume 
                               the DynamicOutput file that 

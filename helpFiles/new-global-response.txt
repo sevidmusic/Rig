@@ -16,7 +16,9 @@
   ~~~
   ### Flags:
   ~~~~~
-  ~~~```--for-app```~~~~~
+  ~~~
+  ### `--for-app`
+  ~~~~~
                ~~~
                The name of the App to configure the
                GlobalResponse for.
@@ -26,7 +28,9 @@
                does not, the new GlobalResponse will not be
                configured.
                ~~~~~
-  ~~~```--name```~~~~~
+  ~~~
+  ### `--name`
+  ~~~~~
                ~~~
                An alphanumeric name to assign to the new
                GlobalResponse.
@@ -65,7 +69,9 @@
                ```
                ~~~~~
                ~~~~~
-  ~~~```[--position]```~~~~~
+  ~~~
+  ### `[--position]`
+  ~~~~~
                ~~~
                The position to assign to the GlobalResponse.
                This position is used to sort the GlobalResponse

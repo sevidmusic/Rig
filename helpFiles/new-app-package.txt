@@ -12,7 +12,9 @@
   ~~~
   ### Flags:
   ~~~~~
-  ~~~```--name```~~~~~
+  ~~~
+  ### `--name`
+  ~~~~~
           ~~~
           The name to assign to the new App Package.
           ~~~~~
@@ -43,7 +45,9 @@
           that corresponds to the path assigned to the
           `--path` flag.
           ~~~~~
-  ~~~```[--domain]```~~~~~
+  ~~~
+  ### `[--domain]`
+  ~~~~~
           ~~~
           The default domain that the App this App Package
           makes will be built for.
@@ -91,7 +95,9 @@
           ```
           ~~~~~
           ~~~~~
-  ~~~```[--path]```~~~~~
+  ~~~
+  ### `[--path]`
+  ~~~~~
           ~~~
           The path to create the App Package at. If not
           specified, the current working directory will be

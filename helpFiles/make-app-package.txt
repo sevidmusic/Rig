@@ -87,7 +87,9 @@
   ```
   ~~~~~
   ### Flags:
-  ~~~```--path```~~~~~ 
+  ~~~
+  ### `--path`
+  ~~~~ 
          ~~~
          The path to the App Package to make.
          ~~~~~
