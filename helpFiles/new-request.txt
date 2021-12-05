@@ -50,7 +50,10 @@
   ~~~
   ### Flags:
   ~~~~~
-  ~~~```--for-app```~~~~~      
+  ~~~
+  ### `--for-app`
+  ~~~~
+
                  ~~~
                  The name of the App to configure the new 
                  Request for.
@@ -84,7 +87,10 @@
                  ~~~~~
                  ~~~~~
                  ~~~~~
-  ~~~```--name```~~~~~         
+  ~~~
+  ### `--name`
+  ~~~~~  
+
                  ~~~
                  An alphanumeric name to assign to the new Request.
                  ~~~~~
@@ -122,7 +128,9 @@
                  ```
                  ~~~~~
                  ~~~~~
-  ~~~```--relative-url```~~~~~ 
+  ~~~
+  ### `[--relative-url]`
+  ~~~~ 
                  ~~~
                  A relative url to assign to the new Request. 
                  ~~~~~
@@ -164,7 +172,9 @@
                  ```
                  ~~~~~
 
-  ~~~```[--container]```~~~~~
+  ~~~
+  ### `[--container]`
+  ~~~~~
                  ~~~
                  The name of the container to store the new 
                  Request's data in. This value is used when 

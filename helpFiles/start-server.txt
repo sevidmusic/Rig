@@ -84,14 +84,18 @@
   ~~~
   ### Flags:
   ~~~~~
-  ~~~```[--ini-file]```~~~~~
+  ~~~
+  ### `[--ini-file]`
+  ~~~~~
                         ~~~
                         The path to the `php.ini` file to use to
                         configure `php` for the development server 
                         instance. This flag is optional, and does 
                         not have a default value.
                         ~~~~~
-  ~~~```[--port]```~~~~~
+  ~~~
+  ### `[--port]`
+  ~~~~~
                         ~~~
                         A port number to start the development
                         server instance on.
@@ -99,7 +103,9 @@
                         ~~~
                         Defaults to: `8080`
                         ~~~~~
-  ~~~```[--root-dir]```~~~~~
+  ~~~
+  ### `[--root-dir]`
+  ~~~~~
                         ~~~
                         The directory to use as the development
                         server instance's root directory.
@@ -150,7 +156,9 @@
                         long as the `--root-dir` flag is not
                         specified.
                         ~~~~~
-  ~~~```[--open-in-browser]```~~~~~
+  ~~~
+  ### `[--open-in-browser]`
+  ~~~~~
                         ~~~
                         Attempt to open the domain of the new
                         development server instance in a web

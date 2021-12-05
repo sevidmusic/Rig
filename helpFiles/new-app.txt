@@ -58,7 +58,9 @@
   ~~~
   ### Flags:
   ~~~~~
-  ~~~```--name```~~~~~
+  ~~~
+  ### `--name`
+  ~~~~~
                     ~~~
                     The name to assign to the new App.
                     ~~~~~
@@ -69,7 +71,9 @@
                     `--path-to-apps-directory` flag, then the new 
                     App will not be created.
                     ~~~~~
-  ~~~```[--domain]```~~~~~
+  ~~~
+  ### `[--domain]`
+  ~~~~~
                     ~~~
                     The default domain that this App will be 
                     built for.

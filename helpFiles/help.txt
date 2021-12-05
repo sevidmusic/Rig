@@ -54,7 +54,9 @@
   ~~~
   ### Flags:
   ~~~~~
-  ~~~```[--assign-to-response]```~~~~~
+  ~~~
+  ### `[--assign-to-response]`
+  ~~~~~
                                       ~~~
                                       Assign one or more Requests,
                                       OutputComponents, or
@@ -70,7 +72,9 @@
                                       ```
                                       ~~~~~
                                       ~~~~~
-  ~~~```[--configure-app-output]```~~~~~
+  ~~~
+  ### `[--configure-app-output]`
+  ~~~~~
                                       ~~~
                                       Configure output for an App
                                       to be served in response to
@@ -85,7 +89,9 @@
                                       ```
                                       ~~~~~
                                       ~~~~~
-  ~~~```[--path-to-apps-directory]```~~~~~
+  ~~~
+  ### `[--path-to-apps-directory]`
+  ~~~~~
                                       ~~~
                                       This flag can be used in
                                       conjunction with other rig
@@ -104,7 +110,9 @@
                                       ```
                                       ~~~~~
                                       ~~~~~
-  ~~~```[--debug]```~~~~~
+  ~~~
+  ### `[--debug]`
+  ~~~~~
                                       ~~~
                                       Show debug information for the
                                       current call to rig.
@@ -117,7 +125,9 @@
                                       ```
                                       ~~~~~
                                       ~~~~~
-  ~~~```[--help] [FLAG]```~~~~~
+  ~~~
+  ### `[--help] [FLAG]`
+  ~~~~~
                                       ~~~
                                       Show this help message, or
                                       the appropriate help
@@ -213,7 +223,9 @@
                                       ```
                                       ~~~~~
                                       ~~~~~
-  ~~~```[--make-app-package]```~~~~~
+  ~~~
+  ### `[--make-app-package]`
+  ~~~~~
                                       ~~~
                                       Make an App Package into
                                       an App.
@@ -226,7 +238,9 @@
                                       ```
                                       ~~~~~
                                       ~~~~~
-  ~~~```[--new-app-package]```~~~~~
+  ~~~
+  ### `[--new-app-package]`
+  ~~~~~
                                       ~~~
                                       Creates a new App Package.
                                       ~~~~~
@@ -239,7 +253,9 @@
                                       ~~~~~
                                       ~~~~~
 
-  ~~~```[--new-app]```~~~~~
+  ~~~
+  ### `[--new-app]`
+  ~~~~~
                                       ~~~
                                       Creates a new roady App.
                                       The new App will be created
@@ -256,7 +272,9 @@
                                       ```
                                       ~~~~~
                                       ~~~~~
-  ~~~```[--new-dynamic-output-component]```~~~~~
+  ~~~
+  ### `[--new-dynamic-output-component]`
+  ~~~~~
                                       ~~~
                                       Configure a new
                                       DynamicOutputComponent
@@ -271,7 +289,9 @@
                                       ```
                                       ~~~~~
                                       ~~~~~
-  ~~~```[--new-global-response]```~~~~~
+  ~~~
+  ### `[--new-global-response]`
+  ~~~~~
                                       ~~~
                                       Configure a new GlobalResponse
                                       for the specified App.
@@ -284,7 +304,9 @@
                                       ```
                                       ~~~~~
                                       ~~~~~
-  ~~~```[--new-output-component]```~~~~~
+  ~~~
+  ### `[--new-output-component]`
+  ~~~~~
                                       ~~~
                                       Configure a new OutputComponent
                                       for the specified App.
@@ -297,7 +319,9 @@
                                       ```
                                       ~~~~~
                                       ~~~~~
-  ~~~```[--new-request]```~~~~~
+  ~~~
+  ### `[--new-request]`
+  ~~~~~
                                       ~~~
                                       Configure a new Request for the
                                       specified App.
@@ -310,7 +334,9 @@
                                       ```
                                       ~~~~~
                                       ~~~~~
-  ~~~```[--new-response]```~~~~~
+  ~~~
+  ### `[--new-response]`
+  ~~~~~
                                       ~~~
                                       Configure a new Response for 
                                       the specified App.
@@ -323,7 +349,9 @@
                                       ```
                                       ~~~~~
                                       ~~~~~
-  ~~~```[--start-server]```~~~~~
+  ~~~
+  ### `[--start-server]`
+  ~~~~~
                                       ~~~
                                       Start a php built in server 
                                       instance that can be used to 
@@ -338,7 +366,9 @@
                                       ```
                                       ~~~~~
                                       ~~~~~
-  ~~~```[--view-active-servers]```~~~~~
+  ~~~
+  ### `[--view-active-servers]`
+  ~~~~~
                                       ~~~
                                       List the domains associated 
                                       with the currently active 

@@ -13,7 +13,9 @@
   ~~~
   ### Flags:
   ~~~~~
-  ~~~```--for--app```~~~~~
+  ~~~
+  ### `--for--app`
+  ~~~~~
                 ~~~
                 The name of the App to configure the new 
                 OutputComponent for.
@@ -47,7 +49,9 @@
                 ~~~~~
                 ~~~~~
                 ~~~~~
-  ~~~```--name```~~~~~
+  ~~~
+  ### `--name`
+  ~~~~~
                 ~~~
                 An alphanumeric name to assign to the new 
                 OutputComponent.
@@ -90,11 +94,15 @@
                 ```
                 ~~~~~
                 ~~~~~
-  ~~~```--output```~~~~~
+  ~~~
+  ### `--output`
+  ~~~~~
                 ~~~
                 The output to assign to the new OutputComponent.
                 ~~~~~
-  ~~~```[--container]```~~~~~
+  ~~~
+  ### `[--container]`
+  ~~~~~
                 ~~~
                 The name of the container to store the new 
                 OutputComponent's data in. This value is used 
@@ -154,7 +162,9 @@
                 ```
                 ~~~~~
                 ~~~~~
-  ~~~```[--position]```~~~~~
+  ~~~
+  ### `[--position]`
+  ~~~~~
                 ~~~
                 The position to assign to the OutputComponent.
                 This position will be used to sort the
