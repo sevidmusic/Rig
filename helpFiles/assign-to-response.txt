@@ -20,7 +20,9 @@
   ~~~
   ### Flags:
   ~~~~~
-  ~~~```--for-app```~~~~~                    
+  ~~~
+  ### `--for-app`
+  ~~~~~
                                ~~~
                                The name of the App that 
                                configured the target Response 
@@ -36,13 +38,15 @@
                                Note: For more information about 
                                the `--path-to-apps-directory` 
                                flag use: 
-                               ~~~~~
                                ~~~
                                ```
                                rig --help path-to-apps-directory
                                ```
                                ~~~~~
-  ~~~```--response```~~~~~                   
+                               ~~~~~
+  ~~~
+  ### `--response`
+  ~~~~~                   
                                ~~~
                                The name of the target Response or 
                                GlobalResponse. 
@@ -52,7 +56,9 @@
                                GlobalResponse must already be 
                                configured by the specified App. 
                                ~~~~~
-  ~~~```--dynamic-output-components```~~~~~  
+  ~~~
+  ### `--dynamic-output-components`
+  ~~~~~  
                                ~~~
                                The names of the 
                                DynamicOutputComponents to assign 
@@ -63,7 +69,9 @@
                                must already be configured by the 
                                specified App.
                                ~~~~~
-  ~~~```--output-components```~~~~~          
+  ~~~
+  ### `--output-components`
+  ~~~~~          
                                ~~~
                                The names of the OutputComponents 
                                to assign to the Response or 
@@ -74,7 +82,9 @@
                                already be configured by the 
                                specified App. 
                                ~~~~~
-  ~~~```--requests```~~~~~                   
+  ~~~
+  ### `--requests`
+  ~~~~~                   
                                ~~~
                                The names of the Requests to 
                                assign to the Response or 
