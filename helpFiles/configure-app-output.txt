@@ -70,7 +70,9 @@
   ~~~
   ### Flags:
   ~~~~~
-  ~~~```--for-app```~~~~~
+  ~~~
+  ### `--for-app`
+  ~~~~~
                         ~~~
                         The name of the App to configure the
                         output for.
@@ -128,7 +130,9 @@
                         careful to only use alpha-numeric
                         characters in names.
                         ~~~~~
-  ~~~```--name```~~~~~
+  ~~~
+  ### `--name`
+  ~~~~~
                         ~~~
                         The name used to determine the names to
                         assign to the Components that will be
@@ -258,7 +262,9 @@
                             --output FooBarBaz
                         ```
                         ~~~~~
-  ~~~```--output```~~~~~
+  ~~~
+  ### `--output`
+  ~~~~~
                         ~~~
                         The output to assign. This flag is required 
                         unless the `--output-source-file` flag is 
@@ -381,7 +387,9 @@
                         specified in conjunction with the
                         `--output-source-file` flag.
                         ~~~~~
-  ~~~```--output-source-file```~~~~~
+  ~~~
+  ### `--output-source-file`
+  ~~~~~
                         ~~~
                         The path to the file whose contents will
                         be assigned as the output. This flag is
@@ -545,7 +553,9 @@
                         specified, the `--output` flag will
                         be ignored.
                         ~~~~~
-  ~~~```[--global]```~~~~~
+  ~~~
+  ### `[--global]`
+  ~~~~~
                         ~~~
                         If specified, the output will served in
                         response to all requests to any domain 
@@ -614,7 +624,9 @@
                         response to all requests to any domain
                         the App is built for.
                         ~~~~~
-  ~~~```[--o-position]```~~~~~
+  ~~~
+  ### `[--o-position]`
+  ~~~~~
                         ~~~
                         The position to assign to the
                         DynamicOutputComponent or OutputComponent
@@ -626,7 +638,9 @@
                         being served by the same Response or
                         GlobalResponse.
                         ~~~~~
-  ~~~```[--relative-urls]```~~~~~
+  ~~~
+  ### `[--relative-urls]`
+  ~~~~~
                         ~~~
                         The relative urls the output should be
                         served in response to. These urls are
@@ -764,7 +778,9 @@
                         response to all requests to any domain the
                         App is built for.
                         ~~~~~
-  ~~~```[--r-position]```~~~~~
+  ~~~
+  ### `[--r-position]`
+  ~~~~~
                         ~~~
                         The position to assign to the Response or
                         GlobalResponse that will be configured for
@@ -774,7 +790,9 @@
                         and GlobalResponses that respond to the
                         same request.
                         ~~~~~
-  ~~~```[--static]```~~~~~
+  ~~~
+  ### `[--static]`
+  ~~~~~
                         ~~~
                         If specified, an OutputComponent will be
                         configured for the output instead of a
