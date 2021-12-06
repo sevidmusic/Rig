@@ -10,10 +10,10 @@
   ### Description:
 
   rig is a command line utility designed to aid in the development
-  of roady Apps.
+  of [roady](https://roady.tech) Apps.
 
   rig's executable will be located at the following path relative to
-  the relevant roady installation's root directory:
+  the relevant [roady](https://roady.tech) installation's root directory:
 
   ```
   ./vendor/darling/rig/bin/rig
@@ -21,7 +21,7 @@
 
   To use rig, rig must be in your `$PATH`.
 
-  For example, if roady is installed at the path `~/roady`, then
+  For example, if [roady](https://roady.tech) is installed at the path `~/roady`, then
   rig can be added to your `$PATH` via:
 
   ```
@@ -34,12 +34,12 @@
   For information on setting your `$PATH` permanently, please
   consult the documentation for the shell you are using.
 
-  WARNING: If you have multiple installations of roady on your
+  WARNING: If you have multiple installations of [roady](https://roady.tech) on your
   system, make sure the path to the rig executable defined in
   your `$PATH` matches the path to the rig executable located
-  in the vendor directory of the roady installation you are
+  in the vendor directory of the [roady](https://roady.tech) installation you are
   currently working with, or else rig may perform actions on
-  the wrong roady installation.
+  the wrong [roady](https://roady.tech) installation.
 
   ### Flags:
 
@@ -75,7 +75,7 @@
                                       This flag can be used in
                                       conjunction with other rig
                                       flags to manually set the
-                                      roady Apps directory path
+                                      [roady](https://roady.tech) Apps directory path
                                       used by rig to an
                                       alternative Apps directory
                                       path.
@@ -218,7 +218,7 @@
 
   ### `[--new-app]`
 
-                                      Creates a new roady App.
+                                      Creates a new [roady](https://roady.tech) App.
                                       The new App will be created
                                       at the path that corresponds
                                       to the value assigned to the
@@ -292,7 +292,7 @@
 
                                       Start a php built in server
                                       instance that can be used to
-                                      run one or more roady Apps
+                                      run one or more [roady](https://roady.tech) Apps
                                       locally.
 
                                       Note: For more information use:
@@ -375,7 +375,7 @@
   rig --help roady
   ```
 
-  Documentation for rig and roady can also be found online at:
+  Documentation for rig and [roady](https://roady.tech) can also be found online at:
 
   ```
   https://roady.tech
@@ -385,7 +385,7 @@
 
   https://github.com/sevidmusic/rig
 
-  roady is available on GitHub:
+  [roady](https://roady.tech) is available on GitHub:
 
   https://github.com/sevidmusic/roady
 
