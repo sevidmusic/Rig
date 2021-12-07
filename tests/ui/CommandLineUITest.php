@@ -77,7 +77,7 @@ final class CommandLineUITest extends TestCase
   \e[0m\e[93m   |    | (   |  \e[0m
   \e[0m\e[96m  _|   _|\__, |  \e[0m
   \e[0m\e[92m         |___/  \e[0m
-  \e[0m\e[105m\e[30m  v1.7.1 \e[0m\e[0m\e[101m\e[30m  " . date('h:i:s A') . "  \e[0m" . PHP_EOL . PHP_EOL;
+  \e[0m\e[105m\e[30m  v1.7.2 \e[0m\e[0m\e[101m\e[30m  " . date('h:i:s A') . "  \e[0m" . PHP_EOL . PHP_EOL;
     }
 
 }
