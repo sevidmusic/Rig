@@ -630,6 +630,7 @@
   http://localhost:8080?request=HelloWorld
   ~~~~~
   ~~~~~
+  ~~~~~
   ~~~
   ### HelloWorld App command summary:
   ~~~~~
