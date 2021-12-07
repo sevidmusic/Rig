@@ -86,10 +86,12 @@
   /path/to/roady/Apps/Foo/css/stylesheet.css
   ```
   ~~~~~
+  ~~~
   ### Flags:
+  ~~~~~
   ~~~
   ### `--path`
-  ~~~~ 
+  ~~~~~ 
          ~~~
          The path to the App Package to make.
          ~~~~~
