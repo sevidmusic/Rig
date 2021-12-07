@@ -313,7 +313,8 @@
   can be obtained via:
   ~~~
   `rig --help js`.
-  ~~~~~ ~~~~~
+  ~~~~~ 
+  ~~~~~
   ~~~
   ### OutputComponents:
   ~~~~~
