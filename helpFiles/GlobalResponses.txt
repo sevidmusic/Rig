@@ -82,6 +82,7 @@
   rig --help OutputComponents
   ```
   ~~~~~
+  ~~~~~
   ~~~
   Note: More information about DynamicOutputComponents can be 
   obtained via:
@@ -89,6 +90,7 @@
   ```
   rig --help DynamicOutputComponents
   ```
+  ~~~~~
   ~~~~~
   ~~~
   Hint: The `--configure-app-output` flag can also be used to
@@ -150,10 +152,10 @@
   Requests, use a Response.
   ~~~~~
   ~~~
-  More information about Responses can be obtained via:
-  ~~~~~
+  Note: More information about Responses can be obtained via:
   ~~~
   ```
   rig --help Responses
   ```
+  ~~~~~
   ~~~~~
