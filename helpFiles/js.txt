@@ -13,27 +13,27 @@
   In order for a javascript file to be loaded, a OutputComponent 
   or DynamicOutputComponent must be created whose output is the 
   `<script>` tag that will be used to load the javascript file.
-  ~~~~
+  ~~~~~
   ~~~
   This OutputComponent or DynamicOutputComponent can then be 
   assigned to one or more Responses or GlobalResponses.
   ~~~~~
   ~~~
   Note: More information about OutputComponents can be obtained via:
-  ~~~~~
   ~~~
   ```
   rig --help OutputComponents
   ```
   ~~~~~
+  ~~~~~
   ~~~
   Note: More information about DynamicOutputComponents can be 
   obtained via:
-  ~~~~~
   ~~~
   ```
   rig --help DynamicOutputComponents
   ```
+  ~~~~~
   ~~~~~
   ~~~
   Note: In future versions of roady javascript files will be loaded 
@@ -45,17 +45,17 @@
   ~~~~~
   ~~~
   Note: More information about Responses can be obtained via:
-  ~~~~~
   ~~~
   ```
   rig --help Responses
   ```
   ~~~~~
+  ~~~~~
   ~~~
   Note: More information about GlobalResponses can be obtained via:
-  ~~~~~
   ~~~
   ```
   rig --help GlobalResponses
   ```
+  ~~~~~
   ~~~~~
