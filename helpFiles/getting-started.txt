@@ -313,7 +313,8 @@
   can be obtained via:
   ~~~
   `rig --help js`.
-  ~~~~~ ~~~~~
+  ~~~~~ 
+  ~~~~~
   ~~~
   ### OutputComponents:
   ~~~~~
@@ -627,6 +628,7 @@
   ~~~~~
   ~~~
   http://localhost:8080?request=HelloWorld
+  ~~~~~
   ~~~~~
   ~~~~~
   ~~~

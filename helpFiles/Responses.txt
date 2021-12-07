@@ -118,6 +118,7 @@
   rig --help OutputComponents
   ```
   ~~~~~
+  ~~~~~
   ~~~
   Note: More information about DynamicOutputComponents can be 
   obtained via:
@@ -125,6 +126,7 @@
   ```
   rig --help DynamicOutputComponents
   ```
+  ~~~~~
   ~~~~~
   ~~~
   Hint: The `--configure-app-output` flag can also be used to

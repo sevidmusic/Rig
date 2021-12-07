@@ -34,7 +34,9 @@
   Note: More information about the Components.php file can be
   obtained via:
   ~~~
-  `rig --help Components.php`.
+  ```
+  rig --help Components.php
+  ```
   ~~~~~
   ~~~~~
   ~~~~~
@@ -48,7 +50,9 @@
   Note: More information about defining css stylesheets for an
   App can be obtained via:
   ~~~
-  `rig --help css`.
+  ```
+  rig --help css
+  ```
   ~~~~~
   ~~~~~
   ~~~
@@ -62,7 +66,9 @@
   Note: More information about DynamicOutput can be
   obtained via:
   ~~~
-  `rig --help DynamicOutput`.
+  ```
+  rig --help DynamicOutput
+  ```
   ~~~~~
   ~~~~~
   ~~~
@@ -75,8 +81,11 @@
   Note: More information about utilizing javascript in an App
   can be obtained via:
   ~~~
-  `rig --help js`.
-  ~~~~~ ~~~~~
+  ```
+  rig --help js
+  ```
+  ~~~~~ 
+  ~~~~~
   ~~~
   ### OutputComponents:
   ~~~~~
@@ -88,7 +97,9 @@
   Note: More information about OutputComponents can be
   obtained via:
   ~~~
-  `rig --help OutputComponents`.
+  ```
+  rig --help OutputComponents
+  ```
   ~~~~~
   ~~~~~
   ~~~
@@ -102,7 +113,9 @@
   Note: More information about Requests can be
   obtained via:
   ~~~
-  `rig --help Requests`.
+  ```
+  rig --help Requests
+  ```
   ~~~~~
   ~~~~~
   ~~~
@@ -116,7 +129,9 @@
   Note: More information about the resources directory can be
   obtained via:
   ~~~
-  `rig --help resources`.
+  ```
+  rig --help resources
+  ```
   ~~~~~
   ~~~~~
   ~~~
@@ -130,7 +145,9 @@
   Note: More information about Responses can be
   obtained via:
   ~~~
-  `rig --help Responses`.
+  ```
+  rig --help Responses
+  ```
   ~~~~~
   ~~~~~
   ~~~
@@ -153,21 +170,29 @@
   ~~~
   Note: More information about Apps can be obtained via:
   ~~~
-  `rig --help Apps`
+  ```
+  rig --help App
+  s``
   ~~~~~
   More information about `rig --new-app` can be obtained via:
   ~~~
-  `rig --help --new-app`
+  ```
+  rig --help --new-ap
+  p``
   ~~~~~
   More information about `rig --configure-app-output` can be
   obtained via:
   ~~~
-  `rig --help --configure-app-output`
+  ```
+  rig --help --configure-app-outpu
+  t``
   ~~~~~
   More information about the Components.php file can be obtained
   via:
   ~~~
-  `rig --help Components.php`
+  ```
+  rig --help Components.ph
+  p``
   ~~~~~
   ~~~~~
   ~~~
@@ -201,7 +226,9 @@
   Note: More information about `rig --configure-app-output` can
   be obtained via:
   ~~~
-  `rig --help --configure-app-output`
+  ```
+  rig --help --configure-app-outpu
+  t``
   ~~~~~
   ~~~~~
   ~~~~~
@@ -218,7 +245,9 @@
   Note: More information about the Components.php file can be
   obtained via:
   ~~~
-  `rig --help Components.php`
+  ```
+  rig --help Components.ph
+  p``
   ~~~~~
   ~~~~~
   ~~~~~
@@ -236,7 +265,9 @@
   Note: More information about the `rig --start-server` can be
   obtained via:
   ~~~
-  `rig --help --start-server`
+  ```
+  rig --help --start-serve
+  r``
   ~~~~~
   ~~~~~
   ~~~
@@ -374,7 +405,9 @@
   Note: More information about using css stylesheets in roady
   Apps can be obtained via:
   ~~~
-  `rig --help css`
+  ```
+  rig --help cs
+  s``
   ~~~~~
   ~~~~~
   ~~~~~
@@ -419,4 +452,5 @@
 
   vim ~/roady/Apps/HelloWorld/css/hw-global-styles.css
   ```
+  ~~~~~
   ~~~~~

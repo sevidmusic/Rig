@@ -52,7 +52,7 @@
   ~~~~~
   ~~~
   ### `--for-app`
-  ~~~~
+  ~~~~~
 
                  ~~~
                  The name of the App to configure the new 
@@ -130,7 +130,7 @@
                  ~~~~~
   ~~~
   ### `[--relative-url]`
-  ~~~~ 
+  ~~~~~ 
                  ~~~
                  A relative url to assign to the new Request. 
                  ~~~~~
