@@ -2,11 +2,12 @@
   # roady
   ~~~~~
   ~~~
-  roady is a tool designed to aid in the development of websites.
+  roady, and it's counterpart: rig, are a tools designed to aid in the 
+  development of websites.
   ~~~~~
   ~~~
-  With roady, the features of a website are implemented by
-  small niche applications called Apps.
+  roady is a php framework where the features of a website are 
+  implemented by small niche applications called Apps.
   ~~~~~
   ~~~
   roady Apps may provide css stylesheets, utilize javascript, and
@@ -16,6 +17,10 @@
   ~~~
   Multiple websites can run on a single installation of roady, 
   each making use of one or more roady Apps.
+  ~~~~~
+  ~~~
+  rig is a command line utility designed to aide in the development
+  of roady Apps.
   ~~~~~
   ~~~
   For a guide on getting started with roady visit:
@@ -173,38 +178,50 @@
   that experience.
   ~~~~~
   ~~~
-  roady is not a fully-featured framework, nor is it intended 
-  to be.
+  roady is not a fully-featured framework, nor is it intended to be.
   ~~~~~
   ~~~
-  roady is my own personal experiment, and will continue to evolve
-  based on my own needs.
+  roady and rig are my own personal experiments, and will continue to 
+  evolve based on my own needs.
   ~~~~~
   ~~~
-  If you need a framework designed to accommodate a large number 
-  of use cases, that is developed, used, and supported by a 
-  large community of incredible developers, then please use 
-  Laravel, Symphony, or any of the other wonderful open source 
-  PHP projects that have a solid reputation and years of work 
-  behind them.
+  Both roady and rig are also still works in progress.
   ~~~~~
   ~~~
-  However, if you like to tinker and try new things solely out of
-  curiosity, then I hope you'll give roady a try.
+  However, that does not mean roady and rig are not ready for use. 
   ~~~~~
   ~~~
-  Note: If you have any questions or feedback roady is on twitter
-  and reddit:
-  ~~~
-  https://twitter.com/RoadyRig
+  https://roady.tech was developed with roady and rig, and is running 
+  on roady.
   ~~~~~
   ~~~
-  https://www.reddit.com/r/roady/
-  ~~~~~
+  My personal website, https://sevidmusic.com, was developed with
+  roady and rig, and is also running on roady.
   ~~~~~
   ~~~
-  roady is hosted on github at:
+  Roady and rig are still works in progress, if you decided to give
+  them a try and have any questions or feedback feel free to contact
+  me on Twitter, Reddit, or LinkedIn.
+  ~~~~~
   ~~~
-  https://github.com/sevidmusic/roady
+  ### Links:
   ~~~~~
+  ~~~
+  Twitter: https://twitter.com/roadyRig
   ~~~~~
+  ~~~
+  Reddit: https://www.reddit.com/r/roady/
+  ~~~~~
+  ~~~
+  LinkedIn: https://www.linkedin.com/in/sevi-d-foreman-24a62951/
+  ~~~~~
+  ~~~
+  roady on GitHub: https://github.com/sevidmusic/roady
+  ~~~~~
+  ~~~
+  rig on GitHub: https://github.com/sevidmusic/rig
+  ~~~~~
+  ~~~
+  roadyAppPackages on GitHub: https://github.com/sevidmusic/roadyAppPackages
+  ~~~~~
+
