@@ -2,20 +2,20 @@
   # roady
   ~~~~~
   ~~~
-  roady, and it's counterpart: rig, are a tools designed to aid in the 
+  roady, and it's counterpart: rig, are a tools designed to aid in the
   development of websites.
   ~~~~~
   ~~~
-  roady is a php framework where the features of a website are 
+  roady is a php framework where the features of a website are
   implemented by small niche applications called Apps.
   ~~~~~
   ~~~
   roady Apps may provide css stylesheets, utilize javascript, and
-  may configure output to be served in response to appropriate 
+  may configure output to be served in response to appropriate
   requests to a website's domain.
   ~~~~~
   ~~~
-  Multiple websites can run on a single installation of roady, 
+  Multiple websites can run on a single installation of roady,
   each making use of one or more roady Apps.
   ~~~~~
   ~~~
@@ -29,7 +29,7 @@
   ~~~~~
   ~~~~~
   ~~~
-  ### Quick Installation, Setup, & Hello World Video 
+  ### Quick Installation, Setup, & Hello World Video
   ~~~~~
   ~~~
   https://roadydemos.us-east-1.linodeobjects.com/QuickInstallSetupHelloWorldFinal.webm
@@ -45,11 +45,11 @@
   Note: roady requires `php` >= `8.0`
   ~~~~~
   ~~~
-  Note: The `Linux command line` is used heavily in the examples, 
+  Note: The `Linux command line` is used heavily in the examples,
   and the `shell` used in the examples is `bash`.
   ~~~~~
   ~~~
-  Note: The following examples are brief. For a more detailed 
+  Note: The following examples are brief. For a more detailed
   guide on getting started with roady visit:
   ~~~
   https://roady.tech/index.php?request=getting-started
@@ -122,8 +122,8 @@
   ```
   ~~~~~
   ~~~
-  The output of the `HelloWorld` App should now be available at 
-  the following local urls: 
+  The output of the `HelloWorld` App should now be available at
+  the following local urls:
   ~~~
   http://localhost:8080
   ~~~~~
@@ -169,29 +169,27 @@
   # A note from the developer:
   ~~~~~
   ~~~
-  I want to emphasize that I developed roady as a tool for myself,
-  and I share it humbly as an example of my work and learning.
+  I developed roady as a tool for myself, and I share it humbly as
+  an example of my work and learning.
   ~~~~~
   ~~~
   I love coding, I love to learn about coding, and I love to build
-  things for the experience, and for the knowledge gained from 
+  things for the experience, and for the knowledge gained from
   that experience.
   ~~~~~
   ~~~
   roady is not a fully-featured framework, nor is it intended to be.
   ~~~~~
   ~~~
-  roady and rig are my own personal experiments, and will continue to 
+  roady and rig are my own personal experiments, and will continue to
   evolve based on my own needs.
   ~~~~~
   ~~~
-  Both roady and rig are also still works in progress.
+  Though roady and rig are still works in progress, they are ready
+  for use.
   ~~~~~
   ~~~
-  However, that does not mean roady and rig are not ready for use. 
-  ~~~~~
-  ~~~
-  https://roady.tech was developed with roady and rig, and is running 
+  https://roady.tech was developed with roady and rig, and is running
   on roady.
   ~~~~~
   ~~~
@@ -199,8 +197,7 @@
   roady and rig, and is also running on roady.
   ~~~~~
   ~~~
-  Roady and rig are still works in progress, if you decided to give
-  them a try and have any questions or feedback feel free to contact
+  If you have any questions or feedback feel free to contact
   me on Twitter, Reddit, or LinkedIn.
   ~~~~~
   ~~~
