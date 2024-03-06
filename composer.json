@@ -24,6 +24,7 @@
         "darling/php-darling-dev-tools": "^1.0",
         "darling/php-file-system-paths": "^1.0",
         "darling/php-unit-test-utilities": "^1.0",
-        "darling/php-text-types": "^1.1"
+        "darling/php-text-types": "^1.1",
+        "laravel/prompts": "^0.1.16"
     }
 }
