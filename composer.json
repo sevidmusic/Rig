@@ -12,8 +12,8 @@
     "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
-            "rig\\": "rig",
-            "tests\\": "tests"
+            "Darling\\Rig\\": "src",
+            "Darling\\Rig\\tests\\": "tests"
         }
     },
     "require-dev": {
