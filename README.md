@@ -36,12 +36,8 @@ rig --version
 
 `rig --version` will display `rig`'s version number.
 
-# Actions taken by this command:
-
-1. Display `rig`'s version number.
-
 ```
-rig --new-roady-project --path-to-roady-project ./
+rig --new-roady-project --path-to-roady-project [--generate-boilerplate]
 ```
 
 `rig --new-roady-project` will new Roady project at the
@@ -50,7 +46,10 @@ specified `--path-to-roady-project`.
 ### Example
 
 ```
---new-roady-module --path-to-roady-project --module-name --generate-boilerplate
+--new-roady-module
+--path-to-roady-project ./ \
+--module-name hello-world \
+--generate-boilerplate
 ```
 
 ```sh
