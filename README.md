@@ -32,13 +32,14 @@ composer require darling/rig
 
 ### --version
 
+`rig --version` will display `rig`'s version number, and to check
+if rig is up to date.
+
+Arguments:
 ```sh
 --is-up-to-date If specified, display whether or not the currently
                 installed version of rig is up to date.
 ```
-
-`rig --version` will display `rig`'s version number, and to check
-if rig is up to date.
 
 Examples:
 
@@ -49,6 +50,10 @@ rig --version --is-up-to-date
 ```
 
 ### --install-roady
+
+`rig install-roady` can be used to install Roady at a specified path.
+
+Arguments:
 
 ```sh
 --installation-path The path to install Roady at.
