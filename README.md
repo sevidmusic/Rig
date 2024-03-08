@@ -30,7 +30,11 @@ composer require darling/rig
 
 # Commands
 
-### `rig --version`
+### --version
+
+```
+rig --version
+```
 
 `rig --version` will display `rig`'s version number.
 
@@ -43,8 +47,8 @@ rig --version
 ### `rig --new-roady-project --path-to-roady-project`
 
 `rig --new-roady-project` will clone [Roady](https://github.com/sevidmusic/Roady)
-to the specified `--path-to-roady-project`, and setup the new Roady
-project.
+to the specified `--path-to-roady-project`, and perform the initial
+setup of the new Roady project.
 
 Example:
 
