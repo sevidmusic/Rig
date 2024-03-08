@@ -30,7 +30,7 @@ composer require darling/rig
 
 # Commands
 
-### rig --version
+### `rig --version`
 
 `rig --version` will display `rig`'s version number.
 
@@ -40,7 +40,7 @@ Example:
 rig --version
 ```
 
-### `rig --new-roady-project --path-to-roady-project
+### `rig --new-roady-project --path-to-roady-project`
 
 `rig --new-roady-project` will new Roady project at the specified
 `--path-to-roady-project`.
