@@ -51,7 +51,7 @@ rig --version --is-up-to-date
 
 ### --install-roady
 
-`rig install-roady` can be used to install Roady at a specified path.
+`rig --install-roady` can be used to install Roady at a specified path.
 
 Arguments:
 
