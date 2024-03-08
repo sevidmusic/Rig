@@ -30,47 +30,65 @@ composer require darling/rig
 
 # Commands
 
+### rig --version
+
+`rig --version` will display `rig`'s version number.
+
+Example:
+
 ```
 rig --version
 ```
 
-`rig --version` will display `rig`'s version number.
+### `rig --new-roady-project --path-to-roady-project
+
+`rig --new-roady-project` will new Roady project at the specified
+`--path-to-roady-project`.
+
+Example:
 
 ```
-rig --new-roady-project --path-to-roady-project [--generate-boilerplate]
+rig --new-roady-project --path-to-roady-project ./
 ```
 
-`rig --new-roady-project` will new Roady project at the
-specified `--path-to-roady-project`.
 
-### Example
-
-```
---new-roady-module
---path-to-roady-project ./ \
---module-name hello-world \
---generate-boilerplate
-```
-
-```sh
-rig --new-roady-module \
-    --name NameOfNewModule \
-    --path-to-roady-project path/to/exisitng/directory
-```
-
-```sh
-rig --new-roady-module \
-    --name NameOfNewModule \
-    --path-to-roady-project path/to/exisitng/directory \
-    --generate-boilerplate
-```
+### `rig --new-roady-module --path-to-roady-project [--generate-boilerplate]`
 
 `rig --new-roady-module` will create a new module for the specified
 [Roady](https://github.com/sevidmusic/Roady) project.
 
+If the `--generate-boilerplate` flag is not specified,
+then only the modules directory structure, a `README.md`,
+and a `localhost.8080.json` will be created for the
+new module.
+
+Example
+
+```
+--new-roady-module
+--path-to-roady-project ./ \
+--module-name new-module-with-boilerplate \
+```
+```sh
+Roady/modules/new-module-with-no-boilerplate/:
+assets  css  js  localhost.8080.json  output  README.md
+```
+
 If the `--generate-boilerplate` flag is specified, then some initial
 files will be created to make it easier to get started developing
-the module:
+the module.
+
+Example
+
+```
+--new-roady-module
+--path-to-roady-project ./ \
+--module-name new-module-with-boilerplate \
+--generate-boilerplate
+```
+
+Would generate a module with a directory the following structure:
+
 
 ```sh
 Roady/modules/new-module-with-boilerplate/:
@@ -92,12 +110,4 @@ global_roady-ui-main-content.html
 global_roady-ui-footer.html
 ```
 
-If the `--generate-boilerplate` flag is not specified,
-then the modules directory structure will be created,
-a `READM`E.md will be created, and a `localhost.8080.json`
-will be creaed.
-
-```sh
-Roady/modules/new-module-with-boilerplate/:
-assets  css  js  localhost.8080.json  output  README.md
 ```
