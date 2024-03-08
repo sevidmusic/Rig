@@ -1,4 +1,4 @@
-```bash
+```sh
  ____  _
 |  _ \(_) ____
 | |_) | |/ _` |
@@ -15,7 +15,7 @@ framework.
 
 ### Note:
 
-`rig` is being re-written from scratch for (Roady)[https://github.com/sevidmusic/Roady]
+`rig` is being re-written from scratch for [Roady](https://github.com/sevidmusic/Roady)
 version `2.0`.
 
 This `README.md` will continue to evolve as `rig` is developed.
@@ -49,10 +49,10 @@ specified `--path-to-roady-project`.
 
 # Actions taken by this command:
 
-1. Clone Roady into specified `--path-to-roady-project`.
-2. Update composer for new Roady project.
-3. Start a web server on `localhost:8080` for new Roady project.
-   This will will run the `Hello World` module included with Roady.
+1. Clone [Roady](https://github.com/sevidmusic/Roady) into specified `--path-to-roady-project`.
+2. Update composer for new [Roady](https://github.com/sevidmusic/Roady) project.
+3. Start a web server on `localhost:8080` for new [Roady](https://github.com/sevidmusic/Roady) project.
+   This will will run the `Hello World` module included with [Roady](https://github.com/sevidmusic/Roady).
 
 ### `--new-roady-module --path-to-roady-project --module-name --generate-boilerplate`
 
@@ -70,7 +70,7 @@ rig --new-roady-module \
 ```
 
 `rig --new-roady-module` will create a new module for the specified
-Roady project.
+[Roady](https://github.com/sevidmusic/Roady) project.
 
 If the `--generate-boilerplate` flag is specified, then some initial
 files will be created to make it easier to get started developing
