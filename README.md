@@ -32,10 +32,6 @@ composer require darling/rig
 
 ### --version
 
-```
-rig --version
-```
-
 `rig --version` will display `rig`'s version number.
 
 Example:
