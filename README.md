@@ -34,7 +34,7 @@ composer require darling/rig
 rig --version
 ```
 
-`rig --version` show `rig`'s version number.
+`rig --version` will display `rig`'s version number.
 
 # Actions taken by this command:
 
