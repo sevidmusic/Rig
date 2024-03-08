@@ -42,8 +42,9 @@ rig --version
 
 ### `rig --new-roady-project --path-to-roady-project`
 
-`rig --new-roady-project` will new Roady project at the specified
-`--path-to-roady-project`.
+`rig --new-roady-project` will clone [Roady](https://github.com/sevidmusic/Roady)
+to the specified `--path-to-roady-project`, and setup the new Roady
+project.
 
 Example:
 
