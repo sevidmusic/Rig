@@ -44,17 +44,14 @@ rig --version
 rig --new-roady-project --path-to-roady-project ./
 ```
 
-`rig --new-roady-project` will create a new Roady project at the
+`rig --new-roady-project` will new Roady project at the
 specified `--path-to-roady-project`.
 
-# Actions taken by this command:
+### Example
 
-1. Clone [Roady](https://github.com/sevidmusic/Roady) into specified `--path-to-roady-project`.
-2. Update composer for new [Roady](https://github.com/sevidmusic/Roady) project.
-3. Start a web server on `localhost:8080` for new [Roady](https://github.com/sevidmusic/Roady) project.
-   This will will run the `Hello World` module included with [Roady](https://github.com/sevidmusic/Roady).
-
-### `--new-roady-module --path-to-roady-project --module-name --generate-boilerplate`
+```
+--new-roady-module --path-to-roady-project --module-name --generate-boilerplate
+```
 
 ```sh
 rig --new-roady-module \
