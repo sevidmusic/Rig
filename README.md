@@ -10,7 +10,7 @@
 # About
 
 `rig` is a command line utiltiy designed to aide in development
-with the (Roady)[https://github.com/sevidmusic/Roady] php
+with the [Roady](https://github.com/sevidmusic/Roady) php
 framework.
 
 ### Note:
