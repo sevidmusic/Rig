@@ -9,20 +9,16 @@
 
 # About
 
-`rig` is a command line utiltiy designed to aide in development
-with the [Roady](https://github.com/sevidmusic/Roady) php
-framework.
+`rig` is a command line utiltiy designed to aide in development with
+the [Roady](https://github.com/sevidmusic/Roady) php framework.
 
-### Note:
-
-`rig` is being re-written from scratch for [Roady](https://github.com/sevidmusic/Roady)
-version `2.0`.
-
-This `README.md` will continue to evolve as `rig` is developed.
+Note: `rig` is not required by
+[Roady](https://github.com/sevidmusic/Roady), nor is
+[Roady](https://github.com/sevidmusic/Roady) required by `rig`.
 
 # Installation
 
-Via compoer:
+Via `composer`:
 
 ```
 composer require darling/rig
@@ -67,3 +63,4 @@ Examples:
 ```sh
 rig --install-roady --installation-path ./
 ```
+
