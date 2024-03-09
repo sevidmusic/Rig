@@ -13,9 +13,10 @@
 designed to aide in development with the
 [Roady](https://github.com/sevidmusic/Roady) php framework.
 
-Note: `rig` is not required by
+Note: [rig](https://github.com/sevidmusic/rig) is not required by
 [Roady](https://github.com/sevidmusic/Roady), nor is
-[Roady](https://github.com/sevidmusic/Roady) required by `rig`.
+[Roady](https://github.com/sevidmusic/Roady) required by
+[rig](https://github.com/sevidmusic/rig)
 
 # Installation
 
