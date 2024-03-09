@@ -44,7 +44,7 @@ Arguments:
 
 Examples:
 
-```
+```sh
 rig --version
 
 rig --version --is-up-to-date
@@ -97,7 +97,7 @@ Arguments:
 
 Examples:
 
-```
+```sh
 rig --new-module \
     --path-to-roady-project ./ \
     --name Foo \
