@@ -90,7 +90,7 @@ Arguments:
                         - js/
                         - output/
                         - assets/
-                        - css/NEW_MODULE_NAME.css
+                        - css/NEW_MODULES_NAME.css
                         - output/NEW_MODULES_NAME.html
 ```
 
