@@ -53,16 +53,19 @@ rreadlink() ( # Execute the function in a *subshell* to localize variables and t
 		\unalias command
 		\unset -f command
 	} >/dev/null 2>&1
-	[ -n "$ZSH_VERSION" ] && options[POSIX_BUILTINS]=on # make zsh find *builtins* with `command` too.
+	[ -n "$ZSH_VERSION" ] && export options[POSIX_BUILTINS]=on # make zsh find *builtins* with `command` too.
 
 	while :; do # Resolve potential symlinks until the ultimate target is found.
 		[ -L "$target" ] || [ -e "$target" ] || {
 			command printf '%s\n' "ERROR: '$target' does not exist." >&2
 			return 1
 		}
-		command cd "$(command dirname -- "$target")" # Change to target dir; necessary for correct resolution of target path.
-		fname=$(command basename -- "$target")       # Extract filename.
-		[ "$fname" = '/' ] && fname=''               # !! curiously, `basename /` returns '/'
+		command cd "$(command dirname -- "$target")" || { # Change to target dir; necessary for correct resolution of target path.
+			command printf '%s\n' "ERROR: '$target' exists, but is not accessible." >&2
+			return 1
+		}
+		fname=$(command basename -- "$target") # Extract filename.
+		[ "$fname" = '/' ] && fname=''         # !! curiously, `basename /` returns '/'
 		if [ -L "$fname" ]; then
 			# Extract [next] target path, which may be defined
 			# *relative* to the symlink's own directory.
