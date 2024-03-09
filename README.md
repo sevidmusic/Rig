@@ -100,8 +100,12 @@ Arguments:
 
 --name                  The name to assign to the new module.
 
---domain                The initial domain that will be used to
-                        configure the new modules Routes.
+--authority             The initial domain authority that will
+                        new modules Routes will initially be
+                        configured for, for example:
+
+                        - localhost:8080
+                        - www.example.com
 
 --generate-boilerplate  If specified, generate the following initial
                         directories and files for the module:
@@ -112,6 +116,7 @@ Arguments:
                         - assets/
                         - css/NEW_MODULES_NAME.css
                         - output/NEW_MODULES_NAME.html
+                        - AUTHORITY.json
 ```
 
 Examples:
