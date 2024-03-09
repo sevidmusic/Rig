@@ -26,6 +26,12 @@ Via `composer`:
 composer require darling/rig
 ```
 
+Via git:
+
+```
+git clone https://github.com/sevidmusic/rig
+```
+
 # Commands
 
 ### --version
