@@ -58,12 +58,12 @@ Arguments:
 ```sh
 --installation-path The path to install Roady at.
 
---purge-hello-world If specified, remove the `hello-world`
-                    module that comes with Roady.
+--purge-no-world If specified, do not include the `hello-world`
+                 module that typically comes with Roady.
 ```
 
 Examples:
 
 ```sh
-rig --new-roady-project --path-to-create-project-at ./
+rig --install-roady --installation-path ./
 ```
