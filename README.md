@@ -32,6 +32,19 @@ Via git:
 git clone https://github.com/sevidmusic/rig
 ```
 
+# Post Installation
+
+To make it easier to use [rig](https://github.com/sevidmusic/rig),
+it's good to create a symlink to it in `~/.local/bin`.
+
+The `setup.sh` script will do just that.
+
+After installation, run:
+
+```sh
+./setup.sh
+```
+
 # Commands
 
 ### --version
