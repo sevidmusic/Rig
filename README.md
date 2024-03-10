@@ -52,21 +52,10 @@ After installation, run:
 `rig --version` will display [rig](https://github.com/sevidmusic/rig)'s
 version number.
 
-It can also be used to check if [rig](https://github.com/sevidmusic/rig)
-is up to date.
-
-Arguments:
-```sh
---is-up-to-date If specified, display whether or not the currently
-                installed version of rig is up to date.
-```
-
 Examples:
 
 ```sh
 rig --version
-
-rig --version --is-up-to-date
 ```
 
 ### --install-roady
@@ -78,13 +67,19 @@ at a specified path.
 Arguments:
 
 ```sh
---installation-path The path to install Roady at.
+--installation-path   The path to the directory where Roady should
+                      be installed.
+
+--run-composer-update If specified, composer update will be run
+                      for the new Roady installation.
 ```
 
 Examples:
 
 ```sh
 rig --install-roady --installation-path ./
+
+rig --install-roady --installation-path ~/sites --run-composer-update
 ```
 
 ### --new-module
@@ -95,14 +90,14 @@ specified [Roady](https://github.com/sevidmusic/Roady) project's
 
 Arguments:
 ```sh
---path-to-roady-project The path to the Roady project to create the
-                        new module for.
+--path-to-roady-project The path to the root directory of the Roady
+                        project to create the new module for.
 
 --name                  The name to assign to the new module.
 
---authority             The initial domain authority that will
-                        new modules Routes will initially be
-                        configured for, for example:
+--authority             The domain authority that the new modules
+                        Routes will be initially configured for, for
+                        example:
 
                         - localhost:8080
                         - www.example.com
