@@ -49,8 +49,10 @@ After installation, run:
 Note:
 
 `setup,sh` will not overwrite an existing `rig` symlink
-by default. To force `setup.sh` to overwrite an existing
-`rig` symlink, use the `--force` flag:
+by default.
+
+To force `setup.sh` to overwrite an existing `rig` symlink,
+use the `--force` flag:
 
 ```sh
 ./setup.sh --force
