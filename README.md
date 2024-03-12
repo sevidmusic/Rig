@@ -44,6 +44,7 @@ After installation, run:
 
 ```sh
 ./setup.sh
+```
 
 Note:
 
