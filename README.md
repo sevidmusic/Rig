@@ -18,6 +18,12 @@ Note: [rig](https://github.com/sevidmusic/rig) is not required by
 [Roady](https://github.com/sevidmusic/Roady) required by
 [rig](https://github.com/sevidmusic/rig)
 
+- [Installation](#installation)
+
+- [Commands](#commands)
+
+- [--version](#--version)
+
 # Installation
 
 Via `composer`:
