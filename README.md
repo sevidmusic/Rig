@@ -55,7 +55,6 @@ by default. To force `setup.sh` to overwrite an existing
 ```sh
 ./setup.sh --force
 ```
-```
 
 # Commands
 
