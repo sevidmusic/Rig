@@ -7,16 +7,7 @@
          |___/
 ```
 
-# About
-
-[rig](https://github.com/sevidmusic/rig) is a command line utiltiy
-designed to aide in development with the
-[Roady](https://github.com/sevidmusic/Roady) php framework.
-
-Note: [rig](https://github.com/sevidmusic/rig) is not required by
-[Roady](https://github.com/sevidmusic/Roady), nor is
-[Roady](https://github.com/sevidmusic/Roady) required by
-[rig](https://github.com/sevidmusic/rig)
+- [About](#about)
 
 - [Installation](#installation)
 
@@ -27,6 +18,17 @@ Note: [rig](https://github.com/sevidmusic/rig) is not required by
 - [--install-roady](#--install-roady)
 
 - [--new-module](#--new-module)
+
+# About
+
+[rig](https://github.com/sevidmusic/rig) is a command line utiltiy
+designed to aide in development with the
+[Roady](https://github.com/sevidmusic/Roady) php framework.
+
+Note: [rig](https://github.com/sevidmusic/rig) is not required by
+[Roady](https://github.com/sevidmusic/Roady), nor is
+[Roady](https://github.com/sevidmusic/Roady) required by
+[rig](https://github.com/sevidmusic/rig)
 
 # Installation
 
