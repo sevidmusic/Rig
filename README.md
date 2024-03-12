@@ -44,6 +44,16 @@ After installation, run:
 
 ```sh
 ./setup.sh
+
+Note:
+
+`setup,sh` will not overwrite an existing `rig` symlink
+by default. To force `setup.sh` to overwrite an existing
+`rig` symlink, use the `--force` flag:
+
+```sh
+./setup.sh --force
+```
 ```
 
 # Commands
@@ -80,7 +90,7 @@ Examples:
 ```sh
 rig --install-roady --installation-path ./
 
-rig --install-roady --installation-path ~/sites --run-composer-update
+rig --install-roady --installation-path ~/ --run-composer-update
 ```
 
 ### --new-module
@@ -121,7 +131,7 @@ Examples:
 rig --new-module \
     --path-to-roady-project ./ \
     --name Foo \
-    --domain localhost:8080 \
+    --authority localhost:8080 \
     --generate-boilerplate
 
 ```
