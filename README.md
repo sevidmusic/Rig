@@ -65,6 +65,8 @@ use the `--force` flag:
 `rig --version` will display [rig](https://github.com/sevidmusic/rig)'s
 version number.
 
+It will also display a warning if `rig` is out of date.
+
 Examples:
 
 ```sh
