@@ -24,6 +24,10 @@ Note: [rig](https://github.com/sevidmusic/rig) is not required by
 
 - [--version](#--version)
 
+- [--install-roady](#--install-roady)
+
+- [--new-module](#--new-module)
+
 # Installation
 
 Via `composer`:
