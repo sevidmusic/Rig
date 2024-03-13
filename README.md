@@ -209,6 +209,8 @@ Arguments:
 
                        --relative-path-to-output-file output
 
+```
+
 Examples:
 
 ```sh
@@ -220,3 +222,4 @@ rig --configure-route \
     --responds-to-requests Foo Bar Baz \
     --relative-path-to-output-file output
 ```
+
