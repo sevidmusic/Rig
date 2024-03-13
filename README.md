@@ -160,6 +160,7 @@ Arguments:
                         - js/NEW_MODULES_NAME.js
                         - output/
                         - output/NEW_MODULES_NAME.html
+                        - output/NEW_MODULES_NAME.php
 ```
 
 Examples:
