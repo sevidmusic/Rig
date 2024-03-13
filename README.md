@@ -151,13 +151,15 @@ Arguments:
 --generate-boilerplate  If specified, generate the following initial
                         directories and files for the module:
 
-                        - css/
-                        - js/
-                        - output/
-                        - assets/
-                        - css/NEW_MODULES_NAME.css
-                        - output/NEW_MODULES_NAME.html
                         - AUTHORITY.json
+                        - README.md
+                        - assets/
+                        - css/
+                        - css/NEW_MODULES_NAME.css
+                        - js/
+                        - js/NEW_MODULES_NAME.js
+                        - output/
+                        - output/NEW_MODULES_NAME.html
 ```
 
 Examples:
