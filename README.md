@@ -151,3 +151,72 @@ rig --new-module \
     --generate-boilerplate
 
 ```
+
+### HERE
+
+
+### --configure-route
+
+`rig --configure-route` will configure a new Route for a module in
+the specified [Roady](https://github.com/sevidmusic/Roady) project's
+`modules` directory.
+
+Arguments:
+
+```sh
+--path-to-roady-project The path to the root directory of the Roady
+                        project to create the new module for.
+
+                        For example:
+
+                        --path-to-roady-project ./
+
+--module-name           The name of the module to configure the
+                        Route for.
+
+                        For example:
+
+                        --module-name hello-world
+
+--authority             The domain authority that the new Route
+                        will be configured for.
+
+                        For example:
+
+                        --authority localhost:8080
+
+--named-positions      The named-positions to assign the Route to.
+                       named-positions should be specified as json
+                       arrays of "name position" pairs.
+
+                       For example:
+
+                       --named-positions '[roady-ui-header, 1]'
+
+
+--responds-to-requests The names of the Request the Route should
+                       be served in Response to.
+
+                       For example:
+
+                       --responds-to-requests Foo Bar Baz
+
+--relative-path-to-output-file The path to the file served by the
+                               Route, relative to the relevant
+                               modules root directory.
+
+                       For example:
+
+                       --relative-path-to-output-file output
+
+Examples:
+
+```sh
+rig --configure-route \
+    --path-to-roady-project ./ \
+    --module-name hello-world \
+    --authority localhost:8080 \
+    --named-positions "[roady-ui-header, 0]" "[roady-ui-footer, 7]" \
+    --responds-to-requests Foo Bar Baz \
+    --relative-path-to-output-file output
+```
