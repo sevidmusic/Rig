@@ -174,12 +174,9 @@ rig --new-module \
 
 ```
 
-### HERE
+### --new-route
 
-
-### --configure-route
-
-`rig --configure-route` will configure a new Route for a module in
+`rig --new-route` will configure a new Route for a module in
 the specified [Roady](https://github.com/sevidmusic/Roady) project's
 `modules` directory.
 
@@ -195,12 +192,12 @@ Arguments:
 
                         --path-to-roady-project "./"
 
---module-name           The name of the module to configure the
+--for-module            The name of the module to configure the
                         Route for.
 
                         For example:
 
-                        --module-name "hello-world"
+                        --for-module "hello-world"
 
 --authority             The domain authority that the new Route
                         will be configured for.
@@ -215,8 +212,8 @@ Arguments:
 
                        For example:
 
-                       --named-positions "[roady-ui-header, 1]"
-
+                       --named-positions "[roady-ui-header, 1]" \
+                                         "[roady-ui-footer, 7]"
 
 --responds-to-requests The names of the Request the Route should
                        be served in Response to.
@@ -232,18 +229,159 @@ Arguments:
                        For example:
 
                        --relative-path-to-output-file "output"
-
 ```
 
 Examples:
 
 ```sh
-rig --configure-route \
+rig --new-route \
     --path-to-roady-project "./" \
-    --module-name "hello-world" \
+    --for-module "hello-world" \
     --authority "localhost:8080" \
     --named-positions "[roady-ui-header, 0]" "[roady-ui-footer, 7]" \
     --responds-to-requests "Foo" "Bar" "Baz" \
-    --relative-path-to-output-file "output"
+    --relative-path-to-output-file "output/hello-world.php"
 ```
 
+# HERE
+
+### --update-route
+
+`rig --update-route` will update an existing Route for a module in
+the specified [Roady](https://github.com/sevidmusic/Roady) project's
+`modules` directory.
+
+Arguments:
+
+```sh
+--path-to-roady-project The path to the root directory of the Roady
+                        project to create the new module for.
+
+                        Defaults to current directory.
+
+                        For example:
+
+                        --path-to-roady-project "./"
+
+--for-module            The name of the module to update the
+                        Route for.
+
+                        For example:
+
+                        --for-module "hello-world"
+
+--authority             The domain authority that the new Route
+                        will be configured for.
+
+                        For example:
+
+                        --authority "localhost:8080"
+
+--add-named-positions  The named-positions to assign the Route to the
+                       Route in addition to the already assigned
+                       named positions.
+
+                       named positions should be specified as json
+                       arrays of "name position" pairs.
+
+                       For example:
+
+                       --add-named-positions '["foo", 1]' \
+                                             '["bar", 7]' \
+
+
+--remove-named-positions The names of the named-positions to remove
+                         from the Route.
+
+                         For example:
+
+                         --remove-named-positions "roady-ui-header" "roady-ui-footer"
+
+--add-requests         The names of the additional Requests the Route
+                       should be served in Response to.
+
+                       For example:
+
+                       --add-requests "Foo" "Bar" "Baz"
+
+--remove-requests      The names of the Requests to remove from the
+                       Routes definition.
+
+                       For example:
+
+                       --remove-requests "Foo" "Bar" "Baz"
+
+--relative-path-to-output-file The path to the file served by the
+                               Route, relative to the relevant
+                               modules root directory.
+
+                       For example:
+
+                       --relative-path-to-output-file "output"
+```
+
+Examples:
+
+```sh
+rig --update-route \
+    --path-to-roady-project "./" \
+    --for-module "hello-world" \
+    --authority "localhost:8080" \
+    --add-named-positions "[roady-ui-main-content, 0]"
+    --remove-named-positions "roady-ui-header" "roady-ui-footer" \
+    --responds-to-requests "Foo" "Bar" "Baz" \
+    --relative-path-to-output-file "output/hello-world.html"
+```
+
+# HERE
+
+### --remove-route
+
+`rig --remove-route` will remove an existing Route from a module in
+the specified [Roady](https://github.com/sevidmusic/Roady) project's
+`modules` directory.
+
+Arguments:
+
+```sh
+--path-to-roady-project The path to the root directory of the Roady
+                        project to create the new module for.
+
+                        Defaults to current directory.
+
+                        For example:
+
+                        --path-to-roady-project "./"
+
+--for-module            The name of the module to update the
+                        Route for.
+
+                        For example:
+
+                        --for-module "hello-world"
+
+--authority             The domain authority that the Route to be
+                        removed was configured for.
+
+                        For example:
+
+                        --authority "localhost:8080"
+
+--relative-path-to-output-file The path to the file served by the
+                               Route, relative to the relevant
+                               modules root directory.
+
+                       For example:
+
+                       --relative-path-to-output-file "output/hello-world.html"
+```
+
+Examples:
+
+```sh
+rig --remove-route \
+    --path-to-roady-project "./" \
+    --for-module "hello-world" \
+    --authority "localhost:8080" \
+    --relative-path-to-output-file "output/hello-world.html"
+```
