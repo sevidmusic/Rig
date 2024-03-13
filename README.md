@@ -215,11 +215,11 @@ Examples:
 
 ```sh
 rig --configure-route \
-    --path-to-roady-project ./ \
-    --module-name hello-world \
-    --authority localhost:8080 \
+    --path-to-roady-project "./" \
+    --module-name "hello-world" \
+    --authority "localhost:8080" \
     --named-positions "[roady-ui-header, 0]" "[roady-ui-footer, 7]" \
-    --responds-to-requests Foo Bar Baz \
-    --relative-path-to-output-file output
+    --responds-to-requests "Foo" "Bar" "Baz" \
+    --relative-path-to-output-file "output"
 ```
 
