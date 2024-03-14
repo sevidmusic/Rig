@@ -141,11 +141,16 @@ Arguments:
 
                         --path-to-roady-project "./"
 
---name                  The name to assign to the new module.
+--module-name           The name to assign to the new module.
 
                         For example:
 
-                        --name "hello-world"
+                        --module-name "hello-world"
+
+                        Note:
+
+                        This name must be unique, it is not possible
+                        to use the name of an existing module.
 
 --authority             The domain authority that the new Route
                         will be configured for.
@@ -172,10 +177,16 @@ Arguments:
 Examples:
 
 ```sh
+
 rig --new-module \
     --path-to-roady-project ./ \
-    --name Foo \
-    --authority localhost:8080 \
+    --module-name Foo \
+    --authority localhost:8080
+
+rig --new-module \
+    --path-to-roady-project ./ \
+    --module-name Bar \
+    --authority localhost:8888 \
     --generate-boilerplate
 
 ```
@@ -218,8 +229,8 @@ Arguments:
 
                        For example:
 
-                       --named-positions "[roady-ui-header, 1]" \
-                                         "[roady-ui-footer, 7]"
+                       --named-positions '["roady-ui-header", 1]' \
+                                         '["roady-ui-footer", 7]'
 
 --responds-to-requests The names of the Request the Route should
                        be served in Response to.
@@ -228,9 +239,10 @@ Arguments:
 
                        --responds-to-requests "Foo" "Bar" "Baz"
 
---relative-path-to-output-file The path to the file served by the
-                               Route, relative to the relevant
-                               modules root directory.
+--relative-path-to-output-file The path to the file that is served
+                               when the Route is requested,
+                               The path should be relative to the
+                               relevant module's root directory.
 
                        For example:
 
@@ -248,8 +260,6 @@ rig --new-route \
     --responds-to-requests "Foo" "Bar" "Baz" \
     --relative-path-to-output-file "output/hello-world.php"
 ```
-
-# HERE
 
 ### --update-route
 
@@ -339,8 +349,6 @@ rig --update-route \
     --relative-path-to-output-file "output/hello-world.html"
 ```
 
-# HERE
-
 ### --remove-route
 
 `rig --remove-route` will remove an existing Route from a module in
@@ -391,3 +399,46 @@ rig --remove-route \
     --authority "localhost:8080" \
     --relative-path-to-output-file "output/hello-world.html"
 ```
+
+### --list-routes
+
+`rig --list-routes` will list the Routes defined by one or more module
+in the specified [Roady](https://github.com/sevidmusic/Roady) project's
+`modules` directory.
+
+Arguments:
+
+```sh
+--path-to-roady-project The path to the root directory of the Roady
+                        project to create the new module for.
+
+                        Defaults to current directory.
+
+                        For example:
+
+                        --path-to-roady-project "./"
+
+--defined-by-modules    If specified, only include Routes defined by
+                        the specified modules.
+
+                        For example:
+
+                        --defined-by-modules "hello-world"
+
+--defined-for-authorities If specified, only include Routes defined
+                          for the specified domain authorites.
+
+                          For example:
+
+                          --defined-for-authorities "localhost:8080"
+```
+
+Examples:
+
+```sh
+rig --list-routes \
+    --path-to-roady-project "./" \
+    --defined-by-modules "hello-world" \
+    --defined-for-authorities "localhost:8080" \
+```
+
