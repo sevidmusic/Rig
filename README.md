@@ -19,6 +19,12 @@
 
 - [--new-module](#--new-module)
 
+- [--new-route](#--new-route)
+
+- [--update-route](#--update-route)
+
+- [--remove-route](#--remove-route)
+
 # About
 
 [rig](https://github.com/sevidmusic/rig) is a command line utiltiy
