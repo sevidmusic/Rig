@@ -13,17 +13,13 @@
 
 - [Commands](#commands)
 
-- [--version](#--version)
-
-- [--install-roady](#--install-roady)
-
+- [--help](#--help)
+- [--list-routes](#--list-routes)
 - [--new-module](#--new-module)
-
 - [--new-route](#--new-route)
-
-- [--update-route](#--update-route)
-
 - [--remove-route](#--remove-route)
+- [--update-route](#--update-route)
+- [--version](#--version)
 
 # About
 
@@ -31,12 +27,25 @@
 designed to aide in development with the
 [Roady](https://github.com/sevidmusic/Roady) php framework.
 
-Note: [rig](https://github.com/sevidmusic/rig) is not required by
-[Roady](https://github.com/sevidmusic/Roady), nor is
-[Roady](https://github.com/sevidmusic/Roady) required by
-[rig](https://github.com/sevidmusic/rig)
-
 # Installation
+
+It is not necessary to manually install
+`rig` if `roady` is installed.
+
+`rig` is a dependency of `roady`
+and will be installed via `composer` when `roady`
+is installed via `composer require darling/roady`.
+
+It is best to use the version of
+`rig`
+that is packaged with the version
+of `roady`
+being used.
+
+For niche use cases that require
+`rig`
+be installed on independently, one of the
+following methods may be used:
 
 Via `composer`:
 
@@ -50,10 +59,15 @@ Via `git`:
 git clone https://github.com/sevidmusic/rig
 ```
 
-# Post Installation
+# Post Manual Installation
 
-To make it easier to use [rig](https://github.com/sevidmusic/rig),
-it's good to create a symlink to [rig](https://github.com/sevidmusic/rig)
+Note: The post installation steps described in this
+section should only be taken if `rig` is installed
+manually via `composer require darling/rig` or
+`git clone https://github.com/sevidmusic/rig`.
+
+To make it easier to use `rig`,
+it's good to create a symlink to `rig`
 in `~/.local/bin`.
 
 The `setup.sh` script will do just that.
@@ -80,7 +94,7 @@ use the `--force` flag:
 
 ### --version
 
-`rig --version` will display [rig](https://github.com/sevidmusic/rig)'s
+`rig --version` will display `rig`'s
 version number.
 
 It will also display a warning if `rig` is out of date.
@@ -91,42 +105,10 @@ Examples:
 rig --version
 ```
 
-### --install-roady
-
-`rig --install-roady` can be used to install
-[Roady](https://github.com/sevidmusic/roady)
-at a specified path.
-
-Arguments:
-
-```sh
---installation-path   The path to the directory where Roady should
-                      be installed.
-
-                      For example:
-
-                      --path-to-roady-project "./"
-
---run-composer-update If specified, composer update will be run
-                      for the new Roady installation.
-
-                      For example:
-
-                      --run-composer-update
-```
-
-Examples:
-
-```sh
-rig --install-roady --installation-path ./
-
-rig --install-roady --installation-path ~/ --run-composer-update
-```
-
 ### --new-module
 
 `rig --new-module` will create a new module in the
-specified [Roady](https://github.com/sevidmusic/Roady) project's
+specified `roady`g project's
 `modules` directory.
 
 Arguments:
@@ -194,7 +176,7 @@ rig --new-module \
 ### --new-route
 
 `rig --new-route` will configure a new Route for a module in
-the specified [Roady](https://github.com/sevidmusic/Roady) project's
+the specified `roady`g project's
 `modules` directory.
 
 Arguments:
@@ -264,7 +246,7 @@ rig --new-route \
 ### --update-route
 
 `rig --update-route` will update an existing Route for a module in
-the specified [Roady](https://github.com/sevidmusic/Roady) project's
+the specified `roady`g project's
 `modules` directory.
 
 Arguments:
@@ -352,7 +334,7 @@ rig --update-route \
 ### --remove-route
 
 `rig --remove-route` will remove an existing Route from a module in
-the specified [Roady](https://github.com/sevidmusic/Roady) project's
+the specified `roady`g project's
 `modules` directory.
 
 Arguments:
@@ -403,27 +385,27 @@ rig --remove-route \
 ### --list-routes
 
 `rig --list-routes` will list the Routes defined by one or more module
-in the specified [Roady](https://github.com/sevidmusic/Roady) project's
+in the specified `roady`g project's
 `modules` directory.
 
 Arguments:
 
 ```sh
---path-to-roady-project The path to the root directory of the Roady
-                        project to create the new module for.
+--path-to-roady-project   The path to the root directory of the Roady
+                          project to create the new module for.
 
-                        Defaults to current directory.
+                          Defaults to current directory.
 
-                        For example:
+                          For example:
 
-                        --path-to-roady-project "./"
+                          --path-to-roady-project "./"
 
---defined-by-modules    If specified, only include Routes defined by
-                        the specified modules.
+--defined-by-modules      If specified, only include Routes defined by
+                          the specified modules.
 
-                        For example:
+                          For example:
 
-                        --defined-by-modules "hello-world"
+                          --defined-by-modules "hello-world"
 
 --defined-for-authorities If specified, only include Routes defined
                           for the specified domain authorites.
@@ -431,6 +413,13 @@ Arguments:
                           For example:
 
                           --defined-for-authorities "localhost:8080"
+
+--responds-to-requests    If specified, only include Routes that respond
+                          to one of the specified Requests.
+
+                          For example:
+
+                          --responds-to-requests "Foo" "Bar" "Baz"
 ```
 
 Examples:
@@ -440,5 +429,6 @@ rig --list-routes \
     --path-to-roady-project "./" \
     --defined-by-modules "hello-world" \
     --defined-for-authorities "localhost:8080" \
+    --responds-to-requests "homepage"
 ```
 

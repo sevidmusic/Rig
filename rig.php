@@ -7,42 +7,40 @@ use function Laravel\Prompts\table;
 use function Laravel\Prompts\spin;
 use function Laravel\Prompts\info;
 
-$longopts = [
-    'module-name::',
-    'named-positions:',
-    'path-to-roady-project:',
-    'relative-path-to-file::',
-    'responds-to::',
-];
-$options = getopt(short_options: '', long_options:  $longopts);
+$welcomeMessage = <<<'HEADER'
 
-$welcomeMessage = <<<'LOGO'
- ____  ___ ____
-|  _ \|_ _/ ___|
-| |_) || | |  _
-|  _ < | | |_| |
-|_| \_\___\____|
+       _
+  ____(_)__ _
+ / __/ / _ `/
+/_/ /_/\_, /
+      /___/
 
-Welcome to Rig, the command line utilitiy designed to aide in
+Welcome to rig, the command line utilitiy designed to aide in
 development with the Roady PHP framework.
 
 For help use: rig --help
 For help with a specific command use: rig --help command-name
 
-LOGO;
+HEADER;
 
 $response = spin(
     fn () => sleep(3),
     $welcomeMessage,
 );
 
+info(
+    'Note: rig is still being developed. This file is just ' .
+    'a placeholder for now.'
+);
 
-$moduleName = text('What is module would you like information on?');
+$userInput = text(
+    'Enter some text:'
+);
 
 table(
-    ['Module Name', 'Version'],
+    ['You Entered', 'Date/Time'],
     [
-        [$moduleName, strval(rand(0, 100)) . '.' . strval(rand(0, 100))],
+        [$userInput, date('l Y, F jS h:i:s A')],
     ]
 );
 

@@ -128,4 +128,4 @@ rigBinPath=$(dirname -- "$(rreadlink "$0")")
 
 [ -z "$(command -v php)" ] && logErrorMsgAndExit1 "php is not available!"
 
-"$(command -v php)" "${rigBinPath}/../rig.php" "$@"
+"$(command -v php)" "${rigBinPath}/rig.php" "$@"
