@@ -13,14 +13,14 @@
 
 - [Commands](#commands)
 
-- [--help](#rig--help)
-- [--list-routes](#rig--list-routes)
-- [--new-module](#rig--new-module)
-- [--new-route](#rig--new-route)
-- [--remove-route](#rig--remove-route)
-- [--update-route](#rig--update-route)
-- [--version](#rig--version)
-- [--view-command-log](#rig--view-command-log)
+- [--help](#rig---help)
+- [--list-routes](#rig---list-routes)
+- [--new-module](#rig---new-module)
+- [--new-route](#rig---new-route)
+- [--remove-route](#rig---remove-route)
+- [--update-route](#rig---update-route)
+- [--version](#rig---version)
+- [--view-command-log](#rig---view-command-log)
 
 # About
 
