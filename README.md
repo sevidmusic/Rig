@@ -20,7 +20,7 @@
 - [--remove-route](#rig---remove-route)
 - [--update-route](#rig---update-route)
 - [--version](#rig---version)
-- [--view-log](#rig---view-log)
+- [--view-action-log](#rig---view-action-log)
 
 # About
 
@@ -120,7 +120,7 @@ rig --help update-route
 
 rig --help version
 
-rig --help view-log
+rig --help view-action-log
 
 ```
 
@@ -324,31 +324,22 @@ Examples:
 
 ### `rig --version`
 
-Description...
-
-Arguments:
-
-```sh
-
-```
+Display rig's version.
 
 Examples:
 
 ```sh
+rig --version
 ```
 
-### `rig --view-log`
+### `rig --view-action-log`
 
-Description...
-
-Arguments:
-
-```sh
-
-```
+View the log of Actions that have been taken by the commands run
+by rig.
 
 Examples:
 
 ```sh
+rig --view-action-log
 ```
 
