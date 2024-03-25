@@ -39,13 +39,13 @@ is installed via `composer require darling/roady`.
 
 It is best to use the version of
 `rig`
-that is packaged with the version
+that was installed with the version
 of `roady`
 being used.
 
 For niche use cases that require
 `rig`
-be installed on independently, one of the
+be installed independently one of the
 following installation methods may be used:
 
 Via `composer`:
@@ -63,7 +63,7 @@ git clone https://github.com/sevidmusic/rig
 # Post Manual Installation Steps
 
 Note: The post installation steps described in this
-section should only be taken if `rig` is installed
+section should only be taken if `rig` was installed
 manually via `composer require darling/rig` or
 `git clone https://github.com/sevidmusic/rig`.
 
@@ -84,7 +84,7 @@ Note:
 `setup,sh` will not overwrite an existing `rig` symlink
 by default.
 
-To force `setup.sh` to overwrite an existing `rig` symlink,
+To force `setup.sh` to overwrite an existing `rig` symlink
 use the `--force` flag:
 
 ```sh
@@ -128,28 +128,31 @@ rig --help view-action-log
 
 List the Routes configured by existing modules.
 
-If no arguments are specified, all of the Routes
-defined by all existing modules will be included
-in the list.
+Note: If no arguments are specified, all of the
+Routes defined by all existing modules will be
+included in the list.
 
 Arguments:
 
 ```sh
---defined-for-modules         If specified, only list Routes that are
-                              defined for one of the specified modules.
+--defined-for-modules         If specified, only list Routes
+                              that are defined for one of the
+                              specified modules.
 
---defined-for-requests        If specified, only list the Routes that
-                              respond to one of the specified Requests.
+--defined-for-requests        If specified, only list the
+                              Routes that respond to one of
+                              the specified Requests.
 
 --defined-for-named-positions If specified, only list Routes that
                               are defined for one of the specified
                               Named Positions.
 
---defined-for-position        If specified, only list Routes that are
-                              defined for one of the specified Positions.
+--defined-for-position        If specified, only list Routes
+                              that are defined for one of the
+                              specified Positions.
 
---defined-for-file            If specified, only list Routes that are
-                              defined for the specified file.
+--defined-for-file            If specified, only list Routes that
+                              are defined for the specified file.
 
 ```
 
@@ -168,6 +171,14 @@ rig --list-routes --defined-for-positions "0" "3"
 
 rig --list-routes --defined-for-files "homepage.html" "global.css"
 
+# It is also possible to specify multiple arguments to further
+# filter the results.
+rig --list-routes \
+    --defined-for-modules "hello-world" "hello-universe" \
+    --defined-for-requests "homepage" "global" \
+    --defined-for-named-positions "roady-ui-header" \
+    --defined-for-positions "0" "3" \
+    --defined-for-files "homepage.html" "global.css"
 ```
 
 ### `rig --new-module`
@@ -175,25 +186,13 @@ rig --list-routes --defined-for-files "homepage.html" "global.css"
 Create a new module in the current Roady project's `modules`
 directory.
 
-By default, the new module will only contain the following
-files and directories:
+If the `--no-boilerplate` flag is not specified,
+then the new module will contain the following
+initial files and directories.
 
-```sh
-css
-js
-localhost.8080.json
-output
-```
+Note: The name `NEW_MODULE_NAME` will be replaced
+by the new module's actual name.
 
-The `--generate-boilerplate` flag can be used to generate some
-initial files, and configure some initial Routes for the new
-module.
-
-If the `--generate-boilerplate` flag is specified, then the
-new module will contain the following files and directories.
-
-Note: NEW_MODULE_NAME will be replaced by the new module's
-actual name.
 ```sh
 css/NEW_MODULE_NAME.css
 js/NEW_MODULE_NAME.js
@@ -201,8 +200,7 @@ localhost.8080.json
 output/NEW_MODULE_NAME.html
 ```
 
-If the `--generate-boilerplate` flag is specified, then the
-content of the initial files will be:
+The content of the initial files created for the new module will be:
 
 - css/NEW_MODULE_NAME.css
 
@@ -244,6 +242,26 @@ console.log("Javascript was loaded.");
 <p>Hello world</p>
 ```
 
+- localhost.8080.json
+
+```json
+[
+    {
+        "module-name": "hello-world",
+        "responds-to": [
+            "homepage"
+        ],
+        "named-positions": [
+            {
+                "position-name": "roady-ui-main-content",
+                "position": 0
+            }
+        ],
+        "relative-path": "output\/hello-world.html"
+    }
+]
+```
+
 Arguments:
 
 ```sh
@@ -257,8 +275,9 @@ Arguments:
 
                             localhost:8000
 
---generate-boilerplate      If specified, generate some initial files
-                            and directories with boilerplate content.
+--no-boilerplate            If specified, do not generate the any
+                            initial files and directories for the
+                            new module.
 
 --name                      The name to assign to the new module.
 
@@ -272,7 +291,7 @@ Examples:
 ```sh
 rig --new-module \
     --for-authority "www.example.com:8080" \
-    --generate-boilerplate \
+    --no-boilerplate \
     --name hello-world \
     --path-to-roady-project "./"
 ```
@@ -343,3 +362,20 @@ Examples:
 rig --view-action-log
 ```
 
+
+
+
+
+
+
+The `--no-boilerplate` flag can be used to generate some
+initial files for the new module.
+By default, the new module will only contain the following
+files and directories:
+
+```sh
+localhost.8080.json
+css/
+js/
+output/
+```
