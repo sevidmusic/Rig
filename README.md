@@ -244,10 +244,13 @@ console.log("Javascript was loaded.");
 
 - localhost.8080.json
 
+  Note: The string `NEW_MODULE_NAME` in the example `json`
+  will be replaced by the new module's actual name.
+
 ```json
 [
     {
-        "module-name": "hello-world",
+        "module-name": "NEW_MODULE_NAME",
         "responds-to": [
             "homepage"
         ],
@@ -257,7 +260,7 @@ console.log("Javascript was loaded.");
                 "position": 0
             }
         ],
-        "relative-path": "output\/hello-world.html"
+        "relative-path": "output\/NEW_MODULE_NAME.html"
     }
 ]
 ```
@@ -275,9 +278,9 @@ Arguments:
 
                             localhost:8000
 
---no-boilerplate            If specified, do not generate the any
-                            initial files and directories for the
-                            new module.
+--no-boilerplate            If specified, do not generate any
+                            initial files and directories for
+                            the new module.
 
 --name                      The name to assign to the new module.
 
@@ -291,8 +294,13 @@ Examples:
 ```sh
 rig --new-module \
     --for-authority "www.example.com:8080" \
-    --no-boilerplate \
     --name hello-world \
+    --path-to-roady-project "./"
+
+rig --new-module \
+    --for-authority "localhost:8080" \
+    --name hello-universe \
+    --no-boilerplate \
     --path-to-roady-project "./"
 ```
 
