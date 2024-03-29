@@ -95,7 +95,7 @@ use the `--force` flag:
 
 ### `rig --help`
 
-Get information about rig or one of it's commands.
+Display documentation for rig or one of `rig`'s commands.
 
 Arguments:
 
@@ -134,7 +134,7 @@ included in the list.
 
 Arguments:
 
-```sh
+```
 --defined-for-modules         If specified, only list Routes
                               that are defined for one of the
                               specified modules.
@@ -147,12 +147,16 @@ Arguments:
                               are defined for one of the specified
                               Named Positions.
 
---defined-for-position        If specified, only list Routes
+--defined-for-positions       If specified, only list Routes
                               that are defined for one of the
                               specified Positions.
 
---defined-for-file            If specified, only list Routes that
-                              are defined for the specified file.
+--defined-for-files           If specified, only list Routes that
+                              are defined for one of the specified
+                              files.
+
+--path-to-roady-project      The path to the relevant Roady project's
+                             root directory.
 
 ```
 
@@ -167,17 +171,20 @@ rig --list-routes --defined-for-requests "homepage" "global"
 
 rig --list-routes --defined-for-named-positions "roady-ui-header"
 
-rig --list-routes --defined-for-positions "0" "3"
+rig --list-routes --defined-for-positionss "0" "3"
 
 rig --list-routes --defined-for-files "homepage.html" "global.css"
 
-# It is also possible to specify multiple arguments to further
-# filter the results.
+```
+It is also possible to specify multiple arguments to further
+filter the results.
+
+```sh
 rig --list-routes \
     --defined-for-modules "hello-world" "hello-universe" \
     --defined-for-requests "homepage" "global" \
     --defined-for-named-positions "roady-ui-header" \
-    --defined-for-positions "0" "3" \
+    --defined-for-positionss "0" "3" \
     --defined-for-files "homepage.html" "global.css"
 ```
 
@@ -187,54 +194,18 @@ Create a new module in the current Roady project's `modules`
 directory.
 
 If the `--no-boilerplate` flag is not specified,
-then the new module will contain the following
-initial files and directories.
+the following initial files and directories
+will be created for the new module.
 
 Note: The name `NEW_MODULE_NAME` will be replaced
 by the new module's actual name.
 
-```sh
-css/NEW_MODULE_NAME.css
-js/NEW_MODULE_NAME.js
+```
 localhost.8080.json
 output/NEW_MODULE_NAME.html
 ```
 
 The content of the initial files created for the new module will be:
-
-- css/NEW_MODULE_NAME.css
-
-```css
-
-html {
-    color-scheme: dark light;
-}
-
-@media (prefers-color-scheme: dark) {
-
-    body {
-        background: black;
-        color: white;
-    }
-
-}
-
-@media (prefers-color-scheme: light) {
-
-    body {
-        background: white;
-        color: black;
-    }
-
-}
-
-```
-
-- js/NEW_MODULE_NAME.js
-
-```js
-console.log("Javascript was loaded.");
-```
 
 - output/NEW_MODULE_NAME.html
 
@@ -267,7 +238,7 @@ console.log("Javascript was loaded.");
 
 Arguments:
 
-```sh
+```
 --for-authority             If specified, generate a Route
                             configuration file for the specified
                             domain authority.
@@ -284,8 +255,8 @@ Arguments:
 
 --name                      The name to assign to the new module.
 
---path-to-roady-project     The path to the Roady project to create
-                            the new module for.
+--path-to-roady-project     The path to the relevant Roady project's
+                            root directory.
 
 ```
 
@@ -368,22 +339,4 @@ Examples:
 
 ```sh
 rig --view-action-log
-```
-
-
-
-
-
-
-
-The `--no-boilerplate` flag can be used to generate some
-initial files for the new module.
-By default, the new module will only contain the following
-files and directories:
-
-```sh
-localhost.8080.json
-css/
-js/
-output/
 ```
