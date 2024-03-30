@@ -18,7 +18,7 @@
 - [--new-module](#rig---new-module)
 - [--new-route](#rig---new-route)
 - [--delete-routes](#rig---delete-routes)
-- --start-servers
+- [--start-servers](#rig---start-servers)
 - [--update-route](#rig---update-route)
 - [--version](#rig---version)
 - [--view-action-log](#rig---view-action-log)
