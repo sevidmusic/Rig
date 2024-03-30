@@ -18,6 +18,7 @@
 - [--new-module](#rig---new-module)
 - [--new-route](#rig---new-route)
 - [--delete-routes](#rig---delete-routes)
+- --start-servers
 - [--update-route](#rig---update-route)
 - [--version](#rig---version)
 - [--view-action-log](#rig---view-action-log)
@@ -40,7 +41,7 @@ via `composer require darling/roady`.
 It is best to use the version of `rig` that was installed with the
 version of `roady` being used.
 
-For niche use cases that require `rig` be installed independently
+For niche use cases that require `rig` be installed independently,
 one of the following installation methods may be used:
 
 Via `composer`:
@@ -83,6 +84,44 @@ the `--force` flag:
 
 ```sh
 ./setup.sh --force
+```
+
+# Getting Started
+
+To make sure rig is is installed and callable, run the
+following command:
+
+```
+rig --version
+```
+
+If that worked, then `rig` is installed properly.
+
+### Creating a module
+
+`rig` can be used to create new module for a `roady` project.
+
+For example, to create a module named hello-world run the
+following command:
+
+```sh
+rig --new-module \
+    --module-name hello-world
+```
+
+This will create a module named `hello-world` in the current
+`roady` projects `modules` directory.
+
+```
+modules/hello-world
+```
+
+It will also create the following files:
+
+```
+modules/hello-world/output/hello-world.html
+
+modules/hello-world/localhost:8080.json
 ```
 
 # Commands
@@ -364,6 +403,22 @@ rig --delete-routes \
 --module-name hello-world \
 --relative-path 'output/hello-world.html' \
 --responds-to 'homepage' 'hello-world'
+```
+
+### `rig --start-servers`
+
+Start up one or more local servers on the specified ports.
+
+If a port is not specified start a local server on port `8080`.
+
+The servers will be available at `localhost:PORT`, for example,
+`rig --start-server` would start a local server that would be
+accsessible at [localhost:8080](localhost:8080).
+
+Examples:
+
+```sh
+rig --start-servers 80 8420 8017
 ```
 
 ### `rig --update-route`
