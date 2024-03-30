@@ -17,7 +17,7 @@
 - [--list-routes](#rig---list-routes)
 - [--new-module](#rig---new-module)
 - [--new-route](#rig---new-route)
-- [--remove-route](#rig---remove-route)
+- [--delete-routes](#rig---delete-routes)
 - [--update-route](#rig---update-route)
 - [--version](#rig---version)
 - [--view-action-log](#rig---view-action-log)
@@ -30,23 +30,18 @@ designed to aide in development with the
 
 # Installation
 
-It is not necessary to manually install
-`rig` if `roady` is installed.
+It is not necessary to manually install `rig` if `roady`
+is installed.
 
-`rig` is a dependency of `roady`
-and will be installed via `composer` when `roady`
-is installed via `composer require darling/roady`.
+`rig` is a dependency of `roady` and will be
+installed via `composer` when `roady` is installed
+via `composer require darling/roady`.
 
-It is best to use the version of
-`rig`
-that was installed with the version
-of `roady`
-being used.
+It is best to use the version of `rig` that was installed with the
+version of `roady` being used.
 
-For niche use cases that require
-`rig`
-be installed independently one of the
-following installation methods may be used:
+For niche use cases that require `rig` be installed independently
+one of the following installation methods may be used:
 
 Via `composer`:
 
@@ -71,9 +66,9 @@ To make it easier to use a manually installed version
 of `rig`, it's good to create a symlink to `rig` in
 `~/.local/bin`.
 
-The `setup.sh` script will do just that.
+`rig` provides a `setup.sh` script that will do just that.
 
-After manual installation, run:
+After manual installation, move into `rig`'s root directory and 'run:
 
 ```sh
 ./setup.sh
@@ -81,11 +76,10 @@ After manual installation, run:
 
 Note:
 
-`setup,sh` will not overwrite an existing `rig` symlink
-by default.
+`setup,sh` will not overwrite an existing `rig` symlink by default.
 
-To force `setup.sh` to overwrite an existing `rig` symlink
-use the `--force` flag:
+To force `setup.sh` to overwrite an existing `rig` symlink use
+the `--force` flag:
 
 ```sh
 ./setup.sh --force
@@ -114,7 +108,7 @@ rig --help new-module
 
 rig --help new-route
 
-rig --help remove-route
+rig --help delete-routes
 
 rig --help update-route
 
@@ -136,7 +130,7 @@ Arguments:
 
 ```
 --defined-for-modules         If specified, only list Routes
-                              that are defined for one of the
+                              that are defined by one of the
                               specified modules.
 
 --defined-for-requests        If specified, only list the
@@ -155,8 +149,10 @@ Arguments:
                               are defined for one of the specified
                               files.
 
---path-to-roady-project      The path to the relevant Roady project's
-                             root directory.
+--path-to-roady-project       The path to the relevant Roady project's
+                              root directory.
+
+                              Defaults to current directory: ./
 
 ```
 
@@ -210,7 +206,7 @@ The content of the initial files created for the new module will be:
 - output/NEW_MODULE_NAME.html
 
 ```html
-<p>Hello world</p>
+<p>Hello NEW_MODULE_NAME</p>
 ```
 
 - localhost.8080.json
@@ -239,70 +235,135 @@ The content of the initial files created for the new module will be:
 Arguments:
 
 ```
---for-authority             If specified, generate a Route
+--for-authority             If specified, create an initial Route
                             configuration file for the specified
                             domain authority.
 
-                            Note: If the --for-authority flag is not
-                            specified then a Route configuration
-                            file will be generated for the authority:
+                            Note: If the --for-authority flag is
+                            not specified then an initial Route
+                            configuration file will be created
+                            for the authority:
 
                             localhost:8000
 
---no-boilerplate            If specified, do not generate any
+                            Note: If the --no-boilerplate flag is
+                            specified and the --for-authority flag
+                            is not specified then an initial Route
+                            configuration file will not be created.
+
+--no-boilerplate            If specified, do not create any
                             initial files and directories for
                             the new module.
 
---name                      The name to assign to the new module.
+--module-name               The name to assign to the new module.
 
 --path-to-roady-project     The path to the relevant Roady project's
                             root directory.
 
+                            Defaults to current directory: ./
 ```
 
 Examples:
 
 ```sh
-rig --new-module \
-    --for-authority "www.example.com:8080" \
-    --name hello-world \
-    --path-to-roady-project "./"
 
 rig --new-module \
-    --for-authority "localhost:8080" \
-    --name hello-universe \
+    --module-name hello-world
+
+rig --new-module \
+    --module-name hello-universe \
+    --for-authority "www.example.com"
+
+rig --new-module \
+    --module-name hello-multiverse \
+    --for-authority "localhost:8888" \
     --no-boilerplate \
     --path-to-roady-project "./"
 ```
 
 ### `rig --new-route`
 
-Description...
+Define a new Route for an existing module.
 
 Arguments:
 
+```
+--module-name               The name of the module to define the new
+                            Route for.
+
+--named-positions           A json string that represents an array
+                            of arrays of named positons.
+
+                            For example:
+
+                            '[["roady-ui-main-content",0]]'
+
+--path-to-roady-project     The path to the relevant Roady project's
+                            root directory.
+
+                            Defaults to current directory: ./
+
+--relative-path             The path to the file served by the Route,
+                            relative to the modules root directory.
+
+--responds-to               The names of the Requests the Route will
+                            respond to.
+```
+
+Examples:
+
 ```sh
+rig --new-route \
+--module-name hello-world \
+--named-positions '[["roady-ui-header",0],["roady-ui-footer",2]]' \
+--relative-path 'output/hello-world.html' \
+--responds-to 'homepage' 'hello-world'
+```
+
+### `rig --delete-routes`
+
+Delete the Routes defined by the specified module that serve
+the file at the specified `--relative-path` in response to
+the specified Requests.
+
+Note: All of the Routes defined by the module that match this
+criteria will be deleted.
+
+Arguments:
+
+```
+--module-name               The name of the module that defines the
+                            Routes.
+
+--path-to-roady-project     The path to the relevant Roady project's
+                            root directory.
+
+                            Defaults to current directory: ./
+
+--relative-path             The path to the file served by the Routes,
+                            relative to the modules root directory.
+
+                            Note: The Routes to be deleted must serve
+                            the same file.
+
+--responds-to               The names of the Requests the Route
+                            responds to.
+
+                            Note: All Routes that serve the file at
+                            the specified --relative-path that respond
+                            to the specified Requests will be deleted
+                            even if they respond to additional Request
+                            that were not specified.
 
 ```
 
 Examples:
 
 ```sh
-```
-
-### `rig --remove-route`
-
-Description...
-
-Arguments:
-
-```sh
-
-```
-
-Examples:
-
-```sh
+rig --delete-routes \
+--module-name hello-world \
+--relative-path 'output/hello-world.html' \
+--responds-to 'homepage' 'hello-world'
 ```
 
 ### `rig --update-route`
@@ -311,7 +372,11 @@ Description...
 
 Arguments:
 
-```sh
+```
+--path-to-roady-project     The path to the relevant Roady project's
+                            root directory.
+
+                            Defaults to current directory: ./
 
 ```
 
@@ -323,6 +388,8 @@ Examples:
 ### `rig --version`
 
 Display rig's version.
+
+If `rig` is not up to date, an warning message will be shown.
 
 Examples:
 
