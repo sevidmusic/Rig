@@ -98,11 +98,11 @@ rig --version
 
 If that worked, then `rig` is installed properly.
 
-### Creating a module
+### Creating a Module
 
-`rig` can be used to create new module for a `roady` project.
+`rig` can be used to create new Module for a `roady` project.
 
-For example, to create a module named hello-world run the
+For example, to create a Module named hello-world run the
 following command:
 
 ```sh
@@ -110,7 +110,7 @@ rig --new-module \
     --module-name hello-world
 ```
 
-This will create a module named `hello-world` in the current
+This will create a Module named `hello-world` in the current
 `roady` projects `modules` directory.
 
 ```
@@ -125,7 +125,7 @@ modules/hello-world/output/hello-world.html
 modules/hello-world/localhost:8080.json
 ```
 
-To use this module, start a development server on `localhost:8080`
+To use this Module, start a development server on `localhost:8080`
 via `rig --start-servers --open-in-browser`.
 
 Note: If [localhost:8080](localhost:8080) does not open
@@ -240,22 +240,22 @@ rig --list-routes \
 
 ### `rig --new-module`
 
-Create a new module in the current Roady project's `modules`
+Create a new Module in the current Roady project's `modules`
 directory.
 
 If the `--no-boilerplate` flag is not specified,
 the following initial files and directories
-will be created for the new module.
+will be created for the new Module.
 
 Note: The name `NEW_MODULE_NAME` will be replaced
-by the new module's actual name.
+by the new Module's actual name.
 
 ```
 localhost.8080.json
 output/NEW_MODULE_NAME.html
 ```
 
-The content of the initial files created for the new module will be:
+The content of the initial files created for the new Module will be:
 
 - output/NEW_MODULE_NAME.html
 
@@ -266,7 +266,7 @@ The content of the initial files created for the new module will be:
 - localhost.8080.json
 
   Note: The string `NEW_MODULE_NAME` in the example `json`
-  will be replaced by the new module's actual name.
+  will be replaced by the new Module's actual name.
 
 ```json
 [
@@ -307,9 +307,9 @@ Arguments:
 
 --no-boilerplate            If specified, do not create any
                             initial files and directories for
-                            the new module.
+                            the new Module.
 
---module-name               The name to assign to the new module.
+--module-name               The name to assign to the new Module.
 
 --path-to-roady-project     The path to the relevant Roady project's
                             root directory.
@@ -337,12 +337,12 @@ rig --new-module \
 
 ### `rig --new-route`
 
-Define a new Route for an existing module.
+Define a new Route for an existing Module.
 
 Arguments:
 
 ```
---module-name               The name of the module to define the new
+--module-name               The name of the Module to define the new
                             Route for.
 
 --named-positions           A json string that represents an array
@@ -376,17 +376,17 @@ rig --new-route \
 
 ### `rig --delete-routes`
 
-Delete the Routes defined by the specified module that serve
+Delete the Routes defined by the specified Module that serve
 the file at the specified `--relative-path` in response to
 the specified Requests.
 
-Note: All of the Routes defined by the module that match this
+Note: All of the Routes defined by the Module that match this
 criteria will be deleted.
 
 Arguments:
 
 ```
---module-name               The name of the module that defines the
+--module-name               The name of the Module that defines the
                             Routes.
 
 --path-to-roady-project     The path to the relevant Roady project's
