@@ -132,7 +132,8 @@ Note: If [localhost:8080](localhost:8080) does not open
 in a browser automatically, simply open a web browser
 and navigate to [localhost:8080](localhost:8080) manually.
 
-If everything is working then `Hello World` should be displayed.
+If everything is working then `Hello World` should be
+displayed in the browser.
 
 # Commands
 
