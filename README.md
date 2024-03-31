@@ -14,8 +14,8 @@
 
 - [Commands](#commands)
 
-- [--delete-routes](#rig---delete-routes)
 - [--help](#rig---help)
+- [--delete-routes](#rig---delete-routes)
 - [--list-routes](#rig---list-routes)
 - [--new-module](#rig---new-module)
 - [--new-route](#rig---new-route)
@@ -146,6 +146,38 @@ websites can be found in [Roady's](https://github.com/sevidmusic/roady)
 
 # Commands
 
+### `rig --help`
+
+Display documentation for rig or one of `rig`'s commands.
+
+Arguments:
+
+```sh
+[COMMAND_NAME]
+```
+
+Examples:
+
+```sh
+rig --help
+
+rig --help delete-routes
+
+rig --help list-routes
+
+rig --help new-module
+
+rig --help new-route
+
+rig --help start-servers
+
+rig --help update-route
+
+rig --help version
+
+rig --help view-action-log
+```
+
 ### `rig --delete-routes`
 
 Delete the Routes defined by the specified Module that serve
@@ -190,38 +222,6 @@ rig --delete-routes \
 --module-name hello-world \
 --relative-path 'output/hello-world.html' \
 --responds-to 'homepage' 'hello-world'
-```
-
-### `rig --help`
-
-Display documentation for rig or one of `rig`'s commands.
-
-Arguments:
-
-```sh
-[COMMAND_NAME]
-```
-
-Examples:
-
-```sh
-rig --help
-
-rig --help delete-routes
-
-rig --help list-routes
-
-rig --help new-module
-
-rig --help new-route
-
-rig --help start-servers
-
-rig --help update-route
-
-rig --help version
-
-rig --help view-action-log
 ```
 
 ### `rig --list-routes`
