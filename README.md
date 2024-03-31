@@ -107,7 +107,7 @@ following command:
 
 ```sh
 rig --new-module \
-    --module-name hello-world
+    --module-name "hello-world"
 ```
 
 This will create a Module named `hello-world` in the current
@@ -180,38 +180,42 @@ rig --help view-action-log
 
 ### `rig --delete-routes`
 
-Delete the Routes defined by the specified Module that serve
-the file at the specified `--relative-path` in response to
-the specified Requests.
+Delete the Routes defined by the specified Module for a specified
+Authority that serve the file at the specified Relative Path in
+response to the specified Requests.
 
-Note: All of the Routes defined by the Module that match this
-criteria will be deleted.
+Note: All of the Routes defined by the specified Module for the
+specified Authority that match this criteria will be deleted.
 
 Arguments:
 
 ```
---module-name               The name of the Module that defines the
+--defined-for-authority     The Authority that the Routes were
+                            defined for.
+
+--defined-for-module-name   The name of the Module that defines the
                             Routes.
+
+--defined-for-relative-path The path to the file served by the Routes
+                            relative to the Module's root directory.
+
+                            Note: The Routes to be deleted must serve
+                            the same file.
 
 --path-to-roady-project     The path to the relevant Roady project's
                             root directory.
 
                             Defaults to current directory: ./
 
---relative-path             The path to the file served by the Routes,
-                            relative to the Module's root directory.
+--that-respond-to           The names of the Requests the Routes
+                            respond to.
 
-                            Note: The Routes to be deleted must serve
-                            the same file.
-
---responds-to               The names of the Requests the Route
-                            responds to.
-
-                            Note: All Routes that serve the file at
-                            the specified --relative-path that respond
-                            to the specified Requests will be deleted
-                            even if they respond to additional Request
-                            that were not specified.
+                            Note: All Routes that serve the file
+                            at the specified --defined-for-relative-path that
+                            respond to the specified Requests
+                            will be deleted even if they respond
+                            to additional Requests that were
+                            not specified.
 
 ```
 
@@ -219,9 +223,17 @@ Examples:
 
 ```sh
 rig --delete-routes \
---module-name hello-world \
---relative-path 'output/hello-world.html' \
---responds-to 'homepage' 'hello-world'
+--defined-for-authority "localhost:8080" \
+--defined-for-module-name "hello-world" \
+--defined-for-relative-path "output/hello-world.html" \
+--that-respond-to "homepage"
+
+rig --delete-routes \
+--defined-for-authority "example.com" \
+--defined-for-module-name "hello-universe" \
+--defined-for-relative-path "output/hello-universe.html" \
+--path-to-roady-project "./" \
+--that-respond-to "hello-universe" "homepage"
 ```
 
 ### `rig --list-routes`
@@ -424,10 +436,10 @@ Examples:
 
 ```sh
 rig --new-route \
---module-name hello-world \
+--module-name "hello-world" \
 --named-positions '[["roady-ui-header",0],["roady-ui-footer",2]]' \
---relative-path 'output/hello-world.html' \
---responds-to 'homepage' 'hello-world'
+--relative-path "output/hello-world.html" \
+--responds-to "homepage" "hello-world"
 ```
 
 ### `rig --start-servers`
