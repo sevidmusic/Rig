@@ -170,18 +170,22 @@ rig --help view-action-log
 
 ### `rig --list-routes`
 
-List the Routes configured by existing modules.
+List the Routes configured by existing Modules.
 
 Note: If no arguments are specified, all of the
-Routes defined by all existing modules will be
+Routes defined by all existing Modules will be
 included in the list.
 
 Arguments:
 
 ```
+--defined-for-authorities     If specified, only list Routes
+                              that are defined for one of the
+                              specified Authorities.
+
 --defined-for-modules         If specified, only list Routes
                               that are defined by one of the
-                              specified modules.
+                              specified Modules.
 
 --defined-for-requests        If specified, only list the
                               Routes that respond to one of
@@ -354,7 +358,7 @@ Arguments:
                             Defaults to current directory: ./
 
 --relative-path             The path to the file served by the Route,
-                            relative to the modules root directory.
+                            relative to the Module's root directory.
 
 --responds-to               The names of the Requests the Route will
                             respond to.
@@ -391,7 +395,7 @@ Arguments:
                             Defaults to current directory: ./
 
 --relative-path             The path to the file served by the Routes,
-                            relative to the modules root directory.
+                            relative to the Module's root directory.
 
                             Note: The Routes to be deleted must serve
                             the same file.
