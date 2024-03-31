@@ -28,19 +28,19 @@
 
 [rig](https://github.com/sevidmusic/rig) is a command line utiltiy
 designed to aide in development with the
-[Roady](https://github.com/sevidmusic/Roady) php framework.
+[Roady](https://github.com/sevidmusic/roady) php framework.
 
 # Installation
 
-It is not necessary to manually install `rig` if `roady`
+It is not necessary to manually install `rig` if `Roady`
 is installed.
 
-`rig` is a dependency of `roady` and will be
-installed via `composer` when `roady` is installed
+`rig` is a dependency of `Roady` and will be
+installed via `composer` when `Roady` is installed
 via `composer require darling/roady`.
 
 It is best to use the version of `rig` that was installed with the
-version of `roady` being used.
+version of `Roady` being used.
 
 For niche use cases that require `rig` be installed independently,
 one of the following installation methods may be used:
@@ -100,7 +100,7 @@ If that worked, then `rig` is installed properly.
 
 ### Creating a Module
 
-`rig` can be used to create new Module for a `roady` project.
+`rig` can be used to create new Module for a `Roady` project.
 
 For example, to create a Module named `hello-world` run the
 following command:
@@ -111,7 +111,7 @@ rig --new-module \
 ```
 
 This will create a Module named `hello-world` in the current
-`roady` projects `modules` directory.
+`Roady` projects `modules` directory.
 
 ```
 modules/hello-world
@@ -134,6 +134,15 @@ and navigate to [localhost:8080](localhost:8080) manually.
 
 If everything is working then `Hello World` should be
 displayed in the browser.
+
+# Additional Documentation
+
+Documentation relevant to `rig`'s  individual commands can be
+found below.
+
+More thorough documentation about using `rig` with `Roady` to build
+websites can be found in [Roady's](https://github.com/sevidmusic/roady)
+`README.md`.
 
 # Commands
 
