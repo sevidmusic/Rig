@@ -325,13 +325,13 @@ output/NEW_MODULE_NAME.html
 
 The content of the initial files created for the new Module will be:
 
-- output/NEW_MODULE_NAME.html
+- `output/NEW_MODULE_NAME.html`
 
 ```html
 <p>Hello NEW_MODULE_NAME</p>
 ```
 
-- localhost.8080.json
+- `localhost.8080.json`
 
   Note: The string `NEW_MODULE_NAME` in the example `json`
   will be replaced by the new Module's actual name.
