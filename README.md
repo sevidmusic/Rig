@@ -102,7 +102,7 @@ If that worked, then `rig` is installed properly.
 
 `rig` can be used to create new Module for a `roady` project.
 
-For example, to create a Module named hello-world run the
+For example, to create a Module named `hello-world` run the
 following command:
 
 ```sh
