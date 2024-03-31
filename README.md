@@ -14,11 +14,11 @@
 
 - [Commands](#commands)
 
+- [--delete-routes](#rig---delete-routes)
 - [--help](#rig---help)
 - [--list-routes](#rig---list-routes)
 - [--new-module](#rig---new-module)
 - [--new-route](#rig---new-route)
-- [--delete-routes](#rig---delete-routes)
 - [--start-servers](#rig---start-servers)
 - [--update-route](#rig---update-route)
 - [--version](#rig---version)
@@ -146,6 +146,52 @@ websites can be found in [Roady's](https://github.com/sevidmusic/roady)
 
 # Commands
 
+### `rig --delete-routes`
+
+Delete the Routes defined by the specified Module that serve
+the file at the specified `--relative-path` in response to
+the specified Requests.
+
+Note: All of the Routes defined by the Module that match this
+criteria will be deleted.
+
+Arguments:
+
+```
+--module-name               The name of the Module that defines the
+                            Routes.
+
+--path-to-roady-project     The path to the relevant Roady project's
+                            root directory.
+
+                            Defaults to current directory: ./
+
+--relative-path             The path to the file served by the Routes,
+                            relative to the Module's root directory.
+
+                            Note: The Routes to be deleted must serve
+                            the same file.
+
+--responds-to               The names of the Requests the Route
+                            responds to.
+
+                            Note: All Routes that serve the file at
+                            the specified --relative-path that respond
+                            to the specified Requests will be deleted
+                            even if they respond to additional Request
+                            that were not specified.
+
+```
+
+Examples:
+
+```sh
+rig --delete-routes \
+--module-name hello-world \
+--relative-path 'output/hello-world.html' \
+--responds-to 'homepage' 'hello-world'
+```
+
 ### `rig --help`
 
 Display documentation for rig or one of `rig`'s commands.
@@ -161,20 +207,21 @@ Examples:
 ```sh
 rig --help
 
+rig --help delete-routes
+
 rig --help list-routes
 
 rig --help new-module
 
 rig --help new-route
 
-rig --help delete-routes
+rig --help start-servers
 
 rig --help update-route
 
 rig --help version
 
 rig --help view-action-log
-
 ```
 
 ### `rig --list-routes`
@@ -379,52 +426,6 @@ Examples:
 rig --new-route \
 --module-name hello-world \
 --named-positions '[["roady-ui-header",0],["roady-ui-footer",2]]' \
---relative-path 'output/hello-world.html' \
---responds-to 'homepage' 'hello-world'
-```
-
-### `rig --delete-routes`
-
-Delete the Routes defined by the specified Module that serve
-the file at the specified `--relative-path` in response to
-the specified Requests.
-
-Note: All of the Routes defined by the Module that match this
-criteria will be deleted.
-
-Arguments:
-
-```
---module-name               The name of the Module that defines the
-                            Routes.
-
---path-to-roady-project     The path to the relevant Roady project's
-                            root directory.
-
-                            Defaults to current directory: ./
-
---relative-path             The path to the file served by the Routes,
-                            relative to the Module's root directory.
-
-                            Note: The Routes to be deleted must serve
-                            the same file.
-
---responds-to               The names of the Requests the Route
-                            responds to.
-
-                            Note: All Routes that serve the file at
-                            the specified --relative-path that respond
-                            to the specified Requests will be deleted
-                            even if they respond to additional Request
-                            that were not specified.
-
-```
-
-Examples:
-
-```sh
-rig --delete-routes \
---module-name hello-world \
 --relative-path 'output/hello-world.html' \
 --responds-to 'homepage' 'hello-world'
 ```
