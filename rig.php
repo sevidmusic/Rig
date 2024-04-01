@@ -69,8 +69,9 @@ intro("# Routes");
 foreach ($decodedRouteJson as $route) {
     echo "\033[38;5;0m\033[48;5;0m";
     table(
-        ['defined-by-module: "' . $route['module-name'] . '"', 'route-hash: "' . substr(hash('sha256', strval(json_encode($route))), 0, 17) . '"'],
+        ['route-hash: "' . substr(hash('sha256', strval(json_encode($route))), 0, 17) . '"', ''],
         [
+            ['defined-by-module', $route['module-name']],
             ['responds-to', implode(', ', $route['responds-to'])],
             ['named-positions', strval(json_encode($route['named-positions'], JSON_PRETTY_PRINT))],
             ['relative-path', $route['relative-path']],
