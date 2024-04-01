@@ -132,8 +132,8 @@ Note: If [localhost:8080](http://localhost:8080) does not open
 in a browser automatically, simply open a web browser
 and navigate to [localhost:8080](http://localhost:8080) manually.
 
-If everything is working then `Hello World` should be
-displayed in the browser.
+If everything is working then the new module's output, `Hello World`,
+should be displayed in the browser.
 
 # Additional Documentation
 
