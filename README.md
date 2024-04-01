@@ -183,7 +183,7 @@ rig --help view-action-log
 Delete the Route that is assigned the specified Route hash.
 
 Note: Route hashes are displayed in the table produced by
-`rig --list-routes`..
+`rig --list-routes`.
 
 Arguments:
 
