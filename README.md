@@ -132,8 +132,8 @@ Note: If [localhost:8080](http://localhost:8080) does not open
 in a browser automatically, simply open a web browser
 and navigate to [localhost:8080](http://localhost:8080) manually.
 
-If everything is working then the new module's output, `Hello World`,
-should be displayed in the browser.
+If everything is working then the new module's output,
+`Hello hello-world`, should be displayed in the browser.
 
 # Additional Documentation
 
@@ -431,7 +431,8 @@ rig --start-servers 80 8420 8017
 
 ### `rig --update-route`
 
-Update the Route that is assigned the specified Route hash.
+Update the Route that is assigned the specified Route hash using
+the specified criteria.
 
 Note: Route hashes are displayed in the table produced by
 `rig --list-routes`.
@@ -444,7 +445,25 @@ Arguments:
 
                             Defaults to current directory: ./
 
---route-hash                  The Id of the Route to update.
+--route-hash                The hash of the Route to update.
+
+--named-positions           A json string that represents an array
+                            of arrays of named positons.
+
+                            For example:
+
+                            '[["roady-ui-main-content",0]]'
+
+--path-to-roady-project     The path to the relevant Roady project's
+                            root directory.
+
+                            Defaults to current directory: ./
+
+--relative-path             The path to the file served by the Route,
+                            relative to the Module's root directory.
+
+--responds-to               The names of the Requests the Route will
+                            respond to.
 ```
 
 Examples:
