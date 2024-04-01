@@ -122,7 +122,7 @@ It will also create the following files:
 ```
 modules/hello-world/output/hello-world.html
 
-modules/hello-world/localhost:8080.json
+modules/hello-world/localhost.8080.json
 ```
 
 To use this Module, start a development server on `localhost:8080`
