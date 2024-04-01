@@ -193,7 +193,7 @@ Arguments:
 
                             Defaults to current directory: ./
 
---route-hash                  The Id of the Route to delete.
+--route-hash                The hash of the Route to delete.
 ```
 
 Examples:
