@@ -451,16 +451,46 @@ rig --start-servers 80 8420 8017
 
 ### `rig --update-route`
 
-Description...
+Update the Route defined by the specified Module for the specified
+Authority that serves the file at the specified Relative Path in
+response to the specified Requests.
 
 Arguments:
 
 ```
+--defined-for-authority     The Authority that the Route were
+                            defined for.
+
+--defined-for-module-name   The name of the Module that defines the
+                            Route.
+
+--defined-for-relative-path The path to the file served by the Route
+                            relative to the Module's root directory.
+
+--path-to-roady-project     The path to the relevant Roady project's
+                            root directory.
+
+                            Defaults to current directory: ./
+
+--that-respond-to           The names of the Requests the Routes
+                            respond to.
 ```
 
 Examples:
 
 ```sh
+rig --update-routes \
+--defined-for-authority "localhost:8080" \
+--defined-for-module-name "hello-world" \
+--defined-for-relative-path "output/hello-world.html" \
+--that-respond-to "homepage"
+
+rig --update-routes \
+--defined-for-authority "example.com" \
+--defined-for-module-name "hello-universe" \
+--defined-for-relative-path "output/hello-universe.html" \
+--path-to-roady-project "./" \
+--that-respond-to "hello-universe" "homepage"
 ```
 
 ### `rig --version`
