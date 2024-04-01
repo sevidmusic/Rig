@@ -31,3 +31,52 @@ table(
     ]
 );
 
+$routeJson = <<<'JSON'
+[
+    {
+        "module-name": "hello-world",
+        "responds-to": [
+            "homepage"
+        ],
+        "named-positions": [
+            {
+                "position-name": "roady-ui-main-content",
+                "position": 10
+            }
+        ],
+        "relative-path": "output\/hello-world.html"
+    },
+    {
+        "module-name": "hello-world",
+        "responds-to": [
+            "hello-universe",
+            "hello-world",
+            "homepage"
+        ],
+        "named-positions": [
+            {
+                "position-name": "roady-ui-header",
+                "position": 3
+            }
+        ],
+        "relative-path": "output\/header.html"
+    }
+]
+JSON;
+
+$decodedRouteJson = json_decode($routeJson, true);
+
+
+foreach ($decodedRouteJson as $route) {
+    echo "\033[38;5;0m\033[48;5;0m";
+    table(
+        ['Route Defined By: ' . $route['module-name'], 'route-hash: ' . substr(hash('sha256', strval(json_encode($route))), 0, 17)],
+        [
+            ['responds-to', implode(', ', $route['responds-to'])],
+            ['named-positions', strval(json_encode($route['named-positions']))],
+            ['relative-path', $route['relative-path']],
+        ]
+    );
+    echo "\033[38;5;0m";
+}
+
