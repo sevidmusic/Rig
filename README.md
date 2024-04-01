@@ -47,13 +47,13 @@ one of the following installation methods may be used:
 
 Via `composer`:
 
-```
+```sh
 composer require darling/rig
 ```
 
 Via `git`:
 
-```
+```sh
 git clone https://github.com/sevidmusic/rig
 ```
 
