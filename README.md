@@ -128,7 +128,7 @@ modules/hello-world/localhost:8080.json
 To use this Module, start a development server on `localhost:8080`
 via `rig --start-servers --open-in-browser`.
 
-Note: If [localhost:8080](localhost:8080) does not open
+Note: If [localhost:8080](http://localhost:8080) does not open
 in a browser automatically, simply open a web browser
 and navigate to [localhost:8080](http://localhost:8080) manually.
 
