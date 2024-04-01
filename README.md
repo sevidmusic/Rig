@@ -208,14 +208,6 @@ Arguments:
 
 --that-respond-to           The names of the Requests the Routes
                             respond to.
-
-                            Note: All Routes that serve the file
-                            at the specified Relative Path that
-                            respond to the specified Requests
-                            will be deleted even if they respond
-                            to additional Requests that were
-                            not specified.
-
 ```
 
 Examples:
