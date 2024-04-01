@@ -277,6 +277,41 @@ rig --list-routes \
     --defined-for-files "homepage.html" "global.css"
 ```
 
+The output of `rig --list-routes` will look something like:
+
+```sh
+ # Routes
+
+ ┌─────────────────────────────────┬───────────────────────────────────────────────────┐
+ │ route-hash: "8d11b6a72806450f2" │                                                   │
+ ├─────────────────────────────────┼───────────────────────────────────────────────────┤
+ │ defined-by-module               │ hello-world                                       │
+ │ responds-to                     │ homepage                                          │
+ │ named-positions                 │ [                                                 │
+ │                                 │     {                                             │
+ │                                 │         "position-name": "roady-ui-main-content", │
+ │                                 │         "position": 10                            │
+ │                                 │     }                                             │
+ │                                 │ ]                                                 │
+ │ relative-path                   │ output/hello-world.html                           │
+ └─────────────────────────────────┴───────────────────────────────────────────────────┘
+
+
+ ┌─────────────────────────────────┬─────────────────────────────────────────────┐
+ │ route-hash: "6591c3e1ed38ed5eb" │                                             │
+ ├─────────────────────────────────┼─────────────────────────────────────────────┤
+ │ defined-by-module               │ hello-world                                 │
+ │ responds-to                     │ hello-universe, hello-world, homepage       │
+ │ named-positions                 │ [                                           │
+ │                                 │     {                                       │
+ │                                 │         "position-name": "roady-ui-header", │
+ │                                 │         "position": 3                       │
+ │                                 │     }                                       │
+ │                                 │ ]                                           │
+ │ relative-path                   │ output/header.html                          │
+ └─────────────────────────────────┴─────────────────────────────────────────────┘
+```
+
 ### `rig --new-module`
 
 Create a new Module in the current Roady project's `modules`
