@@ -40,9 +40,9 @@ rreadlink() (
 pathToSetupScript=$(dirname -- "$(rreadlink "$0")")
 
 if [ $# -eq 1 ] && [ "$1" = "--force" ]; then
-	command ln -sf "$pathToSetupScript/bin/rig" ~/.local/bin/rig
+	command ln -sf "$pathToSetupScript/rig" ~/.local/bin/rig
 else
 	if [ ! -e ~/.local/bin/rig ]; then
-		command ln -s "$pathToSetupScript/bin/rig" ~/.local/bin/rig
+		command ln -s "$pathToSetupScript/rig" ~/.local/bin/rig
 	fi
 fi

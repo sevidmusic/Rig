@@ -2,10 +2,7 @@
 
 require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
-use function Laravel\Prompts\text;
 use function Laravel\Prompts\table;
-use function Laravel\Prompts\spin;
-use function Laravel\Prompts\info;
 
 $welcomeMessage = <<<'HEADER'
 
@@ -18,29 +15,19 @@ $welcomeMessage = <<<'HEADER'
 Welcome to rig, the command line utilitiy designed to aide in
 development with the Roady PHP framework.
 
+Note: rig is still being developed and is not yet ready for use
+in production.
+
 For help use: rig --help
 For help with a specific command use: rig --help command-name
 
 HEADER;
 
-$response = spin(
-    fn () => sleep(3),
-    $welcomeMessage,
-);
-
-info(
-    'Note: rig is still being developed. This file is just ' .
-    'a placeholder for now.'
-);
-
-$userInput = text(
-    'Enter some text:'
-);
-
 table(
-    ['You Entered', 'Date/Time'],
+    ['Rig Status'],
     [
-        [$userInput, date('l Y, F jS h:i:s A')],
+        [date('l Y, F jS h:i:s A')],
+        [$welcomeMessage],
     ]
 );
 
