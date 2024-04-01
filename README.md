@@ -500,4 +500,3 @@ Examples:
 rig --view-action-log
 ```
 
-
