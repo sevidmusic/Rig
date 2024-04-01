@@ -15,7 +15,7 @@
 - [Commands](#commands)
 
 - [--help](#rig---help)
-- [--delete-routes](#rig---delete-routes)
+- [--delete-route](#rig---delete-route)
 - [--list-routes](#rig---list-routes)
 - [--new-module](#rig---new-module)
 - [--new-route](#rig---new-route)
@@ -161,7 +161,7 @@ Examples:
 ```sh
 rig --help
 
-rig --help delete-routes
+rig --help delete-route
 
 rig --help list-routes
 
@@ -178,53 +178,30 @@ rig --help version
 rig --help view-action-log
 ```
 
-### `rig --delete-routes`
+### `rig --delete-route`
 
-Delete the Routes defined by the specified Module for a specified
-Authority that serve the file at the specified Relative Path in
-response to the specified Requests.
-
-Note: All of the Routes that match this criteria will be deleted.
+Delete the Route that is assigned the specified Id.
 
 Arguments:
 
 ```
---defined-for-authority     The Authority that the Routes were
-                            defined for.
-
---defined-for-module-name   The name of the Module that defines the
-                            Routes.
-
---defined-for-relative-path The path to the file served by the Routes
-                            relative to the Module's root directory.
-
-                            Note: The Routes to be deleted must serve
-                            the same file.
-
 --path-to-roady-project     The path to the relevant Roady project's
                             root directory.
 
                             Defaults to current directory: ./
 
---that-respond-to           The names of the Requests the Routes
-                            respond to.
+--route-id                  The Id of the Route to delete.
 ```
 
 Examples:
 
 ```sh
-rig --delete-routes \
---defined-for-authority "localhost:8080" \
---defined-for-module-name "hello-world" \
---defined-for-relative-path "output/hello-world.html" \
---that-respond-to "homepage"
+rig --delete-route \
+--route-id "U7ok0eYte87rfdhl2nbMtLghqSQxRQH2FdOBUvjRQG5U99rEfV7m9CNiNLRMd"
 
-rig --delete-routes \
---defined-for-authority "example.com" \
---defined-for-module-name "hello-universe" \
---defined-for-relative-path "output/hello-universe.html" \
+rig --delete-route \
 --path-to-roady-project "./" \
---that-respond-to "hello-universe" "homepage"
+--route-id "A10z0eyte89rfdhl7nbMtzgBqSQxRQH8FdOBUvjRQG9U10rEfV9m5CNiNLRMd"
 ```
 
 ### `rig --list-routes`
@@ -451,46 +428,28 @@ rig --start-servers 80 8420 8017
 
 ### `rig --update-route`
 
-Update the Route defined by the specified Module for the specified
-Authority that serves the file at the specified Relative Path in
-response to the specified Requests.
+Update the Route that is assigned the specified Id.
 
 Arguments:
 
 ```
---defined-for-authority     The Authority that the Route were
-                            defined for.
-
---defined-for-module-name   The name of the Module that defines the
-                            Route.
-
---defined-for-relative-path The path to the file served by the Route
-                            relative to the Module's root directory.
-
 --path-to-roady-project     The path to the relevant Roady project's
                             root directory.
 
                             Defaults to current directory: ./
 
---that-respond-to           The names of the Requests the Routes
-                            respond to.
+--route-id                  The Id of the Route to update.
 ```
 
 Examples:
 
 ```sh
-rig --update-routes \
---defined-for-authority "localhost:8080" \
---defined-for-module-name "hello-world" \
---defined-for-relative-path "output/hello-world.html" \
---that-respond-to "homepage"
+rig --update-route \
+--route-id "U7ok0eYte87rfdhl2nbMtLghqSQxRQH2FdOBUvjRQG5U99rEfV7m9CNiNLRMd"
 
-rig --update-routes \
---defined-for-authority "example.com" \
---defined-for-module-name "hello-universe" \
---defined-for-relative-path "output/hello-universe.html" \
+rig --update-route \
 --path-to-roady-project "./" \
---that-respond-to "hello-universe" "homepage"
+--route-id "A10z0eyte89rfdhl7nbMtzgBqSQxRQH8FdOBUvjRQG9U10rEfV9m5CNiNLRMd"
 ```
 
 ### `rig --version`
