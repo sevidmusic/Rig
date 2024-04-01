@@ -99,7 +99,7 @@ rreadlink() (
 			# the symlink target which is the only
 			# POSIX-compliant, albeit somewhat fragile,
 			# way.
-			# target=$(command ls -l "$fname")
+			target=$(command ls -l "$fname")
 			target=${target#* -> }
 			# Resolve [next] symlink target.
 			continue

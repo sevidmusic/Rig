@@ -26,7 +26,7 @@
 
 # About
 
-[rig](https://github.com/sevidmusic/rig) is a command line utiltiy
+[rig](https://github.com/sevidmusic/rig) is a command line utility
 designed to aide in development with the
 [Roady](https://github.com/sevidmusic/roady) php framework.
 
@@ -78,7 +78,7 @@ After manual installation, move into `rig`'s root directory and 'run:
 
 Note:
 
-`setup,sh` will not overwrite an existing `rig` symlink by default.
+`setup.sh` will not overwrite an existing `rig` symlink by default.
 
 To force `setup.sh` to overwrite an existing `rig` symlink use
 the `--force` flag:
@@ -132,8 +132,8 @@ Note: If [localhost:8080](http://localhost:8080) does not open
 in a browser automatically, simply open a web browser
 and navigate to [localhost:8080](http://localhost:8080) manually.
 
-If everything is working then the new module's output, `Hello World`,
-should be displayed in the browser.
+If everything is working then the new module's output,
+`Hello hello-world`, should be displayed in the browser.
 
 # Additional Documentation
 
@@ -180,7 +180,10 @@ rig --help view-action-log
 
 ### `rig --delete-route`
 
-Delete the Route that is assigned the specified Id.
+Delete the Route that is assigned the specified Route hash.
+
+Note: Route hashes are displayed in the table produced by
+`rig --list-routes`.
 
 Arguments:
 
@@ -190,18 +193,18 @@ Arguments:
 
                             Defaults to current directory: ./
 
---route-id                  The Id of the Route to delete.
+--route-hash                The hash of the Route to delete.
 ```
 
 Examples:
 
 ```sh
 rig --delete-route \
---route-id "U7ok0eYte87rfdhl2nbMtLghqSQxRQH2FdOBUvjRQG5U99rEfV7m9CNiNLRMd"
+--route-hash "U7ok0eYte87rfdhl2nbMtLghqSQxRQH2FdOBUvjRQG5U99rEfV7m9CNiNLRMd"
 
 rig --delete-route \
 --path-to-roady-project "./" \
---route-id "A10z0eyte89rfdhl7nbMtzgBqSQxRQH8FdOBUvjRQG9U10rEfV9m5CNiNLRMd"
+--route-hash "A10z0eyte89rfdhl7nbMtzgBqSQxRQH8FdOBUvjRQG9U10rEfV9m5CNiNLRMd"
 ```
 
 ### `rig --list-routes`
@@ -428,7 +431,11 @@ rig --start-servers 80 8420 8017
 
 ### `rig --update-route`
 
-Update the Route that is assigned the specified Id.
+Update the Route that is assigned the specified Route hash using
+the specified criteria.
+
+Note: Route hashes are displayed in the table produced by
+`rig --list-routes`.
 
 Arguments:
 
@@ -438,18 +445,36 @@ Arguments:
 
                             Defaults to current directory: ./
 
---route-id                  The Id of the Route to update.
+--route-hash                The hash of the Route to update.
+
+--named-positions           A json string that represents an array
+                            of arrays of named positons.
+
+                            For example:
+
+                            '[["roady-ui-main-content",0]]'
+
+--path-to-roady-project     The path to the relevant Roady project's
+                            root directory.
+
+                            Defaults to current directory: ./
+
+--relative-path             The path to the file served by the Route,
+                            relative to the Module's root directory.
+
+--responds-to               The names of the Requests the Route will
+                            respond to.
 ```
 
 Examples:
 
 ```sh
 rig --update-route \
---route-id "U7ok0eYte87rfdhl2nbMtLghqSQxRQH2FdOBUvjRQG5U99rEfV7m9CNiNLRMd"
+--route-hash "5fbe344812716ddad9986fd19496483c2b5fed2f9943e2f2fd180b86510c229d"
 
 rig --update-route \
 --path-to-roady-project "./" \
---route-id "A10z0eyte89rfdhl7nbMtzgBqSQxRQH8FdOBUvjRQG9U10rEfV9m5CNiNLRMd"
+--route-hash "cfd4c92f60d4ed75d3f9c0cee925dadfeac6957a05fa0d9dff35c9c7bceff48e"
 ```
 
 ### `rig --version`
