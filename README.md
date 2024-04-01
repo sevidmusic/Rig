@@ -184,8 +184,7 @@ Delete the Routes defined by the specified Module for a specified
 Authority that serve the file at the specified Relative Path in
 response to the specified Requests.
 
-Note: All of the Routes defined by the specified Module for the
-specified Authority that match this criteria will be deleted.
+Note: All of the Routes that match this criteria will be deleted.
 
 Arguments:
 
@@ -211,7 +210,7 @@ Arguments:
                             respond to.
 
                             Note: All Routes that serve the file
-                            at the specified --defined-for-relative-path that
+                            at the specified Relative Path that
                             respond to the specified Requests
                             will be deleted even if they respond
                             to additional Requests that were
@@ -465,11 +464,6 @@ Description...
 Arguments:
 
 ```
---path-to-roady-project     The path to the relevant Roady project's
-                            root directory.
-
-                            Defaults to current directory: ./
-
 ```
 
 Examples:
@@ -481,7 +475,7 @@ Examples:
 
 Display rig's version.
 
-If `rig` is not up to date, an warning message will be shown.
+Note: If `rig` is not up to date, an warning message will be shown.
 
 Examples:
 
