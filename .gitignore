@@ -1,3 +1,4 @@
 /vendor/
 .phpunit*
 vimfilelist
+composer.lock
