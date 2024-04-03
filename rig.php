@@ -38,7 +38,7 @@ $routeJson = <<<'JSON'
         ],
         "named-positions": [
             {
-                "position-name": "roady-ui-main-content",
+                "position-name": "roady-ui-footer",
                 "position": 10
             }
         ],

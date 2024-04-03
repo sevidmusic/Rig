@@ -57,16 +57,15 @@ Via `git`:
 git clone https://github.com/sevidmusic/rig
 ```
 
-# Post Manual Installation Steps
+### Post Manual Installation Steps
 
 Note: The post installation steps described in this
 section should only be taken if `rig` was installed
 manually via `composer require darling/rig` or
 `git clone https://github.com/sevidmusic/rig`.
 
-To make it easier to use a manually installed version
-of `rig`, it's good to create a symlink to `rig` in
-`~/.local/bin`.
+Creating a symlink to `rig` in `~/.local/bin` will make it easier to
+use a manually installed version of `rig`.
 
 `rig` provides a `setup.sh` script that will do just that.
 
@@ -111,7 +110,7 @@ rig --new-module \
 ```
 
 This will create a Module named `hello-world` in the current
-`Roady` projects `modules` directory.
+`Roady` project's `modules` directory.
 
 ```
 modules/hello-world
@@ -129,8 +128,8 @@ To use this Module, start a development server on `localhost:8080`
 via `rig --start-servers --open-in-browser`.
 
 Note: If [localhost:8080](http://localhost:8080) does not open
-in a browser automatically, simply open a web browser
-and navigate to [localhost:8080](http://localhost:8080) manually.
+in a browser automatically, then manually open a web browser
+and navigate to [localhost:8080](http://localhost:8080).
 
 If everything is working then the new module's output,
 `Hello hello-world`, should be displayed in the browser.
@@ -148,11 +147,11 @@ websites can be found in [Roady's](https://github.com/sevidmusic/roady)
 
 ### `rig --help`
 
-Display documentation for rig or one of `rig`'s commands.
+Display documentation for `rig`, or one of `rig`'s commands.
 
 Arguments:
 
-```sh
+```
 [COMMAND_NAME]
 ```
 
@@ -182,8 +181,7 @@ rig --help view-action-log
 
 Delete the Route that is assigned the specified Route hash.
 
-Note: Route hashes are displayed in the table produced by
-`rig --list-routes`.
+Note: Route hashes are displayed in the output of `rig --list-routes`.
 
 Arguments:
 
@@ -200,11 +198,11 @@ Examples:
 
 ```sh
 rig --delete-route \
---route-hash "U7ok0eYte87rfdhl2nbMtLghqSQxRQH2FdOBUvjRQG5U99rEfV7m9CNiNLRMd"
+--route-hash "016bbd46d3a3fc25c"
 
 rig --delete-route \
 --path-to-roady-project "./" \
---route-hash "A10z0eyte89rfdhl7nbMtzgBqSQxRQH8FdOBUvjRQG9U10rEfV9m5CNiNLRMd"
+--route-hash "6591c3e1ed38ed5eb"
 ```
 
 ### `rig --list-routes`
@@ -260,7 +258,7 @@ rig --list-routes --defined-for-requests "homepage" "global"
 
 rig --list-routes --defined-for-named-positions "roady-ui-header"
 
-rig --list-routes --defined-for-positionss "0" "3"
+rig --list-routes --defined-for-positions "0" "3"
 
 rig --list-routes --defined-for-files "homepage.html" "global.css"
 
@@ -273,7 +271,7 @@ rig --list-routes \
     --defined-for-modules "hello-world" "hello-universe" \
     --defined-for-requests "homepage" "global" \
     --defined-for-named-positions "roady-ui-header" \
-    --defined-for-positionss "0" "3" \
+    --defined-for-positions "0" "3" \
     --defined-for-files "homepage.html" "global.css"
 ```
 
@@ -282,14 +280,14 @@ The output of `rig --list-routes` will look something like:
 ```sh
   # Routes
 
- ┌───────────────────┬───────────────────────────────────────────────────────────┐
- │ route-hash:       │ 8d11b6a72806450f2                                         │
- ├───────────────────┼───────────────────────────────────────────────────────────┤
- │ defined-by-module │ hello-world                                               │
- │ responds-to       │ homepage                                                  │
- │ named-positions   │ [{"position-name":"roady-ui-main-content","position":10}] │
- │ relative-path     │ output/hello-world.html                                   │
- └───────────────────┴───────────────────────────────────────────────────────────┘
+ ┌───────────────────┬─────────────────────────────────────────────────────┐
+ │ route-hash:       │ 016bbd46d3a3fc25c                                   │
+ ├───────────────────┼─────────────────────────────────────────────────────┤
+ │ defined-by-module │ hello-world                                         │
+ │ responds-to       │ homepage                                            │
+ │ named-positions   │ [{"position-name":"roady-ui-footer","position":10}] │
+ │ relative-path     │ output/hello-world.html                             │
+ └───────────────────┴─────────────────────────────────────────────────────┘
 
 
  ┌───────────────────┬────────────────────────────────────────────────────┐
@@ -414,7 +412,7 @@ Arguments:
 
                             For example:
 
-                            '[["roady-ui-main-content",0]]'
+                            [{"position-name":"roady-ui-footer","position":10}]
 
 --path-to-roady-project     The path to the relevant Roady project's
                             root directory.
@@ -433,7 +431,7 @@ Examples:
 ```sh
 rig --new-route \
 --module-name "hello-world" \
---named-positions '[["roady-ui-header",0],["roady-ui-footer",2]]' \
+--named-positions '[{"position-name":"roady-ui-footer","position":10}]' \
 --relative-path "output/hello-world.html" \
 --responds-to "homepage" "hello-world"
 ```
@@ -442,16 +440,32 @@ rig --new-route \
 
 Start up one or more local servers on the specified ports.
 
-If a port is not specified start a local server on port `8080`.
+If no ports are specified then start a local server on port `8080`.
 
 The servers will be available at `localhost:PORT`, for example,
-`rig --start-server` would start a local server that would be
-accsessible at [localhost:8080](localhost:8080).
+`rig --start-server 8888` would start a local server that would be
+accsessible at [localhost:8888](http://localhost:8888).
+
+Arguments:
+
+```
+--ports           The ports to start servers on.
+
+--open-in-browser If specified, attempt to automatically open
+                  the running servers in a browser.
+```
 
 Examples:
 
 ```sh
-rig --start-servers 80 8420 8017
+# start server on localhost:8080
+rig --start-servers
+
+# start server on localhost:8888 and localhost:8017
+rig --start-servers --ports 8888 8017
+
+# start server on localhost:8420 and open it in a browser
+rig --start-servers --ports 8420 --open-in-browser
 ```
 
 ### `rig --update-route`
@@ -465,19 +479,15 @@ Note: Route hashes are displayed in the table produced by
 Arguments:
 
 ```
---path-to-roady-project     The path to the relevant Roady project's
-                            root directory.
-
-                            Defaults to current directory: ./
-
---route-hash                The hash of the Route to update.
+--module-name               The name of the Module the Route is
+                            defined for.
 
 --named-positions           A json string that represents an array
                             of arrays of named positons.
 
                             For example:
 
-                            '[["roady-ui-main-content",0]]'
+                            [{"position-name":"roady-ui-footer","position":10}]
 
 --path-to-roady-project     The path to the relevant Roady project's
                             root directory.
@@ -487,26 +497,27 @@ Arguments:
 --relative-path             The path to the file served by the Route,
                             relative to the Module's root directory.
 
---responds-to               The names of the Requests the Route will
-                            respond to.
+--responds-to               The names of the additional Requests
+                            the Route will respond to.
+
+--route-hash                The hash of the Route to update.
 ```
 
 Examples:
 
 ```sh
 rig --update-route \
---route-hash "5fbe344812716ddad9986fd19496483c2b5fed2f9943e2f2fd180b86510c229d"
-
-rig --update-route \
---path-to-roady-project "./" \
---route-hash "cfd4c92f60d4ed75d3f9c0cee925dadfeac6957a05fa0d9dff35c9c7bceff48e"
+--module-name "hello-world" \
+--named-positions '[{"position-name":"roady-ui-footer","position":10}]' \
+--relative-path "output/hello-world.html" \
+--responds-to "homepage" "hello-world"
 ```
 
 ### `rig --version`
 
 Display rig's version.
 
-Note: If `rig` is not up to date, an warning message will be shown.
+Note: If `rig` is not up to date, a warning message will be shown.
 
 Examples:
 
