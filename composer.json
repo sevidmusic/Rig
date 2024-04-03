@@ -21,10 +21,11 @@
         "phpstan/phpstan": "*"
     },
     "require": {
+        "composer-runtime-api": "^2.2",
         "darling/php-darling-dev-tools": "^1.0",
         "darling/php-file-system-paths": "^1.0",
-        "darling/php-unit-test-utilities": "^1.0",
         "darling/php-text-types": "^1.1",
+        "darling/php-unit-test-utilities": "^1.0",
         "laravel/prompts": "^0.1.16"
     },
     "bin": ["rig", "rig.php"]

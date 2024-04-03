@@ -1,9 +1,11 @@
 <?php
 
-require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+$_composer_autoload_path = $_composer_autoload_path ?? __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+
+require $_composer_autoload_path;
+
 
 use function Laravel\Prompts\intro;
-use function Laravel\Prompts\info;
 use function Laravel\Prompts\table;
 
 $welcomeMessage = date('l Y, F jS h:i:s A');
