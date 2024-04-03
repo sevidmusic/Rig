@@ -167,7 +167,7 @@ class Rig {
                 $actionEvent->dateTime()->format('Y-m-d H:i:s A')
             ];
         }
-        echo "\033[38;5;92m\033[48;5;0m";
+        echo "\033[38;5;33m\033[48;5;0m";
         table(
             ['Command', 'Status', 'Date/Time'],
             $commandStatusDateTime,
