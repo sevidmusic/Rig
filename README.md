@@ -147,7 +147,7 @@ websites can be found in [Roady's](https://github.com/sevidmusic/roady)
 
 ### `rig --help`
 
-Display documentation for rig or one of `rig`'s commands.
+Display documentation for `rig`, or one of `rig`'s commands.
 
 Arguments:
 
@@ -440,19 +440,32 @@ rig --new-route \
 
 Start up one or more local servers on the specified ports.
 
-If a port is not specified start a local server on port `8080`.
+If no ports are specified then start a local server on port `8080`.
 
 The servers will be available at `localhost:PORT`, for example,
 `rig --start-server 8888` would start a local server that would be
 accsessible at [localhost:8888](http://localhost:8888).
+
+Arguments:
+
+```
+--ports           The ports to start servers on.
+
+--open-in-browser If specified, attempt to automatically open
+                  the running servers in a browser.
+```
 
 Examples:
 
 ```sh
 # start server on localhost:8080
 rig --start-servers
+
 # start server on localhost:8888 and localhost:8017
-rig --start-servers 8888 8017
+rig --start-servers --ports 8888 8017
+
+# start server on localhost:8420 and open it in a browser
+rig --start-servers --ports 8420 --open-in-browser
 ```
 
 ### `rig --update-route`
@@ -466,8 +479,8 @@ Note: Route hashes are displayed in the table produced by
 Arguments:
 
 ```
---module-name               The name of the Module to define the new
-                            Route for.
+--module-name               The name of the Module the Route is
+                            defined for.
 
 --named-positions           A json string that represents an array
                             of arrays of named positons.
@@ -487,7 +500,7 @@ Arguments:
 --responds-to               The names of the additional Requests
                             the Route will respond to.
 
---route-hash                The hash of the Route to delete.
+--route-hash                The hash of the Route to update.
 ```
 
 Examples:
@@ -504,7 +517,7 @@ rig --update-route \
 
 Display rig's version.
 
-Note: If `rig` is not up to date, an warning message will be shown.
+Note: If `rig` is not up to date, a warning message will be shown.
 
 Examples:
 
