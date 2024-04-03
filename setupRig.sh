@@ -65,4 +65,7 @@ pathToRigSymLink=~/.local/bin/rig
 	command ln -s "${pathToRig}" "${pathToRigSymLink}" &&
 	msgAndExit "Created symlink to ${pathToRig} at ${pathToRigSymLink}"
 
-msgAndExit "Failed to create symlink to ${pathToRig} at ${pathToRigSymLink}!"
+msg "Failed to create symlink to ${pathToRig} at ${pathToRigSymLink}!"
+msg "This is most likely because ${pathToRigSymLink} already exists."
+msg "To force creation of a symlink to ${pathToRig} use the --force flag."
+msgAndExit "For example: setup.sh --force"

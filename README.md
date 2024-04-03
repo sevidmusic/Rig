@@ -34,66 +34,55 @@ designed to aide in development with the
 
 `rig` can be installed via one of the following installation methods:
 
-Via `composer`:
+### Install via `composer`:
 
 ```sh
 composer require darling/rig
 ```
 
-Note: If `rig` is installed via `composer`, then the `rig` and
-`rig.php` scripts will be placed in the root directory
-of the project that `composer require` was run for.
+Note: If `rig` is installed via `composer`, then the `rig`, `rig.php`,
+and `setupRig.sh` scripts will be available in `vendor/bin`.
 
-For example, if the project's directory contained the
-following files and directories before installing `rig`:
+Creating a symlink to `rig` in `~/.local/bin` will make it
+easier to use a version of `rig` that was installed via
+`composer require darling/rig`.
 
-```
-composer.json
-```
+`rig` provides a `setupRig.sh` script that will do just that.
 
-Then after running `composer require darling/rig` the project's
-directory will contain the following files and directories:
+After installing with `composer require darling/rig`,
+run the setup script in `vendor/bin`:
 
-```
-composer.json
-rig
-rig.php
-
+```sh
+./vendor/bin/setupRig.sh
 ```
 
-Via `git`:
+### Install via `git`:
 
 ```sh
 git clone https://github.com/sevidmusic/rig
 ```
 
-### Post `git clone` Installation Steps
-
-Note: The post installation steps described in this
-section should only be taken if `rig` was installed
-manually via `git clone https://github.com/sevidmusic/rig`.
-
 Creating a symlink to `rig` in `~/.local/bin` will make it easier to
 use a version of `rig` that was installed via `git clone`.
 
-`rig` provides a `setup.sh` script that will do just that.
+`rig` provides a `setupRig.sh` script that will do just that.
 
 After installing with `git clone`, move into `rig`'s root directory
 and 'run:
 
 ```sh
-./setup.sh
+./setupRig.sh
 ```
 
 Note:
 
-`setup.sh` will not overwrite an existing `rig` symlink by default.
+`setupRig.sh` will not overwrite an existing `rig` symlink by default.
 
-To force `setup.sh` to overwrite an existing `rig` symlink use
+To force `setupRig.sh` to overwrite an existing `rig` symlink use
 the `--force` flag:
 
 ```sh
-./setup.sh --force
+./setupRig.sh --force
 ```
 
 # Getting Started
