@@ -149,11 +149,11 @@ class Rig {
         }
         $log = [];
         foreach($command->actionEventLog()->actionEvents() as $actionEvent) {
-            $log[] = [$actionEvent->action()::class, $actionEvent->action()->status()->name, $actionEvent->dateTime()->format('H:i:s A')];
+            $log[] = [$actionEvent->action()::class, $actionEvent->action()->status()->name, $actionEvent->dateTime()->format('Y-m-d H:i:s A')];
         }
         echo "\033[38;5;0m\033[48;5;0m";
         table(
-            ['Command', 'Status', 'Time'],
+            ['Command', 'Status', 'Date/Time'],
             $log,
         );
         echo "\033[0m" . PHP_EOL;
@@ -180,7 +180,12 @@ intro($welcomeMessage);
 
 $rig = new Rig();
 
-$rig->run(new Command(new ActionEventLog(), new MessageLog()));
+$messageLog = new MessageLog();
+
+$messageLog->addMessage('Note: Rig is still being developed.');
+$messageLog->addMessage('Some commands may not work yet.');
+
+$rig->run(new Command(new ActionEventLog(), $messageLog));
 
 
 
