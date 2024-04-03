@@ -28,5 +28,5 @@
         "darling/php-unit-test-utilities": "^1.0",
         "laravel/prompts": "^0.1.16"
     },
-    "bin": ["rig", "rig.php", "setup.sh"]
+    "bin": ["rig", "rig.php", "setupRig.sh"]
 }
