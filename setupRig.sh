@@ -46,8 +46,8 @@ rreadlink() (
 	fi
 )
 
-pathToSetupScript=$(dirname -- "$(rreadlink "$0")")
-pathToRig="$pathToSetupScript/rig"
+pathToSetupRigScript=$(dirname -- "$(rreadlink "$0")")
+pathToRig="$pathToSetupRigScript/rig"
 pathToRigSymLink=~/.local/bin/rig
 
 [ -f "${pathToRigSymLink}" ] &&
