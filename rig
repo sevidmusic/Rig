@@ -124,8 +124,13 @@ rreadlink() (
 	fi
 )
 
-rigBinPath=$(dirname -- "$(rreadlink "$0")")
+if [ -z "$COMPOSER_RUNTIME_BIN_DIR" ]; then
+	rigBinPath=$(dirname -- "$(rreadlink "$0")")
+else
+	rigBinPath="$COMPOSER_RUNTIME_BIN_DIR"
+fi
 
-[ -z "$(command -v php)" ] && logErrorMsgAndExit1 "php is not available!"
+[ -z "$(command -v php)" ] &&
+	logErrorMsgAndExit1 "php is not available!"
 
 "$(command -v php)" "${rigBinPath}/rig.php" "$@"
