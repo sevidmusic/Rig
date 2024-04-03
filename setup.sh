@@ -1,5 +1,14 @@
 #!/usr/bin/env sh
 
+msg() {
+	printf '%b%s%b' "\n\n\e[0m\e[105m\e[30m" "$1" "\e[0m\n\n"
+}
+
+msgAndExit() {
+	msg "$1"
+	exit 1
+}
+
 rreadlink() (
 
 	target=$1 fname='' targetDir='' CDPATH=''
@@ -38,10 +47,17 @@ rreadlink() (
 )
 
 pathToSetupScript=$(dirname -- "$(rreadlink "$0")")
+pathToRig="$pathToSetupScript/rig"
+pathToRigSymLink=~/.local/bin/rig
 
-[ -f ~/.local/bin/rig ] &&
-	[ $# -eq 1 ] && [ "$1" = "--force" ] &&
-	command rm ~/.local/bin/rig
+[ -f "${pathToRigSymLink}" ] &&
+	[ $# -eq 1 ] &&
+	[ "$1" = "--force" ] &&
+	command ln -sf "${pathToRig}" "${pathToRigSymLink}" &&
+	msgAndExit "Forced creation of symlink to ${pathToRig} at ${pathToRigSymLink}"
 
-[ ! -f ~/.local/bin/rig ] &&
-	command ln -s "$pathToSetupScript/rig" ~/.local/bin/rig
+[ ! -f "${pathToRigSymLink}" ] &&
+	command ln -s "${pathToRig}" "${pathToRigSymLink}" &&
+	msgAndExit "Created symlink to ${pathToRig} at ${pathToRigSymLink}"
+
+msgAndExit "Failed to create symlink to ${pathToRig} at ${pathToRigSymLink}!"
