@@ -144,20 +144,37 @@ class Rig {
 
     public function run(Command $command): void {
         $command->execute();
+        $this->displayMessages($command);
+        $this->displayActionEventLog($command);
+    }
+
+    private function displayMessages(Command $command): void
+    {
         foreach ($command->messageLog()->messages() as $message) {
+            echo "\033[38;5;0m\033[48;5;0m";
             info($message);
+            echo "\033[0m" . PHP_EOL;
         }
-        $log = [];
+    }
+
+    private function displayActionEventLog(Command $command): void
+    {
+        $commandStatusDateTime = [];
         foreach($command->actionEventLog()->actionEvents() as $actionEvent) {
-            $log[] = [$actionEvent->action()::class, $actionEvent->action()->status()->name, $actionEvent->dateTime()->format('Y-m-d H:i:s A')];
+            $commandStatusDateTime[] = [
+                $actionEvent->action()::class,
+                $actionEvent->action()->status()->name,
+                $actionEvent->dateTime()->format('Y-m-d H:i:s A')
+            ];
         }
-        echo "\033[38;5;0m\033[48;5;0m";
+        echo "\033[38;5;92m\033[48;5;0m";
         table(
             ['Command', 'Status', 'Date/Time'],
-            $log,
+            $commandStatusDateTime,
         );
         echo "\033[0m" . PHP_EOL;
     }
+
 }
 
 $welcomeMessage = date('l Y, F jS h:i:s A');
