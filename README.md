@@ -128,8 +128,8 @@ To use this Module, start a development server on `localhost:8080`
 via `rig --start-servers --open-in-browser`.
 
 Note: If [localhost:8080](http://localhost:8080) does not open
-in a browser automatically, simply open a web browser
-and navigate to [localhost:8080](http://localhost:8080) manually.
+in a browser automatically, then manually open a web browser
+and navigate to [localhost:8080](http://localhost:8080).
 
 If everything is working then the new module's output,
 `Hello hello-world`, should be displayed in the browser.
@@ -151,7 +151,7 @@ Display documentation for rig or one of `rig`'s commands.
 
 Arguments:
 
-```sh
+```
 [COMMAND_NAME]
 ```
 
@@ -444,7 +444,7 @@ If a port is not specified start a local server on port `8080`.
 
 The servers will be available at `localhost:PORT`, for example,
 `rig --start-server 8888` would start a local server that would be
-accsessible at [localhost:8888](localhost:8888).
+accsessible at [localhost:8888](http://localhost:8888).
 
 Examples:
 
