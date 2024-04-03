@@ -27,9 +27,5 @@
         "darling/php-text-types": "^1.1",
         "laravel/prompts": "^0.1.16"
     },
-
-    "bin": ["rig", "rig.php"],
-    "config": {
-        "bin-dir": "./"
-    }
+    "bin": ["rig", "rig.php"]
 }
