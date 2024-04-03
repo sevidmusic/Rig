@@ -50,7 +50,7 @@ class Action
 
     public function do(): Action
     {
-        $this->messageLog->addMessage('Perfomred action');
+        $this->messageLog->addMessage('Perfomred action: ' . $this::class);
         $this->actionStatus = (rand(0, 1) ? ActionStatus::SUCCEEDED : ActionStatus::FAILED);
         return $this;
     }
@@ -67,35 +67,35 @@ class Action
 
 }
 
-class Event
+class ActionEvent
 {
-    public function __construct(private Action $action, private DateTime $dateTime) {}
+    public function __construct(private Action $action, private DateTimeImmutable $dateTime) {}
 
     public function action(): Action
     {
         return $this->action;
     }
 
-    public function dateTime(): DateTime
+    public function dateTime(): DateTimeImmutable
     {
         return $this->dateTime;
     }
 
 }
 
-class EventLog
+class ActionEventLog
 {
-    /** @var array<int, Event> $events */
-    private $events = [];
+    /** @var array<int, ActionEvent> $actionEvents */
+    private $actionEvents = [];
 
-    /** @return array<int, Event> $events */
-    public function events(): array {
-        return $this->events;
+    /** @return array<int, ActionEvent> $actionEvents */
+    public function actionEvents(): array {
+        return $this->actionEvents;
     }
 
-    public function addEvent(Event $event) : void
+    public function addActionEvent(ActionEvent $event) : void
     {
-        $this->events[] = $event;
+        $this->actionEvents[] = $event;
     }
 
 }
@@ -105,8 +105,13 @@ class Command
     /** @var array<int, Action> $actions */
     private array $actions = [];
 
-    public function __construct(private MessageLog $messageLog)
+    public function __construct(private ActionEventLog $actionEventLog, private MessageLog $messageLog)
     {
+        $this->actions[] = new Action($this->messageLog);
+        $this->actions[] = new Action($this->messageLog);
+        $this->actions[] = new Action($this->messageLog);
+        $this->actions[] = new Action($this->messageLog);
+        $this->actions[] = new Action($this->messageLog);
         $this->actions[] = new Action($this->messageLog);
     }
 
@@ -119,6 +124,8 @@ class Command
     public function execute(): void {
         foreach($this->actions() as $action) {
             $action->do();
+            $event = new ActionEvent($action, new DateTimeImmutable('now'));
+            $this->actionEventLog->addActionEvent($event);
         }
     }
 
@@ -127,6 +134,10 @@ class Command
         return $this->messageLog;
     }
 
+    public function actionEventLog(): ActionEventLog
+    {
+        return $this->actionEventLog;
+    }
 }
 
 class Rig {
@@ -136,15 +147,19 @@ class Rig {
         foreach ($command->messageLog()->messages() as $message) {
             info($message);
         }
+        $log = [];
+        foreach($command->actionEventLog()->actionEvents() as $actionEvent) {
+            $log[] = [$actionEvent->action()::class, $actionEvent->action()->status()->name, $actionEvent->dateTime()->format('H:i:s A')];
+        }
+        echo "\033[38;5;0m\033[48;5;0m";
+        table(
+            ['Command', 'Status', 'Time'],
+            $log,
+        );
+        echo "\033[0m" . PHP_EOL;
     }
 }
 
-
-$rig = new Rig();
-
-$rig->run(new Command(new MessageLog()));
-
-/*
 $welcomeMessage = date('l Y, F jS h:i:s A');
 
 $welcomeMessage .= <<<'HEADER'
@@ -155,12 +170,6 @@ $welcomeMessage .= <<<'HEADER'
 /_/ /_/\_, /
       /___/
 
-Welcome to rig, the command line utilitiy designed to aide in
-development with the Roady PHP framework.
-
-Note: rig is still being developed and is not yet ready for use
-in production.
-
 For help use: rig --help
 For help with a specific command use: rig --help command-name
 
@@ -168,6 +177,42 @@ HEADER;
 
 intro($welcomeMessage);
 
+
+$rig = new Rig();
+
+$rig->run(new Command(new ActionEventLog(), new MessageLog()));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/***
 $routeJson = <<<'JSON'
 [
     {
