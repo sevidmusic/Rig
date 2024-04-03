@@ -6,8 +6,145 @@ require $_composer_autoload_path;
 
 
 use function Laravel\Prompts\intro;
+use function Laravel\Prompts\info;
 use function Laravel\Prompts\table;
 
+
+enum ActionStatus
+{
+
+    case NOT_PROCESSED;
+    case SUCCEEDED;
+    case FAILED;
+
+}
+
+class MessageLog
+{
+
+    /** @var array<int, string> $messages */
+    private array $messages = [];
+
+    /**
+     * Return the array of messages.
+     *
+     * @return array<int, string>
+     *
+     */
+    public function messages(): array
+    {
+        return $this->messages;
+    }
+
+    public function addMessage(string $message): void
+    {
+        $this->messages[] = $message;
+    }
+}
+
+class Action
+{
+    private ActionStatus $actionStatus = ActionStatus::NOT_PROCESSED;
+
+    public function __construct(private MessageLog $messageLog) { }
+
+    public function do(): Action
+    {
+        $this->messageLog->addMessage('Perfomred action');
+        $this->actionStatus = (rand(0, 1) ? ActionStatus::SUCCEEDED : ActionStatus::FAILED);
+        return $this;
+    }
+
+    public function status(): ActionStatus
+    {
+        return $this->actionStatus;
+    }
+
+    public function messageLog(): MessageLog
+    {
+        return $this->messageLog;
+    }
+
+}
+
+class Event
+{
+    public function __construct(private Action $action, private DateTime $dateTime) {}
+
+    public function action(): Action
+    {
+        return $this->action;
+    }
+
+    public function dateTime(): DateTime
+    {
+        return $this->dateTime;
+    }
+
+}
+
+class EventLog
+{
+    /** @var array<int, Event> $events */
+    private $events = [];
+
+    /** @return array<int, Event> $events */
+    public function events(): array {
+        return $this->events;
+    }
+
+    public function addEvent(Event $event) : void
+    {
+        $this->events[] = $event;
+    }
+
+}
+
+class Command
+{
+    /** @var array<int, Action> $actions */
+    private array $actions = [];
+
+    public function __construct(private MessageLog $messageLog)
+    {
+        $this->actions[] = new Action($this->messageLog);
+    }
+
+    /** @return array<int, Action> $actions */
+    public function actions(): array
+    {
+        return $this->actions;
+    }
+
+    public function execute(): void {
+        foreach($this->actions() as $action) {
+            $action->do();
+        }
+    }
+
+    public function messageLog(): MessageLog
+    {
+        return $this->messageLog;
+    }
+
+}
+
+class Rig {
+
+    public function run(Command $command): void {
+        $command->execute();
+        foreach ($command->messageLog()->messages() as $message) {
+            info($message);
+        }
+    }
+}
+
+
+$rig = new Rig();
+
+$rig->run(new Command(new MessageLog()));
+
+/*
 $welcomeMessage = date('l Y, F jS h:i:s A');
 
 $welcomeMessage .= <<<'HEADER'
@@ -81,4 +218,4 @@ foreach ($decodedRouteJson as $route) {
     );
     echo "\033[38;5;0m" . PHP_EOL;
 }
-
+*/
