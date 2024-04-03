@@ -32,23 +32,33 @@ designed to aide in development with the
 
 # Installation
 
-It is not necessary to manually install `rig` if `Roady`
-is installed.
-
-`rig` is a dependency of `Roady` and will be
-installed via `composer` when `Roady` is installed
-via `composer require darling/roady`.
-
-It is best to use the version of `rig` that was installed with the
-version of `Roady` being used.
-
-For niche use cases that require `rig` be installed independently,
-one of the following installation methods may be used:
+`rig` can be installed via one of the following installation methods:
 
 Via `composer`:
 
 ```sh
 composer require darling/rig
+```
+
+Note: If `rig` is installed via `composer`, then the `rig` and
+`rig.php` scripts will be placed in the root directory
+of the project that `composer require` was run for.
+
+For example, if the project's directory contained the
+following files and directories before installing `rig`:
+
+```
+composer.json
+```
+
+Then after running `composer require darling/rig` the project's
+directory will contain the following files and directories:
+
+```
+composer.json
+rig
+rig.php
+
 ```
 
 Via `git`:
@@ -57,19 +67,19 @@ Via `git`:
 git clone https://github.com/sevidmusic/rig
 ```
 
-### Post Manual Installation Steps
+### Post `git clone` Installation Steps
 
 Note: The post installation steps described in this
 section should only be taken if `rig` was installed
-manually via `composer require darling/rig` or
-`git clone https://github.com/sevidmusic/rig`.
+manually via `git clone https://github.com/sevidmusic/rig`.
 
 Creating a symlink to `rig` in `~/.local/bin` will make it easier to
-use a manually installed version of `rig`.
+use a version of `rig` that was installed via `git clone`.
 
 `rig` provides a `setup.sh` script that will do just that.
 
-After manual installation, move into `rig`'s root directory and 'run:
+After installing with `git clone`, move into `rig`'s root directory
+and 'run:
 
 ```sh
 ./setup.sh
