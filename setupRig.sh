@@ -46,7 +46,12 @@ rreadlink() (
 	fi
 )
 
-pathToSetupRigScript=$(dirname -- "$(rreadlink "$0")")
+if [ -z "$COMPOSER_RUNTIME_BIN_DIR" ]; then
+	pathToSetupRigScript=$(dirname -- "$(rreadlink "$0")")
+else
+	pathToSetupRigScript="$COMPOSER_RUNTIME_BIN_DIR"
+fi
+
 pathToRig="$pathToSetupRigScript/rig"
 pathToRigSymLink=~/.local/bin/rig
 
