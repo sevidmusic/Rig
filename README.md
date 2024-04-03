@@ -110,7 +110,7 @@ rig --new-module \
 ```
 
 This will create a Module named `hello-world` in the current
-`Roady` projects `modules` directory.
+`Roady` project's `modules` directory.
 
 ```
 modules/hello-world
