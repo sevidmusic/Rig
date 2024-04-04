@@ -105,8 +105,10 @@ class Command
     /** @var array<int, Action> $actions */
     private array $actions = [];
 
-    public function __construct(private ActionEventLog $actionEventLog, private MessageLog $messageLog)
-    {
+    public function __construct(
+        private ActionEventLog $actionEventLog,
+        private MessageLog $messageLog
+    ) {
         $this->actions[] = new Action($this->messageLog);
         $this->actions[] = new Action($this->messageLog);
         $this->actions[] = new Action($this->messageLog);
@@ -123,9 +125,15 @@ class Command
 
     public function execute(): void {
         foreach($this->actions() as $action) {
-            $action->do();
-            $event = new ActionEvent($action, new DateTimeImmutable('now'));
-            $this->actionEventLog->addActionEvent($event);
+        $this->messageLog()->addMessage(
+                'Executing action: ' . $action::class
+            );
+            $this->actionEventLog->addActionEvent(
+                new ActionEvent(
+                    $action->do(),
+                    new DateTimeImmutable('now')
+                )
+            );
         }
     }
 
