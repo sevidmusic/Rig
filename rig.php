@@ -153,8 +153,9 @@ class Rig {
 
     private Command|null $lastCommandRun = null;
 
-    public function run(Command $command): void {
+    public function run(Command $command): Rig {
         $this->setLastCommandRun($command->execute());
+        return $this;
     }
 
     private function setLastCommandRun(Command $command): void
@@ -202,41 +203,42 @@ class RigCLUI {
         }
     }
 
+    private function displayHeader(): void
+    {
+        $welcomeMessage = date('l Y, F jS h:i:s A');
+        $welcomeMessage .= <<<'HEADER'
+               _
+          ____(_)__ _
+         / __/ / _ `/
+        /_/ /_/\_, /
+              /___/
+
+        For help use: rig --help
+        For help with a specific command use: rig --help command-name
+
+        HEADER;
+        intro($welcomeMessage);
+
+    }
+
     public function render(): void
     {
+        $this->displayHeader();
         $this->displayMessages();
         $this->displayActionEventLog();
     }
 
 }
 
-$welcomeMessage = date('l Y, F jS h:i:s A');
-
-$welcomeMessage .= <<<'HEADER'
-
-       _
-  ____(_)__ _
- / __/ / _ `/
-/_/ /_/\_, /
-      /___/
-
-For help use: rig --help
-For help with a specific command use: rig --help command-name
-
-HEADER;
-
-intro($welcomeMessage);
-
-
 $rig = new Rig();
 
-$rigCLUI = new RigCLUI($rig);
-
-$messageLog = new MessageLog();
-
-$messageLog->addMessage('Note: Rig is still being developed.');
-$messageLog->addMessage('Some commands may not work yet.');
-
-$rig->run(new Command(new ActionEventLog(), $messageLog));
+$rigCLUI = new RigCLUI(
+    $rig->run(
+        new Command(
+            new ActionEventLog(),
+            new MessageLog()
+        )
+    )
+);
 
 $rigCLUI->render();
