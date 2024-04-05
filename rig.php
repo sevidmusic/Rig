@@ -123,7 +123,7 @@ class Command
         return $this->actions;
     }
 
-    public function execute(): void {
+    public function execute(): Command {
         foreach($this->actions() as $action) {
         $this->messageLog()->addMessage(
                 'Executing action: ' . $action::class
@@ -135,6 +135,7 @@ class Command
                 )
             );
         }
+        return $this;
     }
 
     public function messageLog(): MessageLog
@@ -150,37 +151,61 @@ class Command
 
 class Rig {
 
+    private Command|null $lastCommandRun = null;
+
     public function run(Command $command): void {
-        $command->execute();
-        $this->displayMessages($command);
-        $this->displayActionEventLog($command);
+        $this->setLastCommandRun($command->execute());
     }
 
-    private function displayMessages(Command $command): void
+    private function setLastCommandRun(Command $command): void
     {
-        foreach ($command->messageLog()->messages() as $message) {
-            echo "\033[38;5;0m\033[48;5;0m";
-            info($message);
-            echo "\033[0m" . PHP_EOL;
+        $this->lastCommandRun = $command;
+    }
+
+    public function lastCommandRun(): Command|null
+    {
+        return $this->lastCommandRun;
+    }
+
+}
+
+class RigCLUI {
+
+    public function __construct(private Rig $rig) {}
+
+    private function displayMessages(): void
+    {
+        $command = $this->rig->lastCommandRun();
+        if(!is_null($command)) {
+            foreach ($command->messageLog()->messages() as $message) {
+                info($message);
+            }
         }
     }
 
-    private function displayActionEventLog(Command $command): void
+    private function displayActionEventLog(): void
     {
+        $command = $this->rig->lastCommandRun();
         $commandStatusDateTime = [];
-        foreach($command->actionEventLog()->actionEvents() as $actionEvent) {
-            $commandStatusDateTime[] = [
-                $actionEvent->action()::class,
-                $actionEvent->action()->status()->name,
-                $actionEvent->dateTime()->format('Y-m-d H:i:s A')
-            ];
+        if(!is_null($command)) {
+            foreach($command->actionEventLog()->actionEvents() as $actionEvent) {
+                $commandStatusDateTime[] = [
+                    $actionEvent->action()::class,
+                    $actionEvent->action()->status()->name,
+                    $actionEvent->dateTime()->format('Y-m-d H:i:s A')
+                ];
+            }
+            table(
+                ['Command', 'Status', 'Date/Time'],
+                $commandStatusDateTime,
+            );
         }
-        echo "\033[38;5;33m\033[48;5;0m";
-        table(
-            ['Command', 'Status', 'Date/Time'],
-            $commandStatusDateTime,
-        );
-        echo "\033[0m" . PHP_EOL;
+    }
+
+    public function render(): void
+    {
+        $this->displayMessages();
+        $this->displayActionEventLog();
     }
 
 }
@@ -205,6 +230,8 @@ intro($welcomeMessage);
 
 $rig = new Rig();
 
+$rigCLUI = new RigCLUI($rig);
+
 $messageLog = new MessageLog();
 
 $messageLog->addMessage('Note: Rig is still being developed.');
@@ -212,3 +239,4 @@ $messageLog->addMessage('Some commands may not work yet.');
 
 $rig->run(new Command(new ActionEventLog(), $messageLog));
 
+$rigCLUI->render();
