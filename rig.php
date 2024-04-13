@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 $_composer_autoload_path = $_composer_autoload_path ?? __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
 require $_composer_autoload_path;
@@ -45,14 +47,14 @@ class MessageLog
 
 class Action
 {
-    private ActionStatus $actionStatus = ActionStatus::NOT_PROCESSED;
+    protected ActionStatus $actionStatus = ActionStatus::NOT_PROCESSED;
 
     public function __construct(private MessageLog $messageLog) { }
 
     public function do(): Action
     {
         $this->messageLog->addMessage('Perfomred action: ' . $this::class);
-        $this->actionStatus = (rand(0, 1) ? ActionStatus::SUCCEEDED : ActionStatus::FAILED);
+        $this->actionStatus = ActionStatus::SUCCEEDED;
         return $this;
     }
 
@@ -141,7 +143,7 @@ class Command
     }
 }
 
-class Rig {
+final class Rig {
 
     private Command|null $lastCommandRun = null;
 
@@ -223,11 +225,38 @@ class RigCLUI {
 }
 
 # ACTIONS #
+
+class GenerateBriefHelpMessage extends Action
+{
+    public function do(): GenerateBriefHelpMessage
+    {
+        $briefHelpMessage = <<<'BRIEFHELPMESSAGE'
+
+        The following commands are provided by rig:
+
+        rig --help
+        rig --delete-route
+        rig --list-routes
+        rig --new-module
+        rig --new-route
+        rig --start-servers
+        rig --update-route
+        rig --version
+        rig --view-action-log
+
+        BRIEFHELPMESSAGE;
+        $this->messageLog()->addMessage($briefHelpMessage);
+        $this->actionStatus = ActionStatus::SUCCEEDED;
+        return $this;
+    }
+}
+
 class ReadReadme extends Action
 {
     public function do(): ReadReadme
     {
         $this->messageLog()->addMessage(strval(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'README.md')));
+        $this->actionStatus = ActionStatus::SUCCEEDED;
         return $this;
     }
 }
@@ -236,11 +265,24 @@ class DetermineVersion extends Action
 {
     public function do(): DetermineVersion
     {
+        $this->messageLog()->addMessage('rig version 2.0.0-alpha-9');
+        $this->actionStatus = ActionStatus::SUCCEEDED;
         return $this;
     }
 }
 
 # COMMANDS #
+
+class BriefHelpCommand extends Command
+{
+
+    /** @return array<int, Action> $actions */
+    public function actions(): array
+    {
+        return [new GenerateBriefHelpMessage($this->messageLog())];
+    }
+}
+
 class HelpCommand extends Command
 {
 
@@ -265,17 +307,86 @@ class ArgumentParser
     /** @return array<string, string> */
     public function getArguments(): array
     {
+        #var_dump(getopt('h::v::', ['help::', 'version::']));
         return [];
+    }
+
+    private function determineNameOfCommandToRun(): string
+    {
+        $commandNameSpecifiedInArgv = (
+            isset($GLOBALS['argv'])
+                && is_array($GLOBALS['argv'])
+                && isset($GLOBALS['argv'][1])
+                && is_string($GLOBALS['argv'][1])
+            ? $GLOBALS['argv'][1]
+            : null
+        );
+        $commandNameSpecifiedInPost = (
+            isset($_POST['rig'])
+                && is_array($_POST['rig'])
+                && isset($_POST['rig'][0])
+                && is_string($_POST['rig'][0])
+            ? $_POST['rig'][0]
+            : null
+        );
+        $commandNameSpecifiedInGet = (
+            isset($_GET['rig'])
+                && is_array($_GET['rig'])
+                && isset($_GET['rig'][0])
+                && is_string($_GET['rig'][0])
+            ? $_GET['rig'][0]
+            : null
+        );
+        $specifiedCommandName = (
+            is_string($commandNameSpecifiedInArgv)
+            ? $commandNameSpecifiedInArgv
+            : (
+                is_string($commandNameSpecifiedInPost)
+                ? $commandNameSpecifiedInPost
+                : (
+                    is_string($commandNameSpecifiedInGet)
+                    ? $commandNameSpecifiedInGet
+                    : '--briefhelp'
+                )
+            )
+        );
+        return (
+            ucfirst(
+                str_replace(
+                    '--',
+                    '',
+                    $specifiedCommandName,
+                )
+            ) . 'Command'
+        );
     }
 
     public function commandToRun(): Command
     {
-        #var_dump(getopt('h::v::', ['help::', 'version::']));
-        $argv = (isset($GLOBALS['argv']) && is_array($GLOBALS['argv']) ? $GLOBALS['argv'] : []);
-        $commandName = (ucfirst(str_replace('--', '', ($argv[1] ?? '--help-should-be-default'))) . 'Command');
-        $commandClassString = new ClassString($commandName);
-        $extendsClasses = class_parents($commandClassString->__toString());
-        if(in_array(Command::class, (is_array($extendsClasses) ? $extendsClasses : []), true))
+        $commandName = $this->determineNameOfCommandToRun();
+        /*
+         * @todo:
+         * You will need to prefix the $commandName with the
+         * appropriate namespace, for example:
+         *
+         * new ClassString(
+         *     '\\Darling\\Rig\\classes\\commands' . $commandName
+         * );
+         *
+         */
+        $commandToRunClassString = new ClassString($commandName);
+        $extendsClasses = class_parents(
+            $commandToRunClassString->__toString()
+        );
+        if(
+            is_array($extendsClasses)
+            &&
+            in_array(
+                Command::class,
+                $extendsClasses,
+                true
+            )
+        )
         {
             /** @var Command $commandName */
             return new $commandName(
