@@ -8,7 +8,7 @@ require $_composer_autoload_path;
 use function Laravel\Prompts\intro;
 use function Laravel\Prompts\info;
 use function Laravel\Prompts\table;
-
+use \Darling\PHPTextTypes\classes\strings\ClassString;
 
 enum ActionStatus
 {
@@ -19,6 +19,7 @@ enum ActionStatus
 
 }
 
+# BASE CLASSES #
 class MessageLog
 {
 
@@ -55,7 +56,7 @@ class Action
         return $this;
     }
 
-    public function status(): ActionStatus
+    public function actionStatus(): ActionStatus
     {
         return $this->actionStatus;
     }
@@ -102,25 +103,16 @@ class ActionEventLog
 
 class Command
 {
-    /** @var array<int, Action> $actions */
-    private array $actions = [];
 
     public function __construct(
         private ActionEventLog $actionEventLog,
         private MessageLog $messageLog
-    ) {
-        $this->actions[] = new Action($this->messageLog);
-        $this->actions[] = new Action($this->messageLog);
-        $this->actions[] = new Action($this->messageLog);
-        $this->actions[] = new Action($this->messageLog);
-        $this->actions[] = new Action($this->messageLog);
-        $this->actions[] = new Action($this->messageLog);
-    }
+    ) { }
 
     /** @return array<int, Action> $actions */
     public function actions(): array
     {
-        return $this->actions;
+        return [new Action($this->messageLog)];
     }
 
     public function execute(): Command {
@@ -192,7 +184,7 @@ class RigCLUI {
             foreach($command->actionEventLog()->actionEvents() as $actionEvent) {
                 $commandStatusDateTime[] = [
                     $actionEvent->action()::class,
-                    $actionEvent->action()->status()->name,
+                    $actionEvent->action()->actionStatus()->name,
                     $actionEvent->dateTime()->format('Y-m-d H:i:s A')
                 ];
             }
@@ -230,15 +222,80 @@ class RigCLUI {
 
 }
 
+# ACTIONS #
+class ReadReadme extends Action
+{
+    public function do(): ReadReadme
+    {
+        $this->messageLog()->addMessage(strval(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'README.md')));
+        return $this;
+    }
+}
+
+class DetermineVersion extends Action
+{
+    public function do(): DetermineVersion
+    {
+        return $this;
+    }
+}
+
+# COMMANDS #
+class HelpCommand extends Command
+{
+
+    /** @return array<int, Action> $actions */
+    public function actions(): array
+    {
+        return [new ReadReadme($this->messageLog())];
+    }
+}
+
+class VersionCommand extends Command
+{
+    /** @return array<int, Action> $actions */
+    public function actions(): array
+    {
+        return [new DetermineVersion($this->messageLog())];
+    }
+}
+
+class ArgumentParser
+{
+    /** @return array<string, string> */
+    public function getArguments(): array
+    {
+        return [];
+    }
+
+    public function commandToRun(): Command
+    {
+        #var_dump(getopt('h::v::', ['help::', 'version::']));
+        $argv = (isset($GLOBALS['argv']) && is_array($GLOBALS['argv']) ? $GLOBALS['argv'] : []);
+        $commandName = (ucfirst(str_replace('--', '', ($argv[1] ?? '--help-should-be-default'))) . 'Command');
+        $commandClassString = new ClassString($commandName);
+        $extendsClasses = class_parents($commandClassString->__toString());
+        if(in_array(Command::class, (is_array($extendsClasses) ? $extendsClasses : []), true))
+        {
+            /** @var Command $commandName */
+            return new $commandName(
+                new ActionEventLog(),
+                new MessageLog()
+            );
+        }
+        return new Command(
+                new ActionEventLog(),
+                new MessageLog()
+        );
+    }
+}
+
 $rig = new Rig();
 
+$argumentParser = new ArgumentParser();
+
 $rigCLUI = new RigCLUI(
-    $rig->run(
-        new Command(
-            new ActionEventLog(),
-            new MessageLog()
-        )
-    )
+    $rig->run($argumentParser->commandToRun())
 );
 
 $rigCLUI->render();
