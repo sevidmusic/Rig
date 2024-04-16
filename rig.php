@@ -502,12 +502,26 @@ class ArgumentParser
     /** @return array<string, string> */
     public function getArguments(): array
     {
-        #var_dump(getopt('h::v::', ['help::', 'version::']));
+        $shortOpts = 'h:v::';
+        $longOpts = [
+            'delete-route:',
+            'help:',
+            'list-routes::',
+            'new-module:',
+            'new-route:',
+            'start-servers:',
+            'update-route:',
+            'version::',
+            'view-action-log::',
+            'view-readme::',
+        ];
+        dump(getopt($shortOpts, $longOpts));
         return [];
     }
 
     private function determineNameOfCommandToRun(): string
     {
+        $arguments = $this->getArguments();
         $commandNameSpecifiedInArgv = (
             isset($GLOBALS['argv'])
                 && is_array($GLOBALS['argv'])
@@ -621,3 +635,4 @@ if(!isset($rigCLUIAlreadyRendered)) {
     $rigWebUI->render();
 
 }
+
