@@ -579,7 +579,10 @@ class ArgumentParser
     {
         return match(php_sapi_name()) {
             'cli' => $this->getCliArguments(),
-            default => [],
+            default => [
+                'get' => $_GET,
+                'post' => $_POST,
+            ],
 
         };
     }
@@ -587,7 +590,11 @@ class ArgumentParser
     private function determineNameOfCommandToRun(): string
     {
         $arguments = $this->getArguments();
-        dump($arguments);
+        dump(
+            [
+                'Arguments' => $arguments,
+            ]
+        );
         $commandNameSpecifiedInArgv = (
             isset($GLOBALS['argv'])
                 && is_array($GLOBALS['argv'])
