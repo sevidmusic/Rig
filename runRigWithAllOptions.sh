@@ -1,31 +1,30 @@
 #!/usr/bin/env sh
 
 rig \
-	--delete-route foo \
+	--delete-route \
 	--help foo \
-	--list-routes duif \
-	--new-module asdfhkj \
-	--new-route cgkjh \
-	--start-servers yfh \
-	--update-route kdfji \
-	--version sd9 \
-	--view-action-log askdjf90 \
-	--view-readme xidfu \
-	--authority dfuijo \
-	--defined-for-authorities 9dofij3 \
-	--defined-for-files kdifi99 \
-	--defined-for-modules 12378 \
-	--defined-for-named-positions 9f8gu \
-	--defined-for-positions zcv \
-	--defined-for-requests sdfkj \
-	--for-authority asdkfj9 \
-	--module-name sadfj \
-	--named-positions skdfj9 \
-	--no-boilerplate sdfkjio \
-	--open-in-browser asldf9 \
-	--path-to-roady-project ckfjiodu \
-	--port 0s9dr \
-	--ports 89sduioj \
-	--relative-path 9890f8 \
-	--responds-to kjdfgkjk \
-	--route-hash asdfasd
+	--list-routes \
+	--new-module \
+	--new-route \
+	--start-servers \
+	--update-route \
+	--version \
+	--view-action-log \
+	--view-readme \
+	--authority localhost:8080 \
+	--defined-for-authorities localhost:8080 \
+	--defined-for-files homepage.html \
+	--defined-for-modules HelloWorld \
+	--defined-for-named-positions roady-ui-main-content \
+	--defined-for-positions 2 \
+	--defined-for-requests Homepage \
+	--for-authority localhost:8080 \
+	--module-name HelloWorld \
+	--named-positions roady-ui-main-content \
+	--no-boilerplate \
+	--open-in-browser \
+	--path-to-roady-project ./ \
+	--ports 3494 \
+	--relative-path homepage.html \
+	--responds-to Home \
+	--route-hash 2340984
