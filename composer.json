@@ -26,7 +26,8 @@
         "darling/php-file-system-paths": "^1.0",
         "darling/php-text-types": "^1.1",
         "darling/php-unit-test-utilities": "^1.0",
-        "laravel/prompts": "^0.1.16"
+        "laravel/prompts": "^0.1.16",
+        "erusev/parsedown": "^1.7"
     },
     "bin": ["rig", "rig.php", "setupRig.sh"]
 }

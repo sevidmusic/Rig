@@ -5,6 +5,7 @@ declare(strict_types=1);
 $_composer_autoload_path = $_composer_autoload_path ?? __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
 require $_composer_autoload_path;
+require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'erusev' . DIRECTORY_SEPARATOR . 'parsedown' . DIRECTORY_SEPARATOR  . 'Parsedown.php';
 
 
 use function Laravel\Prompts\intro;
@@ -187,6 +188,40 @@ class RigWebUI {
 
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+            <style>
+
+                body {
+                    padding: 1svh 27svw;
+                    background: black;
+                    color: #87cefa;
+                }
+
+                .rig-web-ui-message {
+                    margin-bottom: 1rem;
+                    padding: 1rem;
+
+                    h1, h2, h3, h4, h5, h6 { color: white; }
+
+                    a { color: #FAB387; }
+
+                    ul {
+                        li {
+                            list-style-type: none;
+                            color: #95FA87;
+                        }
+                        br { display: none; }
+                    }
+
+                    code {
+                        color: #95FA87;
+                        background: #0c0c0c;
+                        padding: 0.3svh 0.7svw;
+                    }
+
+                }
+
+            </style>
+
         </head>
 
         <body>
@@ -213,7 +248,7 @@ class RigWebUI {
         $command = $this->rig->lastCommandRun();
         if(!is_null($command)) {
             foreach ($command->messageLog()->messages() as $message) {
-                echo '<div class="rig-web-ui-message" style="background: black; margin-bottom: 1rem; padding: 1rem; color: white;">';
+                echo '<div class="rig-web-ui-message">';
                 echo PHP_EOL;
                 $this->info($message);
                 echo PHP_EOL;
@@ -410,7 +445,12 @@ class ReadREADMEAction extends Action
 {
     public function do(): ReadREADMEAction
     {
-        $this->messageLog()->addMessage(strval(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'README.md')));
+        $readme = strval(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'README.md'));
+        $parsedown = new Parsedown();
+        match(php_sapi_name() === 'cli') {
+            true => $this->messageLog()->addMessage($readme),
+            default => $this->messageLog()->addMessage($parsedown->text($readme)),
+        };
         $this->actionStatus = ActionStatus::SUCCEEDED;
         return $this;
     }
@@ -477,7 +517,7 @@ class ArgumentParser
             : null
         );
         $commandNameSpecifiedInPost = (
-            isset($_POST['rig'])
+            !empty($_POST['rig'])
                 && is_array($_POST['rig'])
                 && isset($_POST['rig'][0])
                 && is_string($_POST['rig'][0])
@@ -485,7 +525,7 @@ class ArgumentParser
             : null
         );
         $commandNameSpecifiedInGet = (
-            isset($_GET['rig'])
+            !empty($_GET['rig'])
                 && is_array($_GET['rig'])
                 && isset($_GET['rig'][0])
                 && is_string($_GET['rig'][0])
@@ -529,7 +569,8 @@ class ArgumentParser
          * );
          *
          */
-        $commandToRunClassString = new ClassString($commandName);
+        $commandNamespace = ''; // @todo set appropriate namespace
+        $commandToRunClassString = new ClassString($commandNamespace . $commandName);
         $extendsClasses = class_parents(
             $commandToRunClassString->__toString()
         );
