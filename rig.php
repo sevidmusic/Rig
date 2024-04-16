@@ -499,29 +499,95 @@ class VersionCommand extends Command
 
 class ArgumentParser
 {
-    /** @return array<string, string> */
-    public function getArguments(): array
+    /** @return array<string, array<int, mixed>|string|false> */
+    public function getCliArguments(): array
     {
         $shortOpts = 'h:v::';
         $longOpts = [
-            'delete-route:',
-            'help:',
-            'list-routes::',
-            'new-module:',
-            'new-route:',
-            'start-servers:',
-            'update-route:',
-            'version::',
-            'view-action-log::',
-            'view-readme::',
+                    // Commands
+                    'delete-route::',
+                    'help:',
+                    'list-routes::',
+                    'new-module::',
+                    'new-route::',
+                    'start-servers::',
+                    'update-route::',
+                    'version::',
+                    'view-action-log::',
+                    'view-readme::',
+                    // Command Options
+                    'authority:',
+                    'defined-for-authorities:',
+                    'defined-for-files:',
+                    'defined-for-modules:',
+                    'defined-for-named-positions:',
+                    'defined-for-positions:',
+                    'defined-for-requests:',
+                    'for-authority:',
+                    'module-name:',
+                    'named-positions:',
+                    'no-boilerplate::',
+                    'open-in-browser::',
+                    'path-to-roady-project:',
+                    'ports:',
+                    'relative-path:',
+                    'responds-to:',
+                    'route-hash:',
         ];
-        dump(getopt($shortOpts, $longOpts));
-        return [];
+        $opts = getopt($shortOpts, $longOpts);
+        $cliArguments = match(is_array($opts)) {
+            true =>
+                [
+                    // Commands
+                    'delete-route' => ($opts['delete-route'] ?? ''),
+                    'help' => ($opts['help'] ?? ''),
+                    'list-routes' => ($opts['list-routes'] ?? ''),
+                    'new-module' => ($opts['new-module'] ?? ''),
+                    'new-route' => ($opts['new-route'] ?? ''),
+                    'start-servers' => ($opts['start-servers'] ?? ''),
+                    'update-route' => ($opts['update-route'] ?? ''),
+                    'version' => ($opts['version'] ?? ''),
+                    'view-action-log' => ($opts['view-action-log'] ?? ''),
+                    'view-readme' => ($opts['view-readme'] ?? ''),
+                    // Command Options
+                    'authority' => ($opts['authority'] ?? ''),
+                    'defined-for-authorities' => ($opts['defined-for-authorities'] ?? ''),
+                    'defined-for-files' => ($opts['defined-for-files'] ?? ''),
+                    'defined-for-modules' => ($opts['defined-for-modules'] ?? ''),
+                    'defined-for-named-positions' => ($opts['defined-for-named-positions'] ?? ''),
+                    'defined-for-positions' => ($opts['defined-for-positions'] ?? ''),
+                    'defined-for-requests' => ($opts['defined-for-requests'] ?? ''),
+                    'for-authority' => ($opts['for-authority'] ?? ''),
+                    'module-name' => ($opts['module-name'] ?? ''),
+                    'named-positions' => ($opts['named-positions'] ?? ''),
+                    'no-boilerplate' => ($opts['no-boilerplate'] ?? ''),
+                    'open-in-browser' => ($opts['open-in-browser'] ?? ''),
+                    'path-to-roady-project' => ($opts['path-to-roady-project'] ?? ''),
+                    'ports' => ($opts['ports'] ?? ''),
+                    'relative-path' => ($opts['relative-path'] ?? ''),
+                    'responds-to' => ($opts['responds-to'] ?? ''),
+                    'route-hash' => ($opts['route-hash'] ?? ''),
+                ],
+            default => []
+
+        };
+        return $cliArguments;
+    }
+
+    /** @return array<string, array<int, mixed>|string|false> */
+    private function getArguments(): array
+    {
+        return match(php_sapi_name()) {
+            'cli' => $this->getCliArguments(),
+            default => [],
+
+        };
     }
 
     private function determineNameOfCommandToRun(): string
     {
         $arguments = $this->getArguments();
+        dump($arguments);
         $commandNameSpecifiedInArgv = (
             isset($GLOBALS['argv'])
                 && is_array($GLOBALS['argv'])
@@ -621,7 +687,7 @@ if(php_sapi_name() === 'cli') {
         $rig->run($argumentParser->commandToRun())
     );
 
-    $rigCLUI->render();
+    #$rigCLUI->render();
     $rigCLUIAlreadyRendered = true;
 }
 
@@ -635,4 +701,5 @@ if(!isset($rigCLUIAlreadyRendered)) {
     $rigWebUI->render();
 
 }
+
 
