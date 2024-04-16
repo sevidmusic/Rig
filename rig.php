@@ -164,6 +164,160 @@ final class Rig {
 
 }
 
+class RigWebUI {
+
+
+    private string $uiStart = <<<EOF
+
+    <!DOCTYPE html>
+
+    <html>
+
+        <head>
+
+            <title>Rig - Command line utility for the Roady PHP Framework</title>
+
+            <meta charset="UTF-8">
+
+            <meta name="description" content="A command line utility designed to aide in development with the Roady PHP framework. More information can be found on GitHub at https://github.com/sevidmusic/rig, or https://github.com/sevidmusic/roady">
+
+            <meta name="keywords" content="rig, roady, php, web-development">
+
+            <meta name="author" content="Sevi Darling">
+
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        </head>
+
+        <body>
+
+            <main class="roady-ui-main-content">
+
+    EOF;
+
+    private string $uiEnd = <<<EOF
+
+            </main>
+
+        </body>
+
+    </html>
+
+    EOF;
+
+
+    public function __construct(private Rig $rig) {}
+
+    private function displayMessages(): void
+    {
+        $command = $this->rig->lastCommandRun();
+        if(!is_null($command)) {
+            foreach ($command->messageLog()->messages() as $message) {
+                echo '<div class="rig-web-ui-message" style="background: black; margin-bottom: 1rem; padding: 1rem; color: white;">';
+                echo PHP_EOL;
+                $this->info($message);
+                echo PHP_EOL;
+                echo '</div>';
+            }
+        }
+    }
+
+    private function displayActionEventLog(): void
+    {
+        $command = $this->rig->lastCommandRun();
+        $commandStatusDateTime = [];
+        if(!is_null($command)) {
+            foreach($command->actionEventLog()->actionEvents() as $actionEvent) {
+                $commandStatusDateTime[] = [
+                    $actionEvent->action()::class,
+                    $actionEvent->action()->actionStatus()->name,
+                    $actionEvent->dateTime()->format('Y-m-d H:i:s A')
+                ];
+            }
+            $this->table(
+                ['Command', 'Status', 'Date/Time'],
+                $commandStatusDateTime,
+            );
+        }
+    }
+
+    private function displayHeader(): void
+    {
+        $welcomeMessage = date('l Y, F jS h:i:s A');
+        $welcomeMessage .= <<<'HEADER'
+
+        <h1>Rig</h1>
+
+        <p>For help use: rig --help</p>
+
+        <p>For help with a specific command use: rig --help command-name</p>
+
+        HEADER;
+        $this->intro($welcomeMessage);
+
+    }
+
+    public function render(): void
+    {
+        echo $this->uiStart;
+        $this->displayHeader();
+        $this->displayMessages();
+        $this->displayActionEventLog();
+        echo $this->uiEnd;
+    }
+
+    private function info(string $info): void
+    {
+        echo <<<INFO
+
+        <div class="rig-web-ui-info">
+
+        <p>
+
+        INFO;
+
+        echo str_replace(PHP_EOL, '<br>', $info);
+
+        echo <<<INFO
+
+        </p>
+
+        </div>
+
+        INFO;
+    }
+
+    private function intro(string $intro): void
+    {
+        echo '<div class="rig-web-ui-intro">';
+        echo '    <p>' . $intro . '</p>';
+        echo '</div>';
+    }
+
+    /**
+     * @param array<int, string> $columnNames
+     * @param array<int, array<int, string>> $columnData
+     */
+    private function table(array $columnNames, array $columnData): void
+    {
+        echo '<table>';
+        echo '<tr>';
+        foreach($columnNames as $columnName) {
+            echo '<th>' . $columnName . '</th>';
+        }
+        echo '</tr>';
+        echo '<tr>';
+        foreach($columnData as $datum) {
+            foreach($datum as $data) {
+                echo '<td>' . $data . '</td>';
+            }
+        }
+        echo '</tr>';
+        echo '</table>';
+    }
+
+}
+
 class RigCLUI {
 
     public function __construct(private Rig $rig) {}
@@ -226,16 +380,16 @@ class RigCLUI {
 
 # ACTIONS #
 
-class GenerateBriefHelpMessage extends Action
+class GenerateHelpMessageAction extends Action
 {
-    public function do(): GenerateBriefHelpMessage
+    public function do(): GenerateHelpMessageAction
     {
-        $briefHelpMessage = <<<'BRIEFHELPMESSAGE'
+        $helpMessage = <<<'helpMESSAGE'
 
         The following commands are provided by rig:
 
-        rig --help
         rig --delete-route
+        rig --help
         rig --list-routes
         rig --new-module
         rig --new-route
@@ -243,17 +397,18 @@ class GenerateBriefHelpMessage extends Action
         rig --update-route
         rig --version
         rig --view-action-log
+        rig --view-readme
 
-        BRIEFHELPMESSAGE;
-        $this->messageLog()->addMessage($briefHelpMessage);
+        helpMESSAGE;
+        $this->messageLog()->addMessage($helpMessage);
         $this->actionStatus = ActionStatus::SUCCEEDED;
         return $this;
     }
 }
 
-class ReadReadme extends Action
+class ReadREADMEAction extends Action
 {
-    public function do(): ReadReadme
+    public function do(): ReadREADMEAction
     {
         $this->messageLog()->addMessage(strval(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'README.md')));
         $this->actionStatus = ActionStatus::SUCCEEDED;
@@ -261,9 +416,9 @@ class ReadReadme extends Action
     }
 }
 
-class DetermineVersion extends Action
+class DetermineVersionAction extends Action
 {
-    public function do(): DetermineVersion
+    public function do(): DetermineVersionAction
     {
         $this->messageLog()->addMessage('rig version 2.0.0-alpha-9');
         $this->actionStatus = ActionStatus::SUCCEEDED;
@@ -273,23 +428,23 @@ class DetermineVersion extends Action
 
 # COMMANDS #
 
-class BriefHelpCommand extends Command
-{
-
-    /** @return array<int, Action> $actions */
-    public function actions(): array
-    {
-        return [new GenerateBriefHelpMessage($this->messageLog())];
-    }
-}
-
 class HelpCommand extends Command
 {
 
     /** @return array<int, Action> $actions */
     public function actions(): array
     {
-        return [new ReadReadme($this->messageLog())];
+        return [new GenerateHelpMessageAction($this->messageLog())];
+    }
+}
+
+class ViewREADMECommand extends Command
+{
+
+    /** @return array<int, Action> $actions */
+    public function actions(): array
+    {
+        return [new ReadREADMEAction($this->messageLog())];
     }
 }
 
@@ -298,7 +453,7 @@ class VersionCommand extends Command
     /** @return array<int, Action> $actions */
     public function actions(): array
     {
-        return [new DetermineVersion($this->messageLog())];
+        return [new DetermineVersionAction($this->messageLog())];
     }
 }
 
@@ -346,14 +501,14 @@ class ArgumentParser
                 : (
                     is_string($commandNameSpecifiedInGet)
                     ? $commandNameSpecifiedInGet
-                    : '--briefhelp'
+                    : '--command-not-specified'
                 )
             )
         );
         return (
             ucfirst(
                 str_replace(
-                    '--',
+                    '-',
                     '',
                     $specifiedCommandName,
                 )
@@ -394,7 +549,7 @@ class ArgumentParser
                 new MessageLog()
             );
         }
-        return new Command(
+        return new HelpCommand(
                 new ActionEventLog(),
                 new MessageLog()
         );
@@ -405,8 +560,23 @@ $rig = new Rig();
 
 $argumentParser = new ArgumentParser();
 
-$rigCLUI = new RigCLUI(
-    $rig->run($argumentParser->commandToRun())
-);
+if(php_sapi_name() === 'cli') {
 
-$rigCLUI->render();
+    $rigCLUI = new RigCLUI(
+        $rig->run($argumentParser->commandToRun())
+    );
+
+    $rigCLUI->render();
+    $rigCLUIAlreadyRendered = true;
+}
+
+
+if(!isset($rigCLUIAlreadyRendered)) {
+
+    $rigWebUI = new RigWebUI(
+        $rig->run($argumentParser->commandToRun())
+    );
+
+    $rigWebUI->render();
+
+}
