@@ -499,7 +499,43 @@ class VersionCommand extends Command
 
 class ArgumentParser
 {
-    /** @return array<string, array<int, mixed>|string|false> */
+    /** @return array<string, string> */
+    public function getWebArguments(): array
+    {
+        return [
+            // Commands
+            'delete-route' => (isset($_POST['delete-route']) ? $_POST['delete-route'] : (isset($_GET['delete-route']) ? $_GET['delete-route'] : '')),
+            'help' => (isset($_POST['help']) ? $_POST['help'] : (isset($_POST['help']) ? $_POST['help'] : '')),
+            'list-routes' => (isset($_POST['list-routes']) ? $_POST['list-routes'] : (isset($_GET['list-routes']) ? $_GET['list-routes'] : '')),
+            'new-module' => (isset($_POST['new-module']) ? $_POST['new-module'] : (isset($_GET['new-module']) ? $_GET['new-module'] : '')),
+            'new-route' => (isset($_POST['new-route']) ? $_POST['new-route'] : (isset($_GET['new-route']) ? $_GET['new-route'] : '')),
+            'start-servers' => (isset($_POST['start-servers']) ? $_POST['start-servers'] : (isset($_GET['start-servers']) ? $_GET['start-servers'] : '')),
+            'update-route' => (isset($_POST['update-route']) ? $_POST['update-route'] : (isset($_GET['update-route']) ? $_GET['update-route'] : '')),
+            'version' => (isset($_POST['version']) ? $_POST['version'] : (isset($_POST['version']) ? $_POST['version'] : '')),
+            'view-action-log' => (isset($_POST['view-action-log']) ? $_POST['view-action-log'] : (isset($_POST['view-_GET-log']) ? $_POST['_GET-action-log'] : '')),
+            'view-readme' => (isset($_POST['view-readme']) ? $_POST['view-readme'] : (isset($_GET['view-readme']) ? $_GET['view-readme'] : '')),
+            // Command Options
+            'authority' => (isset($_POST['authority']) ? $_POST['authority'] : (isset($_POST['authority']) ? $_POST['authority'] : '')),
+            'defined-for-authorities' => (isset($_POST['defined-for-authorities']) ? $_POST['defined-for-authorities'] : (isset($_POST['defined-_GET-authorities']) ? $_POST['_GET-for-authorities'] : '')),
+            'defined-for-files' => (isset($_POST['defined-for-files']) ? $_POST['defined-for-files'] : (isset($_POST['defined-_GET-files']) ? $_POST['_GET-for-files'] : '')),
+            'defined-for-modules' => (isset($_POST['defined-for-modules']) ? $_POST['defined-for-modules'] : (isset($_POST['defined-_GET-modules']) ? $_POST['_GET-for-modules'] : '')),
+            'defined-for-named-positions' => (isset($_POST['defined-for-named-positions']) ? $_POST['defined-for-named-positions'] : (isset($_POST['defined-for-named-_GET']) ? $_POST['defined-_GET-named-positions'] : '')),
+            'defined-for-positions' => (isset($_POST['defined-for-positions']) ? $_POST['defined-for-positions'] : (isset($_POST['defined-_GET-positions']) ? $_POST['_GET-for-positions'] : '')),
+            'defined-for-requests' => (isset($_POST['defined-for-requests']) ? $_POST['defined-for-requests'] : (isset($_POST['defined-_GET-requests']) ? $_POST['_GET-for-requests'] : '')),
+            'for-authority' => (isset($_POST['for-authority']) ? $_POST['for-authority'] : (isset($_GET['for-authority']) ? $_GET['for-authority'] : '')),
+            'module-name' => (isset($_POST['module-name']) ? $_POST['module-name'] : (isset($_GET['module-name']) ? $_GET['module-name'] : '')),
+            'named-positions' => (isset($_POST['named-positions']) ? $_POST['named-positions'] : (isset($_GET['named-positions']) ? $_GET['named-positions'] : '')),
+            'no-boilerplate' => (isset($_POST['no-boilerplate']) ? $_POST['no-boilerplate'] : (isset($_GET['no-boilerplate']) ? $_GET['no-boilerplate'] : '')),
+            'open-in-browser' => (isset($_POST['open-in-browser']) ? $_POST['open-in-browser'] : (isset($_POST['open-_GET-browser']) ? $_POST['_GET-in-browser'] : '')),
+            'path-to-roady-project' => (isset($_POST['path-to-roady-project']) ? $_POST['path-to-roady-project'] : (isset($_POST['path-to-roady-_GET']) ? $_POST['path-_GET-roady-project'] : '')),
+            'ports' => (isset($_POST['ports']) ? $_POST['ports'] : (isset($_POST['ports']) ? $_POST['ports'] : '')),
+            'relative-path' => (isset($_POST['relative-path']) ? $_POST['relative-path'] : (isset($_GET['relative-path']) ? $_GET['relative-path'] : '')),
+            'responds-to' => (isset($_POST['responds-to']) ? $_POST['responds-to'] : (isset($_GET['responds-to']) ? $_GET['responds-to'] : '')),
+            'route-hash' => (isset($_POST['route-hash']) ? $_POST['route-hash'] : (isset($_GET['route-hash']) ? $_GET['route-hash'] : '')),
+        ];
+    }
+
+    /** @return array<string, string> */
     public function getCliArguments(): array
     {
         $shortOpts = 'h:v::';
@@ -539,16 +575,16 @@ class ArgumentParser
             true =>
                 [
                     // Commands
-                    'delete-route' => ($opts['delete-route'] ?? ''),
+                    'delete-route' => (isset($opts['delete-route']) ? 'delete-route' : ''),
                     'help' => ($opts['help'] ?? ''),
-                    'list-routes' => ($opts['list-routes'] ?? ''),
-                    'new-module' => ($opts['new-module'] ?? ''),
-                    'new-route' => ($opts['new-route'] ?? ''),
-                    'start-servers' => ($opts['start-servers'] ?? ''),
-                    'update-route' => ($opts['update-route'] ?? ''),
-                    'version' => ($opts['version'] ?? ''),
-                    'view-action-log' => ($opts['view-action-log'] ?? ''),
-                    'view-readme' => ($opts['view-readme'] ?? ''),
+                    'list-routes' => (isset($opts['list-routes']) ? 'list-routes' : ''),
+                    'new-module' => (isset($opts['new-module']) ? 'new-module' : ''),
+                    'new-route' => (isset($opts['new-route']) ? 'new-route' : ''),
+                    'start-servers' => (isset($opts['start-servers']) ? 'start-servers' : ''),
+                    'update-route' => (isset($opts['update-route']) ? 'update-route' : ''),
+                    'version' => (isset($opts['version']) ? 'version' : ''),
+                    'view-action-log' => (isset($opts['view-action-log']) ? 'view-action-log' : ''),
+                    'view-readme' => (isset($opts['view-readme']) ? 'view-readme' : ''),
                     // Command Options
                     'authority' => ($opts['authority'] ?? ''),
                     'defined-for-authorities' => ($opts['defined-for-authorities'] ?? ''),
@@ -560,8 +596,8 @@ class ArgumentParser
                     'for-authority' => ($opts['for-authority'] ?? ''),
                     'module-name' => ($opts['module-name'] ?? ''),
                     'named-positions' => ($opts['named-positions'] ?? ''),
-                    'no-boilerplate' => ($opts['no-boilerplate'] ?? ''),
-                    'open-in-browser' => ($opts['open-in-browser'] ?? ''),
+                    'no-boilerplate' => (isset($opts['no-boilerplate']) ? 'no-boilerplate' : ''),
+                    'open-in-browser' => (isset($opts['open-in-browser']) ? 'open-in-browser' : ''),
                     'path-to-roady-project' => ($opts['path-to-roady-project'] ?? ''),
                     'ports' => ($opts['ports'] ?? ''),
                     'relative-path' => ($opts['relative-path'] ?? ''),
@@ -579,10 +615,7 @@ class ArgumentParser
     {
         return match(php_sapi_name()) {
             'cli' => $this->getCliArguments(),
-            default => [
-                'get' => $_GET,
-                'post' => $_POST,
-            ],
+            default => $this->getWebArguments(),
 
         };
     }
