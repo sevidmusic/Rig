@@ -8,10 +8,10 @@ require $_composer_autoload_path;
 require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'erusev' . DIRECTORY_SEPARATOR . 'parsedown' . DIRECTORY_SEPARATOR  . 'Parsedown.php';
 
 
-use function Laravel\Prompts\intro;
-use function Laravel\Prompts\info;
-use function Laravel\Prompts\table;
 use \Darling\PHPTextTypes\classes\strings\ClassString;
+use function Laravel\Prompts\info;
+use function Laravel\Prompts\intro;
+use function Laravel\Prompts\table;
 
 enum ActionStatus
 {
@@ -22,7 +22,6 @@ enum ActionStatus
 
 }
 
-# BASE CLASSES #
 class MessageLog
 {
 
@@ -50,11 +49,16 @@ class Action
 {
     protected ActionStatus $actionStatus = ActionStatus::NOT_PROCESSED;
 
-    public function __construct(private MessageLog $messageLog) { }
+    final public function __construct(
+        private Arguments $arguments,
+        private MessageLog $messageLog
+    ) { }
 
     public function do(): Action
     {
-        $this->messageLog->addMessage('Perfomred action: ' . $this::class);
+        $this->messageLog->addMessage(
+            'Perfomred action: ' . $this::class
+        );
         $this->actionStatus = ActionStatus::SUCCEEDED;
         return $this;
     }
@@ -69,11 +73,19 @@ class Action
         return $this->messageLog;
     }
 
+    public function arguments(): Arguments
+    {
+        return $this->arguments;
+    }
+
 }
 
 class ActionEvent
 {
-    public function __construct(private Action $action, private DateTimeImmutable $dateTime) {}
+    final public function __construct(
+        private Action $action,
+        private DateTimeImmutable $dateTime
+    ) {}
 
     public function action(): Action
     {
@@ -107,15 +119,16 @@ class ActionEventLog
 class Command
 {
 
-    public function __construct(
+    final public function __construct(
+        private Arguments $arguments,
         private ActionEventLog $actionEventLog,
-        private MessageLog $messageLog
+        private MessageLog $messageLog,
     ) { }
 
     /** @return array<int, Action> $actions */
     public function actions(): array
     {
-        return [new Action($this->messageLog)];
+        return [new Action($this->arguments(), $this->messageLog)];
     }
 
     public function execute(): Command {
@@ -141,6 +154,11 @@ class Command
     public function actionEventLog(): ActionEventLog
     {
         return $this->actionEventLog;
+    }
+
+    public function arguments(): Arguments
+    {
+        return $this->arguments;
     }
 }
 
@@ -241,7 +259,7 @@ class RigWebUI {
     EOF;
 
 
-    public function __construct(private Rig $rig) {}
+    final public function __construct(private Rig $rig) {}
 
     private function displayMessages(): void
     {
@@ -262,7 +280,11 @@ class RigWebUI {
         $command = $this->rig->lastCommandRun();
         $commandStatusDateTime = [];
         if(!is_null($command)) {
-            foreach($command->actionEventLog()->actionEvents() as $actionEvent) {
+            foreach(
+                $command->actionEventLog()->actionEvents()
+                as
+                $actionEvent
+            ) {
                 $commandStatusDateTime[] = [
                     $actionEvent->action()::class,
                     $actionEvent->action()->actionStatus()->name,
@@ -333,7 +355,10 @@ class RigWebUI {
      * @param array<int, string> $columnNames
      * @param array<int, array<int, string>> $columnData
      */
-    private function table(array $columnNames, array $columnData): void
+    private function table(
+        array $columnNames,
+        array $columnData
+    ): void
     {
         echo '<table>';
         echo '<tr>';
@@ -355,7 +380,7 @@ class RigWebUI {
 
 class RigCLUI {
 
-    public function __construct(private Rig $rig) {}
+    final public function __construct(private Rig $rig) {}
 
     private function displayMessages(): void
     {
@@ -372,7 +397,11 @@ class RigCLUI {
         $command = $this->rig->lastCommandRun();
         $commandStatusDateTime = [];
         if(!is_null($command)) {
-            foreach($command->actionEventLog()->actionEvents() as $actionEvent) {
+            foreach(
+                $command->actionEventLog()->actionEvents()
+                as
+                $actionEvent
+            ) {
                 $commandStatusDateTime[] = [
                     $actionEvent->action()::class,
                     $actionEvent->action()->actionStatus()->name,
@@ -413,8 +442,6 @@ class RigCLUI {
 
 }
 
-# ACTIONS #
-
 class GenerateHelpMessageAction extends Action
 {
     public function do(): GenerateHelpMessageAction
@@ -445,11 +472,18 @@ class ReadREADMEAction extends Action
 {
     public function do(): ReadREADMEAction
     {
-        $readme = strval(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'README.md'));
+        $readme = strval(
+            file_get_contents(
+                __DIR__ . DIRECTORY_SEPARATOR . 'README.md'
+            )
+        );
         $parsedown = new Parsedown();
         match(php_sapi_name() === 'cli') {
             true => $this->messageLog()->addMessage($readme),
-            default => $this->messageLog()->addMessage($parsedown->text($readme)),
+            default => $this->messageLog()
+                            ->addMessage(
+                                $parsedown->text($readme)
+                            ),
         };
         $this->actionStatus = ActionStatus::SUCCEEDED;
         return $this;
@@ -460,13 +494,11 @@ class DetermineVersionAction extends Action
 {
     public function do(): DetermineVersionAction
     {
-        $this->messageLog()->addMessage('rig version 2.0.0-alpha-9');
+        $this->messageLog()->addMessage('rig version 2.0.0-alpha-12');
         $this->actionStatus = ActionStatus::SUCCEEDED;
         return $this;
     }
 }
-
-# COMMANDS #
 
 class HelpCommand extends Command
 {
@@ -474,7 +506,12 @@ class HelpCommand extends Command
     /** @return array<int, Action> $actions */
     public function actions(): array
     {
-        return [new GenerateHelpMessageAction($this->messageLog())];
+        return [
+            new GenerateHelpMessageAction(
+                $this->arguments(),
+                $this->messageLog()
+            )
+        ];
     }
 }
 
@@ -484,7 +521,12 @@ class ViewREADMECommand extends Command
     /** @return array<int, Action> $actions */
     public function actions(): array
     {
-        return [new ReadREADMEAction($this->messageLog())];
+        return [
+            new ReadREADMEAction(
+                $this->arguments(),
+                $this->messageLog()
+            )
+        ];
     }
 }
 
@@ -493,18 +535,17 @@ class VersionCommand extends Command
     /** @return array<int, Action> $actions */
     public function actions(): array
     {
-        return [new DetermineVersionAction($this->messageLog())];
+        return [
+            new DetermineVersionAction(
+                $this->arguments(),
+                $this->messageLog()
+            )
+        ];
     }
 }
 
-class ArgumentParser
+class CommandDeterminator
 {
-    /** @return array<string, string> */
-    public function getArguments(): array
-    {
-        #var_dump(getopt('h::v::', ['help::', 'version::']));
-        return [];
-    }
 
     private function determineNameOfCommandToRun(): string
     {
@@ -556,7 +597,11 @@ class ArgumentParser
         );
     }
 
-    public function commandToRun(): Command
+    public function commandToRun(
+        Arguments $arguments,
+        ActionEventLog $actionEventLog,
+        MessageLog $messageLog
+    ): Command
     {
         $commandName = $this->determineNameOfCommandToRun();
         /*
@@ -570,7 +615,9 @@ class ArgumentParser
          *
          */
         $commandNamespace = ''; // @todo set appropriate namespace
-        $commandToRunClassString = new ClassString($commandNamespace . $commandName);
+        $commandToRunClassString = new ClassString(
+            $commandNamespace . $commandName
+        );
         $extendsClasses = class_parents(
             $commandToRunClassString->__toString()
         );
@@ -586,38 +633,396 @@ class ArgumentParser
         {
             /** @var Command $commandName */
             return new $commandName(
-                new ActionEventLog(),
-                new MessageLog()
+                $arguments,
+                $actionEventLog,
+                $messageLog,
             );
         }
         return new HelpCommand(
-                new ActionEventLog(),
-                new MessageLog()
+                $arguments,
+                $actionEventLog,
+                $messageLog,
         );
     }
 }
 
-$rig = new Rig();
+class Arguments
+{
 
-$argumentParser = new ArgumentParser();
+    /** @return array<string, string> */
+    public function asArray(): array
+    {
+        return [
+            // Commands
+            'delete-route' => '',
+            'help' => '',
+            'list-routes' => '',
+            'new-module' => '',
+            'new-route' => '',
+            'start-servers' => '',
+            'update-route' => '',
+            'version' => '',
+            'view-action-log' => '',
+            'view-readme' => '',
+            // Command Options
+            'authority' => '',
+            'defined-for-authorities' => '',
+            'defined-for-files' => '',
+            'defined-for-modules' => '',
+            'defined-for-named-positions' => '',
+            'defined-for-positions' => '',
+            'defined-for-requests' => '',
+            'for-authority' => '',
+            'module-name' => '',
+            'named-positions' => '',
+            'no-boilerplate' => '',
+            'open-in-browser' => '',
+            'path-to-roady-project' => '',
+            'ports' => '',
+            'relative-path' => '',
+            'responds-to' => '',
+            'route-hash' => '',
+        ];
+    }
+}
+
+class WebArguments extends Arguments
+{
+
+    private function parameterNameIfSpecified(string $name): string
+    {
+        return (
+            isset($_POST[$name]) || isset($_GET[$name])
+            ? $name
+            : ''
+        );
+    }
+
+    private function parameterValueIfSpecified(string $name): string
+    {
+        return (
+            isset($_POST[$name])
+            ? $_POST[$name]
+            : (isset($_GET[$name]) ? $_GET[$name] : '')
+        );
+    }
+
+    /** @return array<string, string> */
+    public function asArray(): array
+    {
+        return [
+            // Commands
+            'delete-route' =>
+                $this->parameterNameIfSpecified('delete-route'),
+            'help' =>
+                $this->parameterValueIfSpecified('help'),
+            'list-routes' =>
+                $this->parameterNameIfSpecified('list-routes'),
+            'new-module' =>
+                $this->parameterNameIfSpecified('new-module'),
+            'new-route' =>
+                $this->parameterNameIfSpecified('new-route'),
+            'start-servers' =>
+                $this->parameterNameIfSpecified('start-servers'),
+            'update-route' =>
+                $this->parameterNameIfSpecified('update-route'),
+            'version' =>
+                $this->parameterNameIfSpecified('version'),
+            'view-action-log' =>
+                $this->parameterNameIfSpecified('view-action-log'),
+            'view-readme' =>
+                $this->parameterNameIfSpecified('view-readme'),
+            // Command Options
+            'authority' =>
+                $this->parameterValueIfSpecified('authority'),
+            'defined-for-authorities' =>
+                $this->parameterValueIfSpecified('defined-for-authorities'),
+            'defined-for-files' =>
+                $this->parameterValueIfSpecified('defined-for-files'),
+            'defined-for-modules' =>
+                $this->parameterValueIfSpecified('defined-for-modules'),
+            'defined-for-named-positions' =>
+                $this->parameterValueIfSpecified('defined-for-named-positions'),
+            'defined-for-positions' =>
+                $this->parameterValueIfSpecified('defined-for-positions'),
+            'defined-for-requests' =>
+                $this->parameterValueIfSpecified('defined-for-requests'),
+            'for-authority' =>
+                $this->parameterValueIfSpecified('for-authority'),
+            'module-name' =>
+                $this->parameterValueIfSpecified('module-name'),
+            'named-positions' =>
+                $this->parameterValueIfSpecified('named-positions'),
+            'no-boilerplate' =>
+                $this->parameterValueIfSpecified('no-boilerplate'),
+            'open-in-browser' =>
+                $this->parameterValueIfSpecified('open-in-browser'),
+            'path-to-roady-project' =>
+                $this->parameterValueIfSpecified('path-to-roady-project'),
+            'ports' =>
+                $this->parameterValueIfSpecified('ports'),
+            'relative-path' =>
+                $this->parameterValueIfSpecified('relative-path'),
+            'responds-to' =>
+                $this->parameterValueIfSpecified('responds-to'),
+            'route-hash' =>
+                $this->parameterValueIfSpecified('route-hash'),
+        ];
+    }
+
+}
+
+class CLIArguments extends Arguments
+{
+
+    /** @param array<mixed> $opts */
+    private function parameterNameIfSpecified(
+        array $opts,
+        string $name
+    ): string
+    {
+        return (isset($opts[$name]) ? $name : '');
+    }
+
+    /** @param array<mixed> $opts */
+    private function parameterValueIfSpecified(
+        array $opts,
+        string $name
+    ): string
+    {
+        return (isset($opts[$name]) && is_string($opts[$name]) ? $opts[$name] : '');
+    }
+
+    /** @return array<string, string> */
+    public function asArray(): array
+    {
+        $shortOpts = 'h:v::';
+        $longOpts = [
+                    // Commands
+                    'delete-route::',
+                    'help:',
+                    'list-routes::',
+                    'new-module::',
+                    'new-route::',
+                    'start-servers::',
+                    'update-route::',
+                    'version::',
+                    'view-action-log::',
+                    'view-readme::',
+                    // Command Options
+                    'authority:',
+                    'defined-for-authorities:',
+                    'defined-for-files:',
+                    'defined-for-modules:',
+                    'defined-for-named-positions:',
+                    'defined-for-positions:',
+                    'defined-for-requests:',
+                    'for-authority:',
+                    'module-name:',
+                    'named-positions:',
+                    'no-boilerplate::',
+                    'open-in-browser::',
+                    'path-to-roady-project:',
+                    'ports:',
+                    'relative-path:',
+                    'responds-to:',
+                    'route-hash:',
+        ];
+        $opts = getopt($shortOpts, $longOpts);
+        $cliArguments = match(is_array($opts)) {
+            true =>
+                [
+                    // Commands
+                    'delete-route' =>
+                        $this->parameterNameIfSpecified(
+                            $opts,
+                            'delete-route'
+                        ),
+                    'help' =>
+                        $this->parameterValueIfSpecified(
+                            $opts,
+                            'help'
+                        ),
+                    'list-routes' =>
+                        $this->parameterNameIfSpecified(
+                            $opts,
+                            'list-routes'
+                        ),
+                    'new-module' =>
+                        $this->parameterNameIfSpecified(
+                            $opts,
+                            'new-module'
+                        ),
+                    'new-route' =>
+                        $this->parameterNameIfSpecified(
+                            $opts,
+                            'new-route'
+                        ),
+                    'start-servers' =>
+                        $this->parameterNameIfSpecified(
+                            $opts,
+                            'start-servers'
+                        ),
+                    'update-route' =>
+                        $this->parameterNameIfSpecified(
+                            $opts,
+                            'update-route'
+                        ),
+                    'version' =>
+                        $this->parameterNameIfSpecified(
+                            $opts,
+                            'version'
+                        ),
+                    'view-action-log' =>
+                        $this->parameterNameIfSpecified(
+                            $opts,
+                            'view-action-log'
+                        ),
+                    'view-readme' =>
+                        $this->parameterNameIfSpecified(
+                            $opts,
+                            'view-readme'
+                        ),
+                     // Command Options
+                    'authority' =>
+                        $this->parameterValueIfSpecified(
+                            $opts,
+                            'authority'
+                        ),
+                    'defined-for-authorities' =>
+                        $this->parameterValueIfSpecified(
+                            $opts,
+                            'defined-for-authorities'
+                        ),
+                    'defined-for-files' =>
+                        $this->parameterValueIfSpecified(
+                            $opts,
+                            'defined-for-files'
+                        ),
+                    'defined-for-modules' =>
+                        $this->parameterValueIfSpecified(
+                            $opts,
+                            'defined-for-modules'
+                        ),
+                    'defined-for-named-positions' =>
+                        $this->parameterValueIfSpecified(
+                            $opts,
+                            'defined-for-named-positions'
+                        ),
+                    'defined-for-positions' =>
+                        $this->parameterValueIfSpecified(
+                            $opts,
+                            'defined-for-positions'
+                        ),
+                    'defined-for-requests' =>
+                        $this->parameterValueIfSpecified(
+                            $opts,
+                            'defined-for-requests'
+                        ),
+                    'for-authority' =>
+                        $this->parameterValueIfSpecified(
+                            $opts,
+                            'for-authority'
+                        ),
+                    'module-name' =>
+                        $this->parameterValueIfSpecified(
+                            $opts,
+                            'module-name'
+                        ),
+                    'named-positions' =>
+                        $this->parameterValueIfSpecified(
+                            $opts,
+                            'named-positions'
+                        ),
+                    'no-boilerplate' =>
+                        $this->parameterNameIfSpecified(
+                            $opts,
+                            'no-boilerplate'
+                        ),
+                    'open-in-browser' =>
+                        $this->parameterNameIfSpecified(
+                            $opts,
+                            'open-in-browser'
+                        ),
+                    'path-to-roady-project' =>
+                        $this->parameterValueIfSpecified(
+                            $opts,
+                            'path-to-roady-project'
+                        ),
+                    'ports' =>
+                        $this->parameterValueIfSpecified(
+                            $opts,
+                            'ports'
+                        ),
+                    'relative-path' =>
+                        $this->parameterValueIfSpecified(
+                            $opts,
+                            'relative-path'
+                        ),
+                    'responds-to' =>
+                        $this->parameterValueIfSpecified(
+                            $opts,
+                            'responds-to'
+                        ),
+                    'route-hash' =>
+                        $this->parameterValueIfSpecified(
+                            $opts,
+                            'route-hash'
+                        ),
+                ],
+            default => []
+
+        };
+        return $cliArguments;
+    }
+}
+
+$rig = new Rig();
+$commandDeterminator = new CommandDeterminator();
+$actionEventLog = new ActionEventLog();
+$messageLog = new MessageLog();
 
 if(php_sapi_name() === 'cli') {
 
+    $arguments = new CLIArguments();
     $rigCLUI = new RigCLUI(
-        $rig->run($argumentParser->commandToRun())
+        $rig->run(
+            $commandDeterminator->commandToRun(
+                $arguments,
+                $actionEventLog,
+                $messageLog,
+            )
+        )
     );
 
     $rigCLUI->render();
-    $rigCLUIAlreadyRendered = true;
+    exit;
+    /**
+     * To test via cli run:
+     *
+     * rig --delete-route --help foo --list-routes --new-module --new-route --start-servers --update-route --version --view-action-log --view-readme --authority localhost:8080 --defined-for-authorities localhost:8080 --defined-for-files homepage.html --defined-for-modules HelloWorld --defined-for-named-positions roady-ui-main-content --defined-for-positions 2 --defined-for-requests Homepage --for-authority localhost:8080 --module-name HelloWorld --named-positions roady-ui-main-content --no-boilerplate --open-in-browser --path-to-roady-project ./ --ports 3494 --relative-path homepage.html --responds-to Home --route-hash 2340984
+     *
+     */
 }
 
+$arguments = new WebArguments();
+$rigWebUI = new RigWebUI(
+    $rig->run(
+        $commandDeterminator->commandToRun(
+            $arguments,
+            $actionEventLog,
+            $messageLog
+        )
+    )
+);
+$rigWebUI->render();
 
-if(!isset($rigCLUIAlreadyRendered)) {
-
-    $rigWebUI = new RigWebUI(
-        $rig->run($argumentParser->commandToRun())
-    );
-
-    $rigWebUI->render();
-
-}
+/**
+ * To test via web browser, start a server via
+ * `php -S localhost:8080` and navigate to:
+ *
+ * http://localhost:8080/rig.php?delete-route&version&help=new-route&list-routes&new-module&new-route&start-servers&update-route&version&view-action-log&view-readme&authority=localhost:8080&defined-for-authorities=localhost:8080,%20roady.tech&defined-for-files=homepage.html&defined-for-modules=HelloWorld&defined-for-named-positions=roady-ui-footer&defined-for-positions=10,%2011&defined-for-requests=Homepage,%20HelloWorld&for-authority=localhost:8080&module-name=HelloWorld&named-positions=[{%22position-name%22:%22roady-ui-footer%22,%22position%22:10},%20{%22position-name%22:%22roady-ui-header%22,%22position%22:11}]&no-boilerplate&open-in-browser&path-to-roady-project=./&ports=8080&relative-path=output/Homepage.html&responds-to=Homepage&route-hash=234908
+ *
+ * To use curl:
+ * curl -d 'delete-route&version&help=new-route&list-routes&new-module&new-route&start-servers&update-route&version&view-action-log&view-readme&authority=localhost:8080&defined-for-authorities=localhost:8080,%20roady.tech&defined-for-files=homepage.html&defined-for-modules=HelloWorld&defined-for-named-positions=roady-ui-footer&defined-for-positions=10,%2011&defined-for-requests=Homepage,%20HelloWorld&for-authority=localhost:8080&module-name=HelloWorld&named-positions=[{%22position-name%22:%22roady-ui-footer%22,%22position%22:10},%20{%22position-name%22:%22roady-ui-header%22,%22position%22:11}]&no-boilerplate&open-in-browser&path-to-roady-project=./&ports=8080&relative-path=output/Homepage.html&responds-to=Homepage&route-hash=234908' http://localhost:8080/rig.php
+ */
