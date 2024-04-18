@@ -505,7 +505,7 @@ class ArgumentParser
         return [
             // Commands
             'delete-route' => (isset($_POST['delete-route']) || isset($_GET['delete-route']) ? 'delete-route' : ''),
-            'help' => (isset($_POST['help']) ? $_POST['help'] : (isset($_POST['help']) ? $_POST['help'] : '')),
+            'help' => (isset($_POST['help']) ? $_POST['help'] : (isset($_GET['help']) ? $_GET['help'] : '')),
             'list-routes' => (isset($_POST['list-routes']) || isset($_GET['list-routes']) ? 'list-routes' : ''),
             'new-module' => (isset($_POST['new-module']) || isset($_GET['new-module']) ? 'new-module' : ''),
             'new-route' => (isset($_POST['new-route']) || isset($_GET['new-route']) ? 'new-route' : ''),
@@ -575,16 +575,16 @@ class ArgumentParser
             true =>
                 [
                     // Commands
-                    'delete-route' => (isset($opts['delete-route']) ? 'delete-route' : 'delete-route'),
+                    'delete-route' => (isset($opts['delete-route']) ? 'delete-route' : ''),
                     'help' => (isset($opts['help']) && is_string($opts['help']) ? $opts['help'] : ''),
-                    'list-routes' => (isset($opts['list-routes']) ? 'list-routes' : 'list-routes'),
-                    'new-module' => (isset($opts['new-module']) ? 'new-module' : 'new-module'),
-                    'new-route' => (isset($opts['new-route']) ? 'new-route' : 'new-route'),
-                    'start-servers' => (isset($opts['start-servers']) ? 'start-servers' : 'start-servers'),
-                    'update-route' => (isset($opts['update-route']) ? 'update-route' : 'update-route'),
-                    'version' => (isset($opts['version']) ? 'version' : 'version'),
-                    'view-action-log' => (isset($opts['view-action-log']) ? 'view-action-log' : 'view-action-log'),
-                    'view-readme' => (isset($opts['view-readme']) ? 'view-readme' : 'view-readme'),
+                    'list-routes' => (isset($opts['list-routes']) ? 'list-routes' : ''),
+                    'new-module' => (isset($opts['new-module']) ? 'new-module' : ''),
+                    'new-route' => (isset($opts['new-route']) ? 'new-route' : ''),
+                    'start-servers' => (isset($opts['start-servers']) ? 'start-servers' : ''),
+                    'update-route' => (isset($opts['update-route']) ? 'update-route' : ''),
+                    'version' => (isset($opts['version']) ? 'version' : ''),
+                    'view-action-log' => (isset($opts['view-action-log']) ? 'view-action-log' : ''),
+                    'view-readme' => (isset($opts['view-readme']) ? 'view-readme' : ''),
                     // Command Options
                     'authority' => (isset($opts['authority']) && is_string($opts['authority']) ? $opts['authority'] : ''),
                     'defined-for-authorities' => (isset($opts['defined-for-authorities']) && is_string($opts['defined-for-authorities']) ? $opts['defined-for-authorities'] : ''),
@@ -596,8 +596,8 @@ class ArgumentParser
                     'for-authority' => (isset($opts['for-authority']) && is_string($opts['for-authority']) ? $opts['for-authority'] : ''),
                     'module-name' => (isset($opts['module-name']) && is_string($opts['module-name']) ? $opts['module-name'] : ''),
                     'named-positions' => (isset($opts['named-positions']) && is_string($opts['named-positions']) ? $opts['named-positions'] : ''),
-                    'no-boilerplate' => (isset($opts['no-boilerplate']) ? 'no-boilerplate' : 'no-boilerplate'),
-                    'open-in-browser' => (isset($opts['open-in-browser']) ? 'open-in-browser' : 'open-in-browser'),
+                    'no-boilerplate' => (isset($opts['no-boilerplate']) ? 'no-boilerplate' : ''),
+                    'open-in-browser' => (isset($opts['open-in-browser']) ? 'open-in-browser' : ''),
                     'path-to-roady-project' => (isset($opts['path-to-roady-project']) && is_string($opts['path-to-roady-project']) ? $opts['path-to-roady-project'] : ''),
                     'ports' => (isset($opts['ports']) && is_string($opts['ports']) ? $opts['ports'] : ''),
                     'relative-path' => (isset($opts['relative-path']) && is_string($opts['relative-path']) ? $opts['relative-path'] : ''),
@@ -738,7 +738,10 @@ if(!isset($rigCLUIAlreadyRendered)) {
         $rig->run($argumentParser->commandToRun())
     );
 
-    $rigWebUI->render();
+    #$rigWebUI->render();
+    # To test via web browser:
+    # localhost:8080/rig.php?delete-route&help=new-route&list-routes&new-module&new-route&start-servers&update-route&version&view-action-log&view-readme&authority=localhost:8080&defined-for-authorities=localhost:8080, roady.tech&defined-for-files=homepage.html&defined-for-modules=HelloWorld&defined-for-named-positions=roady-ui-footer&defined-for-positions=10, 11&defined-for-requests=Homepage, HelloWorld&for-authority=localhost:8080&module-name=HelloWorld&named-positions=[{"position-name":"roady-ui-footer","position":10}, {"position-name":"roady-ui-header","position":11}]&no-boilerplate&open-in-browser&path-to-roady-project=./&ports=8080&relative-path=output/Homepage.html&responds-to=Homepage&route-hash=234908
+
 
 }
 
