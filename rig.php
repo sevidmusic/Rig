@@ -107,10 +107,13 @@ class ActionEventLog
 class Command
 {
 
-    public function __construct(
+    final public function __construct(
+        private Arguments $arguments,
         private ActionEventLog $actionEventLog,
-        private MessageLog $messageLog
-    ) { }
+        private MessageLog $messageLog,
+    ) {
+        dump($this->arguments->asArray());
+    }
 
     /** @return array<int, Action> $actions */
     public function actions(): array
@@ -499,7 +502,7 @@ class VersionCommand extends Command
 
 ###
 
-class ArgumentParser
+class CommandDeterminator
 {
 
     private function determineNameOfCommandToRun(): string
@@ -552,7 +555,7 @@ class ArgumentParser
         );
     }
 
-    public function commandToRun(): Command
+    public function commandToRun(Arguments $arguments, ActionEventLog $actionEventLog, MessageLog $messageLog): Command
     {
         $commandName = $this->determineNameOfCommandToRun();
         /*
@@ -582,21 +585,33 @@ class ArgumentParser
         {
             /** @var Command $commandName */
             return new $commandName(
-                new ActionEventLog(),
-                new MessageLog()
+                $arguments,
+                $actionEventLog,
+                $messageLog,
             );
         }
         return new HelpCommand(
-                new ActionEventLog(),
-                new MessageLog()
+                $arguments,
+                $actionEventLog,
+                $messageLog,
         );
     }
 }
 
-class WebArgumentParser extends ArgumentParser
+class Arguments
+{
+
+    /** @return array<string, string> */
+    public function asArray(): array
+    {
+        return [];
+    }
+}
+
+class WebArguments extends Arguments
 {
     /** @return array<string, string> */
-    public function getArguments(): array
+    public function asArray(): array
     {
         return [
             // Commands
@@ -635,11 +650,11 @@ class WebArgumentParser extends ArgumentParser
 
 ###
 
-class CLIArgumentParser extends ArgumentParser
+class CLIArguments extends Arguments
 {
 
     /** @return array<string, string> */
-    public function getArguments(): array
+    public function asArray(): array
     {
         $shortOpts = 'h:v::';
         $longOpts = [
@@ -715,12 +730,15 @@ class CLIArgumentParser extends ArgumentParser
 }
 
 $rig = new Rig();
+$commandDeterminator = new CommandDeterminator();
+$actionEventLog = new ActionEventLog();
+$messageLog = new MessageLog();
 
 if(php_sapi_name() === 'cli') {
 
-    $argumentParser = new CLIArgumentParser();
+    $arguments = new CLIArguments();
     $rigCLUI = new RigCLUI(
-        $rig->run($argumentParser->commandToRun())
+        $rig->run($commandDeterminator->commandToRun($arguments, $actionEventLog, $messageLog))
     );
 
     $rigCLUI->render();
@@ -730,9 +748,9 @@ if(php_sapi_name() === 'cli') {
 
 if(!isset($rigCLUIAlreadyRendered)) {
 
-    $argumentParser = new WebArgumentParser();
+    $arguments = new WebArguments();
     $rigWebUI = new RigWebUI(
-        $rig->run($argumentParser->commandToRun())
+        $rig->run($commandDeterminator->commandToRun($arguments, $actionEventLog, $messageLog))
     );
 
     $rigWebUI->render();
@@ -741,6 +759,4 @@ if(!isset($rigCLUIAlreadyRendered)) {
 
 
 }
-
-dump(isset($argumentParser) ? $argumentParser->getArguments() : null);
 
