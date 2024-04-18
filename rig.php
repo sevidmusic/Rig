@@ -50,7 +50,9 @@ class Action
 {
     protected ActionStatus $actionStatus = ActionStatus::NOT_PROCESSED;
 
-    public function __construct(private MessageLog $messageLog) { }
+    public function __construct(private Arguments $arguments, private MessageLog $messageLog) {
+        dump($this->arguments->asArray());
+    }
 
     public function do(): Action
     {
@@ -111,14 +113,12 @@ class Command
         private Arguments $arguments,
         private ActionEventLog $actionEventLog,
         private MessageLog $messageLog,
-    ) {
-        dump($this->arguments->asArray());
-    }
+    ) { }
 
     /** @return array<int, Action> $actions */
     public function actions(): array
     {
-        return [new Action($this->messageLog)];
+        return [new Action($this->arguments(), $this->messageLog)];
     }
 
     public function execute(): Command {
@@ -144,6 +144,11 @@ class Command
     public function actionEventLog(): ActionEventLog
     {
         return $this->actionEventLog;
+    }
+
+    public function arguments(): Arguments
+    {
+        return $this->arguments;
     }
 }
 
@@ -477,7 +482,7 @@ class HelpCommand extends Command
     /** @return array<int, Action> $actions */
     public function actions(): array
     {
-        return [new GenerateHelpMessageAction($this->messageLog())];
+        return [new GenerateHelpMessageAction($this->arguments(), $this->messageLog())];
     }
 }
 
@@ -487,7 +492,7 @@ class ViewREADMECommand extends Command
     /** @return array<int, Action> $actions */
     public function actions(): array
     {
-        return [new ReadREADMEAction($this->messageLog())];
+        return [new ReadREADMEAction($this->arguments(), $this->messageLog())];
     }
 }
 
@@ -496,7 +501,7 @@ class VersionCommand extends Command
     /** @return array<int, Action> $actions */
     public function actions(): array
     {
-        return [new DetermineVersionAction($this->messageLog())];
+        return [new DetermineVersionAction($this->arguments(), $this->messageLog())];
     }
 }
 
