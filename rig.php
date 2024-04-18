@@ -8,10 +8,10 @@ require $_composer_autoload_path;
 require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'erusev' . DIRECTORY_SEPARATOR . 'parsedown' . DIRECTORY_SEPARATOR  . 'Parsedown.php';
 
 
-use function Laravel\Prompts\intro;
-use function Laravel\Prompts\info;
-use function Laravel\Prompts\table;
 use \Darling\PHPTextTypes\classes\strings\ClassString;
+use function Laravel\Prompts\info;
+use function Laravel\Prompts\intro;
+use function Laravel\Prompts\table;
 
 enum ActionStatus
 {
@@ -22,7 +22,6 @@ enum ActionStatus
 
 }
 
-# BASE CLASSES #
 class MessageLog
 {
 
@@ -50,13 +49,18 @@ class Action
 {
     protected ActionStatus $actionStatus = ActionStatus::NOT_PROCESSED;
 
-    public function __construct(private Arguments $arguments, private MessageLog $messageLog) {
+    final public function __construct(
+        private Arguments $arguments,
+        private MessageLog $messageLog
+    ) {
         dump($this->arguments->asArray());
     }
 
     public function do(): Action
     {
-        $this->messageLog->addMessage('Perfomred action: ' . $this::class);
+        $this->messageLog->addMessage(
+            'Perfomred action: ' . $this::class
+        );
         $this->actionStatus = ActionStatus::SUCCEEDED;
         return $this;
     }
@@ -71,11 +75,19 @@ class Action
         return $this->messageLog;
     }
 
+    public function arguments(): Arguments
+    {
+        return $this->arguments;
+    }
+
 }
 
 class ActionEvent
 {
-    public function __construct(private Action $action, private DateTimeImmutable $dateTime) {}
+    final public function __construct(
+        private Action $action,
+        private DateTimeImmutable $dateTime
+    ) {}
 
     public function action(): Action
     {
@@ -249,7 +261,7 @@ class RigWebUI {
     EOF;
 
 
-    public function __construct(private Rig $rig) {}
+    final public function __construct(private Rig $rig) {}
 
     private function displayMessages(): void
     {
@@ -270,7 +282,11 @@ class RigWebUI {
         $command = $this->rig->lastCommandRun();
         $commandStatusDateTime = [];
         if(!is_null($command)) {
-            foreach($command->actionEventLog()->actionEvents() as $actionEvent) {
+            foreach(
+                $command->actionEventLog()->actionEvents()
+                as
+                $actionEvent
+            ) {
                 $commandStatusDateTime[] = [
                     $actionEvent->action()::class,
                     $actionEvent->action()->actionStatus()->name,
@@ -341,7 +357,10 @@ class RigWebUI {
      * @param array<int, string> $columnNames
      * @param array<int, array<int, string>> $columnData
      */
-    private function table(array $columnNames, array $columnData): void
+    private function table(
+        array $columnNames,
+        array $columnData
+    ): void
     {
         echo '<table>';
         echo '<tr>';
@@ -363,7 +382,7 @@ class RigWebUI {
 
 class RigCLUI {
 
-    public function __construct(private Rig $rig) {}
+    final public function __construct(private Rig $rig) {}
 
     private function displayMessages(): void
     {
@@ -380,7 +399,11 @@ class RigCLUI {
         $command = $this->rig->lastCommandRun();
         $commandStatusDateTime = [];
         if(!is_null($command)) {
-            foreach($command->actionEventLog()->actionEvents() as $actionEvent) {
+            foreach(
+                $command->actionEventLog()->actionEvents()
+                as
+                $actionEvent
+            ) {
                 $commandStatusDateTime[] = [
                     $actionEvent->action()::class,
                     $actionEvent->action()->actionStatus()->name,
@@ -421,8 +444,6 @@ class RigCLUI {
 
 }
 
-# ACTIONS #
-
 class GenerateHelpMessageAction extends Action
 {
     public function do(): GenerateHelpMessageAction
@@ -453,11 +474,18 @@ class ReadREADMEAction extends Action
 {
     public function do(): ReadREADMEAction
     {
-        $readme = strval(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'README.md'));
+        $readme = strval(
+            file_get_contents(
+                __DIR__ . DIRECTORY_SEPARATOR . 'README.md'
+            )
+        );
         $parsedown = new Parsedown();
         match(php_sapi_name() === 'cli') {
             true => $this->messageLog()->addMessage($readme),
-            default => $this->messageLog()->addMessage($parsedown->text($readme)),
+            default => $this->messageLog()
+                            ->addMessage(
+                                $parsedown->text($readme)
+                            ),
         };
         $this->actionStatus = ActionStatus::SUCCEEDED;
         return $this;
@@ -468,13 +496,11 @@ class DetermineVersionAction extends Action
 {
     public function do(): DetermineVersionAction
     {
-        $this->messageLog()->addMessage('rig version 2.0.0-alpha-9');
+        $this->messageLog()->addMessage('rig version 2.0.0-alpha-12');
         $this->actionStatus = ActionStatus::SUCCEEDED;
         return $this;
     }
 }
-
-# COMMANDS #
 
 class HelpCommand extends Command
 {
@@ -482,7 +508,12 @@ class HelpCommand extends Command
     /** @return array<int, Action> $actions */
     public function actions(): array
     {
-        return [new GenerateHelpMessageAction($this->arguments(), $this->messageLog())];
+        return [
+            new GenerateHelpMessageAction(
+                $this->arguments(),
+                $this->messageLog()
+            )
+        ];
     }
 }
 
@@ -492,7 +523,12 @@ class ViewREADMECommand extends Command
     /** @return array<int, Action> $actions */
     public function actions(): array
     {
-        return [new ReadREADMEAction($this->arguments(), $this->messageLog())];
+        return [
+            new ReadREADMEAction(
+                $this->arguments(),
+                $this->messageLog()
+            )
+        ];
     }
 }
 
@@ -501,11 +537,14 @@ class VersionCommand extends Command
     /** @return array<int, Action> $actions */
     public function actions(): array
     {
-        return [new DetermineVersionAction($this->arguments(), $this->messageLog())];
+        return [
+            new DetermineVersionAction(
+                $this->arguments(),
+                $this->messageLog()
+            )
+        ];
     }
 }
-
-###
 
 class CommandDeterminator
 {
@@ -560,7 +599,11 @@ class CommandDeterminator
         );
     }
 
-    public function commandToRun(Arguments $arguments, ActionEventLog $actionEventLog, MessageLog $messageLog): Command
+    public function commandToRun(
+        Arguments $arguments,
+        ActionEventLog $actionEventLog,
+        MessageLog $messageLog
+    ): Command
     {
         $commandName = $this->determineNameOfCommandToRun();
         /*
@@ -574,7 +617,9 @@ class CommandDeterminator
          *
          */
         $commandNamespace = ''; // @todo set appropriate namespace
-        $commandToRunClassString = new ClassString($commandNamespace . $commandName);
+        $commandToRunClassString = new ClassString(
+            $commandNamespace . $commandName
+        );
         $extendsClasses = class_parents(
             $commandToRunClassString->__toString()
         );
@@ -609,7 +654,37 @@ class Arguments
     /** @return array<string, string> */
     public function asArray(): array
     {
-        return [];
+        return [
+            // Commands
+            'delete-route' => '',
+            'help' => '',
+            'list-routes' => '',
+            'new-module' => '',
+            'new-route' => '',
+            'start-servers' => '',
+            'update-route' => '',
+            'version' => '',
+            'view-action-log' => '',
+            'view-readme' => '',
+            // Command Options
+            'authority' => '',
+            'defined-for-authorities' => '',
+            'defined-for-files' => '',
+            'defined-for-modules' => '',
+            'defined-for-named-positions' => '',
+            'defined-for-positions' => '',
+            'defined-for-requests' => '',
+            'for-authority' => '',
+            'module-name' => '',
+            'named-positions' => '',
+            'no-boilerplate' => '',
+            'open-in-browser' => '',
+            'path-to-roady-project' => '',
+            'ports' => '',
+            'relative-path' => '',
+            'responds-to' => '',
+            'route-hash' => '',
+        ];
     }
 }
 
@@ -652,8 +727,6 @@ class WebArguments extends Arguments
     }
 
 }
-
-###
 
 class CLIArguments extends Arguments
 {
@@ -743,25 +816,41 @@ if(php_sapi_name() === 'cli') {
 
     $arguments = new CLIArguments();
     $rigCLUI = new RigCLUI(
-        $rig->run($commandDeterminator->commandToRun($arguments, $actionEventLog, $messageLog))
+        $rig->run(
+            $commandDeterminator->commandToRun(
+                $arguments,
+                $actionEventLog,
+                $messageLog,
+            )
+        )
     );
 
     $rigCLUI->render();
-    $rigCLUIAlreadyRendered = true;
+    exit;
+    /**
+     * To test via cli run:
+     *
+     * rig --delete-route --help foo --list-routes --new-module --new-route --start-servers --update-route --version --view-action-log --view-readme --authority localhost:8080 --defined-for-authorities localhost:8080 --defined-for-files homepage.html --defined-for-modules HelloWorld --defined-for-named-positions roady-ui-main-content --defined-for-positions 2 --defined-for-requests Homepage --for-authority localhost:8080 --module-name HelloWorld --named-positions roady-ui-main-content --no-boilerplate --open-in-browser --path-to-roady-project ./ --ports 3494 --relative-path homepage.html --responds-to Home --route-hash 2340984
+     *
+     */
 }
 
+$arguments = new WebArguments();
+$rigWebUI = new RigWebUI(
+    $rig->run(
+        $commandDeterminator->commandToRun(
+            $arguments,
+            $actionEventLog,
+            $messageLog
+        )
+    )
+);
+$rigWebUI->render();
 
-if(!isset($rigCLUIAlreadyRendered)) {
-
-    $arguments = new WebArguments();
-    $rigWebUI = new RigWebUI(
-        $rig->run($commandDeterminator->commandToRun($arguments, $actionEventLog, $messageLog))
-    );
-
-    $rigWebUI->render();
-    # To test via web browser:
-    # localhost:8080/rig.php?delete-route&help=new-route&list-routes&new-module&new-route&start-servers&update-route&version&view-action-log&view-readme&authority=localhost:8080&defined-for-authorities=localhost:8080, roady.tech&defined-for-files=homepage.html&defined-for-modules=HelloWorld&defined-for-named-positions=roady-ui-footer&defined-for-positions=10, 11&defined-for-requests=Homepage, HelloWorld&for-authority=localhost:8080&module-name=HelloWorld&named-positions=[{"position-name":"roady-ui-footer","position":10}, {"position-name":"roady-ui-header","position":11}]&no-boilerplate&open-in-browser&path-to-roady-project=./&ports=8080&relative-path=output/Homepage.html&responds-to=Homepage&route-hash=234908
-
-
-}
-
+/**
+ * To test via web browser, start a server via
+ * `php -S localhost:8080` and navigate to:
+ *
+ * http://localhost:8080/rig.php?delete-route&version&help=new-route&list-routes&new-module&new-route&start-servers&update-route&version&view-action-log&view-readme&authority=localhost:8080&defined-for-authorities=localhost:8080,%20roady.tech&defined-for-files=homepage.html&defined-for-modules=HelloWorld&defined-for-named-positions=roady-ui-footer&defined-for-positions=10,%2011&defined-for-requests=Homepage,%20HelloWorld&for-authority=localhost:8080&module-name=HelloWorld&named-positions=[{%22position-name%22:%22roady-ui-footer%22,%22position%22:10},%20{%22position-name%22:%22roady-ui-header%22,%22position%22:11}]&no-boilerplate&open-in-browser&path-to-roady-project=./&ports=8080&relative-path=output/Homepage.html&responds-to=Homepage&route-hash=234908
+ *
+ */
