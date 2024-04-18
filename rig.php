@@ -52,9 +52,7 @@ class Action
     final public function __construct(
         private Arguments $arguments,
         private MessageLog $messageLog
-    ) {
-        dump($this->arguments->asArray());
-    }
+    ) { }
 
     public function do(): Action
     {
