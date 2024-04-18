@@ -446,7 +446,7 @@ class GenerateHelpMessageAction extends Action
 {
     public function do(): GenerateHelpMessageAction
     {
-        $helpMessage = <<<'helpMESSAGE'
+        $helpMessage = <<<'HELPMESSAGE'
 
         The following commands are provided by rig:
 
@@ -461,7 +461,7 @@ class GenerateHelpMessageAction extends Action
         rig --view-action-log
         rig --view-readme
 
-        helpMESSAGE;
+        HELPMESSAGE;
         $this->messageLog()->addMessage($helpMessage);
         $this->actionStatus = ActionStatus::SUCCEEDED;
         return $this;
