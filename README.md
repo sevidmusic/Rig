@@ -7,7 +7,11 @@
          |___/
 ```
 
-- [About](#about)
+# About
+
+[rig](https://github.com/sevidmusic/rig) is a command line utility
+designed to aide in development with the
+[Roady](https://github.com/sevidmusic/roady) php framework.
 
 - [Installation](#installation)
 - [Getting Started](#getting-started)
@@ -23,12 +27,6 @@
 - [--update-route](#rig---update-route)
 - [--version](#rig---version)
 - [--view-action-log](#rig---view-action-log)
-
-# About
-
-[rig](https://github.com/sevidmusic/rig) is a command line utility
-designed to aide in development with the
-[Roady](https://github.com/sevidmusic/roady) php framework.
 
 # Installation
 
