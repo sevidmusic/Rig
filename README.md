@@ -7,8 +7,6 @@
          |___/
 ```
 
-# About
-
 [rig](https://github.com/sevidmusic/rig) is a command line utility
 designed to aide in development with the
 [Roady](https://github.com/sevidmusic/roady) php framework.
