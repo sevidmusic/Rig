@@ -13,18 +13,7 @@ designed to aide in development with the
 
 - [Installation](#installation)
 - [Getting Started](#getting-started)
-
 - [Commands](#commands)
-
-- [--help](#rig---help)
-- [--delete-route](#rig---delete-route)
-- [--list-routes](#rig---list-routes)
-- [--new-module](#rig---new-module)
-- [--new-route](#rig---new-route)
-- [--start-servers](#rig---start-servers)
-- [--update-route](#rig---update-route)
-- [--version](#rig---version)
-- [--view-action-log](#rig---view-action-log)
 
 # Installation
 
@@ -142,6 +131,16 @@ websites can be found in [Roady's](https://github.com/sevidmusic/roady)
 `README.md`.
 
 # Commands
+
+- [--help](#rig---help)
+- [--delete-route](#rig---delete-route)
+- [--list-routes](#rig---list-routes)
+- [--new-module](#rig---new-module)
+- [--new-route](#rig---new-route)
+- [--start-servers](#rig---start-servers)
+- [--update-route](#rig---update-route)
+- [--version](#rig---version)
+- [--view-action-log](#rig---view-action-log)
 
 ### `rig --help`
 
