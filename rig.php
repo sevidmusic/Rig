@@ -449,21 +449,22 @@ class GenerateHelpMessageAction extends Action
 
     private function getDocumentation(string $name): string
     {
+        $file = file(__DIR__ . DIRECTORY_SEPARATOR . 'README.md');
         $coordinates = [
+            'delete-route' => [177, 26],
             'help' => [145, 30],
             'installation' => [17, 57],
-            'delete-route' => [0, 0],
-            'list-routes' => [0, 0],
-            'new-module' => [0, 0],
-            'new-route' => [0, 0],
-            'start-servers' => [0, 0],
-            'update-route' => [0, 0],
-            'version' => [0, 0],
-            'view-action-log' => [0, 0],
+            'list-routes' => [205, 93],
+            'new-module' => [300, 96],
+            'new-route' => [397, 38],
+            'start-servers' => [436, 30],
+            'update-route' => [468, 44],
+            'version' => [513, 10],
+            'view-action-log' => [525, 9],
+            'view-readme' => [0, 535],
         ];
         $startingLine = ($coordinates[$name][0] ?? 0);
         $lineLimit = ($coordinates[$name][1] ?? 0);
-        $file = file(__DIR__ . DIRECTORY_SEPARATOR . 'README.md');
         return implode(
             '',
             array_slice(
@@ -477,7 +478,8 @@ class GenerateHelpMessageAction extends Action
     public function do(): GenerateHelpMessageAction
     {
         $arguments = $this->arguments()->asArray();
-        $helpMessage = match(str_replace('--', '', $arguments['help'] ?? '')) {
+        $topic = str_replace('--', '', $arguments['help'] ?? '');
+        $helpMessage = match($topic) {
             'about' => $this->defaultHelpMessage(),
             'delete-route' => $this->getDocumentation('delete-route'),
             'help' => $this->getDocumentation('help'),
@@ -489,8 +491,11 @@ class GenerateHelpMessageAction extends Action
             'update-route' => $this->getDocumentation('update-route'),
             'version' => $this->getDocumentation('version'),
             'view-action-log' => $this->getDocumentation('view-action-log'),
+            'view-readme' => 'View rig\'s README.md',
             default => $this->defaultHelpMessage(),
         };
+
+        $this->messageLog()->addMessage('rig' . (!empty($topic) ? ' --' . $topic : ''));
         $this->messageLog()->addMessage($helpMessage);
         $this->actionStatus = ActionStatus::SUCCEEDED;
         return $this;
