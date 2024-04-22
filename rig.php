@@ -462,6 +462,7 @@ class GenerateHelpMessageAction extends Action
             'version' => [513, 10],
             'view-action-log' => [525, 9],
             'view-readme' => [0, 535],
+            'getting-started' => [76, 100],
         ];
         $startingLine = ($coordinates[$name][0] ?? 0);
         $lineLimit = ($coordinates[$name][1] ?? 0);
@@ -492,6 +493,7 @@ class GenerateHelpMessageAction extends Action
             'version' => $this->getDocumentation('version'),
             'view-action-log' => $this->getDocumentation('view-action-log'),
             'view-readme' => 'View rig\'s README.md',
+            'getting-started' => $this->getDocumentation('getting-started'),
             default => $this->defaultHelpMessage(),
         };
 
