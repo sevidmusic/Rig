@@ -451,18 +451,17 @@ class GenerateHelpMessageAction extends Action
     {
         $file = file(__DIR__ . DIRECTORY_SEPARATOR . 'README.md');
         $coordinates = [
-            'delete-route' => [177, 26],
-            'help' => [145, 30],
-            'installation' => [17, 57],
-            'list-routes' => [205, 93],
-            'new-module' => [300, 96],
-            'new-route' => [397, 38],
-            'start-servers' => [436, 30],
-            'update-route' => [468, 44],
-            'version' => [513, 10],
-            'view-action-log' => [525, 9],
-            'view-readme' => [0, 535],
-            'getting-started' => [76, 100],
+            'installation' => [18, 57],
+            'getting-started' => [76, 56],
+            'help' => [145, 41],
+            'delete-route' => [188, 27],
+            'list-routes' => [216, 94],
+            'new-module' => [311, 96],
+            'new-route' => [408, 38],
+            'start-servers' => [447, 31],
+            'update-route' => [479, 43],
+            'version' => [524, 10],
+            'view-action-log' => [536, 9],
         ];
         $startingLine = ($coordinates[$name][0] ?? 0);
         $lineLimit = ($coordinates[$name][1] ?? 0);
