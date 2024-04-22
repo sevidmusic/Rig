@@ -442,11 +442,67 @@ class RigCLUI {
 
 }
 
+# Actions
+
 class GenerateHelpMessageAction extends Action
 {
+
+    private function getDocumentation(string $name): string
+    {
+        $coordinates = [
+            'help' => [145, 30],
+            'installation' => [17, 57],
+            'delete-route' => [0, 0],
+            'list-routes' => [0, 0],
+            'new-module' => [0, 0],
+            'new-route' => [0, 0],
+            'start-servers' => [0, 0],
+            'update-route' => [0, 0],
+            'version' => [0, 0],
+            'view-action-log' => [0, 0],
+        ];
+        $startingLine = ($coordinates[$name][0] ?? 0);
+        $lineLimit = ($coordinates[$name][1] ?? 0);
+        $file = file(__DIR__ . DIRECTORY_SEPARATOR . 'README.md');
+        return implode(
+            '',
+            array_slice(
+                (is_array($file) ? $file : []),
+                $startingLine,
+                $lineLimit
+            )
+        );
+    }
+
     public function do(): GenerateHelpMessageAction
     {
-        $helpMessage = <<<'HELPMESSAGE'
+        $arguments = $this->arguments()->asArray();
+        $helpMessage = match(str_replace('--', '', $arguments['help'] ?? '')) {
+            'about' => $this->defaultHelpMessage(),
+            'delete-route' => $this->getDocumentation('delete-route'),
+            'help' => $this->getDocumentation('help'),
+            'installation' => $this->getDocumentation('installation'),
+            'list-routes' => $this->getDocumentation('list-routes'),
+            'new-module' => $this->getDocumentation('new-module'),
+            'new-route' => $this->getDocumentation('new-route'),
+            'start-servers' => $this->getDocumentation('start-servers'),
+            'update-route' => $this->getDocumentation('update-route'),
+            'version' => $this->getDocumentation('version'),
+            'view-action-log' => $this->getDocumentation('view-action-log'),
+            default => $this->defaultHelpMessage(),
+        };
+        $this->messageLog()->addMessage($helpMessage);
+        $this->actionStatus = ActionStatus::SUCCEEDED;
+        return $this;
+    }
+
+    private function defaultHelpMessage(): string
+    {
+
+        return <<<'HELPMESSAGE'
+
+        rig is a command line utility designed to aide in development
+        with the Roady PHP Framework.
 
         The following commands are provided by rig:
 
@@ -461,10 +517,9 @@ class GenerateHelpMessageAction extends Action
         rig --view-action-log
         rig --view-readme
 
+        For more information about a command use `rig --help COMMAND`
+
         HELPMESSAGE;
-        $this->messageLog()->addMessage($helpMessage);
-        $this->actionStatus = ActionStatus::SUCCEEDED;
-        return $this;
     }
 }
 
