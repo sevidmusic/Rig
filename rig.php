@@ -703,34 +703,43 @@ class CreateModuleDirectoryAction extends Action
             $this->actionStatus = ActionStatus::FAILED;
         }
         $specifiedModuleName = $this->arguments()->asArray()['module-name'];
-        if(!empty($specifiedModuleName)) {
-            $pathToNewModulesDirectory =
-                $pathToRoadyProjectsModulesDirectory->__toString() .
-                DIRECTORY_SEPARATOR .
-                $specifiedModuleName;
-            $this->messageLog()
-                 ->addMessage(
-                     'Creating new module directory at: ' .
-                     $pathToNewModulesDirectory
-                 );
-            $moduleAlreadyExists = is_dir($pathToNewModulesDirectory);
-            if($moduleAlreadyExists) {
-                $this->messageLog()->addMessage(
-                    CLIColorizer::applyFAILEDColor(
-                        'A module named ' .
-                        $specifiedModuleName .
-                        ' already exists. Please choose a unique name.'
-                    )
-                );
-            }
-            $this->actionStatus = match($moduleAlreadyExists) {
-                true => ActionStatus::FAILED,
-                false => match(mkdir($pathToNewModulesDirectory)) {
-                    true => ActionStatus::SUCCEEDED,
-                    false => ActionStatus::FAILED,
-                },
-            };
+        if(empty($specifiedModuleName)) {
+            $this->messageLog()->addMessage(
+                CLIColorizer::applyFAILEDColor(
+                    'Please specify a --module-name to use for ' .
+                     'the new module'
+                )
+            );
+            return $this;
         }
+
+        $pathToNewModulesDirectory =
+            $pathToRoadyProjectsModulesDirectory->__toString() .
+            DIRECTORY_SEPARATOR .
+            $specifiedModuleName;
+        $this->messageLog()
+             ->addMessage(
+                 'Creating new module directory at: ' .
+                 $pathToNewModulesDirectory
+             );
+        $moduleAlreadyExists = is_dir($pathToNewModulesDirectory);
+        if($moduleAlreadyExists) {
+            $this->messageLog()->addMessage(
+                CLIColorizer::applyFAILEDColor(
+                    'A module named ' .
+                    $specifiedModuleName .
+                    ' already exists. Please choose a unique name.'
+                )
+            );
+        }
+        $this->actionStatus = match($moduleAlreadyExists) {
+            true => ActionStatus::FAILED,
+            false => match(mkdir($pathToNewModulesDirectory)) {
+                true => ActionStatus::SUCCEEDED,
+                false => ActionStatus::FAILED,
+            },
+        };
+
         return $this;
     }
 }
