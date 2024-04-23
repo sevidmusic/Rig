@@ -68,6 +68,12 @@ class CLIColorizer
     {
         return self::applyANSIColor($string, 250);
     }
+
+    public static function applyHighlightColor(string $string): string
+    {
+        return self::applyANSIColor($string, 105);
+    }
+
 }
 
 enum ActionStatus
@@ -492,10 +498,11 @@ class RigCLUI {
         /_/ /_/\_, /
               /___/
 
-        For help use: rig --help
-        For help with a specific command use: rig --help command-name
-
         HEADER;
+        $welcomeMessage .= PHP_EOL . 'For help use: ' . PHP_EOL;
+        $welcomeMessage .= CLIColorizer::applyHighlightColor('rig --help') . PHP_EOL;
+        $welcomeMessage .= PHP_EOL . 'For help with a specific command use: ' . PHP_EOL;
+        $welcomeMessage .= CLIColorizer::applyHighlightColor('rig --help command-name') . PHP_EOL;
         intro($welcomeMessage);
 
     }
