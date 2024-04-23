@@ -739,7 +739,31 @@ class CreateModuleDirectoryAction extends Action
                 false => ActionStatus::FAILED,
             },
         };
-
+        $noBoilerplate = $this->arguments()->asArray()['no-boilerplate'];
+        if($noBoilerplate !== 'no-boilerplate') {
+            // mk css dir
+            // mk js dir
+            // mk output dir
+            // mk output/module-name.html with content <p>Hello REPLACE_WITH_NEW_MODULE_NAME</p>
+            // mk localhost.8080.json with content
+            /**
+[
+    {
+        "module-name": "NEW_MODULE_NAME",
+        "responds-to": [
+            "homepage"
+        ],
+        "named-positions": [
+            {
+                "position-name": "roady-ui-main-content",
+                "position": 0
+            }
+        ],
+        "relative-path": "output\/NEW_MODULE_NAME.html"
+    }
+]
+             */
+        }
         return $this;
     }
 }
