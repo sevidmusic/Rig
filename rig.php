@@ -8,7 +8,14 @@ require $_composer_autoload_path;
 require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'erusev' . DIRECTORY_SEPARATOR . 'parsedown' . DIRECTORY_SEPARATOR  . 'Parsedown.php';
 
 
+use Darling\PHPFileSystemPaths\classes\paths\PathToExistingDirectory;
 use \Darling\PHPTextTypes\classes\strings\ClassString;
+use \Darling\PHPTextTypes\classes\strings\Text;
+use \Darling\PHPTextTypes\classes\strings\Name;
+use \Darling\PHPTextTypes\classes\strings\SafeText;
+use \Darling\PHPTextTypes\classes\collections\SafeTextCollection;
+use \Darling\RoadyModuleUtilities\classes\paths\PathToDirectoryOfRoadyModules;
+use \Darling\RoadyModuleUtilities\classes\paths\PathToRoadyModuleDirectory;
 use function Laravel\Prompts\info;
 use function Laravel\Prompts\intro;
 use function Laravel\Prompts\table;
@@ -639,6 +646,154 @@ class DetermineVersionAction extends Action
         $this->actionStatus = ActionStatus::SUCCEEDED;
         return $this;
     }
+}
+
+class CreateModuleDirectoryAction extends Action
+{
+
+    private const MODULES_DIRECTORY_NAME = 'modules';
+
+    private function pathToExistingDirectory(string $path): PathToExistingDirectory
+    {
+        $pathParts = explode(DIRECTORY_SEPARATOR, $path);
+        $safeTextParts = [];
+        foreach($pathParts as $part) {
+            if(!empty($part)) {
+                $safeTextParts[] = new SafeText(new Text($part));
+            }
+        }
+        return new PathToExistingDirectory(
+            new SafeTextCollection(...$safeTextParts),
+        );
+    }
+
+    private function expectedPathToRoadyProjectsModulesDirectory(): PathToDirectoryOfRoadyModules
+    {
+
+        $specifiedPathToRoadyProject = match(
+            empty($this->arguments()->asArray()['path-to-roady-project'])
+        ) {
+            true => __DIR__ . DIRECTORY_SEPARATOR .
+                self::MODULES_DIRECTORY_NAME,
+            false => $this->arguments()->asArray()['path-to-roady-project'] .
+                DIRECTORY_SEPARATOR . self::MODULES_DIRECTORY_NAME,
+        };
+        return new PathToDirectoryOfRoadyModules(
+            $this->pathToExistingDirectory($specifiedPathToRoadyProject)
+        );
+    }
+
+    public function do(): CreateModuleDirectoryAction
+    {
+        $pathToRoadyProjectsModulesDirectory =
+            $this->expectedPathToRoadyProjectsModulesDirectory();
+        if(
+            $pathToRoadyProjectsModulesDirectory->__toString()
+            ===
+            sys_get_temp_dir()
+        ) {
+            $this->messageLog()
+                ->addMessage(
+                    CLIColorizer::applyFAILEDColor(
+                        'Failed to created new module directory.' .
+                        'The path to the current Roady project\'s ' .
+                        'modules directory could not be determined.'
+                    )
+                );
+            $this->actionStatus = ActionStatus::FAILED;
+        }
+        $specifiedModuleName = $this->arguments()->asArray()['module-name'];
+        if(!empty($specifiedModuleName)) {
+            $pathToNewModulesDirectory =
+                $pathToRoadyProjectsModulesDirectory->__toString() .
+                DIRECTORY_SEPARATOR .
+                $specifiedModuleName;
+            $this->messageLog()
+                 ->addMessage(
+                     'Creating new module directory at: ' .
+                     $pathToNewModulesDirectory
+                 );
+            $moduleAlreadyExists = is_dir($pathToNewModulesDirectory);
+            if($moduleAlreadyExists) {
+                $this->messageLog()->addMessage(
+                    CLIColorizer::applyFAILEDColor(
+                        'A module named ' .
+                        $specifiedModuleName .
+                        ' already exists. Please choose a unique name.'
+                    )
+                );
+            }
+            $this->actionStatus = match($moduleAlreadyExists) {
+                true => ActionStatus::FAILED,
+                false => match(mkdir($pathToNewModulesDirectory)) {
+                    true => ActionStatus::SUCCEEDED,
+                    false => ActionStatus::FAILED,
+                },
+            };
+        }
+        return $this;
+    }
+}
+
+# Commands
+/*
+ // DONE
+ rig --help
+ rig --version
+ rig --view-readme
+ // TODO
+ rig --new-module
+ rig --new-route
+ rig --list-routes
+ rig --delete-route
+ rig --update-route
+ rig --start-servers
+ rig --view-action-log
+*/
+
+class NewModuleCommand  extends Command
+{
+
+    /** @return array<int, Action> $actions */
+    public function actions(): array
+    {
+        return [
+            new CreateModuleDirectoryAction(
+                $this->arguments(),
+                $this->messageLog()
+            )
+        ];
+    }
+}
+
+class NewRouteCommand extends Command
+{
+
+}
+
+class ListRoutesCommand extends Command
+{
+
+}
+
+class DeleteRouteCommand extends Command
+{
+
+}
+
+class UpdateRouteCommand extends Command
+{
+
+}
+
+class StartServersCommand extends Command
+{
+
+}
+
+class ViewActionLogCommand extends Command
+{
+
 }
 
 class HelpCommand extends Command
