@@ -13,6 +13,39 @@ use function Laravel\Prompts\info;
 use function Laravel\Prompts\intro;
 use function Laravel\Prompts\table;
 
+/**
+ * Apply the specified ANSI $backgroundColorCode to the specified
+ * $string as the background color:
+ *
+ *     `\033[48;5;{$backgroundColorCode}m`
+ *
+ * Foreground color will be black:
+ *
+ *     `\033[38;5;0m`
+ *
+ * @param string $string The string to apply color to.
+ *
+ * @param int $backgroundColorCode The color code to apply as the
+ *                                 background color.
+ *
+ *                                 Color code range: 0 - 255
+ *
+ * @return string
+ *
+ * @example
+ *
+ * echo applyANSIColor("Foo", rand(1, 255));
+ *
+ */
+function applyANSIColor(string $string, int $backgroundColorCode): string {
+    return "\033[0m" .      // reset color
+        "\033[48;5;" .      // set background color to specified color
+        strval($backgroundColorCode) . "m" .
+        "\033[38;5;0m " .   // set foreground color to black
+        $string .
+        " \033[0m";         // reset color
+}
+
 enum ActionStatus
 {
 
@@ -496,7 +529,12 @@ class GenerateHelpMessageAction extends Action
             default => $this->defaultHelpMessage(),
         };
 
-        $this->messageLog()->addMessage('rig' . (!empty($topic) ? ' --' . $topic : ''));
+        $this->messageLog()->addMessage(
+            applyANSIColor(
+                'rig' . (!empty($topic) ? ' --' . $topic : ''),
+                backgroundColorCode: 93
+            )
+        );
         $this->messageLog()->addMessage($helpMessage);
         $this->actionStatus = ActionStatus::SUCCEEDED;
         return $this;
