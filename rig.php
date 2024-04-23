@@ -71,7 +71,7 @@ class CLIColorizer
 
     public static function applyHighlightColor(string $string): string
     {
-        return self::applyANSIColor($string, 105);
+        return self::applyANSIColor($string, 67);
     }
 
 }
@@ -120,7 +120,7 @@ class Action
     public function do(): Action
     {
         $this->messageLog->addMessage(
-            'Perfomred action: ' . $this::class
+            'Perfomred action: ' . CLIColorizer::applyHighlightColor($this::class)
         );
         $this->actionStatus = ActionStatus::SUCCEEDED;
         return $this;
@@ -197,7 +197,8 @@ class Command
     public function execute(): Command {
         foreach($this->actions() as $action) {
         $this->messageLog()->addMessage(
-                'Executing action: ' . $action::class
+                'Executing action: ' .
+                CLIColorizer::applyHighlightColor($action::class)
             );
             $this->actionEventLog->addActionEvent(
                 new ActionEvent(
@@ -475,9 +476,8 @@ class RigCLUI {
                         ActionStatus::FAILED => CLIColorizer::applyFAILEDColor($actionEvent->action()->actionStatus()->name),
                         ActionStatus::NOT_PROCESSED => CLIColorizer::applyNOT_PROCESSEDColor($actionEvent->action()->actionStatus()->name),
                     }, // todo color should be green if SUCCEEDED, red if FAILED, grey if NOT_PROCESSED
-                    CLIColorizer::applyANSIColor(
+                    CLIColorizer::applyHighlightColor(
                         $actionEvent->dateTime()->format('Y-m-d H:i:s A'),
-                        backgroundColorCode: 67
                     ),
                 ];
             }
@@ -571,9 +571,8 @@ class GenerateHelpMessageAction extends Action
         };
 
         $this->messageLog()->addMessage(
-            CLIColorizer::applyANSIColor(
+            CLIColorizer::applyHighlightColor(
                 'rig' . (!empty($topic) ? ' --' . $topic : ''),
-                backgroundColorCode: 209,
             ),
         );
         $this->messageLog()->addMessage($helpMessage);
@@ -619,7 +618,9 @@ class ReadREADMEAction extends Action
         );
         $parsedown = new Parsedown();
         match(php_sapi_name() === 'cli') {
-            true => $this->messageLog()->addMessage($readme),
+            true => $this->messageLog()->addMessage(
+                CLIColorizer::applyANSIColor($readme, 235)
+            ),
             default => $this->messageLog()
                             ->addMessage(
                                 $parsedown->text($readme)
@@ -634,7 +635,7 @@ class DetermineVersionAction extends Action
 {
     public function do(): DetermineVersionAction
     {
-        $this->messageLog()->addMessage('rig version 2.0.0-alpha-12');
+        $this->messageLog()->addMessage('rig version ' . CLIColorizer::applyHighlightColor('2.0.0-alpha-12'));
         $this->actionStatus = ActionStatus::SUCCEEDED;
         return $this;
     }
