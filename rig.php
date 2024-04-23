@@ -436,9 +436,9 @@ class RigCLUI {
                 $actionEvent
             ) {
                 $commandStatusDateTime[] = [
-                    $actionEvent->action()::class,
-                    $actionEvent->action()->actionStatus()->name,
-                    $actionEvent->dateTime()->format('Y-m-d H:i:s A')
+                    applyANSIColor($actionEvent->action()::class, backgroundColorCode: 87),
+                    applyANSIColor($actionEvent->action()->actionStatus()->name, backgroundColorCode: 77), // todo color should be green if SUCCEEDED, red if FAILED, grey if NOT_PROCESSED
+                    applyANSIColor($actionEvent->dateTime()->format('Y-m-d H:i:s A'), backgroundColorCode: 67),
                 ];
             }
             table(
