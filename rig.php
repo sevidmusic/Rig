@@ -53,6 +53,21 @@ class CLIColorizer
             " \033[0m";         // reset color
     }
 
+
+    public static function applySUCCEEDEDColor(string $string): string
+    {
+        return self::applyANSIColor($string, 83);
+    }
+
+    public static function applyFAILEDColor(string $string): string
+    {
+        return self::applyANSIColor($string, 160);
+    }
+
+    public static function applyNOT_PROCESSEDColor(string $string): string
+    {
+        return self::applyANSIColor($string, 250);
+    }
 }
 
 enum ActionStatus
@@ -449,10 +464,11 @@ class RigCLUI {
                         $actionEvent->action()::class,
                         backgroundColorCode: 87
                     ),
-                    CLIColorizer::applyANSIColor(
-                        $actionEvent->action()->actionStatus()->name,
-                        backgroundColorCode: 77
-                    ), // todo color should be green if SUCCEEDED, red if FAILED, grey if NOT_PROCESSED
+                    match($actionEvent->action()->actionStatus()) {
+                        ActionStatus::SUCCEEDED => CLIColorizer::applySUCCEEDEDColor($actionEvent->action()->actionStatus()->name),
+                        ActionStatus::FAILED => CLIColorizer::applyFAILEDColor($actionEvent->action()->actionStatus()->name),
+                        ActionStatus::NOT_PROCESSED => CLIColorizer::applyNOT_PROCESSEDColor($actionEvent->action()->actionStatus()->name),
+                    }, // todo color should be green if SUCCEEDED, red if FAILED, grey if NOT_PROCESSED
                     CLIColorizer::applyANSIColor(
                         $actionEvent->dateTime()->format('Y-m-d H:i:s A'),
                         backgroundColorCode: 67
