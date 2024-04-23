@@ -13,37 +13,46 @@ use function Laravel\Prompts\info;
 use function Laravel\Prompts\intro;
 use function Laravel\Prompts\table;
 
-/**
- * Apply the specified ANSI $backgroundColorCode to the specified
- * $string as the background color:
- *
- *     `\033[48;5;{$backgroundColorCode}m`
- *
- * Foreground color will be black:
- *
- *     `\033[38;5;0m`
- *
- * @param string $string The string to apply color to.
- *
- * @param int $backgroundColorCode The color code to apply as the
- *                                 background color.
- *
- *                                 Color code range: 0 - 255
- *
- * @return string
- *
- * @example
- *
- * echo applyANSIColor("Foo", rand(1, 255));
- *
- */
-function applyANSIColor(string $string, int $backgroundColorCode): string {
-    return "\033[0m" .      // reset color
-        "\033[48;5;" .      // set background color to specified color
-        strval($backgroundColorCode) . "m" .
-        "\033[38;5;0m " .   // set foreground color to black
-        $string .
-        " \033[0m";         // reset color
+class CLIColorizer
+{
+
+    /**
+     * Apply the specified ANSI $backgroundColorCode to the specified
+     * $string as the background color:
+     *
+     *     `\033[48;5;{$backgroundColorCode}m`
+     *
+     * Foreground color will be black:
+     *
+     *     `\033[38;5;0m`
+     *
+     * Note: This function is designed to format strings to be output
+     *       to a terminal, using this function in any other context
+     *       is harmless, though probably not appropriate.
+     *
+     * @param string $string The string to apply color to.
+     *
+     * @param int $backgroundColorCode The color code to apply as the
+     *                                 background color.
+     *
+     *                                 Color code range: 0 - 255
+     *
+     * @return string
+     *
+     * @example
+     *
+     * $cLIColorizer->applyANSIColor("Foo", rand(1, 255));
+     *
+     */
+    public static function applyANSIColor(string $string, int $backgroundColorCode): string {
+        return "\033[0m" .      // reset color
+            "\033[48;5;" .      // set background color to specified color
+            strval($backgroundColorCode) . "m" .
+            "\033[38;5;0m " .   // set foreground color to black
+            $string .
+            " \033[0m";         // reset color
+    }
+
 }
 
 enum ActionStatus
@@ -436,9 +445,18 @@ class RigCLUI {
                 $actionEvent
             ) {
                 $commandStatusDateTime[] = [
-                    applyANSIColor($actionEvent->action()::class, backgroundColorCode: 87),
-                    applyANSIColor($actionEvent->action()->actionStatus()->name, backgroundColorCode: 77), // todo color should be green if SUCCEEDED, red if FAILED, grey if NOT_PROCESSED
-                    applyANSIColor($actionEvent->dateTime()->format('Y-m-d H:i:s A'), backgroundColorCode: 67),
+                    CLIColorizer::applyANSIColor(
+                        $actionEvent->action()::class,
+                        backgroundColorCode: 87
+                    ),
+                    CLIColorizer::applyANSIColor(
+                        $actionEvent->action()->actionStatus()->name,
+                        backgroundColorCode: 77
+                    ), // todo color should be green if SUCCEEDED, red if FAILED, grey if NOT_PROCESSED
+                    CLIColorizer::applyANSIColor(
+                        $actionEvent->dateTime()->format('Y-m-d H:i:s A'),
+                        backgroundColorCode: 67
+                    ),
                 ];
             }
             table(
@@ -530,10 +548,10 @@ class GenerateHelpMessageAction extends Action
         };
 
         $this->messageLog()->addMessage(
-            applyANSIColor(
+            CLIColorizer::applyANSIColor(
                 'rig' . (!empty($topic) ? ' --' . $topic : ''),
-                backgroundColorCode: 93
-            )
+                backgroundColorCode: 209,
+            ),
         );
         $this->messageLog()->addMessage($helpMessage);
         $this->actionStatus = ActionStatus::SUCCEEDED;
@@ -1091,7 +1109,7 @@ if(php_sapi_name() === 'cli') {
                 $actionEventLog,
                 $messageLog,
             )
-        )
+        ),
     );
 
     $rigCLUI->render();
