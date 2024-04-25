@@ -759,6 +759,111 @@ class CreateModuleDirectoryAction extends Action
         };
     }
 
+    private function attemptToCreateNewModulesCssDirectory(): void
+    {
+        $this->actionStatus = match($this->actionStatus()) {
+            ActionStatus::FAILED => ActionStatus::FAILED,
+            default => match(
+                mkdir(
+                    $this->pathToNewModulesDirectory() .
+                        DIRECTORY_SEPARATOR .
+                        'css'
+                )
+            ) {
+                true => ActionStatus::SUCCEEDED,
+                false => ActionStatus::FAILED,
+            },
+        };
+    }
+
+    private function attemptToCreateNewModulesJsDirectory(): void
+    {
+        $this->actionStatus = match($this->actionStatus()) {
+            ActionStatus::FAILED => ActionStatus::FAILED,
+            default => match(
+                mkdir(
+                    $this->pathToNewModulesDirectory() .
+                        DIRECTORY_SEPARATOR .
+                        'js'
+                )
+            ) {
+                true => ActionStatus::SUCCEEDED,
+                false => ActionStatus::FAILED,
+            },
+        };
+    }
+
+    private function attemptToCreateNewModulesInitialOutputFile(): void
+    {
+        $this->actionStatus = match($this->actionStatus()) {
+            ActionStatus::FAILED => ActionStatus::FAILED,
+            default => match(
+                file_put_contents(
+                    $this->pathToNewModulesDirectory() .
+                        DIRECTORY_SEPARATOR .
+                        'output'.
+                        DIRECTORY_SEPARATOR .
+                        'hello-world.html',
+                    '<h1>Hello World</h1>'
+                ) > 0
+            ) {
+                true => ActionStatus::SUCCEEDED,
+                false => ActionStatus::FAILED,
+            },
+        };
+    }
+
+    private function attemptToCreateNewModulesInitialRoutesConfigurationFile(): void
+    {
+        $json = <<<'JSON'
+        [
+            {
+                "module-name": "NEW_MODULE_NAME",
+                "responds-to": [
+                    "homepage"
+                ],
+                "named-positions": [
+                    {
+                        "position-name": "roady-ui-main-content",
+                        "position": 0
+                    }
+                ],
+                "relative-path": "output\/NEW_MODULE_NAME.html"
+            }
+        ]
+
+        JSON;
+        $this->actionStatus = match($this->actionStatus()) {
+            ActionStatus::FAILED => ActionStatus::FAILED,
+            default => match(
+                file_put_contents(
+                    $this->pathToNewModulesDirectory() .
+                        DIRECTORY_SEPARATOR .
+                        'localhost.8080.json',
+                    $json
+                ) > 0
+            ) {
+                true => ActionStatus::SUCCEEDED,
+                false => ActionStatus::FAILED,
+            },
+        };
+    }
+    private function attemptToCreateNewModulesOutputDirectory(): void
+    {
+        $this->actionStatus = match($this->actionStatus()) {
+            ActionStatus::FAILED => ActionStatus::FAILED,
+            default => match(
+                mkdir(
+                    $this->pathToNewModulesDirectory() .
+                        DIRECTORY_SEPARATOR .
+                        'output'
+                )
+            ) {
+                true => ActionStatus::SUCCEEDED,
+                false => ActionStatus::FAILED,
+            },
+        };
+    }
 
     private function noBoilerplateSpecified(): bool
     {
@@ -776,7 +881,13 @@ class CreateModuleDirectoryAction extends Action
             &&
             $this->noBoilerplateSpecified() === false
         ) {
-            $this->messageLog()->addMessage('YAY');
+            $this->attemptToCreateNewModulesCssDirectory();
+            $this->attemptToCreateNewModulesJsDirectory();
+            $this->attemptToCreateNewModulesOutputDirectory();
+            $this->attemptToCreateNewModulesInitialOutputFile();
+            $this->attemptToCreateNewModulesInitialRoutesConfigurationFile();
+            // mk output/module-name.html with content <p>Hello REPLACE_WITH_NEW_MODULE_NAME</p>
+            // mk localhost.8080.json with content
         }
         return $this;
     }
@@ -1376,11 +1487,6 @@ $rigWebUI->render();
 *
 
         if($noBoilerplate !== 'no-boilerplate') {
-            // mk css dir
-            // mk js dir
-            // mk output dir
-            // mk output/module-name.html with content <p>Hello REPLACE_WITH_NEW_MODULE_NAME</p>
-            // mk localhost.8080.json with content
             /**
 [
     {
