@@ -652,6 +652,7 @@ class CreateModuleDirectoryAction extends Action
 {
 
     private const MODULES_DIRECTORY_NAME = 'modules';
+    private const MODULE_NAME_ARGUMENT = 'module-name';
 
     private function pathToExistingDirectory(string $path): PathToExistingDirectory
     {
@@ -683,12 +684,29 @@ class CreateModuleDirectoryAction extends Action
         );
     }
 
-    public function do(): CreateModuleDirectoryAction
+    private function failIfModuleNameWasNotSpecified(): void
     {
-        $pathToRoadyProjectsModulesDirectory =
-            $this->expectedPathToRoadyProjectsModulesDirectory();
+        $specifiedModuleName = $this->specifiedModuleName();
+        if(empty($specifiedModuleName)) {
+            $this->messageLog()->addMessage(
+                CLIColorizer::applyFAILEDColor(
+                    'Please specify a --module-name to use for ' .
+                     'the new module'
+                )
+            );
+            $this->actionStatus = ActionStatus::FAILED;
+        }
+    }
+
+    private function specifiedModuleName(): string
+    {
+        return $this->arguments()->asArray()[self::MODULE_NAME_ARGUMENT];
+    }
+
+    private function failIfPathToRoadyProjectCannotBeDetermined(): void
+    {
         if(
-            $pathToRoadyProjectsModulesDirectory->__toString()
+            $this->expectedPathToRoadyProjectsModulesDirectory()->__toString()
             ===
             sys_get_temp_dir()
         ) {
@@ -702,67 +720,63 @@ class CreateModuleDirectoryAction extends Action
                 );
             $this->actionStatus = ActionStatus::FAILED;
         }
-        $specifiedModuleName = $this->arguments()->asArray()['module-name'];
-        if(empty($specifiedModuleName)) {
-            $this->messageLog()->addMessage(
-                CLIColorizer::applyFAILEDColor(
-                    'Please specify a --module-name to use for ' .
-                     'the new module'
-                )
-            );
-            return $this;
-        }
+    }
 
-        $pathToNewModulesDirectory =
-            $pathToRoadyProjectsModulesDirectory->__toString() .
-            DIRECTORY_SEPARATOR .
-            $specifiedModuleName;
-        $this->messageLog()
-             ->addMessage(
-                 'Creating new module directory at: ' .
-                 $pathToNewModulesDirectory
-             );
-        $moduleAlreadyExists = is_dir($pathToNewModulesDirectory);
-        if($moduleAlreadyExists) {
+
+    private function pathToNewModulesDirectory(): string
+    {
+        return $this->expectedPathToRoadyProjectsModulesDirectory() .
+               DIRECTORY_SEPARATOR .
+               $this->specifiedModuleName();
+    }
+
+    private function failIfModuleAlreadyExists(): void
+    {
+        if(
+            $this->actionStatus() !== ActionStatus::FAILED
+            &&
+            is_dir($this->pathToNewModulesDirectory())
+        ) {
             $this->messageLog()->addMessage(
                 CLIColorizer::applyFAILEDColor(
                     'A module named ' .
-                    $specifiedModuleName .
+                    $this->specifiedModuleName() .
                     ' already exists. Please choose a unique name.'
                 )
             );
+            $this->actionStatus = ActionStatus::FAILED;
         }
-        $this->actionStatus = match($moduleAlreadyExists) {
-            true => ActionStatus::FAILED,
-            false => match(mkdir($pathToNewModulesDirectory)) {
+    }
+
+    private function attemptToCreateNewModuleDirectory(): void
+    {
+        $this->actionStatus = match($this->actionStatus()) {
+            ActionStatus::FAILED => ActionStatus::FAILED,
+            default => match(mkdir($this->pathToNewModulesDirectory())) {
                 true => ActionStatus::SUCCEEDED,
                 false => ActionStatus::FAILED,
             },
         };
-        $noBoilerplate = $this->arguments()->asArray()['no-boilerplate'];
-        if($noBoilerplate !== 'no-boilerplate') {
-            // mk css dir
-            // mk js dir
-            // mk output dir
-            // mk output/module-name.html with content <p>Hello REPLACE_WITH_NEW_MODULE_NAME</p>
-            // mk localhost.8080.json with content
-            /**
-[
-    {
-        "module-name": "NEW_MODULE_NAME",
-        "responds-to": [
-            "homepage"
-        ],
-        "named-positions": [
-            {
-                "position-name": "roady-ui-main-content",
-                "position": 0
-            }
-        ],
-        "relative-path": "output\/NEW_MODULE_NAME.html"
     }
-]
-             */
+
+
+    private function noBoilerplateSpecified(): bool
+    {
+        return !empty($this->arguments()->asArray()['no-boilerplate']);
+    }
+
+    public function do(): CreateModuleDirectoryAction
+    {
+        $this->failIfModuleNameWasNotSpecified();
+        $this->failIfPathToRoadyProjectCannotBeDetermined();
+        $this->failIfModuleAlreadyExists();
+        $this->attemptToCreateNewModuleDirectory();
+        if(
+            $this->actionStatus() !== ActionStatus::FAILED
+            &&
+            $this->noBoilerplateSpecified() === false
+        ) {
+            $this->messageLog()->addMessage('YAY');
         }
         return $this;
     }
@@ -1355,3 +1369,34 @@ $rigWebUI->render();
  * To use curl:
  * curl -d 'delete-route&version&help=new-route&list-routes&new-module&new-route&start-servers&update-route&version&view-action-log&view-readme&authority=localhost:8080&defined-for-authorities=localhost:8080,%20roady.tech&defined-for-files=homepage.html&defined-for-modules=HelloWorld&defined-for-named-positions=roady-ui-footer&defined-for-positions=10,%2011&defined-for-requests=Homepage,%20HelloWorld&for-authority=localhost:8080&module-name=HelloWorld&named-positions=[{%22position-name%22:%22roady-ui-footer%22,%22position%22:10},%20{%22position-name%22:%22roady-ui-header%22,%22position%22:11}]&no-boilerplate&open-in-browser&path-to-roady-project=./&ports=8080&relative-path=output/Homepage.html&responds-to=Homepage&route-hash=234908' http://localhost:8080/rig.php
  */
+
+
+/***
+*
+*
+
+        if($noBoilerplate !== 'no-boilerplate') {
+            // mk css dir
+            // mk js dir
+            // mk output dir
+            // mk output/module-name.html with content <p>Hello REPLACE_WITH_NEW_MODULE_NAME</p>
+            // mk localhost.8080.json with content
+            /**
+[
+    {
+        "module-name": "NEW_MODULE_NAME",
+        "responds-to": [
+            "homepage"
+        ],
+        "named-positions": [
+            {
+                "position-name": "roady-ui-main-content",
+                "position": 0
+            }
+        ],
+        "relative-path": "output\/NEW_MODULE_NAME.html"
+    }
+]
+             *
+        }
+*/
