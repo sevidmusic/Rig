@@ -203,7 +203,7 @@ class Command
 
     public function execute(): Command {
         foreach($this->actions() as $action) {
-        $this->messageLog()->addMessage(
+            $this->messageLog()->addMessage(
                 'Executing action: ' .
                 CLIColorizer::applyHighlightColor($action::class)
             );
@@ -709,18 +709,44 @@ class CreateModuleDirectoryAction extends Action
             ===
             sys_get_temp_dir()
         ) {
+            $this->actionStatus = ActionStatus::FAILED;
             $this->messageLog()
                 ->addMessage(
                     CLIColorizer::applyFAILEDColor(
-                        'Failed to created new module directory.' .
+                        'Failed to creat new module directory.'
+                    )
+                );
+            $this->messageLog()
+                ->addMessage(
+                    CLIColorizer::applyFAILEDColor(
                         'The path to the current Roady project\'s ' .
                         'modules directory could not be determined.'
                     )
                 );
-            $this->actionStatus = ActionStatus::FAILED;
+            $this->messageLog()
+                ->addMessage(
+                    CLIColorizer::applyFAILEDColor(
+                        'Please create the projects moudules ' .
+                        'directory if it does not exist.'
+                    )
+                );
+
+            $this->messageLog()
+                ->addMessage(
+                    CLIColorizer::applyHighlightColor(
+                        'To create a the modules directory `cd` ' .
+                        'into the root directory of the relevant ' .
+                        'Roady project and run:'
+                    )
+                );
+            $this->messageLog()
+                ->addMessage(
+                    CLIColorizer::applyHighlightColor(
+                        'mkdir modules'
+                    )
+                );
         }
     }
-
 
     private function pathToNewModulesDirectory(): string
     {
