@@ -795,6 +795,11 @@ class CreateModuleDirectoryAction extends Action
 
     private function attemptToCreateNewModulesInitialOutputFile(): void
     {
+        $specifiedModuleName = $this->specifiedModuleName();
+        $initialOutput = <<<HTML
+        <h1>{$specifiedModuleName}</h1>
+        <p>Initial output...</p>
+        HTML;
         $this->actionStatus = match($this->actionStatus()) {
             ActionStatus::FAILED => ActionStatus::FAILED,
             default => match(
@@ -804,7 +809,7 @@ class CreateModuleDirectoryAction extends Action
                         'output'.
                         DIRECTORY_SEPARATOR .
                         'hello-world.html',
-                    '<h1>Hello World</h1>'
+                    $initialOutput
                 ) > 0
             ) {
                 true => ActionStatus::SUCCEEDED,
@@ -815,10 +820,11 @@ class CreateModuleDirectoryAction extends Action
 
     private function attemptToCreateNewModulesInitialRoutesConfigurationFile(): void
     {
-        $json = <<<'JSON'
+        $specifiedModuleName = $this->specifiedModuleName();
+        $json = <<<"JSON"
         [
             {
-                "module-name": "NEW_MODULE_NAME",
+                "module-name": "{$specifiedModuleName}",
                 "responds-to": [
                     "homepage"
                 ],
@@ -828,7 +834,7 @@ class CreateModuleDirectoryAction extends Action
                         "position": 0
                     }
                 ],
-                "relative-path": "output\/NEW_MODULE_NAME.html"
+                "relative-path": "output\/{$specifiedModuleName}.html"
             }
         ]
 
@@ -886,8 +892,6 @@ class CreateModuleDirectoryAction extends Action
             $this->attemptToCreateNewModulesOutputDirectory();
             $this->attemptToCreateNewModulesInitialOutputFile();
             $this->attemptToCreateNewModulesInitialRoutesConfigurationFile();
-            // mk output/module-name.html with content <p>Hello REPLACE_WITH_NEW_MODULE_NAME</p>
-            // mk localhost.8080.json with content
         }
         return $this;
     }
