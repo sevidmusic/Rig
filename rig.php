@@ -670,7 +670,6 @@ class CreateModuleDirectoryAction extends Action
 
     private function expectedPathToRoadyProjectsModulesDirectory(): PathToDirectoryOfRoadyModules
     {
-
         $specifiedPathToRoadyProject = match(
             empty($this->arguments()->asArray()['path-to-roady-project'])
         ) {
