@@ -683,6 +683,26 @@ class CreateNewModuleDirectoryAction extends Action
     private const MODULES_DIRECTORY_NAME = 'modules';
     private const MODULE_NAME_ARGUMENT = 'module-name';
 
+    public function do(): CreateNewModuleDirectoryAction
+    {
+        $this->failIfModuleNameWasNotSpecified();
+        $this->failIfPathToRoadyProjectsModulesDirectoryCannotBeDetermined();
+        $this->failIfModuleAlreadyExists();
+        $this->attemptToCreateNewModuleDirectory();
+        if(
+            $this->actionStatus() !== ActionStatus::FAILED
+            &&
+            $this->noBoilerplateSpecified() === false
+        ) {
+            $this->attemptToCreateNewModulesCssDirectory();
+            $this->attemptToCreateNewModulesJsDirectory();
+            $this->attemptToCreateNewModulesOutputDirectory();
+            $this->attemptToCreateNewModulesInitialOutputFile();
+            $this->attemptToCreateNewModulesInitialRoutesConfigurationFile();
+        }
+        return $this;
+    }
+
     private function pathToExistingDirectory(string $path): PathToExistingDirectory
     {
         $pathParts = explode(DIRECTORY_SEPARATOR, $path);
@@ -930,25 +950,6 @@ class CreateNewModuleDirectoryAction extends Action
         return !empty($this->arguments()->asArray()['no-boilerplate']);
     }
 
-    public function do(): CreateNewModuleDirectoryAction
-    {
-        $this->failIfModuleNameWasNotSpecified();
-        $this->failIfPathToRoadyProjectsModulesDirectoryCannotBeDetermined();
-        $this->failIfModuleAlreadyExists();
-        $this->attemptToCreateNewModuleDirectory();
-        if(
-            $this->actionStatus() !== ActionStatus::FAILED
-            &&
-            $this->noBoilerplateSpecified() === false
-        ) {
-            $this->attemptToCreateNewModulesCssDirectory();
-            $this->attemptToCreateNewModulesJsDirectory();
-            $this->attemptToCreateNewModulesOutputDirectory();
-            $this->attemptToCreateNewModulesInitialOutputFile();
-            $this->attemptToCreateNewModulesInitialRoutesConfigurationFile();
-        }
-        return $this;
-    }
 }
 
 # Commands
