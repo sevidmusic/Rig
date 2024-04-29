@@ -882,7 +882,7 @@ class CreateNewModuleDirectoryAction extends Action
                         DIRECTORY_SEPARATOR .
                         'output'.
                         DIRECTORY_SEPARATOR .
-                        'hello-world.html',
+                        $specifiedModuleName . '.html',
                     $initialOutput
                 ) > 0
             ) {
@@ -911,7 +911,6 @@ class CreateNewModuleDirectoryAction extends Action
                 "relative-path": "output\/{$specifiedModuleName}.html"
             }
         ]
-
         JSON;
         $this->actionStatus = match($this->actionStatus()) {
             ActionStatus::FAILED => ActionStatus::FAILED,
