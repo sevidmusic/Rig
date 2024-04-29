@@ -51,7 +51,10 @@ class CLIColorizer
      * $cLIColorizer->applyANSIColor("Foo", rand(1, 255));
      *
      */
-    public static function applyANSIColor(string $string, int $backgroundColorCode): string {
+    public static function applyANSIColor(
+        string $string,
+        int $backgroundColorCode
+    ): string {
         return "\033[0m" .      // reset color
             "\033[48;5;" .      // set background color to specified color
             strval($backgroundColorCode) . "m" .
@@ -127,7 +130,8 @@ class Action
     public function do(): Action
     {
         $this->messageLog->addMessage(
-            'Perfomred action: ' . CLIColorizer::applyHighlightColor($this::class)
+            'Perfomred action: ' .
+            CLIColorizer::applyHighlightColor($this::class)
         );
         $this->actionStatus = ActionStatus::SUCCEEDED;
         return $this;
@@ -479,12 +483,25 @@ class RigCLUI {
                         backgroundColorCode: 87
                     ),
                     match($actionEvent->action()->actionStatus()) {
-                        ActionStatus::SUCCEEDED => CLIColorizer::applySUCCEEDEDColor($actionEvent->action()->actionStatus()->name),
-                        ActionStatus::FAILED => CLIColorizer::applyFAILEDColor($actionEvent->action()->actionStatus()->name),
-                        ActionStatus::NOT_PROCESSED => CLIColorizer::applyNOT_PROCESSEDColor($actionEvent->action()->actionStatus()->name),
-                    }, // todo color should be green if SUCCEEDED, red if FAILED, grey if NOT_PROCESSED
+                        ActionStatus::SUCCEEDED =>
+                            CLIColorizer::applySUCCEEDEDColor(
+                                $actionEvent->action()
+                                            ->actionStatus()->name
+                            ),
+                        ActionStatus::FAILED =>
+                            CLIColorizer::applyFAILEDColor(
+                                $actionEvent->action()
+                                            ->actionStatus()->name
+                            ),
+                        ActionStatus::NOT_PROCESSED =>
+                            CLIColorizer::applyNOT_PROCESSEDColor(
+                                $actionEvent->action()
+                                            ->actionStatus()->name
+                            ),
+                    },
                     CLIColorizer::applyHighlightColor(
-                        $actionEvent->dateTime()->format('Y-m-d H:i:s A'),
+                        $actionEvent->dateTime()
+                                    ->format('Y-m-d H:i:s A'),
                     ),
                 ];
             }
@@ -497,7 +514,10 @@ class RigCLUI {
 
     private function displayHeader(): void
     {
-        $welcomeMessage = date('l Y, F jS h:i:s A');
+
+        $welcomeMessage = PHP_EOL;
+        $welcomeMessage .= date('l Y, F jS h:i:s A');
+        $welcomeMessage .= PHP_EOL;
         $welcomeMessage .= <<<'HEADER'
                _
           ____(_)__ _
@@ -506,12 +526,18 @@ class RigCLUI {
               /___/
 
         HEADER;
-        $welcomeMessage .= PHP_EOL . 'For help use: ' . PHP_EOL;
-        $welcomeMessage .= CLIColorizer::applyHighlightColor('rig --help') . PHP_EOL;
-        $welcomeMessage .= PHP_EOL . 'For help with a specific command use: ' . PHP_EOL;
-        $welcomeMessage .= CLIColorizer::applyHighlightColor('rig --help command-name') . PHP_EOL;
+        $welcomeMessage .= PHP_EOL;
+        $welcomeMessage .= 'For help use: ';
+        $welcomeMessage .= str_repeat(PHP_EOL, 2);
+        $welcomeMessage .= CLIColorizer::applyHighlightColor('rig --help');
+        $welcomeMessage .= str_repeat(PHP_EOL, 2);
+        $welcomeMessage .= 'For help with a specific command use: ';
+        $welcomeMessage .= str_repeat(PHP_EOL, 2);
+        $welcomeMessage .= CLIColorizer::applyHighlightColor(
+                               'rig --help command-name'
+                           );
+        $welcomeMessage .= PHP_EOL;
         intro($welcomeMessage);
-
     }
 
     public function render(): void
@@ -642,13 +668,16 @@ class DetermineVersionAction extends Action
 {
     public function do(): DetermineVersionAction
     {
-        $this->messageLog()->addMessage('rig version ' . CLIColorizer::applyHighlightColor('2.0.0-alpha-12'));
+        $this->messageLog()->addMessage(
+            'rig version ' .
+            CLIColorizer::applyHighlightColor('2.0.0-alpha-12')
+        );
         $this->actionStatus = ActionStatus::SUCCEEDED;
         return $this;
     }
 }
 
-class CreateModuleDirectoryAction extends Action
+class CreateNewModuleDirectoryAction extends Action
 {
 
     private const MODULES_DIRECTORY_NAME = 'modules';
@@ -702,7 +731,7 @@ class CreateModuleDirectoryAction extends Action
         return $this->arguments()->asArray()[self::MODULE_NAME_ARGUMENT];
     }
 
-    private function failIfPathToRoadyProjectCannotBeDetermined(): void
+    private function failIfPathToRoadyProjectsModulesDirectoryCannotBeDetermined(): void
     {
         if(
             $this->expectedPathToRoadyProjectsModulesDirectory()->__toString()
@@ -901,10 +930,10 @@ class CreateModuleDirectoryAction extends Action
         return !empty($this->arguments()->asArray()['no-boilerplate']);
     }
 
-    public function do(): CreateModuleDirectoryAction
+    public function do(): CreateNewModuleDirectoryAction
     {
         $this->failIfModuleNameWasNotSpecified();
-        $this->failIfPathToRoadyProjectCannotBeDetermined();
+        $this->failIfPathToRoadyProjectsModulesDirectoryCannotBeDetermined();
         $this->failIfModuleAlreadyExists();
         $this->attemptToCreateNewModuleDirectory();
         if(
@@ -928,8 +957,8 @@ class CreateModuleDirectoryAction extends Action
  rig --help
  rig --version
  rig --view-readme
- // TODO
  rig --new-module
+ // TODO
  rig --new-route
  rig --list-routes
  rig --delete-route
@@ -945,7 +974,7 @@ class NewModuleCommand  extends Command
     public function actions(): array
     {
         return [
-            new CreateModuleDirectoryAction(
+            new CreateNewModuleDirectoryAction(
                 $this->arguments(),
                 $this->messageLog()
             )
