@@ -7,28 +7,13 @@
          |___/
 ```
 
-- [About](#about)
-
-- [Installation](#installation)
-- [Getting Started](#getting-started)
-
-- [Commands](#commands)
-
-- [--help](#rig---help)
-- [--delete-route](#rig---delete-route)
-- [--list-routes](#rig---list-routes)
-- [--new-module](#rig---new-module)
-- [--new-route](#rig---new-route)
-- [--start-servers](#rig---start-servers)
-- [--update-route](#rig---update-route)
-- [--version](#rig---version)
-- [--view-action-log](#rig---view-action-log)
-
-# About
-
 [rig](https://github.com/sevidmusic/rig) is a command line utility
 designed to aide in development with the
 [Roady](https://github.com/sevidmusic/roady) php framework.
+
+- [Installation](#installation)
+- [Getting Started](#getting-started)
+- [Commands](#commands)
 
 # Installation
 
@@ -147,14 +132,24 @@ websites can be found in [Roady's](https://github.com/sevidmusic/roady)
 
 # Commands
 
+- [--help](#rig---help)
+- [--delete-route](#rig---delete-route)
+- [--list-routes](#rig---list-routes)
+- [--new-module](#rig---new-module)
+- [--new-route](#rig---new-route)
+- [--start-servers](#rig---start-servers)
+- [--update-route](#rig---update-route)
+- [--version](#rig---version)
+- [--view-action-log](#rig---view-action-log)
+
 ### `rig --help`
 
-Display documentation for `rig`, or one of `rig`'s commands.
+Display documentation about `rig`, or one of `rig`'s commands.
 
 Arguments:
 
 ```
-[COMMAND_NAME]
+[TOPIC]
 ```
 
 Examples:
@@ -162,7 +157,15 @@ Examples:
 ```sh
 rig --help
 
+rig --help about
+
 rig --help delete-route
+
+rig --help getting-started
+
+rig --help help
+
+rig --help installation
 
 rig --help list-routes
 
@@ -177,6 +180,9 @@ rig --help update-route
 rig --help version
 
 rig --help view-action-log
+
+rig --help view-readme
+
 ```
 
 ### `rig --delete-route`

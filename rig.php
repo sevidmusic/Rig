@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * To test via web browser, start a server via
+ * `php -S localhost:8080` and navigate to:
+ *
+ * http://localhost:8080/rig.php?delete-route&version&help=new-route&list-routes&new-module&new-route&start-servers&update-route&version&view-action-log&view-readme&authority=localhost:8080&defined-for-authorities=localhost:8080,%20roady.tech&defined-for-files=homepage.html&defined-for-modules=HelloWorld&defined-for-named-positions=roady-ui-footer&defined-for-positions=10,%2011&defined-for-requests=Homepage,%20HelloWorld&for-authority=localhost:8080&module-name=HelloWorld&named-positions=[{%22position-name%22:%22roady-ui-footer%22,%22position%22:10},%20{%22position-name%22:%22roady-ui-header%22,%22position%22:11}]&no-boilerplate&open-in-browser&path-to-roady-project=./&ports=8080&relative-path=output/Homepage.html&responds-to=Homepage&route-hash=234908
+ *
+ * To use curl:
+ * curl -d 'delete-route&version&help=new-route&list-routes&new-module&new-route&start-servers&update-route&version&view-action-log&view-readme&authority=localhost:8080&defined-for-authorities=localhost:8080,%20roady.tech&defined-for-files=homepage.html&defined-for-modules=HelloWorld&defined-for-named-positions=roady-ui-footer&defined-for-positions=10,%2011&defined-for-requests=Homepage,%20HelloWorld&for-authority=localhost:8080&module-name=HelloWorld&named-positions=[{%22position-name%22:%22roady-ui-footer%22,%22position%22:10},%20{%22position-name%22:%22roady-ui-header%22,%22position%22:11}]&no-boilerplate&open-in-browser&path-to-roady-project=./&ports=8080&relative-path=output/Homepage.html&responds-to=Homepage&route-hash=234908' http://localhost:8080/rig.php
+ */
+
 declare(strict_types=1);
 
 $_composer_autoload_path = $_composer_autoload_path ?? __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
@@ -8,10 +18,83 @@ require $_composer_autoload_path;
 require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'erusev' . DIRECTORY_SEPARATOR . 'parsedown' . DIRECTORY_SEPARATOR  . 'Parsedown.php';
 
 
+use Darling\PHPFileSystemPaths\classes\paths\PathToExistingDirectory;
 use \Darling\PHPTextTypes\classes\strings\ClassString;
+use \Darling\PHPTextTypes\classes\strings\Text;
+use \Darling\PHPTextTypes\classes\strings\Name;
+use \Darling\PHPTextTypes\classes\strings\SafeText;
+use \Darling\PHPTextTypes\classes\collections\SafeTextCollection;
+use \Darling\RoadyModuleUtilities\classes\paths\PathToDirectoryOfRoadyModules;
+use \Darling\RoadyModuleUtilities\classes\paths\PathToRoadyModuleDirectory;
 use function Laravel\Prompts\info;
 use function Laravel\Prompts\intro;
 use function Laravel\Prompts\table;
+
+class CLIColorizer
+{
+
+    /**
+     * Apply the specified ANSI $backgroundColorCode to the specified
+     * $string as the background color:
+     *
+     *     `\033[48;5;{$backgroundColorCode}m`
+     *
+     * Foreground color will be black:
+     *
+     *     `\033[38;5;0m`
+     *
+     * Note: This function is designed to format strings to be output
+     *       to a terminal, using this function in any other context
+     *       is harmless, though probably not appropriate.
+     *
+     * @param string $string The string to apply color to.
+     *
+     * @param int $backgroundColorCode The color code to apply as the
+     *                                 background color.
+     *
+     *                                 Color code range: 0 - 255
+     *
+     * @return string
+     *
+     * @example
+     *
+     * $cLIColorizer->applyANSIColor("Foo", rand(1, 255));
+     *
+     */
+    public static function applyANSIColor(
+        string $string,
+        int $backgroundColorCode
+    ): string {
+        return "\033[0m" .      // reset color
+            "\033[48;5;" .      // set background color to specified color
+            strval($backgroundColorCode) . "m" .
+            "\033[38;5;0m " .   // set foreground color to black
+            $string .
+            " \033[0m";         // reset color
+    }
+
+
+    public static function applySUCCEEDEDColor(string $string): string
+    {
+        return self::applyANSIColor($string, 83);
+    }
+
+    public static function applyFAILEDColor(string $string): string
+    {
+        return self::applyANSIColor($string, 160);
+    }
+
+    public static function applyNOT_PROCESSEDColor(string $string): string
+    {
+        return self::applyANSIColor($string, 250);
+    }
+
+    public static function applyHighlightColor(string $string): string
+    {
+        return self::applyANSIColor($string, 67);
+    }
+
+}
 
 enum ActionStatus
 {
@@ -57,7 +140,8 @@ class Action
     public function do(): Action
     {
         $this->messageLog->addMessage(
-            'Perfomred action: ' . $this::class
+            'Perfomred action: ' .
+            CLIColorizer::applyHighlightColor($this::class)
         );
         $this->actionStatus = ActionStatus::SUCCEEDED;
         return $this;
@@ -133,8 +217,9 @@ class Command
 
     public function execute(): Command {
         foreach($this->actions() as $action) {
-        $this->messageLog()->addMessage(
-                'Executing action: ' . $action::class
+            $this->messageLog()->addMessage(
+                'Executing action: ' .
+                CLIColorizer::applyHighlightColor($action::class)
             );
             $this->actionEventLog->addActionEvent(
                 new ActionEvent(
@@ -403,9 +488,31 @@ class RigCLUI {
                 $actionEvent
             ) {
                 $commandStatusDateTime[] = [
-                    $actionEvent->action()::class,
-                    $actionEvent->action()->actionStatus()->name,
-                    $actionEvent->dateTime()->format('Y-m-d H:i:s A')
+                    CLIColorizer::applyANSIColor(
+                        $actionEvent->action()::class,
+                        backgroundColorCode: 87
+                    ),
+                    match($actionEvent->action()->actionStatus()) {
+                        ActionStatus::SUCCEEDED =>
+                            CLIColorizer::applySUCCEEDEDColor(
+                                $actionEvent->action()
+                                            ->actionStatus()->name
+                            ),
+                        ActionStatus::FAILED =>
+                            CLIColorizer::applyFAILEDColor(
+                                $actionEvent->action()
+                                            ->actionStatus()->name
+                            ),
+                        ActionStatus::NOT_PROCESSED =>
+                            CLIColorizer::applyNOT_PROCESSEDColor(
+                                $actionEvent->action()
+                                            ->actionStatus()->name
+                            ),
+                    },
+                    CLIColorizer::applyHighlightColor(
+                        $actionEvent->dateTime()
+                                    ->format('Y-m-d H:i:s A'),
+                    ),
                 ];
             }
             table(
@@ -417,7 +524,10 @@ class RigCLUI {
 
     private function displayHeader(): void
     {
-        $welcomeMessage = date('l Y, F jS h:i:s A');
+
+        $welcomeMessage = PHP_EOL;
+        $welcomeMessage .= date('l Y, F jS h:i:s A');
+        $welcomeMessage .= PHP_EOL;
         $welcomeMessage .= <<<'HEADER'
                _
           ____(_)__ _
@@ -425,12 +535,19 @@ class RigCLUI {
         /_/ /_/\_, /
               /___/
 
-        For help use: rig --help
-        For help with a specific command use: rig --help command-name
-
         HEADER;
+        $welcomeMessage .= PHP_EOL;
+        $welcomeMessage .= 'For help use: ';
+        $welcomeMessage .= str_repeat(PHP_EOL, 2);
+        $welcomeMessage .= CLIColorizer::applyHighlightColor('rig --help');
+        $welcomeMessage .= str_repeat(PHP_EOL, 2);
+        $welcomeMessage .= 'For help with a specific command use: ';
+        $welcomeMessage .= str_repeat(PHP_EOL, 2);
+        $welcomeMessage .= CLIColorizer::applyHighlightColor(
+                               'rig --help command-name'
+                           );
+        $welcomeMessage .= PHP_EOL;
         intro($welcomeMessage);
-
     }
 
     public function render(): void
@@ -442,29 +559,99 @@ class RigCLUI {
 
 }
 
+# Actions
+
 class GenerateHelpMessageAction extends Action
 {
+
+    private const GETTING_STARTED_TOPIC = 'getting-started';
+    private const INSTALLTION_TOPIC = 'installation';
+    private const ABOUT_TOPIC = 'about';
+
+    private function getDocumentation(string $name): string
+    {
+        $file = file(__DIR__ . DIRECTORY_SEPARATOR . 'README.md');
+        $coordinates = [
+            self::INSTALLTION_TOPIC => [18, 57],
+            self::GETTING_STARTED_TOPIC => [76, 56],
+            RigCommand::Help->value => [145, 41],
+            RigCommand::DeleteRoute->value => [188, 27],
+            RigCommand::ListRoutes->value => [216, 94],
+            RigCommand::NewModule->value => [311, 96],
+            RigCommand::NewRoute->value => [408, 38],
+            RigCommand::StartServers->value => [447, 31],
+            RigCommand::UpdateRoute->value => [479, 43],
+            RigCommand::Version->value => [524, 10],
+            RigCommand::ViewActionLog->value => [536, 9],
+        ];
+        $startingLine = ($coordinates[$name][0] ?? 0);
+        $lineLimit = ($coordinates[$name][1] ?? 0);
+        return implode(
+            '',
+            array_slice(
+                (is_array($file) ? $file : []),
+                $startingLine,
+                $lineLimit
+            )
+        );
+    }
+
     public function do(): GenerateHelpMessageAction
     {
-        $helpMessage = <<<'helpMESSAGE'
+        $arguments = $this->arguments()->asArray();
+        $topic = str_replace('--', '', $arguments[RigCommand::Help->value] ?? '');
+        $helpMessage = match($topic) {
+            self::ABOUT_TOPIC => $this->defaultHelpMessage(),
+            RigCommand::DeleteRoute->value => $this->getDocumentation(RigCommand::DeleteRoute->value),
+            RigCommand::Help->value => $this->getDocumentation(RigCommand::Help->value),
+            self::INSTALLTION_TOPIC => $this->getDocumentation(self::INSTALLTION_TOPIC),
+            RigCommand::ListRoutes->value => $this->getDocumentation(RigCommand::ListRoutes->value),
+            RigCommand::NewModule->value => $this->getDocumentation(RigCommand::NewModule->value),
+            RigCommand::NewRoute->value => $this->getDocumentation(RigCommand::NewRoute->value),
+            RigCommand::StartServers->value => $this->getDocumentation(RigCommand::StartServers->value),
+            RigCommand::UpdateRoute->value => $this->getDocumentation(RigCommand::UpdateRoute->value),
+            RigCommand::Version->value => $this->getDocumentation(RigCommand::Version->value),
+            RigCommand::ViewActionLog->value => $this->getDocumentation(RigCommand::ViewActionLog->value),
+            RigCommand::ViewReadme->value => 'View rig\'s README.md',
+            self::GETTING_STARTED_TOPIC => $this->getDocumentation(self::GETTING_STARTED_TOPIC),
+            default => $this->defaultHelpMessage(),
+        };
 
-        The following commands are provided by rig:
-
-        rig --delete-route
-        rig --help
-        rig --list-routes
-        rig --new-module
-        rig --new-route
-        rig --start-servers
-        rig --update-route
-        rig --version
-        rig --view-action-log
-        rig --view-readme
-
-        helpMESSAGE;
+        $this->messageLog()->addMessage(
+            CLIColorizer::applyHighlightColor(
+                'rig' . (!empty($topic) ? ' --' . $topic : ''),
+            ),
+        );
         $this->messageLog()->addMessage($helpMessage);
         $this->actionStatus = ActionStatus::SUCCEEDED;
         return $this;
+    }
+
+    private function defaultHelpMessage(): string
+    {
+
+        $helpMessage = <<<'HELPMESSAGE'
+
+        rig is a command line utility designed to aide in development
+        with the Roady PHP Framework.
+
+        The following commands are provided by rig:
+
+        HELPMESSAGE;
+
+        foreach(RigCommand::cases() as $value) {
+            $helpMessage .= PHP_EOL . 'rig --' . $value->value;
+        }
+
+        $helpMessage .= PHP_EOL;
+
+        $helpMessage .= <<<'HELPMESSAGE'
+
+        For more information about a command use `rig --help COMMAND`
+
+        HELPMESSAGE;
+
+        return $helpMessage;
     }
 }
 
@@ -479,7 +666,9 @@ class ReadREADMEAction extends Action
         );
         $parsedown = new Parsedown();
         match(php_sapi_name() === 'cli') {
-            true => $this->messageLog()->addMessage($readme),
+            true => $this->messageLog()->addMessage(
+                CLIColorizer::applyANSIColor($readme, 235)
+            ),
             default => $this->messageLog()
                             ->addMessage(
                                 $parsedown->text($readme)
@@ -494,10 +683,364 @@ class DetermineVersionAction extends Action
 {
     public function do(): DetermineVersionAction
     {
-        $this->messageLog()->addMessage('rig version 2.0.0-alpha-12');
+        $this->messageLog()->addMessage(
+            'rig version ' .
+            CLIColorizer::applyHighlightColor('2.0.0-alpha-12')
+        );
         $this->actionStatus = ActionStatus::SUCCEEDED;
         return $this;
     }
+}
+
+class CreateNewModuleAction extends Action
+{
+
+    private const MODULES_DIRECTORY_NAME = 'modules';
+    private const MODULE_NAME_ARGUMENT = 'module-name';
+
+    public function do(): CreateNewModuleAction
+    {
+        $this->failIfModuleNameWasNotSpecified();
+        $this->failIfPathToRoadyProjectsModulesDirectoryCannotBeDetermined();
+        $this->failIfModuleAlreadyExists();
+        $this->attemptToCreateNewModuleDirectory();
+        if(
+            $this->actionStatus() !== ActionStatus::FAILED
+            &&
+            $this->noBoilerplateSpecified() === false
+        ) {
+            $this->attemptToCreateNewModulesCssDirectory();
+            $this->attemptToCreateNewModulesJsDirectory();
+            $this->attemptToCreateNewModulesOutputDirectory();
+            $this->attemptToCreateNewModulesInitialOutputFile();
+            $this->attemptToCreateNewModulesInitialRoutesConfigurationFile();
+        }
+        $this->messageLog()->addMessage(
+            match($this->actionStatus()) {
+                ActionStatus::FAILED =>
+                    CLIColorizer::applyFAILEDColor(
+                        'Failed to create new module.'
+                    ),
+                ActionStatus::SUCCEEDED =>
+                    CLIColorizer::applySUCCEEDEDColor(
+                        'Created new module.'
+                    ),
+                ActionStatus::NOT_PROCESSED =>
+                    CLIColorizer::applyNOT_PROCESSEDColor(
+                        'Not processed.'
+                    ),
+            }
+        );
+        return $this;
+    }
+
+    private function pathToExistingDirectory(string $path): PathToExistingDirectory
+    {
+        $pathParts = explode(DIRECTORY_SEPARATOR, $path);
+        $safeTextParts = [];
+        foreach($pathParts as $part) {
+            if(!empty($part)) {
+                $safeTextParts[] = new SafeText(new Text($part));
+            }
+        }
+        return new PathToExistingDirectory(
+            new SafeTextCollection(...$safeTextParts),
+        );
+    }
+
+    private function expectedPathToRoadyProjectsModulesDirectory(): PathToDirectoryOfRoadyModules
+    {
+        $specifiedPathToRoadyProject = match(
+            empty($this->arguments()->asArray()[RigCommandArgument::PathToRoadyProject->value])
+        ) {
+            true => __DIR__ . DIRECTORY_SEPARATOR .
+                self::MODULES_DIRECTORY_NAME,
+            false => $this->arguments()->asArray()[RigCommandArgument::PathToRoadyProject->value] .
+                DIRECTORY_SEPARATOR . self::MODULES_DIRECTORY_NAME,
+        };
+        return new PathToDirectoryOfRoadyModules(
+            $this->pathToExistingDirectory($specifiedPathToRoadyProject)
+        );
+    }
+
+    private function failIfModuleNameWasNotSpecified(): void
+    {
+        $specifiedModuleName = $this->specifiedModuleName();
+        if(empty($specifiedModuleName)) {
+            $this->messageLog()->addMessage(
+                CLIColorizer::applyFAILEDColor(
+                    'Please specify a --module-name to use for ' .
+                     'the new module'
+                )
+            );
+            $this->actionStatus = ActionStatus::FAILED;
+        }
+    }
+
+    private function specifiedModuleName(): string
+    {
+        return $this->arguments()->asArray()[self::MODULE_NAME_ARGUMENT];
+    }
+
+    private function failIfPathToRoadyProjectsModulesDirectoryCannotBeDetermined(): void
+    {
+        if(
+            $this->expectedPathToRoadyProjectsModulesDirectory()->__toString()
+            ===
+            sys_get_temp_dir()
+        ) {
+            $this->actionStatus = ActionStatus::FAILED;
+            $this->messageLog()
+                ->addMessage(
+                    CLIColorizer::applyFAILEDColor(
+                        'Failed to creat new module directory.'
+                    )
+                );
+            $this->messageLog()
+                ->addMessage(
+                    CLIColorizer::applyFAILEDColor(
+                        'The path to the current Roady project\'s ' .
+                        'modules directory could not be determined.'
+                    )
+                );
+            $this->messageLog()
+                ->addMessage(
+                    CLIColorizer::applyFAILEDColor(
+                        'Please create the projects moudules ' .
+                        'directory if it does not exist.'
+                    )
+                );
+
+            $this->messageLog()
+                ->addMessage(
+                    CLIColorizer::applyHighlightColor(
+                        'To create a the modules directory `cd` ' .
+                        'into the root directory of the relevant ' .
+                        'Roady project and run:'
+                    )
+                );
+            $this->messageLog()
+                ->addMessage(
+                    CLIColorizer::applyHighlightColor(
+                        'mkdir modules'
+                    )
+                );
+        }
+    }
+
+    private function pathToNewModulesDirectory(): string
+    {
+        return $this->expectedPathToRoadyProjectsModulesDirectory() .
+               DIRECTORY_SEPARATOR .
+               $this->specifiedModuleName();
+    }
+
+    private function failIfModuleAlreadyExists(): void
+    {
+        if(
+            $this->actionStatus() !== ActionStatus::FAILED
+            &&
+            is_dir($this->pathToNewModulesDirectory())
+        ) {
+            $this->messageLog()->addMessage(
+                CLIColorizer::applyFAILEDColor(
+                    'A module named ' .
+                    $this->specifiedModuleName() .
+                    ' already exists. Please choose a unique name.'
+                )
+            );
+            $this->actionStatus = ActionStatus::FAILED;
+        }
+    }
+
+    private function attemptToCreateNewModuleDirectory(): void
+    {
+        $this->actionStatus = match($this->actionStatus()) {
+            ActionStatus::FAILED => ActionStatus::FAILED,
+            default => match(mkdir($this->pathToNewModulesDirectory())) {
+                true => ActionStatus::SUCCEEDED,
+                false => ActionStatus::FAILED,
+            },
+        };
+    }
+
+    private function attemptToCreateNewModulesCssDirectory(): void
+    {
+        $this->actionStatus = match($this->actionStatus()) {
+            ActionStatus::FAILED => ActionStatus::FAILED,
+            default => match(
+                mkdir(
+                    $this->pathToNewModulesDirectory() .
+                        DIRECTORY_SEPARATOR .
+                        'css'
+                )
+            ) {
+                true => ActionStatus::SUCCEEDED,
+                false => ActionStatus::FAILED,
+            },
+        };
+    }
+
+    private function attemptToCreateNewModulesJsDirectory(): void
+    {
+        $this->actionStatus = match($this->actionStatus()) {
+            ActionStatus::FAILED => ActionStatus::FAILED,
+            default => match(
+                mkdir(
+                    $this->pathToNewModulesDirectory() .
+                        DIRECTORY_SEPARATOR .
+                        'js'
+                )
+            ) {
+                true => ActionStatus::SUCCEEDED,
+                false => ActionStatus::FAILED,
+            },
+        };
+    }
+
+    private function attemptToCreateNewModulesInitialOutputFile(): void
+    {
+        $specifiedModuleName = $this->specifiedModuleName();
+        $initialOutput = <<<HTML
+        <h1>{$specifiedModuleName}</h1>
+        <p>Initial output...</p>
+        HTML;
+        $this->actionStatus = match($this->actionStatus()) {
+            ActionStatus::FAILED => ActionStatus::FAILED,
+            default => match(
+                file_put_contents(
+                    $this->pathToNewModulesDirectory() .
+                        DIRECTORY_SEPARATOR .
+                        'output'.
+                        DIRECTORY_SEPARATOR .
+                        $specifiedModuleName . '.html',
+                    $initialOutput
+                ) > 0
+            ) {
+                true => ActionStatus::SUCCEEDED,
+                false => ActionStatus::FAILED,
+            },
+        };
+    }
+
+    private function attemptToCreateNewModulesInitialRoutesConfigurationFile(): void
+    {
+        $specifiedModuleName = $this->specifiedModuleName();
+        $json = <<<"JSON"
+        [
+            {
+                "module-name": "{$specifiedModuleName}",
+                "responds-to": [
+                    "homepage"
+                ],
+                "named-positions": [
+                    {
+                        "position-name": "roady-ui-main-content",
+                        "position": 0
+                    }
+                ],
+                "relative-path": "output\/{$specifiedModuleName}.html"
+            }
+        ]
+        JSON;
+        $this->actionStatus = match($this->actionStatus()) {
+            ActionStatus::FAILED => ActionStatus::FAILED,
+            default => match(
+                file_put_contents(
+                    $this->pathToNewModulesDirectory() .
+                        DIRECTORY_SEPARATOR .
+                        'localhost.8080.json',
+                    $json
+                ) > 0
+            ) {
+                true => ActionStatus::SUCCEEDED,
+                false => ActionStatus::FAILED,
+            },
+        };
+    }
+    private function attemptToCreateNewModulesOutputDirectory(): void
+    {
+        $this->actionStatus = match($this->actionStatus()) {
+            ActionStatus::FAILED => ActionStatus::FAILED,
+            default => match(
+                mkdir(
+                    $this->pathToNewModulesDirectory() .
+                        DIRECTORY_SEPARATOR .
+                        'output'
+                )
+            ) {
+                true => ActionStatus::SUCCEEDED,
+                false => ActionStatus::FAILED,
+            },
+        };
+    }
+
+    private function noBoilerplateSpecified(): bool
+    {
+        return !empty($this->arguments()->asArray()['no-boilerplate']);
+    }
+
+}
+
+# Commands
+/*
+ // DONE
+ rig --help
+ rig --version
+ rig --view-readme
+ rig --new-module
+ // TODO
+ rig --new-route
+ rig --list-routes
+ rig --delete-route
+ rig --update-route
+ rig --start-servers
+ rig --view-action-log
+*/
+
+class NewModuleCommand  extends Command
+{
+
+    /** @return array<int, Action> $actions */
+    public function actions(): array
+    {
+        return [
+            new CreateNewModuleAction(
+                $this->arguments(),
+                $this->messageLog()
+            )
+        ];
+    }
+}
+
+class NewRouteCommand extends Command
+{
+
+}
+
+class ListRoutesCommand extends Command
+{
+
+}
+
+class DeleteRouteCommand extends Command
+{
+
+}
+
+class UpdateRouteCommand extends Command
+{
+
+}
+
+class StartServersCommand extends Command
+{
+
+}
+
+class ViewActionLogCommand extends Command
+{
+
 }
 
 class HelpCommand extends Command
@@ -646,6 +1189,43 @@ class CommandDeterminator
     }
 }
 
+enum RigCommand: string
+{
+    case DeleteRoute = 'delete-route';
+    case Help = 'help';
+    case ListRoutes = 'list-routes';
+    case NewModule = 'new-module';
+    case NewRoute = 'new-route';
+    case StartServers = 'start-servers';
+    case UpdateRoute = 'update-route';
+    case Version = 'version';
+    case ViewActionLog = 'view-action-log';
+    case ViewReadme = 'view-readme';
+}
+
+enum RigCommandArgument: string
+{
+    // Command Options
+    case Authority = 'authority';
+    case DefinedForAuthorities = 'defined-for-authorities';
+    case DefinedForFiles = 'defined-for-files';
+    case DefinedForModules = 'defined-for-modules';
+    case DefinedForNamedPositions = 'defined-for-named-positions';
+    case DefinedForPositions = 'defined-for-positions';
+    case DefinedForRequests = 'defined-for-requests';
+    case ForAuthority = 'for-authority';
+    case ModuleName = 'module-name';
+    case NamedPositions = 'named-positions';
+    case NoBoilerplate = 'no-boilerplate';
+    case OpenInBrowser = 'open-in-browser';
+    case PathToRoadyProject = 'path-to-roady-project';
+    case Ports = 'ports';
+    case RelativePath = 'relative-path';
+    case RespondsTo = 'responds-to';
+    case RouteHash = 'route-hash';
+
+}
+
 class Arguments
 {
 
@@ -654,34 +1234,34 @@ class Arguments
     {
         return [
             // Commands
-            'delete-route' => '',
-            'help' => '',
-            'list-routes' => '',
-            'new-module' => '',
-            'new-route' => '',
-            'start-servers' => '',
-            'update-route' => '',
-            'version' => '',
-            'view-action-log' => '',
-            'view-readme' => '',
+            RigCommand::DeleteRoute->value => '',
+            RigCommand::Help->value => '',
+            RigCommand::ListRoutes->value => '',
+            RigCommand::NewModule->value => '',
+            RigCommand::NewRoute->value => '',
+            RigCommand::StartServers->value => '',
+            RigCommand::UpdateRoute->value => '',
+            RigCommand::Version->value => '',
+            RigCommand::ViewActionLog->value => '',
+            RigCommand::ViewReadme->value => '',
             // Command Options
-            'authority' => '',
-            'defined-for-authorities' => '',
-            'defined-for-files' => '',
-            'defined-for-modules' => '',
-            'defined-for-named-positions' => '',
-            'defined-for-positions' => '',
-            'defined-for-requests' => '',
-            'for-authority' => '',
-            'module-name' => '',
-            'named-positions' => '',
-            'no-boilerplate' => '',
-            'open-in-browser' => '',
-            'path-to-roady-project' => '',
-            'ports' => '',
-            'relative-path' => '',
-            'responds-to' => '',
-            'route-hash' => '',
+            RigCommandArgument::Authority->value => '',
+            RigCommandArgument::DefinedForAuthorities->value => '',
+            RigCommandArgument::DefinedForFiles->value => '',
+            RigCommandArgument::DefinedForModules->value => '',
+            RigCommandArgument::DefinedForNamedPositions->value => '',
+            RigCommandArgument::DefinedForPositions->value => '',
+            RigCommandArgument::DefinedForRequests->value => '',
+            RigCommandArgument::ForAuthority->value => '',
+            RigCommandArgument::ModuleName->value => '',
+            RigCommandArgument::NamedPositions->value => '',
+            RigCommandArgument::NoBoilerplate->value => '',
+            RigCommandArgument::OpenInBrowser->value => '',
+            RigCommandArgument::PathToRoadyProject->value => '',
+            RigCommandArgument::Ports->value => '',
+            RigCommandArgument::RelativePath->value => '',
+            RigCommandArgument::RespondsTo->value => '',
+            RigCommandArgument::RouteHash->value => '',
         ];
     }
 }
@@ -711,62 +1291,60 @@ class WebArguments extends Arguments
     public function asArray(): array
     {
         return [
-            // Commands
-            'delete-route' =>
-                $this->parameterNameIfSpecified('delete-route'),
-            'help' =>
-                $this->parameterValueIfSpecified('help'),
-            'list-routes' =>
-                $this->parameterNameIfSpecified('list-routes'),
-            'new-module' =>
-                $this->parameterNameIfSpecified('new-module'),
-            'new-route' =>
-                $this->parameterNameIfSpecified('new-route'),
-            'start-servers' =>
-                $this->parameterNameIfSpecified('start-servers'),
-            'update-route' =>
-                $this->parameterNameIfSpecified('update-route'),
-            'version' =>
-                $this->parameterNameIfSpecified('version'),
-            'view-action-log' =>
-                $this->parameterNameIfSpecified('view-action-log'),
-            'view-readme' =>
-                $this->parameterNameIfSpecified('view-readme'),
-            // Command Options
-            'authority' =>
-                $this->parameterValueIfSpecified('authority'),
-            'defined-for-authorities' =>
-                $this->parameterValueIfSpecified('defined-for-authorities'),
-            'defined-for-files' =>
-                $this->parameterValueIfSpecified('defined-for-files'),
-            'defined-for-modules' =>
-                $this->parameterValueIfSpecified('defined-for-modules'),
-            'defined-for-named-positions' =>
-                $this->parameterValueIfSpecified('defined-for-named-positions'),
-            'defined-for-positions' =>
-                $this->parameterValueIfSpecified('defined-for-positions'),
-            'defined-for-requests' =>
-                $this->parameterValueIfSpecified('defined-for-requests'),
-            'for-authority' =>
-                $this->parameterValueIfSpecified('for-authority'),
-            'module-name' =>
-                $this->parameterValueIfSpecified('module-name'),
-            'named-positions' =>
-                $this->parameterValueIfSpecified('named-positions'),
-            'no-boilerplate' =>
-                $this->parameterValueIfSpecified('no-boilerplate'),
-            'open-in-browser' =>
-                $this->parameterValueIfSpecified('open-in-browser'),
-            'path-to-roady-project' =>
-                $this->parameterValueIfSpecified('path-to-roady-project'),
-            'ports' =>
-                $this->parameterValueIfSpecified('ports'),
-            'relative-path' =>
-                $this->parameterValueIfSpecified('relative-path'),
-            'responds-to' =>
-                $this->parameterValueIfSpecified('responds-to'),
-            'route-hash' =>
-                $this->parameterValueIfSpecified('route-hash'),
+            RigCommand::DeleteRoute->value =>
+                $this->parameterNameIfSpecified(RigCommand::DeleteRoute->value),
+            RigCommand::Help->value =>
+                $this->parameterValueIfSpecified(RigCommand::Help->value),
+            RigCommand::ListRoutes->value =>
+                $this->parameterNameIfSpecified(RigCommand::ListRoutes->value),
+            RigCommand::NewModule->value =>
+                $this->parameterNameIfSpecified(RigCommand::NewModule->value),
+            RigCommand::NewRoute->value =>
+                $this->parameterNameIfSpecified(RigCommand::NewRoute->value),
+            RigCommand::StartServers->value =>
+                $this->parameterNameIfSpecified(RigCommand::StartServers->value),
+            RigCommand::UpdateRoute->value =>
+                $this->parameterNameIfSpecified(RigCommand::UpdateRoute->value),
+            RigCommand::Version->value =>
+                $this->parameterNameIfSpecified(RigCommand::Version->value),
+            RigCommand::ViewActionLog->value =>
+                $this->parameterNameIfSpecified(RigCommand::ViewActionLog->value),
+            RigCommand::ViewReadme->value =>
+                $this->parameterNameIfSpecified(RigCommand::ViewReadme->value),
+            RigCommandArgument::Authority->value =>
+                $this->parameterValueIfSpecified(RigCommandArgument::Authority->value),
+            RigCommandArgument::DefinedForAuthorities->value =>
+                $this->parameterValueIfSpecified(RigCommandArgument::DefinedForAuthorities->value),
+            RigCommandArgument::DefinedForFiles->value =>
+                $this->parameterValueIfSpecified(RigCommandArgument::DefinedForFiles->value),
+            RigCommandArgument::DefinedForModules->value =>
+                $this->parameterValueIfSpecified(RigCommandArgument::DefinedForModules->value),
+            RigCommandArgument::DefinedForNamedPositions->value =>
+                $this->parameterValueIfSpecified(RigCommandArgument::DefinedForNamedPositions->value),
+            RigCommandArgument::DefinedForPositions->value =>
+                $this->parameterValueIfSpecified(RigCommandArgument::DefinedForPositions->value),
+            RigCommandArgument::DefinedForRequests->value =>
+                $this->parameterValueIfSpecified(RigCommandArgument::DefinedForRequests->value),
+            RigCommandArgument::ForAuthority->value =>
+                $this->parameterValueIfSpecified(RigCommandArgument::ForAuthority->value),
+            RigCommandArgument::ModuleName->value =>
+                $this->parameterValueIfSpecified(RigCommandArgument::ModuleName->value),
+            RigCommandArgument::NamedPositions->value =>
+                $this->parameterValueIfSpecified(RigCommandArgument::NamedPositions->value),
+            RigCommandArgument::NoBoilerplate->value =>
+                $this->parameterValueIfSpecified(RigCommandArgument::NoBoilerplate->value),
+            RigCommandArgument::OpenInBrowser->value =>
+                $this->parameterValueIfSpecified(RigCommandArgument::OpenInBrowser->value),
+            RigCommandArgument::PathToRoadyProject->value =>
+                $this->parameterValueIfSpecified(RigCommandArgument::PathToRoadyProject->value),
+            RigCommandArgument::Ports->value =>
+                $this->parameterValueIfSpecified(RigCommandArgument::Ports->value),
+            RigCommandArgument::RelativePath->value =>
+                $this->parameterValueIfSpecified(RigCommandArgument::RelativePath->value),
+            RigCommandArgument::RespondsTo->value =>
+                $this->parameterValueIfSpecified(RigCommandArgument::RespondsTo->value),
+            RigCommandArgument::RouteHash->value =>
+                $this->parameterValueIfSpecified(RigCommandArgument::RouteHash->value),
         ];
     }
 
@@ -774,6 +1352,9 @@ class WebArguments extends Arguments
 
 class CLIArguments extends Arguments
 {
+
+    private const DELIMITER_FOR_ARGUMENT_THAT_ACCEPTS_USER_INPUT = ':';
+    private const DELIMITER_FOR_ARGUMENT_THAT_DOES_NOT_ACCEPTS_USER_INPUT = self::DELIMITER_FOR_ARGUMENT_THAT_ACCEPTS_USER_INPUT . self::DELIMITER_FOR_ARGUMENT_THAT_ACCEPTS_USER_INPUT;
 
     /** @param array<mixed> $opts */
     private function parameterNameIfSpecified(
@@ -793,181 +1374,189 @@ class CLIArguments extends Arguments
         return (isset($opts[$name]) && is_string($opts[$name]) ? $opts[$name] : '');
     }
 
+
+    private function generateLongOptionForArgumentThatAcceptsUserInput(RigCommand|RigCommandArgument $argument): string
+    {
+        return $argument->value .
+            self::DELIMITER_FOR_ARGUMENT_THAT_ACCEPTS_USER_INPUT;
+    }
+
+    private function generateLongOptionForArgumentThatDoesNotAcceptsUserInput(RigCommand|RigCommandArgument $argument): string
+    {
+        return $argument->value .
+            self::DELIMITER_FOR_ARGUMENT_THAT_DOES_NOT_ACCEPTS_USER_INPUT;
+    }
+
     /** @return array<string, string> */
     public function asArray(): array
     {
-        $shortOpts = 'h:v::';
         $longOpts = [
-                    // Commands
-                    'delete-route::',
-                    'help:',
-                    'list-routes::',
-                    'new-module::',
-                    'new-route::',
-                    'start-servers::',
-                    'update-route::',
-                    'version::',
-                    'view-action-log::',
-                    'view-readme::',
-                    // Command Options
-                    'authority:',
-                    'defined-for-authorities:',
-                    'defined-for-files:',
-                    'defined-for-modules:',
-                    'defined-for-named-positions:',
-                    'defined-for-positions:',
-                    'defined-for-requests:',
-                    'for-authority:',
-                    'module-name:',
-                    'named-positions:',
-                    'no-boilerplate::',
-                    'open-in-browser::',
-                    'path-to-roady-project:',
-                    'ports:',
-                    'relative-path:',
-                    'responds-to:',
-                    'route-hash:',
+                    $this->generateLongOptionForArgumentThatDoesNotAcceptsUserInput(RigCommand::DeleteRoute),
+                    $this->generateLongOptionForArgumentThatAcceptsUserInput(RigCommand::Help),
+                    $this->generateLongOptionForArgumentThatDoesNotAcceptsUserInput(RigCommand::ListRoutes),
+                    $this->generateLongOptionForArgumentThatDoesNotAcceptsUserInput(RigCommand::NewModule),
+                    $this->generateLongOptionForArgumentThatDoesNotAcceptsUserInput(RigCommand::NewRoute),
+                    $this->generateLongOptionForArgumentThatDoesNotAcceptsUserInput(RigCommand::StartServers),
+                    $this->generateLongOptionForArgumentThatDoesNotAcceptsUserInput(RigCommand::UpdateRoute),
+                    $this->generateLongOptionForArgumentThatDoesNotAcceptsUserInput(RigCommand::Version),
+                    $this->generateLongOptionForArgumentThatDoesNotAcceptsUserInput(RigCommand::ViewActionLog),
+                    $this->generateLongOptionForArgumentThatDoesNotAcceptsUserInput(RigCommand::ViewReadme),
+                    $this->generateLongOptionForArgumentThatAcceptsUserInput(RigCommandArgument::Authority),
+                    $this->generateLongOptionForArgumentThatAcceptsUserInput(RigCommandArgument::DefinedForAuthorities),
+                    $this->generateLongOptionForArgumentThatAcceptsUserInput(RigCommandArgument::DefinedForFiles),
+                    $this->generateLongOptionForArgumentThatAcceptsUserInput(RigCommandArgument::DefinedForModules),
+                    $this->generateLongOptionForArgumentThatAcceptsUserInput(RigCommandArgument::DefinedForNamedPositions),
+                    $this->generateLongOptionForArgumentThatAcceptsUserInput(RigCommandArgument::DefinedForPositions),
+                    $this->generateLongOptionForArgumentThatAcceptsUserInput(RigCommandArgument::DefinedForRequests),
+                    $this->generateLongOptionForArgumentThatAcceptsUserInput(RigCommandArgument::ForAuthority),
+                    $this->generateLongOptionForArgumentThatAcceptsUserInput(RigCommandArgument::ModuleName),
+                    $this->generateLongOptionForArgumentThatAcceptsUserInput(RigCommandArgument::NamedPositions),
+                    $this->generateLongOptionForArgumentThatDoesNotAcceptsUserInput(RigCommandArgument::NoBoilerplate),
+                    $this->generateLongOptionForArgumentThatDoesNotAcceptsUserInput(RigCommandArgument::OpenInBrowser),
+                    $this->generateLongOptionForArgumentThatAcceptsUserInput(RigCommandArgument::PathToRoadyProject),
+                    $this->generateLongOptionForArgumentThatAcceptsUserInput(RigCommandArgument::Ports),
+                    $this->generateLongOptionForArgumentThatAcceptsUserInput(RigCommandArgument::RelativePath),
+                    $this->generateLongOptionForArgumentThatAcceptsUserInput(RigCommandArgument::RespondsTo),
+                    $this->generateLongOptionForArgumentThatAcceptsUserInput(RigCommandArgument::RouteHash),
         ];
-        $opts = getopt($shortOpts, $longOpts);
+        $opts = getopt('', $longOpts);
         $cliArguments = match(is_array($opts)) {
             true =>
                 [
-                    // Commands
-                    'delete-route' =>
+                    RigCommand::DeleteRoute->value =>
                         $this->parameterNameIfSpecified(
                             $opts,
-                            'delete-route'
+                            RigCommand::DeleteRoute->value
                         ),
-                    'help' =>
+                    RigCommand::Help->value =>
                         $this->parameterValueIfSpecified(
                             $opts,
-                            'help'
+                            RigCommand::Help->value
                         ),
-                    'list-routes' =>
+                    RigCommand::ListRoutes->value =>
                         $this->parameterNameIfSpecified(
                             $opts,
-                            'list-routes'
+                            RigCommand::ListRoutes->value
                         ),
-                    'new-module' =>
+                    RigCommand::NewModule->value =>
                         $this->parameterNameIfSpecified(
                             $opts,
-                            'new-module'
+                            RigCommand::NewModule->value
                         ),
-                    'new-route' =>
+                    RigCommand::NewRoute->value =>
                         $this->parameterNameIfSpecified(
                             $opts,
-                            'new-route'
+                            RigCommand::NewRoute->value
                         ),
-                    'start-servers' =>
+                    RigCommand::StartServers->value =>
                         $this->parameterNameIfSpecified(
                             $opts,
-                            'start-servers'
+                            RigCommand::StartServers->value
                         ),
-                    'update-route' =>
+                    RigCommand::UpdateRoute->value =>
                         $this->parameterNameIfSpecified(
                             $opts,
-                            'update-route'
+                            RigCommand::UpdateRoute->value
                         ),
-                    'version' =>
+                    RigCommand::Version->value =>
                         $this->parameterNameIfSpecified(
                             $opts,
-                            'version'
+                            RigCommand::Version->value
                         ),
-                    'view-action-log' =>
+                    RigCommand::ViewActionLog->value =>
                         $this->parameterNameIfSpecified(
                             $opts,
-                            'view-action-log'
+                            RigCommand::ViewActionLog->value
                         ),
-                    'view-readme' =>
+                    RigCommand::ViewReadme->value =>
                         $this->parameterNameIfSpecified(
                             $opts,
-                            'view-readme'
+                            RigCommand::ViewReadme->value
                         ),
-                     // Command Options
-                    'authority' =>
+                    RigCommandArgument::Authority->value =>
                         $this->parameterValueIfSpecified(
                             $opts,
-                            'authority'
+                            RigCommandArgument::Authority->value
                         ),
-                    'defined-for-authorities' =>
+                    RigCommandArgument::DefinedForAuthorities->value =>
                         $this->parameterValueIfSpecified(
                             $opts,
-                            'defined-for-authorities'
+                            RigCommandArgument::DefinedForAuthorities->value
                         ),
-                    'defined-for-files' =>
+                    RigCommandArgument::DefinedForFiles->value =>
                         $this->parameterValueIfSpecified(
                             $opts,
-                            'defined-for-files'
+                            RigCommandArgument::DefinedForFiles->value
                         ),
-                    'defined-for-modules' =>
+                    RigCommandArgument::DefinedForModules->value =>
                         $this->parameterValueIfSpecified(
                             $opts,
-                            'defined-for-modules'
+                            RigCommandArgument::DefinedForModules->value
                         ),
-                    'defined-for-named-positions' =>
+                    RigCommandArgument::DefinedForNamedPositions->value =>
                         $this->parameterValueIfSpecified(
                             $opts,
-                            'defined-for-named-positions'
+                            RigCommandArgument::DefinedForNamedPositions->value
                         ),
-                    'defined-for-positions' =>
+                    RigCommandArgument::DefinedForPositions->value =>
                         $this->parameterValueIfSpecified(
                             $opts,
-                            'defined-for-positions'
+                            RigCommandArgument::DefinedForPositions->value
                         ),
-                    'defined-for-requests' =>
+                    RigCommandArgument::DefinedForRequests->value =>
                         $this->parameterValueIfSpecified(
                             $opts,
-                            'defined-for-requests'
+                            RigCommandArgument::DefinedForRequests->value
                         ),
-                    'for-authority' =>
+                    RigCommandArgument::ForAuthority->value =>
                         $this->parameterValueIfSpecified(
                             $opts,
-                            'for-authority'
+                            RigCommandArgument::ForAuthority->value
                         ),
-                    'module-name' =>
+                    RigCommandArgument::ModuleName->value =>
                         $this->parameterValueIfSpecified(
                             $opts,
-                            'module-name'
+                            RigCommandArgument::ModuleName->value
                         ),
-                    'named-positions' =>
+                    RigCommandArgument::NamedPositions->value =>
                         $this->parameterValueIfSpecified(
                             $opts,
-                            'named-positions'
+                            RigCommandArgument::NamedPositions->value
                         ),
-                    'no-boilerplate' =>
+                    RigCommandArgument::NoBoilerplate->value =>
                         $this->parameterNameIfSpecified(
                             $opts,
-                            'no-boilerplate'
+                            RigCommandArgument::NoBoilerplate->value
                         ),
-                    'open-in-browser' =>
+                    RigCommandArgument::OpenInBrowser->value =>
                         $this->parameterNameIfSpecified(
                             $opts,
-                            'open-in-browser'
+                            RigCommandArgument::OpenInBrowser->value
                         ),
-                    'path-to-roady-project' =>
+                    RigCommandArgument::PathToRoadyProject->value =>
                         $this->parameterValueIfSpecified(
                             $opts,
-                            'path-to-roady-project'
+                            RigCommandArgument::PathToRoadyProject->value
                         ),
-                    'ports' =>
+                    RigCommandArgument::Ports->value =>
                         $this->parameterValueIfSpecified(
                             $opts,
-                            'ports'
+                            RigCommandArgument::Ports->value
                         ),
-                    'relative-path' =>
+                    RigCommandArgument::RelativePath->value =>
                         $this->parameterValueIfSpecified(
                             $opts,
-                            'relative-path'
+                            RigCommandArgument::RelativePath->value
                         ),
-                    'responds-to' =>
+                    RigCommandArgument::RespondsTo->value =>
                         $this->parameterValueIfSpecified(
                             $opts,
-                            'responds-to'
+                            RigCommandArgument::RespondsTo->value
                         ),
-                    'route-hash' =>
+                    RigCommandArgument::RouteHash->value =>
                         $this->parameterValueIfSpecified(
                             $opts,
-                            'route-hash'
+                            RigCommandArgument::RouteHash->value
                         ),
                 ],
             default => []
@@ -992,7 +1581,7 @@ if(php_sapi_name() === 'cli') {
                 $actionEventLog,
                 $messageLog,
             )
-        )
+        ),
     );
 
     $rigCLUI->render();
@@ -1015,14 +1604,6 @@ $rigWebUI = new RigWebUI(
         )
     )
 );
+
 $rigWebUI->render();
 
-/**
- * To test via web browser, start a server via
- * `php -S localhost:8080` and navigate to:
- *
- * http://localhost:8080/rig.php?delete-route&version&help=new-route&list-routes&new-module&new-route&start-servers&update-route&version&view-action-log&view-readme&authority=localhost:8080&defined-for-authorities=localhost:8080,%20roady.tech&defined-for-files=homepage.html&defined-for-modules=HelloWorld&defined-for-named-positions=roady-ui-footer&defined-for-positions=10,%2011&defined-for-requests=Homepage,%20HelloWorld&for-authority=localhost:8080&module-name=HelloWorld&named-positions=[{%22position-name%22:%22roady-ui-footer%22,%22position%22:10},%20{%22position-name%22:%22roady-ui-header%22,%22position%22:11}]&no-boilerplate&open-in-browser&path-to-roady-project=./&ports=8080&relative-path=output/Homepage.html&responds-to=Homepage&route-hash=234908
- *
- * To use curl:
- * curl -d 'delete-route&version&help=new-route&list-routes&new-module&new-route&start-servers&update-route&version&view-action-log&view-readme&authority=localhost:8080&defined-for-authorities=localhost:8080,%20roady.tech&defined-for-files=homepage.html&defined-for-modules=HelloWorld&defined-for-named-positions=roady-ui-footer&defined-for-positions=10,%2011&defined-for-requests=Homepage,%20HelloWorld&for-authority=localhost:8080&module-name=HelloWorld&named-positions=[{%22position-name%22:%22roady-ui-footer%22,%22position%22:10},%20{%22position-name%22:%22roady-ui-header%22,%22position%22:11}]&no-boilerplate&open-in-browser&path-to-roady-project=./&ports=8080&relative-path=output/Homepage.html&responds-to=Homepage&route-hash=234908' http://localhost:8080/rig.php
- */

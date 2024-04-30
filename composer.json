@@ -27,7 +27,8 @@
         "darling/php-text-types": "^1.1",
         "darling/php-unit-test-utilities": "^1.0",
         "laravel/prompts": "^0.1.16",
-        "erusev/parsedown": "^1.7"
+        "erusev/parsedown": "^1.7",
+        "darling/roady-module-utilities": "^1.0"
     },
     "bin": ["rig", "rig.php", "setupRig.sh"]
 }
