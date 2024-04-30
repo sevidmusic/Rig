@@ -715,6 +715,22 @@ class CreateNewModuleAction extends Action
             $this->attemptToCreateNewModulesInitialOutputFile();
             $this->attemptToCreateNewModulesInitialRoutesConfigurationFile();
         }
+        $this->messageLog()->addMessage(
+            match($this->actionStatus()) {
+                ActionStatus::FAILED =>
+                    CLIColorizer::applyFAILEDColor(
+                        'Failed to create new module.'
+                    ),
+                ActionStatus::SUCCEEDED =>
+                    CLIColorizer::applySUCCEEDEDColor(
+                        'Created new module.'
+                    ),
+                ActionStatus::NOT_PROCESSED =>
+                    CLIColorizer::applyNOT_PROCESSEDColor(
+                        'Not processed.'
+                    ),
+            }
+        );
         return $this;
     }
 
