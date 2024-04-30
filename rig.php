@@ -599,7 +599,6 @@ class GenerateHelpMessageAction extends Action
     public function do(): GenerateHelpMessageAction
     {
         $arguments = $this->arguments()->asArray();
-        dump($arguments);
         $topic = str_replace('--', '', $arguments[RigCommand::Help->value] ?? '');
         $helpMessage = match($topic) {
             self::ABOUT_TOPIC => $this->defaultHelpMessage(),
@@ -735,7 +734,6 @@ class CreateNewModuleAction extends Action
 
     private function expectedPathToRoadyProjectsModulesDirectory(): PathToDirectoryOfRoadyModules
     {
-        dump($this->arguments()->asArray()[RigCommandArgument::PathToRoadyProject->value]);
         $specifiedPathToRoadyProject = match(
             empty($this->arguments()->asArray()[RigCommandArgument::PathToRoadyProject->value])
         ) {
