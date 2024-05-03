@@ -698,7 +698,7 @@ class CreateNewDirectoryForRoadyProjectAction extends Action
     public function __construct(
         private Arguments $arguments,
         private MessageLog $messageLog,
-        private string $pathToNewDirectory,
+        private string $relativePathToNewDirectory,
     ) {
         parent::__construct($this->arguments, $this->messageLog);
     }
@@ -729,6 +729,7 @@ class CreateNewDirectoryForRoadyProjectAction extends Action
 
     private function attemptToCreateNewDirectory(): void
     {
+        dump($this->pathToNewDirectory());
         $this->actionStatus = match(mkdir($this->pathToNewDirectory())) {
             true => ActionStatus::SUCCEEDED,
             false => ActionStatus::FAILED,
@@ -756,17 +757,21 @@ class CreateNewDirectoryForRoadyProjectAction extends Action
 
     private function currentDirectoryPath(): string
     {
-        return __DIR__ . DIRECTORY_SEPARATOR;
+        $realpath = realpath(__DIR__ . DIRECTORY_SEPARATOR);
+        return match(is_string($realpath)) {
+            true => $realpath,
+            false => sys_get_temp_dir(),
+        };
     }
 
     private function pathToNewDirectory(): string
     {
-        $safePathParts = $this->pathToSafeTextCollection($this->pathToNewDirectory);
+        $safePathParts = $this->pathToSafeTextCollection($this->relativePathToNewDirectory);
         $safePath = DIRECTORY_SEPARATOR;
         foreach($safePathParts->collection() as $safePathPart) {
-            $safePath .= $safePathPart->__toString();
+            $safePath .= $safePathPart->__toString() . DIRECTORY_SEPARATOR;
         }
-        return $this->expectedPathToRoadyProjectsRootDirectory()->__toString();
+        return $this->expectedPathToRoadyProjectsRootDirectory()->__toString() . $safePath;
     }
 
     private function expectedPathToRoadyProjectsRootDirectory(): PathToExistingDirectory
@@ -810,15 +815,16 @@ class CreateNewModuleAction extends Action
             match($this->actionStatus()) {
                 ActionStatus::FAILED =>
                     CLIColorizer::applyFAILEDColor(
-                        'Failed to create new module.'
+                        'Failed to create new module ' . $this->specifiedModuleName()
                     ),
                 ActionStatus::SUCCEEDED =>
                     CLIColorizer::applySUCCEEDEDColor(
-                        'Created new module.'
+                        'Created new module ' . $this->specifiedModuleName()
+
                     ),
                 ActionStatus::NOT_PROCESSED =>
                     CLIColorizer::applyNOT_PROCESSEDColor(
-                        'Not processed.'
+                        'Creation of new module ' . $this->specifiedModuleName() . 'was not processed.'
                     ),
             }
         );
@@ -919,19 +925,12 @@ class CreateNewModuleAction extends Action
         }
     }
 
-    private function pathToNewModulesDirectory(): string
-    {
-        return $this->expectedPathToRoadyProjectsModulesDirectory() .
-               DIRECTORY_SEPARATOR .
-               $this->specifiedModuleName();
-    }
-
     private function failIfModuleAlreadyExists(): void
     {
         if(
             $this->actionStatus() !== ActionStatus::FAILED
             &&
-            is_dir($this->pathToNewModulesDirectory())
+            is_dir($this->specifiedModuleName())
         ) {
             $this->messageLog()->addMessage(
                 CLIColorizer::applyFAILEDColor(
@@ -944,14 +943,26 @@ class CreateNewModuleAction extends Action
         }
     }
 
+    private function relativePathToNewModuleDirectory(): string
+    {
+        return self::MODULES_DIRECTORY_NAME .
+            DIRECTORY_SEPARATOR .
+            $this->specifiedModuleName();
+    }
+
     private function attemptToCreateNewModuleDirectory(): void
     {
-        $this->actionStatus = match($this->actionStatus()) {
+        $createNewDirectoryForRoadyProjectAction =
+            new CreateNewDirectoryForRoadyProjectAction(
+                $this->arguments(),
+                $this->messageLog(),
+                $this->relativePathToNewModuleDirectory(),
+            );
+        $createNewDirectoryForRoadyProjectAction->do();
+        $this->actionStatus = match($createNewDirectoryForRoadyProjectAction->actionStatus()) {
             ActionStatus::FAILED => ActionStatus::FAILED,
-            default => match(mkdir($this->pathToNewModulesDirectory())) {
-                true => ActionStatus::SUCCEEDED,
-                false => ActionStatus::FAILED,
-            },
+            ActionStatus::SUCCEEDED => ActionStatus::SUCCEEDED,
+            ActionStatus::NOT_PROCESSED => ActionStatus::NOT_PROCESSED,
         };
     }
 
@@ -961,7 +972,7 @@ class CreateNewModuleAction extends Action
             ActionStatus::FAILED => ActionStatus::FAILED,
             default => match(
                 mkdir(
-                    $this->pathToNewModulesDirectory() .
+                    $this->specifiedModuleName() .
                         DIRECTORY_SEPARATOR .
                         'css'
                 )
@@ -978,7 +989,7 @@ class CreateNewModuleAction extends Action
             ActionStatus::FAILED => ActionStatus::FAILED,
             default => match(
                 mkdir(
-                    $this->pathToNewModulesDirectory() .
+                    $this->specifiedModuleName() .
                         DIRECTORY_SEPARATOR .
                         'js'
                 )
@@ -1000,7 +1011,7 @@ class CreateNewModuleAction extends Action
             ActionStatus::FAILED => ActionStatus::FAILED,
             default => match(
                 file_put_contents(
-                    $this->pathToNewModulesDirectory() .
+                    $this->specifiedModuleName() .
                         DIRECTORY_SEPARATOR .
                         'output'.
                         DIRECTORY_SEPARATOR .
@@ -1038,7 +1049,7 @@ class CreateNewModuleAction extends Action
             ActionStatus::FAILED => ActionStatus::FAILED,
             default => match(
                 file_put_contents(
-                    $this->pathToNewModulesDirectory() .
+                    $this->specifiedModuleName() .
                         DIRECTORY_SEPARATOR .
                         'localhost.8080.json',
                     $json
@@ -1055,7 +1066,7 @@ class CreateNewModuleAction extends Action
             ActionStatus::FAILED => ActionStatus::FAILED,
             default => match(
                 mkdir(
-                    $this->pathToNewModulesDirectory() .
+                    $this->specifiedModuleName() .
                         DIRECTORY_SEPARATOR .
                         'output'
                 )
