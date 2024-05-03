@@ -132,7 +132,7 @@ class Action
 {
     protected ActionStatus $actionStatus = ActionStatus::NOT_PROCESSED;
 
-    final public function __construct(
+    public function __construct(
         private Arguments $arguments,
         private MessageLog $messageLog
     ) { }
@@ -689,6 +689,97 @@ class DetermineVersionAction extends Action
         );
         $this->actionStatus = ActionStatus::SUCCEEDED;
         return $this;
+    }
+}
+
+class CreateNewDirectoryForRoadyProjectAction extends Action
+{
+
+    public function __construct(
+        private Arguments $arguments,
+        private MessageLog $messageLog,
+        private string $pathToNewDirectory,
+    ) {
+        parent::__construct($this->arguments, $this->messageLog);
+    }
+
+    public function do(): CreateNewDirectoryForRoadyProjectAction
+    {
+        $this->attemptToCreateNewDirectory();
+        $this->messageLog()->addMessage(
+            match($this->actionStatus()) {
+                ActionStatus::FAILED =>
+                    CLIColorizer::applyFAILEDColor(
+                        'Failed to create new directory ' .
+                        $this->pathToNewDirectory()
+                    ),
+                ActionStatus::SUCCEEDED =>
+                    CLIColorizer::applySUCCEEDEDColor(
+                        'Created new directory ' .
+                        $this->pathToNewDirectory()
+                    ),
+                ActionStatus::NOT_PROCESSED =>
+                    CLIColorizer::applyNOT_PROCESSEDColor(
+                        'Creation of '. $this->pathToNewDirectory() . 'was not processed.'
+                    ),
+            }
+        );
+        return $this;
+    }
+
+    private function attemptToCreateNewDirectory(): void
+    {
+        $this->actionStatus = match(mkdir($this->pathToNewDirectory())) {
+            true => ActionStatus::SUCCEEDED,
+            false => ActionStatus::FAILED,
+        };
+    }
+
+    private function pathToSafeTextCollection(string $path): SafeTextCollection
+    {
+        $pathParts = explode(DIRECTORY_SEPARATOR, $path);
+        $safeTextParts = [];
+        foreach($pathParts as $part) {
+            if(!empty($part)) {
+                $safeTextParts[] = new SafeText(new Text($part));
+            }
+        }
+        return new SafeTextCollection(...$safeTextParts);
+    }
+
+    private function pathToExistingDirectory(string $path): PathToExistingDirectory
+    {
+        return new PathToExistingDirectory(
+            $this->pathToSafeTextCollection($path),
+        );
+    }
+
+    private function currentDirectoryPath(): string
+    {
+        return __DIR__ . DIRECTORY_SEPARATOR;
+    }
+
+    private function pathToNewDirectory(): string
+    {
+        $safePathParts = $this->pathToSafeTextCollection($this->pathToNewDirectory);
+        $safePath = DIRECTORY_SEPARATOR;
+        foreach($safePathParts->collection() as $safePathPart) {
+            $safePath .= $safePathPart->__toString();
+        }
+        return $this->expectedPathToRoadyProjectsRootDirectory()->__toString();
+    }
+
+    private function expectedPathToRoadyProjectsRootDirectory(): PathToExistingDirectory
+    {
+        $specifiedPath = $this->arguments()
+                              ->asArray()[RigCommandArgument::PathToRoadyProject->value];
+        $pathToRoadyProject = match(
+            empty($specifiedPath)
+        ) {
+            true => $this->currentDirectoryPath(),
+            false => $specifiedPath . DIRECTORY_SEPARATOR,
+        };
+        return $this->pathToExistingDirectory($pathToRoadyProject);
     }
 }
 
