@@ -797,7 +797,6 @@ class CreateNewModuleAction extends Action
     public function do(): CreateNewModuleAction
     {
         $this->failIfModuleNameWasNotSpecified();
-        $this->failIfPathToRoadyProjectsModulesDirectoryCannotBeDetermined();
         $this->failIfModuleAlreadyExists();
         $this->attemptToCreateNewModuleDirectory();
         if(
@@ -831,35 +830,6 @@ class CreateNewModuleAction extends Action
         return $this;
     }
 
-    private function pathToExistingDirectory(string $path): PathToExistingDirectory
-    {
-        $pathParts = explode(DIRECTORY_SEPARATOR, $path);
-        $safeTextParts = [];
-        foreach($pathParts as $part) {
-            if(!empty($part)) {
-                $safeTextParts[] = new SafeText(new Text($part));
-            }
-        }
-        return new PathToExistingDirectory(
-            new SafeTextCollection(...$safeTextParts),
-        );
-    }
-
-    private function expectedPathToRoadyProjectsModulesDirectory(): PathToDirectoryOfRoadyModules
-    {
-        $specifiedPathToRoadyProject = match(
-            empty($this->arguments()->asArray()[RigCommandArgument::PathToRoadyProject->value])
-        ) {
-            true => __DIR__ . DIRECTORY_SEPARATOR .
-                self::MODULES_DIRECTORY_NAME,
-            false => $this->arguments()->asArray()[RigCommandArgument::PathToRoadyProject->value] .
-                DIRECTORY_SEPARATOR . self::MODULES_DIRECTORY_NAME,
-        };
-        return new PathToDirectoryOfRoadyModules(
-            $this->pathToExistingDirectory($specifiedPathToRoadyProject)
-        );
-    }
-
     private function failIfModuleNameWasNotSpecified(): void
     {
         $specifiedModuleName = $this->specifiedModuleName();
@@ -877,52 +847,6 @@ class CreateNewModuleAction extends Action
     private function specifiedModuleName(): string
     {
         return $this->arguments()->asArray()[self::MODULE_NAME_ARGUMENT];
-    }
-
-    private function failIfPathToRoadyProjectsModulesDirectoryCannotBeDetermined(): void
-    {
-        if(
-            $this->expectedPathToRoadyProjectsModulesDirectory()->__toString()
-            ===
-            sys_get_temp_dir()
-        ) {
-            $this->actionStatus = ActionStatus::FAILED;
-            $this->messageLog()
-                ->addMessage(
-                    CLIColorizer::applyFAILEDColor(
-                        'Failed to creat new module directory.'
-                    )
-                );
-            $this->messageLog()
-                ->addMessage(
-                    CLIColorizer::applyFAILEDColor(
-                        'The path to the current Roady project\'s ' .
-                        'modules directory could not be determined.'
-                    )
-                );
-            $this->messageLog()
-                ->addMessage(
-                    CLIColorizer::applyFAILEDColor(
-                        'Please create the projects moudules ' .
-                        'directory if it does not exist.'
-                    )
-                );
-
-            $this->messageLog()
-                ->addMessage(
-                    CLIColorizer::applyHighlightColor(
-                        'To create a the modules directory `cd` ' .
-                        'into the root directory of the relevant ' .
-                        'Roady project and run:'
-                    )
-                );
-            $this->messageLog()
-                ->addMessage(
-                    CLIColorizer::applyHighlightColor(
-                        'mkdir modules'
-                    )
-                );
-        }
     }
 
     private function failIfModuleAlreadyExists(): void
