@@ -797,7 +797,6 @@ class CreateNewModuleAction extends Action
     public function do(): CreateNewModuleAction
     {
         $this->failIfModuleNameWasNotSpecified();
-        $this->failIfModuleAlreadyExists();
         $this->attemptToCreateNewModuleDirectory();
         if(
             $this->actionStatus() !== ActionStatus::FAILED
@@ -847,24 +846,6 @@ class CreateNewModuleAction extends Action
     private function specifiedModuleName(): string
     {
         return $this->arguments()->asArray()[self::MODULE_NAME_ARGUMENT];
-    }
-
-    private function failIfModuleAlreadyExists(): void
-    {
-        if(
-            $this->actionStatus() !== ActionStatus::FAILED
-            &&
-            is_dir($this->specifiedModuleName())
-        ) {
-            $this->messageLog()->addMessage(
-                CLIColorizer::applyFAILEDColor(
-                    'A module named ' .
-                    $this->specifiedModuleName() .
-                    ' already exists. Please choose a unique name.'
-                )
-            );
-            $this->actionStatus = ActionStatus::FAILED;
-        }
     }
 
     private function relativePathToNewModuleDirectory(): string
