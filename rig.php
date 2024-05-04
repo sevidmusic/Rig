@@ -832,9 +832,8 @@ class CreateNewFileForRoadyProjectAction extends Action
     private function attemptToCreateNewFile(): void
     {
         $this->actionStatus = match(
-            file_put_contents($this->pathToNewFile(), $this->content())
-            >
-            0
+            !file_exists($this->pathToNewFile()) &&
+            (file_put_contents($this->pathToNewFile(), $this->content()) > 0)
         ) {
             true => ActionStatus::SUCCEEDED,
             false => ActionStatus::FAILED,
@@ -911,7 +910,10 @@ class CreateNewDirectoryForRoadyProjectAction extends Action
 
     private function attemptToCreateNewDirectory(): void
     {
-        $this->actionStatus = match(mkdir($this->pathToNewDirectory())) {
+        $this->actionStatus = match(
+            !is_dir($this->pathToNewDirectory()) &&
+            mkdir($this->pathToNewDirectory())
+        ) {
             true => ActionStatus::SUCCEEDED,
             false => ActionStatus::FAILED,
         };
