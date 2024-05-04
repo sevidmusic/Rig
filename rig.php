@@ -364,14 +364,14 @@ class RigWebUI {
     private function displayActionEventLog(): void
     {
         $command = $this->rig->lastCommandRun();
-        $commandStatusDateTime = [];
+        $actionStatusDateTime = [];
         if(!is_null($command)) {
             foreach(
                 $command->actionEventLog()->actionEvents()
                 as
                 $actionEvent
             ) {
-                $commandStatusDateTime[] = [
+                $actionStatusDateTime[] = [
                     $actionEvent->action()::class,
                     $actionEvent->action()->actionStatus()->name,
                     $actionEvent->dateTime()->format('Y-m-d H:i:s A')
@@ -379,7 +379,7 @@ class RigWebUI {
             }
             $this->table(
                 ['Command', 'Status', 'Date/Time'],
-                $commandStatusDateTime,
+                $actionStatusDateTime,
             );
         }
     }
@@ -481,14 +481,14 @@ class RigCLUI {
     private function displayActionEventLog(): void
     {
         $command = $this->rig->lastCommandRun();
-        $commandStatusDateTime = [];
+        $actionStatusDateTime = [];
         if(!is_null($command)) {
             foreach(
                 $command->actionEventLog()->actionEvents()
                 as
                 $actionEvent
             ) {
-                $commandStatusDateTime[] = [
+                $actionStatusDateTime[] = [
                     CLIColorizer::applyANSIColor(
                         $actionEvent->action()::class,
                         backgroundColorCode: 87
@@ -517,8 +517,8 @@ class RigCLUI {
                 ];
             }
             table(
-                ['Command', 'Status', 'Date/Time'],
-                $commandStatusDateTime,
+                ['Actions', 'Status', 'Date/Time'],
+                $actionStatusDateTime,
             );
         }
     }
@@ -903,7 +903,6 @@ class CreateNewModuleAction extends Action
             $this->attemptToCreateNewModulesOutputDirectory();
             $this->attemptToCreateNewModulesInitialOutputFile();
             $this->attemptToCreateNewModulesInitialRoutesConfigurationFile();
-            dump($this->actionStatus());
         }
         $this->messageLog()->addMessage(
             match($this->actionStatus()) {
@@ -1068,11 +1067,8 @@ class CreateNewModuleAction extends Action
             ActionStatus::SUCCEEDED => ActionStatus::SUCCEEDED,
             ActionStatus::NOT_PROCESSED => ActionStatus::NOT_PROCESSED,
         };
-
-
-
-
     }
+
     private function attemptToCreateNewModulesOutputDirectory(): void
     {
         $createNewDirectoryForRoadyProjectAction =
