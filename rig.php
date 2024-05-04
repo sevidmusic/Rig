@@ -920,7 +920,7 @@ class CreateRootDirectoryForNewModuleAction extends Action
     public function do(): CreateRootDirectoryForNewModuleAction
     {
         $this->failIfModuleNameWasNotSpecified();
-        $this->attemptToCreateNewModuleDirectory();
+        $this->attemptToCreateNewModulesRootDirectory();
         $this->messageLog()->addMessage(
             match($this->actionStatus()) {
                 ActionStatus::FAILED =>
@@ -941,7 +941,7 @@ class CreateRootDirectoryForNewModuleAction extends Action
         return $this;
     }
 
-    private function attemptToCreateNewModuleDirectory(): void
+    private function attemptToCreateNewModulesRootDirectory(): void
     {
         $createNewDirectoryForRoadyProjectAction =
             new CreateNewDirectoryForRoadyProjectAction(
@@ -950,6 +950,168 @@ class CreateRootDirectoryForNewModuleAction extends Action
                 $this->roadyProjectPathInfo(),
                 $this->roadyProjectPathInfo()
                      ->relativePathToNewModuleDirectory($this->specifiedModuleName()),
+            );
+        $createNewDirectoryForRoadyProjectAction->do();
+        $this->actionStatus = match($createNewDirectoryForRoadyProjectAction->actionStatus()) {
+            ActionStatus::FAILED => ActionStatus::FAILED,
+            ActionStatus::SUCCEEDED => ActionStatus::SUCCEEDED,
+            ActionStatus::NOT_PROCESSED => ActionStatus::NOT_PROCESSED,
+        };
+    }
+
+    private function roadyProjectPathInfo(): RoadyProjectPathInfo
+    {
+        return new RoadyProjectPathInfo($this->arguments());
+    }
+
+}
+
+class CreateCssDirectoryForNewModuleAction extends Action
+{
+
+    public function do(): CreateCssDirectoryForNewModuleAction
+    {
+        $this->failIfModuleNameWasNotSpecified();
+        $this->attemptToCreateNewModulesCssDirectory();
+        $this->messageLog()->addMessage(
+            match($this->actionStatus()) {
+                ActionStatus::FAILED =>
+                    CLIColorizer::applyFAILEDColor(
+                        'Failed to create css directory for new module ' . $this->specifiedModuleName()
+                    ),
+                ActionStatus::SUCCEEDED =>
+                    CLIColorizer::applySUCCEEDEDColor(
+                        'Created css directory for new module ' . $this->specifiedModuleName()
+
+                    ),
+                ActionStatus::NOT_PROCESSED =>
+                    CLIColorizer::applyNOT_PROCESSEDColor(
+                        'Creation of css directory for new module ' . $this->specifiedModuleName() . 'was not processed.'
+                    ),
+            }
+        );
+        return $this;
+    }
+
+    private function attemptToCreateNewModulesCssDirectory(): void
+    {
+        $createNewDirectoryForRoadyProjectAction =
+            new CreateNewDirectoryForRoadyProjectAction(
+                $this->arguments(),
+                $this->messageLog(),
+                $this->roadyProjectPathInfo(),
+                $this->roadyProjectPathInfo()
+                     ->relativePathToNewModuleDirectory($this->specifiedModuleName()) .
+                     DIRECTORY_SEPARATOR .
+                     'css',
+            );
+        $createNewDirectoryForRoadyProjectAction->do();
+        $this->actionStatus = match($createNewDirectoryForRoadyProjectAction->actionStatus()) {
+            ActionStatus::FAILED => ActionStatus::FAILED,
+            ActionStatus::SUCCEEDED => ActionStatus::SUCCEEDED,
+            ActionStatus::NOT_PROCESSED => ActionStatus::NOT_PROCESSED,
+        };
+    }
+
+    private function roadyProjectPathInfo(): RoadyProjectPathInfo
+    {
+        return new RoadyProjectPathInfo($this->arguments());
+    }
+
+}
+
+class CreateJsDirectoryForNewModuleAction extends Action
+{
+
+    public function do(): CreateJsDirectoryForNewModuleAction
+    {
+        $this->failIfModuleNameWasNotSpecified();
+        $this->attemptToCreateNewModulesJsDirectory();
+        $this->messageLog()->addMessage(
+            match($this->actionStatus()) {
+                ActionStatus::FAILED =>
+                    CLIColorizer::applyFAILEDColor(
+                        'Failed to create js directory for new module ' . $this->specifiedModuleName()
+                    ),
+                ActionStatus::SUCCEEDED =>
+                    CLIColorizer::applySUCCEEDEDColor(
+                        'Created js directory for new module ' . $this->specifiedModuleName()
+
+                    ),
+                ActionStatus::NOT_PROCESSED =>
+                    CLIColorizer::applyNOT_PROCESSEDColor(
+                        'Creation of js directory for new module ' . $this->specifiedModuleName() . 'was not processed.'
+                    ),
+            }
+        );
+        return $this;
+    }
+
+    private function attemptToCreateNewModulesJsDirectory(): void
+    {
+        $createNewDirectoryForRoadyProjectAction =
+            new CreateNewDirectoryForRoadyProjectAction(
+                $this->arguments(),
+                $this->messageLog(),
+                $this->roadyProjectPathInfo(),
+                $this->roadyProjectPathInfo()
+                     ->relativePathToNewModuleDirectory($this->specifiedModuleName()) .
+                     DIRECTORY_SEPARATOR .
+                     'js',
+            );
+        $createNewDirectoryForRoadyProjectAction->do();
+        $this->actionStatus = match($createNewDirectoryForRoadyProjectAction->actionStatus()) {
+            ActionStatus::FAILED => ActionStatus::FAILED,
+            ActionStatus::SUCCEEDED => ActionStatus::SUCCEEDED,
+            ActionStatus::NOT_PROCESSED => ActionStatus::NOT_PROCESSED,
+        };
+    }
+
+    private function roadyProjectPathInfo(): RoadyProjectPathInfo
+    {
+        return new RoadyProjectPathInfo($this->arguments());
+    }
+
+}
+
+class CreateOutputDirectoryForNewModuleAction extends Action
+{
+
+    public function do(): CreateOutputDirectoryForNewModuleAction
+    {
+        $this->failIfModuleNameWasNotSpecified();
+        $this->attemptToCreateNewModulesOutputDirectory();
+        $this->messageLog()->addMessage(
+            match($this->actionStatus()) {
+                ActionStatus::FAILED =>
+                    CLIColorizer::applyFAILEDColor(
+                        'Failed to create output directory for new module ' . $this->specifiedModuleName()
+                    ),
+                ActionStatus::SUCCEEDED =>
+                    CLIColorizer::applySUCCEEDEDColor(
+                        'Created output directory for new module ' . $this->specifiedModuleName()
+
+                    ),
+                ActionStatus::NOT_PROCESSED =>
+                    CLIColorizer::applyNOT_PROCESSEDColor(
+                        'Creation of output directory for new module ' . $this->specifiedModuleName() . 'was not processed.'
+                    ),
+            }
+        );
+        return $this;
+    }
+
+    private function attemptToCreateNewModulesOutputDirectory(): void
+    {
+        $createNewDirectoryForRoadyProjectAction =
+            new CreateNewDirectoryForRoadyProjectAction(
+                $this->arguments(),
+                $this->messageLog(),
+                $this->roadyProjectPathInfo(),
+                $this->roadyProjectPathInfo()
+                     ->relativePathToNewModuleDirectory($this->specifiedModuleName()) .
+                     DIRECTORY_SEPARATOR .
+                     'output',
             );
         $createNewDirectoryForRoadyProjectAction->do();
         $this->actionStatus = match($createNewDirectoryForRoadyProjectAction->actionStatus()) {
@@ -976,7 +1138,19 @@ class NewModuleCommand  extends Command
             new CreateRootDirectoryForNewModuleAction(
                 $this->arguments(),
                 $this->messageLog()
-            )
+            ),
+            new CreateCssDirectoryForNewModuleAction(
+                $this->arguments(),
+                $this->messageLog()
+            ),
+            new CreateJsDirectoryForNewModuleAction(
+                $this->arguments(),
+                $this->messageLog()
+            ),
+            new CreateOutputDirectoryForNewModuleAction(
+                $this->arguments(),
+                $this->messageLog()
+            ),
         ];
     }
 }
