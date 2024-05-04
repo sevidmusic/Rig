@@ -131,6 +131,9 @@ class MessageLog
 
 class Action
 {
+
+    private const MODULE_NAME_ARGUMENT = 'module-name';
+
     protected ActionStatus $actionStatus = ActionStatus::NOT_PROCESSED;
 
     public function __construct(
@@ -161,6 +164,25 @@ class Action
     public function arguments(): Arguments
     {
         return $this->arguments;
+    }
+
+    protected function failIfModuleNameWasNotSpecified(): void
+    {
+        $specifiedModuleName = $this->specifiedModuleName();
+        if(empty($specifiedModuleName->__toString())) {
+            $this->messageLog()->addMessage(
+                CLIColorizer::applyFAILEDColor(
+                    'Please specify a --module-name to use for ' .
+                     'the new module'
+                )
+            );
+            $this->actionStatus = ActionStatus::FAILED;
+        }
+    }
+
+    protected function specifiedModuleName(): Name
+    {
+        return new Name(new Text($this->arguments()->asArray()[self::MODULE_NAME_ARGUMENT]));
     }
 
 }
@@ -696,6 +718,8 @@ class DetermineVersionAction extends Action
 class RoadyProjectPathInfo
 {
 
+    private const MODULES_DIRECTORY_NAME = 'modules';
+
     public function __construct(
         private Arguments $arguments,
     ) {}
@@ -703,6 +727,13 @@ class RoadyProjectPathInfo
     public function arguments(): Arguments
     {
         return $this->arguments;
+    }
+
+    public function relativePathToNewModuleDirectory(Name $moduleName): string
+    {
+        return self::MODULES_DIRECTORY_NAME .
+            DIRECTORY_SEPARATOR .
+            $moduleName->__toString();
     }
 
     public function expectedPathToRoadyProjectsRootDirectory(): PathToExistingDirectory
@@ -886,9 +917,6 @@ class CreateNewDirectoryForRoadyProjectAction extends Action
 class CreateRootDirectoryForNewModuleAction extends Action
 {
 
-    private const MODULES_DIRECTORY_NAME = 'modules';
-    private const MODULE_NAME_ARGUMENT = 'module-name';
-
     public function do(): CreateRootDirectoryForNewModuleAction
     {
         $this->failIfModuleNameWasNotSpecified();
@@ -913,32 +941,6 @@ class CreateRootDirectoryForNewModuleAction extends Action
         return $this;
     }
 
-    private function failIfModuleNameWasNotSpecified(): void
-    {
-        $specifiedModuleName = $this->specifiedModuleName();
-        if(empty($specifiedModuleName)) {
-            $this->messageLog()->addMessage(
-                CLIColorizer::applyFAILEDColor(
-                    'Please specify a --module-name to use for ' .
-                     'the new module'
-                )
-            );
-            $this->actionStatus = ActionStatus::FAILED;
-        }
-    }
-
-    private function specifiedModuleName(): string
-    {
-        return $this->arguments()->asArray()[self::MODULE_NAME_ARGUMENT];
-    }
-
-    private function relativePathToNewModuleDirectory(): string
-    {
-        return self::MODULES_DIRECTORY_NAME .
-            DIRECTORY_SEPARATOR .
-            $this->specifiedModuleName();
-    }
-
     private function attemptToCreateNewModuleDirectory(): void
     {
         $createNewDirectoryForRoadyProjectAction =
@@ -946,7 +948,8 @@ class CreateRootDirectoryForNewModuleAction extends Action
                 $this->arguments(),
                 $this->messageLog(),
                 $this->roadyProjectPathInfo(),
-                $this->relativePathToNewModuleDirectory(),
+                $this->roadyProjectPathInfo()
+                     ->relativePathToNewModuleDirectory($this->specifiedModuleName()),
             );
         $createNewDirectoryForRoadyProjectAction->do();
         $this->actionStatus = match($createNewDirectoryForRoadyProjectAction->actionStatus()) {
