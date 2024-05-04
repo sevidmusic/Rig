@@ -961,7 +961,6 @@ class CreateRootDirectoryForNewModuleAction extends Action
                 ActionStatus::NOT_PROCESSED =>
                     CLIColorizer::applyNOT_PROCESSEDColor(
                         'Creation of root directory for new module ' .
-                        $this->specifiedModuleName() .
                         'was not processed.'
                     ),
             }
@@ -1021,8 +1020,7 @@ class CreateCssDirectoryForNewModuleAction extends Action
                 ActionStatus::NOT_PROCESSED =>
                     CLIColorizer::applyNOT_PROCESSEDColor(
                         'Creation of css directory for new module ' .
-                        $this->specifiedModuleName() .
-                        'was not processed.'
+                        ' was not processed.'
                     ),
             }
         );
@@ -1043,7 +1041,9 @@ class CreateCssDirectoryForNewModuleAction extends Action
                      DIRECTORY_SEPARATOR .
                      'css',
             );
-        $createNewDirectoryForRoadyProjectAction->do();
+        if($this->actionStatus() !== ActionStatus::FAILED) {
+            $createNewDirectoryForRoadyProjectAction->do();
+        }
         $this->actionStatus = match(
             $createNewDirectoryForRoadyProjectAction->actionStatus()
         ) {
@@ -1083,7 +1083,6 @@ class CreateJsDirectoryForNewModuleAction extends Action
                 ActionStatus::NOT_PROCESSED =>
                     CLIColorizer::applyNOT_PROCESSEDColor(
                         'Creation of js directory for new module ' .
-                        $this->specifiedModuleName() .
                         'was not processed.'
                     ),
             }
@@ -1105,7 +1104,9 @@ class CreateJsDirectoryForNewModuleAction extends Action
                      DIRECTORY_SEPARATOR .
                      'js',
             );
-        $createNewDirectoryForRoadyProjectAction->do();
+        if($this->actionStatus() !== ActionStatus::FAILED) {
+            $createNewDirectoryForRoadyProjectAction->do();
+        }
         $this->actionStatus = match(
             $createNewDirectoryForRoadyProjectAction->actionStatus()
         ) {
@@ -1167,7 +1168,9 @@ class CreateOutputDirectoryForNewModuleAction extends Action
                      DIRECTORY_SEPARATOR .
                      'output',
             );
-        $createNewDirectoryForRoadyProjectAction->do();
+        if($this->actionStatus() !== ActionStatus::FAILED) {
+            $createNewDirectoryForRoadyProjectAction->do();
+        }
         $this->actionStatus = match(
             $createNewDirectoryForRoadyProjectAction->actionStatus()
         ) {
