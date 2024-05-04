@@ -19,6 +19,7 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'erusev
 
 
 use Darling\PHPFileSystemPaths\classes\paths\PathToExistingDirectory;
+use Darling\PHPFileSystemPaths\classes\paths\PathToExistingFile;
 use \Darling\PHPTextTypes\classes\strings\ClassString;
 use \Darling\PHPTextTypes\classes\strings\Text;
 use \Darling\PHPTextTypes\classes\strings\Name;
@@ -692,12 +693,142 @@ class DetermineVersionAction extends Action
     }
 }
 
+class RoadyProjectPathInfo
+{
+
+    public function __construct(
+        private Arguments $arguments,
+    ) {}
+
+    public function arguments(): Arguments
+    {
+        return $this->arguments;
+    }
+
+    public function expectedPathToRoadyProjectsRootDirectory(): PathToExistingDirectory
+    {
+        $specifiedPath = $this->arguments()
+                              ->asArray()[RigCommandArgument::PathToRoadyProject->value];
+        $pathToRoadyProject = match(
+            empty($specifiedPath)
+        ) {
+            true => $this->currentDirectoryPath(),
+            false => $specifiedPath . DIRECTORY_SEPARATOR,
+        };
+        return $this->pathToExistingDirectory($pathToRoadyProject);
+    }
+
+    public function currentDirectoryPath(): string
+    {
+        $realpath = realpath(__DIR__ . DIRECTORY_SEPARATOR);
+        return strval(match(is_string($realpath)) {
+            true => $realpath,
+            false => sys_get_temp_dir(),
+        });
+    }
+
+    public function pathToExistingDirectory(string $path): PathToExistingDirectory
+    {
+        return new PathToExistingDirectory(
+            $this->pathToSafeTextCollection($path),
+        );
+    }
+
+    public function pathToSafeTextCollection(string $path): SafeTextCollection
+    {
+        $pathParts = explode(DIRECTORY_SEPARATOR, $path);
+        $safeTextParts = [];
+        foreach($pathParts as $part) {
+            if(!empty($part)) {
+                $safeTextParts[] = new SafeText(new Text($part));
+            }
+        }
+        return new SafeTextCollection(...$safeTextParts);
+    }
+
+}
+
+class CreateNewFileForRoadyProjectAction extends Action
+{
+
+    public function __construct(
+        private Arguments $arguments,
+        private MessageLog $messageLog,
+        private RoadyProjectPathInfo $roadyProjectPathInfo,
+        private string $relativePathToNewFile,
+        private Name $fileName,
+        private string $content,
+    ) {
+        parent::__construct($this->arguments, $this->messageLog);
+    }
+
+    public function do(): CreateNewFileForRoadyProjectAction
+    {
+        $this->attemptToCreateNewFile();
+        $this->messageLog()->addMessage(
+            match($this->actionStatus()) {
+                ActionStatus::FAILED =>
+                    CLIColorizer::applyFAILEDColor(
+                        'Failed to create new file ' .
+                        $this->pathToNewFile()
+                    ),
+                ActionStatus::SUCCEEDED =>
+                    CLIColorizer::applySUCCEEDEDColor(
+                        'Created new file ' .
+                        $this->pathToNewFile()
+                    ),
+                ActionStatus::NOT_PROCESSED =>
+                    CLIColorizer::applyNOT_PROCESSEDColor(
+                        'Creation of new file '. $this->pathToNewFile() . 'was not processed.'
+                    ),
+            }
+        );
+        return $this;
+    }
+
+    private function content(): string
+    {
+        return trim($this->content);
+    }
+
+    private function roadyProjectPathInfo(): RoadyProjectPathInfo
+    {
+        return $this->roadyProjectPathInfo;
+    }
+
+    private function attemptToCreateNewFile(): void
+    {
+        $this->actionStatus = match(file_put_contents($this->pathToNewFile(), $this->content()) > 0) {
+            true => ActionStatus::SUCCEEDED,
+            false => ActionStatus::FAILED,
+        };
+    }
+
+    private function fileName(): Name
+    {
+        return $this->fileName;
+    }
+
+    private function pathToNewFile(): string
+    {
+        $safePathParts = $this->roadyProjectPathInfo()->pathToSafeTextCollection($this->relativePathToNewFile);
+        $safePath = DIRECTORY_SEPARATOR;
+        foreach($safePathParts->collection() as $safePathPart) {
+            $safePath .= $safePathPart->__toString() . DIRECTORY_SEPARATOR;
+        }
+        $safePath .= $this->fileName();
+        return $this->roadyProjectPathInfo()->expectedPathToRoadyProjectsRootDirectory()->__toString() . $safePath;
+    }
+
+}
+
 class CreateNewDirectoryForRoadyProjectAction extends Action
 {
 
     public function __construct(
         private Arguments $arguments,
         private MessageLog $messageLog,
+        private RoadyProjectPathInfo $roadyProjectPathInfo,
         private string $relativePathToNewDirectory,
     ) {
         parent::__construct($this->arguments, $this->messageLog);
@@ -720,72 +851,36 @@ class CreateNewDirectoryForRoadyProjectAction extends Action
                     ),
                 ActionStatus::NOT_PROCESSED =>
                     CLIColorizer::applyNOT_PROCESSEDColor(
-                        'Creation of '. $this->pathToNewDirectory() . 'was not processed.'
+                        'Creation of new directory '. $this->pathToNewDirectory() . 'was not processed.'
                     ),
             }
         );
         return $this;
     }
 
+    private function roadyProjectPathInfo(): RoadyProjectPathInfo
+    {
+        return $this->roadyProjectPathInfo;
+    }
+
     private function attemptToCreateNewDirectory(): void
     {
-        dump($this->pathToNewDirectory());
         $this->actionStatus = match(mkdir($this->pathToNewDirectory())) {
             true => ActionStatus::SUCCEEDED,
             false => ActionStatus::FAILED,
         };
     }
 
-    private function pathToSafeTextCollection(string $path): SafeTextCollection
-    {
-        $pathParts = explode(DIRECTORY_SEPARATOR, $path);
-        $safeTextParts = [];
-        foreach($pathParts as $part) {
-            if(!empty($part)) {
-                $safeTextParts[] = new SafeText(new Text($part));
-            }
-        }
-        return new SafeTextCollection(...$safeTextParts);
-    }
-
-    private function pathToExistingDirectory(string $path): PathToExistingDirectory
-    {
-        return new PathToExistingDirectory(
-            $this->pathToSafeTextCollection($path),
-        );
-    }
-
-    private function currentDirectoryPath(): string
-    {
-        $realpath = realpath(__DIR__ . DIRECTORY_SEPARATOR);
-        return match(is_string($realpath)) {
-            true => $realpath,
-            false => sys_get_temp_dir(),
-        };
-    }
-
     private function pathToNewDirectory(): string
     {
-        $safePathParts = $this->pathToSafeTextCollection($this->relativePathToNewDirectory);
+        $safePathParts = $this->roadyProjectPathInfo()->pathToSafeTextCollection($this->relativePathToNewDirectory);
         $safePath = DIRECTORY_SEPARATOR;
         foreach($safePathParts->collection() as $safePathPart) {
             $safePath .= $safePathPart->__toString() . DIRECTORY_SEPARATOR;
         }
-        return $this->expectedPathToRoadyProjectsRootDirectory()->__toString() . $safePath;
+        return $this->roadyProjectPathInfo()->expectedPathToRoadyProjectsRootDirectory()->__toString() . $safePath;
     }
 
-    private function expectedPathToRoadyProjectsRootDirectory(): PathToExistingDirectory
-    {
-        $specifiedPath = $this->arguments()
-                              ->asArray()[RigCommandArgument::PathToRoadyProject->value];
-        $pathToRoadyProject = match(
-            empty($specifiedPath)
-        ) {
-            true => $this->currentDirectoryPath(),
-            false => $specifiedPath . DIRECTORY_SEPARATOR,
-        };
-        return $this->pathToExistingDirectory($pathToRoadyProject);
-    }
 }
 
 class CreateNewModuleAction extends Action
@@ -808,6 +903,7 @@ class CreateNewModuleAction extends Action
             $this->attemptToCreateNewModulesOutputDirectory();
             $this->attemptToCreateNewModulesInitialOutputFile();
             $this->attemptToCreateNewModulesInitialRoutesConfigurationFile();
+            dump($this->actionStatus());
         }
         $this->messageLog()->addMessage(
             match($this->actionStatus()) {
@@ -855,12 +951,18 @@ class CreateNewModuleAction extends Action
             $this->specifiedModuleName();
     }
 
+    private function roadyProjectPathInfo(): RoadyProjectPathInfo
+    {
+        return new RoadyProjectPathInfo($this->arguments());
+    }
+
     private function attemptToCreateNewModuleDirectory(): void
     {
         $createNewDirectoryForRoadyProjectAction =
             new CreateNewDirectoryForRoadyProjectAction(
                 $this->arguments(),
                 $this->messageLog(),
+                $this->roadyProjectPathInfo(),
                 $this->relativePathToNewModuleDirectory(),
             );
         $createNewDirectoryForRoadyProjectAction->do();
@@ -873,66 +975,68 @@ class CreateNewModuleAction extends Action
 
     private function attemptToCreateNewModulesCssDirectory(): void
     {
-        $this->actionStatus = match($this->actionStatus()) {
+        $createNewDirectoryForRoadyProjectAction =
+            new CreateNewDirectoryForRoadyProjectAction(
+                $this->arguments(),
+                $this->messageLog(),
+                $this->roadyProjectPathInfo(),
+                $this->relativePathToNewModuleDirectory() . DIRECTORY_SEPARATOR . 'css',
+            );
+        $createNewDirectoryForRoadyProjectAction->do();
+        $this->actionStatus = match($createNewDirectoryForRoadyProjectAction->actionStatus()) {
             ActionStatus::FAILED => ActionStatus::FAILED,
-            default => match(
-                mkdir(
-                    $this->specifiedModuleName() .
-                        DIRECTORY_SEPARATOR .
-                        'css'
-                )
-            ) {
-                true => ActionStatus::SUCCEEDED,
-                false => ActionStatus::FAILED,
-            },
+            ActionStatus::SUCCEEDED => ActionStatus::SUCCEEDED,
+            ActionStatus::NOT_PROCESSED => ActionStatus::NOT_PROCESSED,
         };
     }
 
     private function attemptToCreateNewModulesJsDirectory(): void
     {
-        $this->actionStatus = match($this->actionStatus()) {
+        $createNewDirectoryForRoadyProjectAction =
+            new CreateNewDirectoryForRoadyProjectAction(
+                $this->arguments(),
+                $this->messageLog(),
+                $this->roadyProjectPathInfo(),
+                $this->relativePathToNewModuleDirectory() . DIRECTORY_SEPARATOR . 'js',
+            );
+        $createNewDirectoryForRoadyProjectAction->do();
+        $this->actionStatus = match($createNewDirectoryForRoadyProjectAction->actionStatus()) {
             ActionStatus::FAILED => ActionStatus::FAILED,
-            default => match(
-                mkdir(
-                    $this->specifiedModuleName() .
-                        DIRECTORY_SEPARATOR .
-                        'js'
-                )
-            ) {
-                true => ActionStatus::SUCCEEDED,
-                false => ActionStatus::FAILED,
-            },
+            ActionStatus::SUCCEEDED => ActionStatus::SUCCEEDED,
+            ActionStatus::NOT_PROCESSED => ActionStatus::NOT_PROCESSED,
         };
     }
 
     private function attemptToCreateNewModulesInitialOutputFile(): void
     {
         $specifiedModuleName = $this->specifiedModuleName();
+        $pathToFile = $this->relativePathToNewModuleDirectory() . DIRECTORY_SEPARATOR . 'output';
+        $fileName = new Name(new Text($specifiedModuleName . '.html')) ;
         $initialOutput = <<<HTML
         <h1>{$specifiedModuleName}</h1>
         <p>Initial output...</p>
         HTML;
-        $this->actionStatus = match($this->actionStatus()) {
+        $createNewFileForRoadyProjectAction = new CreateNewFileForRoadyProjectAction(
+            $this->arguments(),
+            $this->messageLog(),
+            $this->roadyProjectPathInfo(),
+            $pathToFile,
+            $fileName,
+            $initialOutput,
+        );
+        $createNewFileForRoadyProjectAction->do();
+        $this->actionStatus = match($createNewFileForRoadyProjectAction->actionStatus()) {
             ActionStatus::FAILED => ActionStatus::FAILED,
-            default => match(
-                file_put_contents(
-                    $this->specifiedModuleName() .
-                        DIRECTORY_SEPARATOR .
-                        'output'.
-                        DIRECTORY_SEPARATOR .
-                        $specifiedModuleName . '.html',
-                    $initialOutput
-                ) > 0
-            ) {
-                true => ActionStatus::SUCCEEDED,
-                false => ActionStatus::FAILED,
-            },
+            ActionStatus::SUCCEEDED => ActionStatus::SUCCEEDED,
+            ActionStatus::NOT_PROCESSED => ActionStatus::NOT_PROCESSED,
         };
     }
 
     private function attemptToCreateNewModulesInitialRoutesConfigurationFile(): void
     {
         $specifiedModuleName = $this->specifiedModuleName();
+        $pathToFile = $this->relativePathToNewModuleDirectory();
+        $fileName = new Name(new Text('localhost.8080.json'));
         $json = <<<"JSON"
         [
             {
@@ -950,35 +1054,39 @@ class CreateNewModuleAction extends Action
             }
         ]
         JSON;
-        $this->actionStatus = match($this->actionStatus()) {
+        $createNewFileForRoadyProjectAction = new CreateNewFileForRoadyProjectAction(
+            $this->arguments(),
+            $this->messageLog(),
+            $this->roadyProjectPathInfo(),
+            $pathToFile,
+            $fileName,
+            $json,
+        );
+        $createNewFileForRoadyProjectAction->do();
+        $this->actionStatus = match($createNewFileForRoadyProjectAction->actionStatus()) {
             ActionStatus::FAILED => ActionStatus::FAILED,
-            default => match(
-                file_put_contents(
-                    $this->specifiedModuleName() .
-                        DIRECTORY_SEPARATOR .
-                        'localhost.8080.json',
-                    $json
-                ) > 0
-            ) {
-                true => ActionStatus::SUCCEEDED,
-                false => ActionStatus::FAILED,
-            },
+            ActionStatus::SUCCEEDED => ActionStatus::SUCCEEDED,
+            ActionStatus::NOT_PROCESSED => ActionStatus::NOT_PROCESSED,
         };
+
+
+
+
     }
     private function attemptToCreateNewModulesOutputDirectory(): void
     {
-        $this->actionStatus = match($this->actionStatus()) {
+        $createNewDirectoryForRoadyProjectAction =
+            new CreateNewDirectoryForRoadyProjectAction(
+                $this->arguments(),
+                $this->messageLog(),
+                $this->roadyProjectPathInfo(),
+                $this->relativePathToNewModuleDirectory() . DIRECTORY_SEPARATOR . 'output',
+            );
+        $createNewDirectoryForRoadyProjectAction->do();
+        $this->actionStatus = match($createNewDirectoryForRoadyProjectAction->actionStatus()) {
             ActionStatus::FAILED => ActionStatus::FAILED,
-            default => match(
-                mkdir(
-                    $this->specifiedModuleName() .
-                        DIRECTORY_SEPARATOR .
-                        'output'
-                )
-            ) {
-                true => ActionStatus::SUCCEEDED,
-                false => ActionStatus::FAILED,
-            },
+            ActionStatus::SUCCEEDED => ActionStatus::SUCCEEDED,
+            ActionStatus::NOT_PROCESSED => ActionStatus::NOT_PROCESSED,
         };
     }
 
