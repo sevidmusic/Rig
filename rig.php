@@ -9,6 +9,12 @@
  * To use curl:
  * curl -d 'delete-route&version&help=new-route&list-routes&new-module&new-route&start-servers&update-route&version&view-action-log&view-readme&authority=localhost:8080&defined-for-authorities=localhost:8080,%20roady.tech&defined-for-files=homepage.html&defined-for-modules=HelloWorld&defined-for-named-positions=roady-ui-footer&defined-for-positions=10,%2011&defined-for-requests=Homepage,%20HelloWorld&for-authority=localhost:8080&module-name=HelloWorld&named-positions=[{%22position-name%22:%22roady-ui-footer%22,%22position%22:10},%20{%22position-name%22:%22roady-ui-header%22,%22position%22:11}]&no-boilerplate&open-in-browser&path-to-roady-project=./&ports=8080&relative-path=output/Homepage.html&responds-to=Homepage&route-hash=234908' http://localhost:8080/rig.php
  */
+/**
+ * To test via cli run:
+ *
+ * rig --delete-route --help foo --list-routes --new-module --new-route --start-servers --update-route --version --view-action-log --view-readme --authority localhost:8080 --defined-for-authorities localhost:8080 --defined-for-files homepage.html --defined-for-modules HelloWorld --defined-for-named-positions roady-ui-main-content --defined-for-positions 2 --defined-for-requests Homepage --for-authority localhost:8080 --module-name HelloWorld --named-positions roady-ui-main-content --no-boilerplate --open-in-browser --path-to-roady-project ./ --ports 3494 --relative-path homepage.html --responds-to Home --route-hash 2340984
+ *
+ */
 
 declare(strict_types=1);
 
@@ -1854,33 +1860,23 @@ $actionEventLog = new ActionEventLog();
 $messageLog = new MessageLog();
 
 if(php_sapi_name() === 'cli') {
-
-    $arguments = new CLIArguments();
     $rigCLUI = new RigCLUI(
         $rig->run(
             $commandDeterminator->commandToRun(
-                $arguments,
+                new CLIArguments(),
                 $actionEventLog,
                 $messageLog,
             )
         ),
     );
-
     $rigCLUI->render();
     exit;
-    /**
-     * To test via cli run:
-     *
-     * rig --delete-route --help foo --list-routes --new-module --new-route --start-servers --update-route --version --view-action-log --view-readme --authority localhost:8080 --defined-for-authorities localhost:8080 --defined-for-files homepage.html --defined-for-modules HelloWorld --defined-for-named-positions roady-ui-main-content --defined-for-positions 2 --defined-for-requests Homepage --for-authority localhost:8080 --module-name HelloWorld --named-positions roady-ui-main-content --no-boilerplate --open-in-browser --path-to-roady-project ./ --ports 3494 --relative-path homepage.html --responds-to Home --route-hash 2340984
-     *
-     */
 }
 
-$arguments = new WebArguments();
 $rigWebUI = new RigWebUI(
     $rig->run(
         $commandDeterminator->commandToRun(
-            $arguments,
+            new WebArguments(),
             $actionEventLog,
             $messageLog
         )
