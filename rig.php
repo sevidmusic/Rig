@@ -240,16 +240,23 @@ class Command
 
     public function execute(): Command {
         foreach($this->actions() as $action) {
-            $this->messageLog()->addMessage(
-                'Executing action: ' .
-                CLIColorizer::applyHighlightColor($action::class)
-            );
-            $this->actionEventLog->addActionEvent(
-                new ActionEvent(
-                    $action->do(),
-                    new DateTimeImmutable('now')
-                )
-            );
+            if(
+                !isset($lastAction)
+                ||
+                $lastAction->actionStatus() === ActionStatus::SUCCEEDED
+            ) {
+                $this->messageLog()->addMessage(
+                    'Executing action: ' .
+                    CLIColorizer::applyHighlightColor($action::class)
+                );
+                $this->actionEventLog->addActionEvent(
+                    new ActionEvent(
+                        $action->do(),
+                        new DateTimeImmutable('now')
+                    )
+                );
+                $lastAction = $action;
+            }
         }
         return $this;
     }
