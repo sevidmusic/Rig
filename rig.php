@@ -24,13 +24,16 @@ require $_composer_autoload_path;
 require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'erusev' . DIRECTORY_SEPARATOR . 'parsedown' . DIRECTORY_SEPARATOR  . 'Parsedown.php';
 
 
-use Darling\PHPFileSystemPaths\classes\paths\PathToExistingDirectory;
-use Darling\PHPFileSystemPaths\classes\paths\PathToExistingFile;
+use \Darling\PHPFileSystemPaths\classes\paths\PathToExistingDirectory;
+use \Darling\PHPFileSystemPaths\classes\paths\PathToExistingFile;
+use \Darling\PHPTextTypes\classes\collections\SafeTextCollection;
 use \Darling\PHPTextTypes\classes\strings\ClassString;
-use \Darling\PHPTextTypes\classes\strings\Text;
 use \Darling\PHPTextTypes\classes\strings\Name;
 use \Darling\PHPTextTypes\classes\strings\SafeText;
-use \Darling\PHPTextTypes\classes\collections\SafeTextCollection;
+use \Darling\PHPTextTypes\classes\strings\Text;
+use \Darling\Rig\enums\actions\ActionStatus;
+use \Darling\Rig\enums\commands\RigCommand;
+use \Darling\Rig\enums\commands\RigCommandArgument;
 use \Darling\RoadyModuleUtilities\classes\paths\PathToDirectoryOfRoadyModules;
 use \Darling\RoadyModuleUtilities\classes\paths\PathToRoadyModuleDirectory;
 use function Laravel\Prompts\info;
@@ -100,15 +103,6 @@ class CLIColorizer
     {
         return self::applyANSIColor($string, 67);
     }
-
-}
-
-enum ActionStatus
-{
-
-    case NOT_PROCESSED;
-    case SUCCEEDED;
-    case FAILED;
 
 }
 
@@ -1470,43 +1464,6 @@ class CommandDeterminator
                 $messageLog,
         );
     }
-}
-
-enum RigCommand: string
-{
-    case DeleteRoute = 'delete-route';
-    case Help = 'help';
-    case ListRoutes = 'list-routes';
-    case NewModule = 'new-module';
-    case NewRoute = 'new-route';
-    case StartServers = 'start-servers';
-    case UpdateRoute = 'update-route';
-    case Version = 'version';
-    case ViewActionLog = 'view-action-log';
-    case ViewReadme = 'view-readme';
-}
-
-enum RigCommandArgument: string
-{
-    // Command Options
-    case Authority = 'authority';
-    case DefinedForAuthorities = 'defined-for-authorities';
-    case DefinedForFiles = 'defined-for-files';
-    case DefinedForModules = 'defined-for-modules';
-    case DefinedForNamedPositions = 'defined-for-named-positions';
-    case DefinedForPositions = 'defined-for-positions';
-    case DefinedForRequests = 'defined-for-requests';
-    case ForAuthority = 'for-authority';
-    case ModuleName = 'module-name';
-    case NamedPositions = 'named-positions';
-    case NoBoilerplate = 'no-boilerplate';
-    case OpenInBrowser = 'open-in-browser';
-    case PathToRoadyProject = 'path-to-roady-project';
-    case Ports = 'ports';
-    case RelativePath = 'relative-path';
-    case RespondsTo = 'responds-to';
-    case RouteHash = 'route-hash';
-
 }
 
 class Arguments
