@@ -34,6 +34,8 @@ use \Darling\PHPTextTypes\classes\strings\Text;
 use \Darling\Rig\enums\actions\ActionStatus;
 use \Darling\Rig\enums\commands\RigCommand;
 use \Darling\Rig\enums\commands\RigCommandArgument;
+use \Darling\Rig\interfaces\arguments\Arguments;
+use \Darling\Rig\classes\arguments\Arguments as ArgumentsInstance;
 use \Darling\RoadyModuleUtilities\classes\paths\PathToDirectoryOfRoadyModules;
 use \Darling\RoadyModuleUtilities\classes\paths\PathToRoadyModuleDirectory;
 use function Laravel\Prompts\info;
@@ -1466,47 +1468,7 @@ class CommandDeterminator
     }
 }
 
-class Arguments
-{
-
-    /** @return array<string, string> */
-    public function asArray(): array
-    {
-        return [
-            // Commands
-            RigCommand::DeleteRoute->value => '',
-            RigCommand::Help->value => '',
-            RigCommand::ListRoutes->value => '',
-            RigCommand::NewModule->value => '',
-            RigCommand::NewRoute->value => '',
-            RigCommand::StartServers->value => '',
-            RigCommand::UpdateRoute->value => '',
-            RigCommand::Version->value => '',
-            RigCommand::ViewActionLog->value => '',
-            RigCommand::ViewReadme->value => '',
-            // Command Options
-            RigCommandArgument::Authority->value => '',
-            RigCommandArgument::DefinedForAuthorities->value => '',
-            RigCommandArgument::DefinedForFiles->value => '',
-            RigCommandArgument::DefinedForModules->value => '',
-            RigCommandArgument::DefinedForNamedPositions->value => '',
-            RigCommandArgument::DefinedForPositions->value => '',
-            RigCommandArgument::DefinedForRequests->value => '',
-            RigCommandArgument::ForAuthority->value => '',
-            RigCommandArgument::ModuleName->value => '',
-            RigCommandArgument::NamedPositions->value => '',
-            RigCommandArgument::NoBoilerplate->value => '',
-            RigCommandArgument::OpenInBrowser->value => '',
-            RigCommandArgument::PathToRoadyProject->value => '',
-            RigCommandArgument::Ports->value => '',
-            RigCommandArgument::RelativePath->value => '',
-            RigCommandArgument::RespondsTo->value => '',
-            RigCommandArgument::RouteHash->value => '',
-        ];
-    }
-}
-
-class WebArguments extends Arguments
+class WebArguments extends ArgumentsInstance implements Arguments
 {
 
     private function parameterNameIfSpecified(string $name): string
@@ -1590,7 +1552,7 @@ class WebArguments extends Arguments
 
 }
 
-class CLIArguments extends Arguments
+class CLIArguments extends ArgumentsInstance implements Arguments
 {
 
     private const DELIMITER_FOR_ARGUMENT_THAT_ACCEPTS_USER_INPUT = ':';
