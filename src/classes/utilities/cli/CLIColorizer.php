@@ -19,22 +19,22 @@ class CLIColorizer implements CLIColorizerInterface
 
     public static function applySUCCEEDEDColor(string $string): string
     {
-        return '';
+        return self::applyANSIColor($string, 83);
     }
 
     public static function applyFAILEDColor(string $string): string
     {
-        return '';
+        return self::applyANSIColor($string, 160);
     }
 
     public static function applyNOT_PROCESSEDColor(string $string): string
     {
-        return '';
+        return self::applyANSIColor($string, 250);
     }
 
     public static function applyHighlightColor(string $string): string
     {
-        return '';
+        return self::applyANSIColor($string, 67);
     }
 
 }
