@@ -2,6 +2,7 @@
 
 namespace Darling\Rig\tests;
 
+use Darling\PHPTextTypes\classes\strings\Id;
 use Darling\PHPUnitTestUtilities\traits\PHPUnitConfigurationTests;
 use Darling\PHPUnitTestUtilities\traits\PHPUnitRandomValues;
 use Darling\PHPUnitTestUtilities\traits\PHPUnitTestMessages;
@@ -21,5 +22,12 @@ class RigTest extends TestCase
     use PHPUnitConfigurationTests;
     use PHPUnitRandomValues;
     use PHPUnitTestMessages;
+
+    protected function randomString(): string
+    {
+        $id = new Id();
+        return $id->__toString();
+    }
+
 }
 
