@@ -31,11 +31,13 @@ use \Darling\PHPTextTypes\classes\strings\ClassString;
 use \Darling\PHPTextTypes\classes\strings\Name;
 use \Darling\PHPTextTypes\classes\strings\SafeText;
 use \Darling\PHPTextTypes\classes\strings\Text;
+use \Darling\Rig\classes\arguments\Arguments as ArgumentsInstance;
+use \Darling\Rig\classes\logs\MessageLog;
+use \Darling\Rig\classes\messages\Message;
 use \Darling\Rig\enums\actions\ActionStatus;
 use \Darling\Rig\enums\commands\RigCommand;
 use \Darling\Rig\enums\commands\RigCommandArgument;
 use \Darling\Rig\interfaces\arguments\Arguments;
-use \Darling\Rig\classes\arguments\Arguments as ArgumentsInstance;
 use \Darling\RoadyModuleUtilities\classes\paths\PathToDirectoryOfRoadyModules;
 use \Darling\RoadyModuleUtilities\classes\paths\PathToRoadyModuleDirectory;
 use function Laravel\Prompts\info;
@@ -108,29 +110,6 @@ class CLIColorizer
 
 }
 
-class MessageLog
-{
-
-    /** @var array<int, string> $messages */
-    private array $messages = [];
-
-    /**
-     * Return the array of messages.
-     *
-     * @return array<int, string>
-     *
-     */
-    public function messages(): array
-    {
-        return $this->messages;
-    }
-
-    public function addMessage(string $message): void
-    {
-        $this->messages[] = $message;
-    }
-}
-
 class Action
 {
 
@@ -146,8 +125,10 @@ class Action
     public function do(): Action
     {
         $this->messageLog->addMessage(
-            'Perfomred action: ' .
-            CLIColorizer::applyHighlightColor($this::class)
+            new Message(
+                'Perfomred action: ' .
+                CLIColorizer::applyHighlightColor($this::class)
+            ),
         );
         $this->actionStatus = ActionStatus::SUCCEEDED;
         return $this;
@@ -173,10 +154,12 @@ class Action
         $specifiedModuleName = $this->specifiedModuleName();
         if(empty($specifiedModuleName->__toString())) {
             $this->messageLog()->addMessage(
-                CLIColorizer::applyFAILEDColor(
-                    'Please specify a --module-name to use for ' .
-                     'the new module'
-                )
+                new Message(
+                    CLIColorizer::applyFAILEDColor(
+                        'Please specify a --module-name to use for ' .
+                         'the new module'
+                    )
+                ),
             );
             $this->actionStatus = ActionStatus::FAILED;
         }
@@ -248,8 +231,10 @@ class Command
                 $lastAction->actionStatus() === ActionStatus::SUCCEEDED
             ) {
                 $this->messageLog()->addMessage(
-                    'Executing action: ' .
-                    CLIColorizer::applyHighlightColor($action::class)
+                    new Message(
+                        'Executing action: ' .
+                        CLIColorizer::applyHighlightColor($action::class)
+                    ),
                 );
                 $this->actionEventLog->addActionEvent(
                     new ActionEvent(
@@ -385,7 +370,7 @@ class RigWebUI {
             foreach ($command->messageLog()->messages() as $message) {
                 echo '<div class="rig-web-ui-message">';
                 echo PHP_EOL;
-                $this->info($message);
+                $this->info($message->__toString());
                 echo PHP_EOL;
                 echo '</div>';
             }
@@ -504,7 +489,7 @@ class RigCLUI {
         $command = $this->rig->lastCommandRun();
         if(!is_null($command)) {
             foreach ($command->messageLog()->messages() as $message) {
-                info($message);
+                info($message->__toString());
             }
         }
     }
@@ -650,11 +635,13 @@ class GenerateHelpMessageAction extends Action
         };
 
         $this->messageLog()->addMessage(
-            CLIColorizer::applyHighlightColor(
-                'rig' . (!empty($topic) ? ' --' . $topic : ''),
+            new Message(
+                CLIColorizer::applyHighlightColor(
+                    'rig' . (!empty($topic) ? ' --' . $topic : ''),
+                ),
             ),
         );
-        $this->messageLog()->addMessage($helpMessage);
+        $this->messageLog()->addMessage(new Message($helpMessage));
         $this->actionStatus = ActionStatus::SUCCEEDED;
         return $this;
     }
@@ -699,11 +686,13 @@ class ReadREADMEAction extends Action
         $parsedown = new Parsedown();
         match(php_sapi_name() === 'cli') {
             true => $this->messageLog()->addMessage(
-                CLIColorizer::applyANSIColor($readme, 235)
+                new Message(
+                    CLIColorizer::applyANSIColor($readme, 235)
+                ),
             ),
             default => $this->messageLog()
                             ->addMessage(
-                                $parsedown->text($readme)
+                                new Message($parsedown->text($readme))
                             ),
         };
         $this->actionStatus = ActionStatus::SUCCEEDED;
@@ -716,8 +705,10 @@ class DetermineVersionAction extends Action
     public function do(): DetermineVersionAction
     {
         $this->messageLog()->addMessage(
-            'rig version ' .
-            CLIColorizer::applyHighlightColor('2.0.0-alpha-12')
+            new Message(
+                'rig version ' .
+                CLIColorizer::applyHighlightColor('2.0.0-alpha-12')
+            ),
         );
         $this->actionStatus = ActionStatus::SUCCEEDED;
         return $this;
@@ -806,24 +797,26 @@ class CreateNewFileForRoadyProjectAction extends Action
     {
         $this->attemptToCreateNewFile();
         $this->messageLog()->addMessage(
-            match($this->actionStatus()) {
-                ActionStatus::FAILED =>
-                    CLIColorizer::applyFAILEDColor(
-                        'Failed to create new file ' .
-                        $this->pathToNewFile()
-                    ),
-                ActionStatus::SUCCEEDED =>
-                    CLIColorizer::applySUCCEEDEDColor(
-                        'Created new file ' .
-                        $this->pathToNewFile()
-                    ),
-                ActionStatus::NOT_PROCESSED =>
-                    CLIColorizer::applyNOT_PROCESSEDColor(
-                        'Creation of new file '.
-                        $this->pathToNewFile() .
-                        'was not processed.'
-                    ),
-            }
+            new Message(
+                match($this->actionStatus()) {
+                    ActionStatus::FAILED =>
+                        CLIColorizer::applyFAILEDColor(
+                            'Failed to create new file ' .
+                            $this->pathToNewFile()
+                        ),
+                    ActionStatus::SUCCEEDED =>
+                        CLIColorizer::applySUCCEEDEDColor(
+                            'Created new file ' .
+                            $this->pathToNewFile()
+                        ),
+                    ActionStatus::NOT_PROCESSED =>
+                        CLIColorizer::applyNOT_PROCESSEDColor(
+                            'Creation of new file '.
+                            $this->pathToNewFile() .
+                            'was not processed.'
+                        ),
+                }
+            ),
         );
         return $this;
     }
@@ -890,24 +883,26 @@ class CreateNewDirectoryForRoadyProjectAction extends Action
     {
         $this->attemptToCreateNewDirectory();
         $this->messageLog()->addMessage(
-            match($this->actionStatus()) {
-                ActionStatus::FAILED =>
-                    CLIColorizer::applyFAILEDColor(
-                        'Failed to create new directory ' .
-                        $this->pathToNewDirectory()
-                    ),
-                ActionStatus::SUCCEEDED =>
-                    CLIColorizer::applySUCCEEDEDColor(
-                        'Created new directory ' .
-                        $this->pathToNewDirectory()
-                    ),
-                ActionStatus::NOT_PROCESSED =>
-                    CLIColorizer::applyNOT_PROCESSEDColor(
-                        'Creation of new directory '.
-                        $this->pathToNewDirectory() .
-                        'was not processed.'
-                    ),
-            }
+            new Message(
+                match($this->actionStatus()) {
+                    ActionStatus::FAILED =>
+                        CLIColorizer::applyFAILEDColor(
+                            'Failed to create new directory ' .
+                            $this->pathToNewDirectory()
+                        ),
+                    ActionStatus::SUCCEEDED =>
+                        CLIColorizer::applySUCCEEDEDColor(
+                            'Created new directory ' .
+                            $this->pathToNewDirectory()
+                        ),
+                    ActionStatus::NOT_PROCESSED =>
+                        CLIColorizer::applyNOT_PROCESSEDColor(
+                            'Creation of new directory '.
+                            $this->pathToNewDirectory() .
+                            'was not processed.'
+                        ),
+                }
+            ),
         );
         return $this;
     }
@@ -955,24 +950,26 @@ class CreateRootDirectoryForNewModuleAction extends Action
         $this->failIfModuleNameWasNotSpecified();
         $this->attemptToCreateNewModulesRootDirectory();
         $this->messageLog()->addMessage(
-            match($this->actionStatus()) {
-                ActionStatus::FAILED =>
-                    CLIColorizer::applyFAILEDColor(
-                        'Failed to create root directory for new module ' .
-                        $this->specifiedModuleName()
-                    ),
-                ActionStatus::SUCCEEDED =>
-                    CLIColorizer::applySUCCEEDEDColor(
-                        'Created root directory for new module ' .
-                        $this->specifiedModuleName()
+            new Message(
+                match($this->actionStatus()) {
+                    ActionStatus::FAILED =>
+                        CLIColorizer::applyFAILEDColor(
+                            'Failed to create root directory for new module ' .
+                            $this->specifiedModuleName()
+                        ),
+                    ActionStatus::SUCCEEDED =>
+                        CLIColorizer::applySUCCEEDEDColor(
+                            'Created root directory for new module ' .
+                            $this->specifiedModuleName()
 
-                    ),
-                ActionStatus::NOT_PROCESSED =>
-                    CLIColorizer::applyNOT_PROCESSEDColor(
-                        'Creation of root directory for new module ' .
-                        'was not processed.'
-                    ),
-            }
+                        ),
+                    ActionStatus::NOT_PROCESSED =>
+                        CLIColorizer::applyNOT_PROCESSEDColor(
+                            'Creation of root directory for new module ' .
+                            'was not processed.'
+                        ),
+                }
+            ),
         );
         return $this;
     }
@@ -1014,24 +1011,26 @@ class CreateCssDirectoryForNewModuleAction extends Action
         $this->failIfModuleNameWasNotSpecified();
         $this->attemptToCreateNewModulesCssDirectory();
         $this->messageLog()->addMessage(
-            match($this->actionStatus()) {
-                ActionStatus::FAILED =>
-                    CLIColorizer::applyFAILEDColor(
-                        'Failed to create css directory for new module ' .
-                        $this->specifiedModuleName()
-                    ),
-                ActionStatus::SUCCEEDED =>
-                    CLIColorizer::applySUCCEEDEDColor(
-                        'Created css directory for new module ' .
-                        $this->specifiedModuleName()
+            new Message(
+                match($this->actionStatus()) {
+                    ActionStatus::FAILED =>
+                        CLIColorizer::applyFAILEDColor(
+                            'Failed to create css directory for new module ' .
+                            $this->specifiedModuleName()
+                        ),
+                    ActionStatus::SUCCEEDED =>
+                        CLIColorizer::applySUCCEEDEDColor(
+                            'Created css directory for new module ' .
+                            $this->specifiedModuleName()
 
-                    ),
-                ActionStatus::NOT_PROCESSED =>
-                    CLIColorizer::applyNOT_PROCESSEDColor(
-                        'Creation of css directory for new module ' .
-                        ' was not processed.'
-                    ),
-            }
+                        ),
+                    ActionStatus::NOT_PROCESSED =>
+                        CLIColorizer::applyNOT_PROCESSEDColor(
+                            'Creation of css directory for new module ' .
+                            ' was not processed.'
+                        ),
+                }
+            ),
         );
         return $this;
     }
@@ -1077,24 +1076,26 @@ class CreateJsDirectoryForNewModuleAction extends Action
         $this->failIfModuleNameWasNotSpecified();
         $this->attemptToCreateNewModulesJsDirectory();
         $this->messageLog()->addMessage(
-            match($this->actionStatus()) {
-                ActionStatus::FAILED =>
-                    CLIColorizer::applyFAILEDColor(
-                        'Failed to create js directory for new module ' .
-                        $this->specifiedModuleName()
-                    ),
-                ActionStatus::SUCCEEDED =>
-                    CLIColorizer::applySUCCEEDEDColor(
-                        'Created js directory for new module ' .
-                        $this->specifiedModuleName()
+            new Message(
+                match($this->actionStatus()) {
+                    ActionStatus::FAILED =>
+                        CLIColorizer::applyFAILEDColor(
+                            'Failed to create js directory for new module ' .
+                            $this->specifiedModuleName()
+                        ),
+                    ActionStatus::SUCCEEDED =>
+                        CLIColorizer::applySUCCEEDEDColor(
+                            'Created js directory for new module ' .
+                            $this->specifiedModuleName()
 
-                    ),
-                ActionStatus::NOT_PROCESSED =>
-                    CLIColorizer::applyNOT_PROCESSEDColor(
-                        'Creation of js directory for new module ' .
-                        'was not processed.'
-                    ),
-            }
+                        ),
+                    ActionStatus::NOT_PROCESSED =>
+                        CLIColorizer::applyNOT_PROCESSEDColor(
+                            'Creation of js directory for new module ' .
+                            'was not processed.'
+                        ),
+                }
+            ),
         );
         return $this;
     }
@@ -1140,25 +1141,27 @@ class CreateOutputDirectoryForNewModuleAction extends Action
         $this->failIfModuleNameWasNotSpecified();
         $this->attemptToCreateNewModulesOutputDirectory();
         $this->messageLog()->addMessage(
-            match($this->actionStatus()) {
-                ActionStatus::FAILED =>
-                    CLIColorizer::applyFAILEDColor(
-                        'Failed to create output directory for new module ' .
-                        $this->specifiedModuleName()
-                    ),
-                ActionStatus::SUCCEEDED =>
-                    CLIColorizer::applySUCCEEDEDColor(
-                        'Created output directory for new module ' .
-                        $this->specifiedModuleName()
+            new Message(
+                match($this->actionStatus()) {
+                    ActionStatus::FAILED =>
+                        CLIColorizer::applyFAILEDColor(
+                            'Failed to create output directory for new module ' .
+                            $this->specifiedModuleName()
+                        ),
+                    ActionStatus::SUCCEEDED =>
+                        CLIColorizer::applySUCCEEDEDColor(
+                            'Created output directory for new module ' .
+                            $this->specifiedModuleName()
 
-                    ),
-                ActionStatus::NOT_PROCESSED =>
-                    CLIColorizer::applyNOT_PROCESSEDColor(
-                        'Creation of output directory for new module ' .
-                        $this->specifiedModuleName() .
-                        'was not processed.'
-                    ),
-            }
+                        ),
+                    ActionStatus::NOT_PROCESSED =>
+                        CLIColorizer::applyNOT_PROCESSEDColor(
+                            'Creation of output directory for new module ' .
+                            $this->specifiedModuleName() .
+                            'was not processed.'
+                        ),
+                }
+            ),
         );
         return $this;
     }
@@ -1204,24 +1207,26 @@ class CreateInitialOutputFileForNewModuleAction extends Action
         $this->failIfModuleNameWasNotSpecified();
         $this->attemptToCreateNewModulesInitialOutputFile();
         $this->messageLog()->addMessage(
-            match($this->actionStatus()) {
-                ActionStatus::FAILED =>
-                    CLIColorizer::applyFAILEDColor(
-                        'Failed to create initial output file for new module ' .
-                        $this->specifiedModuleName()
-                    ),
-                ActionStatus::SUCCEEDED =>
-                    CLIColorizer::applySUCCEEDEDColor(
-                        'Created initial output file for new module ' .
-                        $this->specifiedModuleName()
-                    ),
-                ActionStatus::NOT_PROCESSED =>
-                    CLIColorizer::applyNOT_PROCESSEDColor(
-                        'Creation of intial output file for new module ' .
-                        $this->specifiedModuleName() .
-                        'was not processed.'
-                    ),
-            }
+            new Message(
+                match($this->actionStatus()) {
+                    ActionStatus::FAILED =>
+                        CLIColorizer::applyFAILEDColor(
+                            'Failed to create initial output file for new module ' .
+                            $this->specifiedModuleName()
+                        ),
+                    ActionStatus::SUCCEEDED =>
+                        CLIColorizer::applySUCCEEDEDColor(
+                            'Created initial output file for new module ' .
+                            $this->specifiedModuleName()
+                        ),
+                    ActionStatus::NOT_PROCESSED =>
+                        CLIColorizer::applyNOT_PROCESSEDColor(
+                            'Creation of intial output file for new module ' .
+                            $this->specifiedModuleName() .
+                            'was not processed.'
+                        ),
+                }
+            ),
         );
         return $this;
     }
