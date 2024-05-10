@@ -38,77 +38,12 @@ use \Darling\Rig\enums\actions\ActionStatus;
 use \Darling\Rig\enums\commands\RigCommand;
 use \Darling\Rig\enums\commands\RigCommandArgument;
 use \Darling\Rig\interfaces\arguments\Arguments;
+use \Darling\Rig\classes\utilities\cli\CLIColorizer;
 use \Darling\RoadyModuleUtilities\classes\paths\PathToDirectoryOfRoadyModules;
 use \Darling\RoadyModuleUtilities\classes\paths\PathToRoadyModuleDirectory;
 use function Laravel\Prompts\info;
 use function Laravel\Prompts\intro;
 use function Laravel\Prompts\table;
-
-class CLIColorizer
-{
-
-    /**
-     * Apply the specified ANSI $backgroundColorCode to the specified
-     * $string as the background color:
-     *
-     *     `\033[48;5;{$backgroundColorCode}m`
-     *
-     * Foreground color will be black:
-     *
-     *     `\033[38;5;0m`
-     *
-     * Note: This function is designed to format strings to be output
-     *       to a terminal, using this function in any other context
-     *       is harmless, though probably not appropriate.
-     *
-     * @param string $string The string to apply color to.
-     *
-     * @param int $backgroundColorCode The color code to apply as the
-     *                                 background color.
-     *
-     *                                 Color code range: 0 - 255
-     *
-     * @return string
-     *
-     * @example
-     *
-     * $cLIColorizer->applyANSIColor("Foo", rand(1, 255));
-     *
-     */
-    public static function applyANSIColor(
-        string $string,
-        int $backgroundColorCode
-    ): string {
-        return "\033[0m" .      // reset color
-            "\033[48;5;" .      // set background color to specified color
-            strval($backgroundColorCode) . "m" .
-            "\033[38;5;0m " .   // set foreground color to black
-            $string .
-            " \033[0m";         // reset color
-    }
-
-
-    public static function applySUCCEEDEDColor(string $string): string
-    {
-        return self::applyANSIColor($string, 83);
-    }
-
-    public static function applyFAILEDColor(string $string): string
-    {
-        return self::applyANSIColor($string, 160);
-    }
-
-    public static function applyNOT_PROCESSEDColor(string $string): string
-    {
-        return self::applyANSIColor($string, 250);
-    }
-
-    public static function applyHighlightColor(string $string): string
-    {
-        return self::applyANSIColor($string, 67);
-    }
-
-}
 
 class Action
 {
