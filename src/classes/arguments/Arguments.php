@@ -11,37 +11,44 @@ class Arguments implements ArgumentsInterface
     /** @return array<string, string> */
     public function asArray(): array
     {
-        return [
-            // Commands
-            RigCommand::DeleteRoute->value => '',
-            RigCommand::Help->value => '',
-            RigCommand::ListRoutes->value => '',
-            RigCommand::NewModule->value => '',
-            RigCommand::NewRoute->value => '',
-            RigCommand::StartServers->value => '',
-            RigCommand::UpdateRoute->value => '',
-            RigCommand::Version->value => '',
-            RigCommand::ViewActionLog->value => '',
-            RigCommand::ViewReadme->value => '',
-            // Command Options
-            RigCommandArgument::Authority->value => '',
-            RigCommandArgument::DefinedForAuthorities->value => '',
-            RigCommandArgument::DefinedForFiles->value => '',
-            RigCommandArgument::DefinedForModules->value => '',
-            RigCommandArgument::DefinedForNamedPositions->value => '',
-            RigCommandArgument::DefinedForPositions->value => '',
-            RigCommandArgument::DefinedForRequests->value => '',
-            RigCommandArgument::ForAuthority->value => '',
-            RigCommandArgument::ModuleName->value => '',
-            RigCommandArgument::NamedPositions->value => '',
-            RigCommandArgument::NoBoilerplate->value => '',
-            RigCommandArgument::OpenInBrowser->value => '',
-            RigCommandArgument::PathToRoadyProject->value => '',
-            RigCommandArgument::Ports->value => '',
-            RigCommandArgument::RelativePath->value => '',
-            RigCommandArgument::RespondsTo->value => '',
-            RigCommandArgument::RouteHash->value => '',
-        ];
+        return $this->rigArgumentsArray();
+    }
+
+    /** @return array<string, string> */
+    private function rigCommandsArray(): array
+    {
+        $rigCommands = [];
+        foreach(RigCommand::cases() as $case) {
+            $rigCommands[$case->value] = '';
+        }
+        return $rigCommands;
+    }
+
+    /** @return array<string, string> */
+    private function rigCommandArgumentsArray(): array
+    {
+        $rigCommandArguments = [];
+        foreach(RigCommandArgument::cases() as $case) {
+            $rigCommandArguments[$case->value] = '';
+        }
+        return $rigCommandArguments;
+    }
+
+    /** @return array<string, string> */
+    private function rigArgumentsArray(): array
+    {
+        $arguments = [];
+        foreach(
+            $this->rigCommandsArray()
+            as
+            $rigCommandName => $rigCommandDefaultValue
+        ) {
+            $arguments[$rigCommandName] = $rigCommandDefaultValue;
+        }
+        foreach($this->rigCommandArgumentsArray() as $rigCommandArgumentName => $rigCommandArgumentDefaultValue) {
+            $arguments[$rigCommandArgumentName] = $rigCommandArgumentDefaultValue;
+        }
+        return $arguments;
     }
 }
 

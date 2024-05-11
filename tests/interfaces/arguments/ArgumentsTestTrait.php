@@ -83,39 +83,40 @@ trait ArgumentsTestTrait
     }
 
     /** @return array<string, string> */
-    public function expectedArgumentsArray(): array
+    private function expectedRigCommandsArray(): array
     {
-        return [
-            // Commands
-            RigCommand::DeleteRoute->value => '',
-            RigCommand::Help->value => '',
-            RigCommand::ListRoutes->value => '',
-            RigCommand::NewModule->value => '',
-            RigCommand::NewRoute->value => '',
-            RigCommand::StartServers->value => '',
-            RigCommand::UpdateRoute->value => '',
-            RigCommand::Version->value => '',
-            RigCommand::ViewActionLog->value => '',
-            RigCommand::ViewReadme->value => '',
-            // Command Options
-            RigCommandArgument::Authority->value => '',
-            RigCommandArgument::DefinedForAuthorities->value => '',
-            RigCommandArgument::DefinedForFiles->value => '',
-            RigCommandArgument::DefinedForModules->value => '',
-            RigCommandArgument::DefinedForNamedPositions->value => '',
-            RigCommandArgument::DefinedForPositions->value => '',
-            RigCommandArgument::DefinedForRequests->value => '',
-            RigCommandArgument::ForAuthority->value => '',
-            RigCommandArgument::ModuleName->value => '',
-            RigCommandArgument::NamedPositions->value => '',
-            RigCommandArgument::NoBoilerplate->value => '',
-            RigCommandArgument::OpenInBrowser->value => '',
-            RigCommandArgument::PathToRoadyProject->value => '',
-            RigCommandArgument::Ports->value => '',
-            RigCommandArgument::RelativePath->value => '',
-            RigCommandArgument::RespondsTo->value => '',
-            RigCommandArgument::RouteHash->value => '',
-        ];
+        $rigCommands = [];
+        foreach(RigCommand::cases() as $case) {
+            $rigCommands[$case->value] = '';
+        }
+        return $rigCommands;
+    }
+
+    /** @return array<string, string> */
+    private function expectedRigCommandArgumentsArray(): array
+    {
+        $rigCommandArguments = [];
+        foreach(RigCommandArgument::cases() as $case) {
+            $rigCommandArguments[$case->value] = '';
+        }
+        return $rigCommandArguments;
+    }
+
+    /** @return array<string, string> */
+    private function expectedArgumentsArray(): array
+    {
+        $arguments = [];
+        foreach(
+            $this->expectedRigCommandsArray()
+            as
+            $rigCommandName => $rigCommandDefaultValue
+        ) {
+            $arguments[$rigCommandName] = $rigCommandDefaultValue;
+        }
+        foreach($this->expectedRigCommandArgumentsArray() as $rigCommandArgumentName => $rigCommandArgumentDefaultValue) {
+            $arguments[$rigCommandArgumentName] = $rigCommandArgumentDefaultValue;
+        }
+        return $arguments;
     }
 
     public function test_asArray_returns_array_of_expected_argument_key_value_pairs(): void

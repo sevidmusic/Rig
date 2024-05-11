@@ -8,6 +8,7 @@ namespace Darling\Rig\interfaces\arguments;
  */
 interface Arguments
 {
+
     /** @return array<string, string> */
     public function asArray(): array;
 
