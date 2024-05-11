@@ -18,6 +18,8 @@ use \Darling\Rig\enums\commands\RigCommandArgument;
 trait ArgumentsTestTrait
 {
 
+    private string $expectedDefaultRigCommandArgumentValue = '';
+
     /**
      * @var Arguments $arguments
      *                              An instance of a
@@ -87,7 +89,7 @@ trait ArgumentsTestTrait
     {
         $rigCommands = [];
         foreach(RigCommand::cases() as $case) {
-            $rigCommands[$case->value] = '';
+            $rigCommands[$case->value] = $this->expectedDefaultRigCommandArgumentValue;
         }
         return $rigCommands;
     }
@@ -113,7 +115,11 @@ trait ArgumentsTestTrait
         ) {
             $arguments[$rigCommandName] = $rigCommandDefaultValue;
         }
-        foreach($this->expectedRigCommandArgumentsArray() as $rigCommandArgumentName => $rigCommandArgumentDefaultValue) {
+        foreach(
+            $this->expectedRigCommandArgumentsArray()
+            as
+            $rigCommandArgumentName => $rigCommandArgumentDefaultValue
+        ) {
             $arguments[$rigCommandArgumentName] = $rigCommandArgumentDefaultValue;
         }
         return $arguments;
