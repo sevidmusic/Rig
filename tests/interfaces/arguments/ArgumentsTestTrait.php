@@ -21,10 +21,8 @@ trait ArgumentsTestTrait
     private string $expectedDefaultRigCommandArgumentValue = '';
 
     /**
-     * @var Arguments $arguments
-     *                              An instance of a
-     *                              Arguments
-     *                              implementation to test.
+     * @var Arguments $arguments An instance of a Arguments
+     *                           implementation to test.
      */
     protected Arguments $arguments;
 
