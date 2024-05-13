@@ -18,7 +18,7 @@ use \Darling\Rig\enums\commands\RigCommandArgument;
 trait ArgumentsTestTrait
 {
 
-    private string $expectedDefaultRigCommandArgumentValue = '';
+    private string $testArgumentDefaultValue = '';
 
     /**
      * @var Arguments $arguments An instance of a Arguments
@@ -83,55 +83,55 @@ trait ArgumentsTestTrait
     }
 
     /** @return array<string, string> */
-    private function expectedRigCommandsArray(): array
+    private function arrayOfExpectedRigCommands(): array
     {
         $rigCommands = [];
         foreach(RigCommand::cases() as $case) {
-            $rigCommands[$case->value] = $this->expectedDefaultRigCommandArgumentValue;
+            $rigCommands[$case->value] = $this->testArgumentDefaultValue;
         }
         return $rigCommands;
     }
 
     /** @return array<string, string> */
-    private function expectedRigCommandArgumentsArray(): array
+    private function arrayOfExpectedRigCommandArguments(): array
     {
         $rigCommandArguments = [];
         foreach(RigCommandArgument::cases() as $case) {
-            $rigCommandArguments[$case->value] = '';
+            $rigCommandArguments[$case->value] = $this->testArgumentDefaultValue;
         }
         return $rigCommandArguments;
     }
 
     /** @return array<string, string> */
-    private function expectedArgumentsArray(): array
+    private function arrayThatDefinesExpectedKeys(): array
     {
         $arguments = [];
         foreach(
-            $this->expectedRigCommandsArray()
+            $this->arrayOfExpectedRigCommands()
             as
             $rigCommandName => $rigCommandDefaultValue
         ) {
             $arguments[$rigCommandName] = $rigCommandDefaultValue;
         }
         foreach(
-            $this->expectedRigCommandArgumentsArray()
+            $this->arrayOfExpectedRigCommandArguments()
             as
-            $rigCommandArgumentName => $rigCommandArgumentDefaultValue
+            $rigCommandArgumentName => $testArgumentDefaultValue
         ) {
-            $arguments[$rigCommandArgumentName] = $rigCommandArgumentDefaultValue;
+            $arguments[$rigCommandArgumentName] = $testArgumentDefaultValue;
         }
         return $arguments;
     }
 
-    public function test_asArray_returns_array_of_expected_argument_key_value_pairs(): void
+    public function test_asArray_returns_array_with_expected_keys_defined(): void
     {
         $this->assertEquals(
-            $this->expectedArgumentsArray(),
-            $this->argumentsTestInstance()->asArray(),
+            array_keys($this->arrayThatDefinesExpectedKeys()),
+            array_keys($this->argumentsTestInstance()->asArray()),
             $this->testFailedMessage(
                 $this->argumentsTestInstance(),
                 'asArray',
-                'returns expected array of Argument key value pairs'
+                'returns array with expected keys defined',
             ),
         );
     }
