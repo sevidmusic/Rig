@@ -20,6 +20,9 @@ trait ArgumentsTestTrait
 
     private string $testArgumentDefaultValue = '';
 
+    /** @var array<mixed> $expectedSpecifiedArgumentData */
+    private array $expectedSpecifiedArgumentData = [];
+
     /**
      * @var Arguments $arguments An instance of a Arguments
      *                           implementation to test.
@@ -83,7 +86,7 @@ trait ArgumentsTestTrait
     }
 
     /** @return array<string, string> */
-    private function arrayOfExpectedRigCommands(): array
+    private function arrayThatDefinesRigCommandKeys(): array
     {
         $rigCommands = [];
         foreach(RigCommand::cases() as $case) {
@@ -93,7 +96,7 @@ trait ArgumentsTestTrait
     }
 
     /** @return array<string, string> */
-    private function arrayOfExpectedRigCommandArguments(): array
+    private function arrayThatDefinesRigCommandArgumentKeys(): array
     {
         $rigCommandArguments = [];
         foreach(RigCommandArgument::cases() as $case) {
@@ -107,20 +110,79 @@ trait ArgumentsTestTrait
     {
         $arguments = [];
         foreach(
-            $this->arrayOfExpectedRigCommands()
+            $this->arrayThatDefinesRigCommandKeys()
             as
             $rigCommandName => $rigCommandDefaultValue
         ) {
-            $arguments[$rigCommandName] = $rigCommandDefaultValue;
+            $arguments[$rigCommandName] = $this->argumentValueIfSpecified($rigCommandName);
         }
         foreach(
-            $this->arrayOfExpectedRigCommandArguments()
+            $this->arrayThatDefinesRigCommandArgumentKeys()
             as
             $rigCommandArgumentName => $testArgumentDefaultValue
         ) {
-            $arguments[$rigCommandArgumentName] = $testArgumentDefaultValue;
+            $arguments[$rigCommandArgumentName] = $this->argumentValueIfSpecified($rigCommandArgumentName);
         }
         return $arguments;
+    }
+
+    /**
+     * @param array<mixed> $specifiedArgumentData
+     *
+     * @return void
+     *
+     */
+    private function setExpectedSpecifiedArgumentData(array $specifiedArgumentData): void
+    {
+        $this->expectedSpecifiedArgumentData = $specifiedArgumentData;
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    private function expectedSpecifiedArgumentData(): array
+    {
+        return $this->expectedSpecifiedArgumentData;
+    }
+
+    private function argumentNameIfSpecified(string $name): string
+    {
+        return (
+            isset($this->expectedSpecifiedArgumentData()[$name])
+            ? $name
+            : ''
+        );
+    }
+
+    private function argumentValueIfSpecified(string $name): string
+    {
+        $specifiedArgumentData = $this->expectedSpecifiedArgumentData();
+        return match(in_array($name, $specifiedArgumentData, true)) {
+            true => $name,
+            false => match(
+                key_exists($name, $specifiedArgumentData)
+                &&
+                !empty($specifiedArgumentData[$name])
+                &&
+                is_string($specifiedArgumentData[$name])
+            ) {
+                true => $specifiedArgumentData[$name],
+                false => $this->testArgumentDefaultValue,
+            },
+        };
+    }
+
+    public function test_asArray_returns_array_with_expected_values_defined(): void
+    {
+        $this->assertEquals(
+            $this->arrayThatDefinesExpectedKeys(),
+            $this->argumentsTestInstance()->asArray(),
+            $this->testFailedMessage(
+                $this->argumentsTestInstance(),
+                'asArray',
+                'returns array with expected keys defined',
+            ),
+        );
     }
 
     public function test_asArray_returns_array_with_expected_keys_defined(): void
@@ -136,7 +198,21 @@ trait ArgumentsTestTrait
         );
     }
 
+    public function test_specifiedArgumentData_returns_the_specified_argument_data(): void
+    {
+        $this->assertEquals(
+            $this->expectedSpecifiedArgumentData(),
+            $this->argumentsTestInstance()->specifiedArgumentData(),
+            $this->testFailedMessage(
+                $this->argumentsTestInstance(),
+                'specifiedArgumentData',
+                'returns specified array of argument data',
+            ),
+        );
+    }
+
     abstract public static function assertEquals(mixed $expected, mixed $actual, string $message = ''): void;
     abstract protected function testFailedMessage(object $testedInstance, string $testedMethod, string $expectation): string;
+
 }
 

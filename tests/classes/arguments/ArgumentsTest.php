@@ -24,8 +24,32 @@ class ArgumentsTest extends RigTest
 
     public function setUp(): void
     {
+        $testArgumentData = [
+            // Valid argument data
+            '--new-module',
+            '--module-name' => 'hello-wolrd',
+            '--path-to-roady-project' => strval(
+                realpath(
+                    str_replace(
+                        'tests' .
+                        DIRECTORY_SEPARATOR .
+                        'classes' .
+                        DIRECTORY_SEPARATOR .
+                        'arguments',
+                        '',
+                        __DIR__
+                    )
+                )
+            ),
+            // Invalid argument data
+            $this->randomString(),
+            $this->randomObjectInstance(),
+            $this->randomFloat(),
+            $this->randomClassStringOrObjectInstance(),
+        ];
+        $this->setExpectedSpecifiedArgumentData($testArgumentData);
         $this->setArgumentsTestInstance(
-            new Arguments()
+            new Arguments($testArgumentData)
         );
     }
 }
