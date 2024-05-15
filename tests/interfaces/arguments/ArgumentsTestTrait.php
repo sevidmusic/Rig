@@ -45,11 +45,34 @@ trait ArgumentsTestTrait
      * ```
      * protected function setUp(): void
      * {
+     *     $testArgumentData = [
+     *         // Valid argument data
+     *         '--new-module',
+     *         '--module-name' => 'hello-wolrd',
+     *         '--path-to-roady-project' => strval(
+     *             realpath(
+     *                 str_replace(
+     *                     'tests' .
+     *                     DIRECTORY_SEPARATOR .
+     *                     'classes' .
+     *                     DIRECTORY_SEPARATOR .
+     *                     'arguments',
+     *                     '',
+     *                     __DIR__
+     *                 )
+     *             )
+     *         ),
+     *         // Invalid argument data
+     *         $this->randomString(),
+     *         $this->randomObjectInstance(),
+     *         $this->randomFloat(),
+     *         $this->randomClassStringOrObjectInstance(),
+     *     ];
+     *     $this->setExpectedSpecifiedArgumentData($testArgumentData);
      *     $this->setArgumentsTestInstance(
-     *         new \Darling\Rig\classes\arguments\Arguments()
+     *         new Arguments($testArgumentData)
      *     );
      * }
-     *
      * ```
      *
      */
@@ -85,7 +108,13 @@ trait ArgumentsTestTrait
         $this->arguments = $argumentsTestInstance;
     }
 
-    /** @return array<string, string> */
+    /**
+     * Return an array whose keys are defined by the RigCommand
+     * enum's cases, and whose values are all empty strings.
+     *
+     * @return array<string, string>
+     *
+     */
     private function arrayThatDefinesRigCommandKeys(): array
     {
         $rigCommands = [];
@@ -95,7 +124,14 @@ trait ArgumentsTestTrait
         return $rigCommands;
     }
 
-    /** @return array<string, string> */
+    /**
+     * Return an array whose keys are defined by the
+     * RigCommandArgument enum's cases, and whose
+     * values are all empty strings.
+     *
+     * @return array<string, string>
+     *
+     */
     private function arrayThatDefinesRigCommandArgumentKeys(): array
     {
         $rigCommandArguments = [];
@@ -106,7 +142,7 @@ trait ArgumentsTestTrait
     }
 
     /** @return array<string, string> */
-    private function arrayThatDefinesExpectedKeys(): array
+    private function arrayThatDefinesExpectedKeysAndValues(): array
     {
         $arguments = [];
         foreach(
@@ -127,7 +163,15 @@ trait ArgumentsTestTrait
     }
 
     /**
+     * Set the array of $specifiedArgumentData that is expected to
+     * be returned by the Arguments instance being tested's
+     * specifiedArgumentData() method.
+     *
      * @param array<mixed> $specifiedArgumentData
+     *                         The array of $specifiedArgumentData
+     *                         that is expected to be returned by
+     *                         the Arguments instance being tested's
+     *                         specifiedArgumentData() method.
      *
      * @return void
      *
@@ -138,44 +182,60 @@ trait ArgumentsTestTrait
     }
 
     /**
+     * Return the array of $specifiedArgumentData that is expected to
+     * be returned by the Arguments instance being tested's
+     * specifiedArgumentData() method.
+     *
      * @return array<mixed>
+     *
      */
     private function expectedSpecifiedArgumentData(): array
     {
         return $this->expectedSpecifiedArgumentData;
     }
 
-    private function argumentNameIfSpecified(string $name): string
-    {
-        return (
-            isset($this->expectedSpecifiedArgumentData()[$name])
-            ? $name
-            : ''
-        );
-    }
-
-    private function argumentValueIfSpecified(string $name): string
+    /**
+     * Return the value of the item in the array returned by the
+     * specifiedArgumentData() method whose key matches the
+     * specified $key, if it exists.
+     *
+     * If the item does not exist in the array returned by the
+     * specifiedArgumentData() method, return an empty string.
+     *
+     * @param string $key The key used to index the item
+     *                    in the array returned by the
+     *                    specifiedArgumentData() method.
+     *
+     */
+    private function argumentValueIfSpecified(string $key): string
     {
         $specifiedArgumentData = $this->expectedSpecifiedArgumentData();
-        return match(in_array($name, $specifiedArgumentData, true)) {
-            true => $name,
+        return match(in_array($key, $specifiedArgumentData, true)) {
+            true => $key,
             false => match(
-                key_exists($name, $specifiedArgumentData)
+                key_exists($key, $specifiedArgumentData)
                 &&
-                !empty($specifiedArgumentData[$name])
+                !empty($specifiedArgumentData[$key])
                 &&
-                is_string($specifiedArgumentData[$name])
+                is_string($specifiedArgumentData[$key])
             ) {
-                true => $specifiedArgumentData[$name],
+                true => $specifiedArgumentData[$key],
                 false => $this->testArgumentDefaultValue,
             },
         };
     }
 
+
+    /**
+     * Test asArray() returns array with expected values defined.
+     *
+     * @return void
+     *
+     */
     public function test_asArray_returns_array_with_expected_values_defined(): void
     {
         $this->assertEquals(
-            $this->arrayThatDefinesExpectedKeys(),
+            $this->arrayThatDefinesExpectedKeysAndValues(),
             $this->argumentsTestInstance()->asArray(),
             $this->testFailedMessage(
                 $this->argumentsTestInstance(),
@@ -185,10 +245,17 @@ trait ArgumentsTestTrait
         );
     }
 
+
+    /**
+     * Test asArray() returns array with expected keys defined.
+     *
+     * @return void
+     *
+     */
     public function test_asArray_returns_array_with_expected_keys_defined(): void
     {
         $this->assertEquals(
-            array_keys($this->arrayThatDefinesExpectedKeys()),
+            array_keys($this->arrayThatDefinesExpectedKeysAndValues()),
             array_keys($this->argumentsTestInstance()->asArray()),
             $this->testFailedMessage(
                 $this->argumentsTestInstance(),
@@ -198,6 +265,13 @@ trait ArgumentsTestTrait
         );
     }
 
+
+    /**
+     * Test specifiedArgumentData() returns the specified argument data.
+     *
+     * @return void
+     *
+     */
     public function test_specifiedArgumentData_returns_the_specified_argument_data(): void
     {
         $this->assertEquals(
@@ -211,8 +285,8 @@ trait ArgumentsTestTrait
         );
     }
 
-    abstract public static function assertEquals(mixed $expected, mixed $actual, string $message = ''): void;
     abstract protected function testFailedMessage(object $testedInstance, string $testedMethod, string $expectation): string;
+    abstract public static function assertEquals(mixed $expected, mixed $actual, string $message = ''): void;
 
 }
 

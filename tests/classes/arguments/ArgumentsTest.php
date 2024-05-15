@@ -12,10 +12,8 @@ class ArgumentsTest extends RigTest
 {
 
     /**
-     * The ArgumentsTestTrait defines
-     * common tests for implementations of the
-     * Darling\Rig\interfaces\arguments\Arguments
-     * interface.
+     * The ArgumentsTestTrait defines common tests for implementations
+     * of the Darling\Rig\interfaces\arguments\Arguments interface.
      *
      * @see ArgumentsTestTrait
      *
@@ -24,10 +22,14 @@ class ArgumentsTest extends RigTest
 
     public function setUp(): void
     {
+        $rigCommands = array_keys($this->arrayThatDefinesRigCommandKeys());
+        $rigCommandArguments = array_keys($this->arrayThatDefinesRigCommandArgumentKeys());
+        $randomRigCommand = $rigCommands[array_rand($rigCommands)];
+        $randomRigCommandArgument = $rigCommandArguments[array_rand($rigCommandArguments)];
         $testArgumentData = [
             // Valid argument data
-            '--new-module',
-            '--module-name' => 'hello-wolrd',
+            $randomRigCommand,
+            $randomRigCommandArgument => $this->randomChars(),
             '--path-to-roady-project' => strval(
                 realpath(
                     str_replace(
