@@ -3,7 +3,13 @@
 namespace Darling\Rig\interfaces\arguments;
 
 /**
- * Description of this interface.
+ * Arguments encapsulate an array whose keys correspond to the
+ * RigCommand enum, and RigCommandArgument enum's cases, and whose
+ * values are derived from the array returned by the instance's
+ * specifiedArgumentData() method.
+ *
+ * Values are indexed by the RigCommand or RigCommandArgument
+ * case they are associated with.
  *
  */
 interface Arguments
