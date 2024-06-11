@@ -211,7 +211,9 @@ trait ArgumentsTestTrait
     {
         $specifiedArgumentData = $this->expectedSpecifiedArgumentData();
         return match(in_array($key, $specifiedArgumentData, true)) {
+            // handle numerically indexed values (from array like $argv)
             true => $key,
+            // handle associatively indexed values (from array like $_GET or $_POST)
             false => match(
                 key_exists($key, $specifiedArgumentData)
                 &&

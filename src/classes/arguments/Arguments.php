@@ -176,7 +176,7 @@ class Arguments implements ArgumentsInterface
             $rigCommandName => $defaultValue
         ) {
             $arguments[$rigCommandName] =
-                $this->argumentValueIfSpecified($rigCommandName);
+                $this->keyOrValueFromSpecifiedArgumentData($rigCommandName);
         }
         foreach(
             $this->arrayThatDefinesRigCommandArgumentKeys()
@@ -184,7 +184,7 @@ class Arguments implements ArgumentsInterface
             $rigCommandArgumentName => $defaultValue
         ) {
             $arguments[$rigCommandArgumentName] =
-                $this->argumentValueIfSpecified(
+                $this->keyOrValueFromSpecifiedArgumentData(
                     $rigCommandArgumentName
                 );
         }
@@ -214,33 +214,38 @@ class Arguments implements ArgumentsInterface
     }
 
     /**
-     * Return the value of the item in the array returned by the
-     * specifiedArgumentData() method whose key matches the
-     * specified $key, if it exists.
+     * If the specified $keyOrValue matches a value in the array
+     * returned by the specifiedArgumentData() method then the
+     * specified $keyOrValue will be returned unmodified.
+     *
+     * If the $keyOrValue matches a key defined in the array returned
+     * by the specifiedArgumentData() method, and the value assigned
+     * to that key is a string, then that value will be returned.
      *
      * If the item does not exist in the array returned by the
-     * specifiedArgumentData() method, return an empty string.
+     * specifiedArgumentData() method as a value or a key,
+     * then an empty string will be returned.
      *
-     * @param string $key The key used to index the item
-     *                    in the array returned by the
-     *                    specifiedArgumentData() method.
+     * @param string $keyOrValue The key or value to search for.
+     *                           in the array returned by the
+     *                           specifiedArgumentData() method.
      *
      */
-    private function argumentValueIfSpecified(string $key): string
+    private function keyOrValueFromSpecifiedArgumentData(string $keyOrValue): string
     {
         $specifiedArgumentStrings = $this->deriveStringsFromArray(
             $this->specifiedArgumentData()
         );
-        return match(in_array($key, $specifiedArgumentStrings, true)) {
-            // stand-alone argument
-            true => $key,
-            // argument has a value
+        return match(in_array($keyOrValue, $specifiedArgumentStrings, true)) {
+            // $keyOrValue matches numerically indexed value
+            true => $keyOrValue,
+            // $keyOrValue matches associatively indexed value
             false => match(
-                key_exists($key, $specifiedArgumentStrings)
+                key_exists($keyOrValue, $specifiedArgumentStrings)
                 &&
-                !empty($specifiedArgumentStrings[$key])
+                !empty($specifiedArgumentStrings[$keyOrValue])
             ) {
-                true => $specifiedArgumentStrings[$key],
+                true => $specifiedArgumentStrings[$keyOrValue],
                 false => '',
             },
         };

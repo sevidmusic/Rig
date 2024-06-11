@@ -20,35 +20,78 @@ class ArgumentsTest extends RigTest
      */
     use ArgumentsTestTrait;
 
-    public function setUp(): void
+    private function randomRigCommand(): string
     {
         $rigCommands = array_keys($this->arrayThatDefinesRigCommandKeys());
+        return $rigCommands[array_rand($rigCommands)];
+    }
+
+    private function randomRigCommandArgument(): string
+    {
         $rigCommandArguments = array_keys($this->arrayThatDefinesRigCommandArgumentKeys());
-        $randomRigCommand = $rigCommands[array_rand($rigCommands)];
-        $randomRigCommandArgument = $rigCommandArguments[array_rand($rigCommandArguments)];
-        $testArgumentData = [
-            // Valid argument data
-            $randomRigCommand,
-            $randomRigCommandArgument => $this->randomChars(),
-            '--path-to-roady-project' => strval(
-                realpath(
-                    str_replace(
-                        'tests' .
-                        DIRECTORY_SEPARATOR .
-                        'classes' .
-                        DIRECTORY_SEPARATOR .
-                        'arguments',
-                        '',
-                        __DIR__
+        return $rigCommandArguments[array_rand($rigCommandArguments)];
+    }
+
+    public function setUp(): void
+    {
+        $testArgumentDataArrays = [
+            // empty array
+            [],
+            // associative array
+            [
+                // Valid argument data
+                $this->randomRigCommand(),
+                $this->randomRigCommandArgument() => $this->randomChars(),
+                '--path-to-roady-project' => strval(
+                    realpath(
+                        str_replace(
+                            'tests' .
+                            DIRECTORY_SEPARATOR .
+                            'classes' .
+                            DIRECTORY_SEPARATOR .
+                            'arguments',
+                            '',
+                            __DIR__
+                        )
                     )
-                )
-            ),
-            // Invalid argument data
-            $this->randomString(),
-            $this->randomObjectInstance(),
-            $this->randomFloat(),
-            $this->randomClassStringOrObjectInstance(),
+                ),
+                // Invalid argument data
+                $this->randomString(),
+                $this->randomFloat(),
+                #$this->randomObjectInstance(),
+                #$this->randomClassStringOrObjectInstance(),
+            ],
+            // numerically indxed array
+            [
+                // Valid argument data
+                $this->randomRigCommand(),
+                $this->randomRigCommandArgument(),
+                $this->randomString(),
+                $this->randomString(),
+                $this->randomString(),
+                $this->randomRigCommandArgument(),
+                $this->randomFloat(),
+                '--path-to-roady-project' => strval(
+                    realpath(
+                        str_replace(
+                            'tests' .
+                            DIRECTORY_SEPARATOR .
+                            'classes' .
+                            DIRECTORY_SEPARATOR .
+                            'arguments',
+                            '',
+                            __DIR__
+                        )
+                    )
+                ),
+                $this->randomRigCommandArgument(),
+                // Invalid argument data
+                #$this->randomObjectInstance(),
+                #$this->randomClassStringOrObjectInstance(),
+            ]
+
         ];
+        $testArgumentData = $testArgumentDataArrays[array_rand($testArgumentDataArrays)];
         $this->setExpectedSpecifiedArgumentData($testArgumentData);
         $this->setArgumentsTestInstance(
             new Arguments($testArgumentData)
